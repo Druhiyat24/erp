@@ -1,0 +1,10 @@
+[11-Oct-2019 10:42:43 Asia/Jakarta] PHP Notice:  Undefined index: mod in /home/factorysignalbit/public_html/pages/XX_check_XX/content_header.php on line 2
+[11-Oct-2019 10:42:43 Asia/Jakarta] PHP Notice:  Undefined index: mod in /home/factorysignalbit/public_html/pages/XX_check_XX/content_header.php on line 2
+[11-Oct-2019 10:42:43 Asia/Jakarta] PHP Notice:  Undefined index: mod in /home/factorysignalbit/public_html/pages/XX_check_XX/content_header.php on line 2
+[11-Oct-2019 10:42:43 Asia/Jakarta] PHP Notice:  Undefined index: mod in /home/factorysignalbit/public_html/pages/XX_check_XX/content.php on line 2
+[11-Oct-2019 10:51:23 Asia/Jakarta] PHP Notice:  Undefined variable: table in /home/factorysignalbit/public_html/pages/XX_check_XX/field.php on line 38
+[11-Oct-2019 10:51:23 Asia/Jakarta] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in /home/factorysignalbit/public_html/pages/XX_check_XX/field.php on line 40
+[11-Oct-2019 10:54:22 Asia/Jakarta] PHP Notice:  Undefined index: mod in /home/factorysignalbit/public_html/pages/XX_check_XX/content_header.php on line 2
+[11-Oct-2019 10:54:22 Asia/Jakarta] PHP Notice:  Undefined index: mod in /home/factorysignalbit/public_html/pages/XX_check_XX/content_header.php on line 2
+[11-Oct-2019 10:54:22 Asia/Jakarta] PHP Notice:  Undefined index: mod in /home/factorysignalbit/public_html/pages/XX_check_XX/content_header.php on line 2
+[11-Oct-2019 10:54:22 Asia/Jakarta] PHP Notice:  Undefined index: mod in /home/factorysignalbit/public_html/pages/XX_check_XX/content.php on line 2

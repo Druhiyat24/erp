@@ -1,0 +1,8 @@
+[20-Jul-2019 17:20:26 Asia/Jakarta] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/mfathir/public_html/demo2/include/conn.php on line 6
+[20-Jul-2019 17:20:27 Asia/Jakarta] PHP Deprecated:  preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead in /home/mfathir/public_html/demo2/pages/hr/mpdf57/mpdf.php on line 12492
+[20-Jul-2019 17:20:27 Asia/Jakarta] PHP Deprecated:  preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead in /home/mfathir/public_html/demo2/pages/hr/mpdf57/mpdf.php on line 12492
+[20-Jul-2019 17:20:27 Asia/Jakarta] PHP Deprecated:  preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead in /home/mfathir/public_html/demo2/pages/hr/mpdf57/mpdf.php on line 12492
+[20-Jul-2019 17:27:34 Asia/Jakarta] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/mfathir/public_html/demo2/include/conn.php on line 6
+[20-Jul-2019 17:27:35 Asia/Jakarta] PHP Deprecated:  preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead in /home/mfathir/public_html/demo2/pages/hr/mpdf57/mpdf.php on line 12492
+[20-Jul-2019 17:27:35 Asia/Jakarta] PHP Deprecated:  preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead in /home/mfathir/public_html/demo2/pages/hr/mpdf57/mpdf.php on line 12492
+[20-Jul-2019 17:27:35 Asia/Jakarta] PHP Deprecated:  preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead in /home/mfathir/public_html/demo2/pages/hr/mpdf57/mpdf.php on line 12492

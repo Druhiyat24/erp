@@ -1,0 +1,218 @@
+[04-Jun-2020 20:55:11 Asia/Jakarta] PHP Notice:  Undefined index: F_P_Debit_Note in E:\xampp\htdocs\marketing\pages\fin\header.php on line 220
+[04-Jun-2020 20:55:39 Asia/Jakarta] PHP Notice:  Undefined index: F_P_Debit_Note in E:\xampp\htdocs\marketing\pages\fin\header.php on line 220
+[04-Jun-2020 20:58:53 Asia/Jakarta] PHP Notice:  Undefined index: F_P_Debit_Note in E:\xampp\htdocs\marketing\pages\fin\header.php on line 220
+[04-Jun-2020 21:43:15 Asia/Jakarta] PHP Warning:  require_once(../../log_activity/log.php): failed to open stream: No such file or directory in E:\xampp\htdocs\marketing\pages\fin\coa.php on line 4
+[04-Jun-2020 21:43:15 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '../../log_activity/log.php' (include_path='.;\xampp\php\PEAR') in E:\xampp\htdocs\marketing\pages\fin\coa.php on line 4
+[04-Jun-2020 21:43:33 Asia/Jakarta] PHP Warning:  require_once(../../log_activity/log.php): failed to open stream: No such file or directory in E:\xampp\htdocs\marketing\pages\fin\coa.php on line 4
+[04-Jun-2020 21:43:33 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '../../log_activity/log.php' (include_path='.;\xampp\php\PEAR') in E:\xampp\htdocs\marketing\pages\fin\coa.php on line 4
+[04-Jun-2020 21:43:34 Asia/Jakarta] PHP Warning:  require_once(../../log_activity/log.php): failed to open stream: No such file or directory in E:\xampp\htdocs\marketing\pages\fin\coa.php on line 4
+[04-Jun-2020 21:43:34 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '../../log_activity/log.php' (include_path='.;\xampp\php\PEAR') in E:\xampp\htdocs\marketing\pages\fin\coa.php on line 4
+[04-Jun-2020 21:43:35 Asia/Jakarta] PHP Warning:  require_once(../../log_activity/log.php): failed to open stream: No such file or directory in E:\xampp\htdocs\marketing\pages\fin\coa_segments.php on line 4
+[04-Jun-2020 21:43:35 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '../../log_activity/log.php' (include_path='.;\xampp\php\PEAR') in E:\xampp\htdocs\marketing\pages\fin\coa_segments.php on line 4
+[04-Jun-2020 21:43:36 Asia/Jakarta] PHP Warning:  require_once(../../log_activity/log.php): failed to open stream: No such file or directory in E:\xampp\htdocs\marketing\pages\fin\subdept.php on line 4
+[04-Jun-2020 21:43:36 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '../../log_activity/log.php' (include_path='.;\xampp\php\PEAR') in E:\xampp\htdocs\marketing\pages\fin\subdept.php on line 4
+[04-Jun-2020 21:43:51 Asia/Jakarta] PHP Warning:  require_once(../../log_activity/log.php): failed to open stream: No such file or directory in E:\xampp\htdocs\marketing\pages\fin\subdept.php on line 4
+[04-Jun-2020 21:43:51 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '../../log_activity/log.php' (include_path='.;\xampp\php\PEAR') in E:\xampp\htdocs\marketing\pages\fin\subdept.php on line 4
+[04-Jun-2020 21:43:55 Asia/Jakarta] PHP Warning:  require_once(../../log_activity/log.php): failed to open stream: No such file or directory in E:\xampp\htdocs\marketing\pages\fin\coa_segments.php on line 4
+[04-Jun-2020 21:43:55 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '../../log_activity/log.php' (include_path='.;\xampp\php\PEAR') in E:\xampp\htdocs\marketing\pages\fin\coa_segments.php on line 4
+[04-Jun-2020 21:44:21 Asia/Jakarta] PHP Warning:  require_once(../../log_activity/log.php): failed to open stream: No such file or directory in E:\xampp\htdocs\marketing\pages\fin\accperiod.php on line 4
+[04-Jun-2020 21:44:21 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '../../log_activity/log.php' (include_path='.;\xampp\php\PEAR') in E:\xampp\htdocs\marketing\pages\fin\accperiod.php on line 4
+[04-Jun-2020 21:44:41 Asia/Jakarta] PHP Warning:  require_once(../../log_activity/log.php): failed to open stream: No such file or directory in E:\xampp\htdocs\marketing\pages\fin\cost_center.php on line 4
+[04-Jun-2020 21:44:41 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '../../log_activity/log.php' (include_path='.;\xampp\php\PEAR') in E:\xampp\htdocs\marketing\pages\fin\cost_center.php on line 4
+[04-Jun-2020 21:44:59 Asia/Jakarta] PHP Warning:  require_once(../../log_activity/log.php): failed to open stream: No such file or directory in E:\xampp\htdocs\marketing\pages\fin\subdept.php on line 4
+[04-Jun-2020 21:44:59 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '../../log_activity/log.php' (include_path='.;\xampp\php\PEAR') in E:\xampp\htdocs\marketing\pages\fin\subdept.php on line 4
+[04-Jun-2020 21:45:18 Asia/Jakarta] PHP Warning:  require_once(../../log_activity/log.php): failed to open stream: No such file or directory in E:\xampp\htdocs\marketing\pages\fin\coa_segments.php on line 4
+[04-Jun-2020 21:45:18 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '../../log_activity/log.php' (include_path='.;\xampp\php\PEAR') in E:\xampp\htdocs\marketing\pages\fin\coa_segments.php on line 4
+[04-Jun-2020 21:47:09 Asia/Jakarta] PHP Notice:  Undefined variable: idcoa in E:\xampp\htdocs\marketing\pages\fin\m_bank.php on line 194
+[04-Jun-2020 21:47:09 Asia/Jakarta] PHP Notice:  Undefined variable: coa_name in E:\xampp\htdocs\marketing\pages\fin\m_bank.php on line 215
+[04-Jun-2020 21:47:41 Asia/Jakarta] PHP Notice:  Undefined variable: idcoa in E:\xampp\htdocs\marketing\pages\fin\m_bank.php on line 194
+[04-Jun-2020 22:02:23 Asia/Jakarta] PHP Notice:  Undefined variable: row in E:\xampp\htdocs\marketing\pages\fin\journal_entry_kontra_bon_form.php on line 1538
+[04-Jun-2020 22:02:23 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in E:\xampp\htdocs\marketing\pages\fin\journal_entry_kontra_bon_form.php on line 1538
+[04-Jun-2020 22:05:43 Asia/Jakarta] PHP Notice:  Undefined variable: row in E:\xampp\htdocs\marketing\pages\fin\journal_entry_kontra_bon_form.php on line 1546
+[04-Jun-2020 22:05:43 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in E:\xampp\htdocs\marketing\pages\fin\journal_entry_kontra_bon_form.php on line 1546
+[04-Jun-2020 22:06:15 Asia/Jakarta] PHP Notice:  Undefined index: fg_tax in E:\xampp\htdocs\marketing\pages\fin\journal_entry_kontra_bon_form.php on line 1094
+[04-Jun-2020 22:06:15 Asia/Jakarta] PHP Notice:  Undefined index: ppn in E:\xampp\htdocs\marketing\pages\fin\journal_entry_kontra_bon_form.php on line 1097
+[04-Jun-2020 22:06:15 Asia/Jakarta] PHP Notice:  Undefined index: pph in E:\xampp\htdocs\marketing\pages\fin\journal_entry_kontra_bon_form.php on line 1100
+[04-Jun-2020 22:06:15 Asia/Jakarta] PHP Notice:  Undefined index: fg_tax in E:\xampp\htdocs\marketing\pages\fin\journal_entry_kontra_bon_form.php on line 1112
+[04-Jun-2020 22:06:15 Asia/Jakarta] PHP Notice:  Undefined index: ppn in E:\xampp\htdocs\marketing\pages\fin\journal_entry_kontra_bon_form.php on line 1113
+[04-Jun-2020 22:06:15 Asia/Jakarta] PHP Notice:  Undefined index: pph in E:\xampp\htdocs\marketing\pages\fin\journal_entry_kontra_bon_form.php on line 1114
+[05-Jun-2020 08:50:28 Asia/Jakarta] PHP Warning:  require_once(../log_activity/log.php): failed to open stream: No such file or directory in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 16
+[05-Jun-2020 08:50:28 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '../log_activity/log.php' (include_path='.') in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 16
+[05-Jun-2020 08:50:35 Asia/Jakarta] PHP Warning:  require_once(../log_activity/log.php): failed to open stream: No such file or directory in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 16
+[05-Jun-2020 08:50:35 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '../log_activity/log.php' (include_path='.') in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 16
+[05-Jun-2020 08:50:45 Asia/Jakarta] PHP Warning:  require_once(../log_activity/log.php): failed to open stream: No such file or directory in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 16
+[05-Jun-2020 08:50:45 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '../log_activity/log.php' (include_path='.') in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 16
+[05-Jun-2020 08:52:54 Asia/Jakarta] PHP Warning:  require_once(../log_activity/log.php): failed to open stream: No such file or directory in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 16
+[05-Jun-2020 08:52:54 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '../log_activity/log.php' (include_path='.') in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 16
+[05-Jun-2020 08:53:16 Asia/Jakarta] PHP Warning:  require_once(../log_activity/log.php): failed to open stream: No such file or directory in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 16
+[05-Jun-2020 08:53:16 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '../log_activity/log.php' (include_path='.') in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 16
+[05-Jun-2020 08:53:42 Asia/Jakarta] PHP Warning:  require_once(../log_activity/log.php): failed to open stream: No such file or directory in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 16
+[05-Jun-2020 08:53:42 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '../log_activity/log.php' (include_path='.') in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 16
+[05-Jun-2020 08:55:05 Asia/Jakarta] PHP Warning:  require_once(../log_activity/log.php): failed to open stream: No such file or directory in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 16
+[05-Jun-2020 08:55:05 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '../log_activity/log.php' (include_path='.') in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 16
+[05-Jun-2020 08:57:24 Asia/Jakarta] PHP Warning:  require_once(../log_activity/log.php): failed to open stream: No such file or directory in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 16
+[05-Jun-2020 08:57:24 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '../log_activity/log.php' (include_path='.') in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 16
+[05-Jun-2020 09:40:59 Asia/Jakarta] PHP Warning:  require_once(../log_activity/log.php): failed to open stream: No such file or directory in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 16
+[05-Jun-2020 09:40:59 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '../log_activity/log.php' (include_path='.') in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 16
+[05-Jun-2020 09:41:22 Asia/Jakarta] PHP Warning:  require_once(../log_activity/log.php): failed to open stream: No such file or directory in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 16
+[05-Jun-2020 09:41:22 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '../log_activity/log.php' (include_path='.') in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 16
+[08-Jun-2020 07:45:23 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 7
+[08-Jun-2020 07:45:23 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[08-Jun-2020 06:29:31 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[08-Jun-2020 06:29:31 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[08-Jun-2020 06:33:43 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[08-Jun-2020 14:34:19 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 7
+[08-Jun-2020 14:34:19 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[08-Jun-2020 11:23:38 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[08-Jun-2020 11:23:38 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[09-Jun-2020 10:00:48 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry.php on line 11
+[09-Jun-2020 16:08:15 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry.php on line 11
+[10-Jun-2020 07:43:28 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 7
+[10-Jun-2020 07:43:28 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[10-Jun-2020 10:00:11 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 7
+[10-Jun-2020 10:00:11 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[10-Jun-2020 11:03:47 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 7
+[10-Jun-2020 11:03:47 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[10-Jun-2020 11:33:49 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 7
+[10-Jun-2020 11:33:49 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[10-Jun-2020 06:36:38 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[10-Jun-2020 06:36:38 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[10-Jun-2020 06:36:38 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[10-Jun-2020 06:36:38 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[10-Jun-2020 06:36:38 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[10-Jun-2020 06:36:38 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[10-Jun-2020 06:36:38 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[10-Jun-2020 06:36:38 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[10-Jun-2020 06:36:38 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[10-Jun-2020 06:36:38 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[10-Jun-2020 06:36:38 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[10-Jun-2020 06:36:38 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[10-Jun-2020 06:36:38 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[10-Jun-2020 06:51:07 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[10-Jun-2020 06:51:07 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[10-Jun-2020 08:11:35 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[10-Jun-2020 08:49:11 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[10-Jun-2020 09:17:58 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[10-Jun-2020 17:13:23 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry.php on line 11
+[11-Jun-2020 06:37:08 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 06:46:37 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 06:46:37 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 07:01:37 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 08:41:14 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 08:43:13 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 08:57:52 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:05:08 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:06:29 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:12:04 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:14:15 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:14:15 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:16:37 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:21:06 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:21:06 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:21:06 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:21:06 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:21:06 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:21:06 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:21:06 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:27:13 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:30:24 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:37:14 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:37:14 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:37:14 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:37:14 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:37:14 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:37:14 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:37:14 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:37:14 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 09:38:55 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 11:05:20 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 17:17:25 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 7
+[11-Jun-2020 17:17:25 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[11-Jun-2020 20:19:57 Asia/Jakarta] PHP Notice:  Undefined variable: query_tambahan in C:\xampp\htdocs\erp\pages\fin\ajax_fin.php on line 1238
+[11-Jun-2020 20:20:40 Asia/Jakarta] PHP Notice:  Undefined variable: query_tambahan in C:\xampp\htdocs\erp\pages\fin\ajax_fin.php on line 1238
+[11-Jun-2020 18:10:01 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 18:10:01 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[11-Jun-2020 18:10:01 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[12-Jun-2020 08:38:04 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 7
+[12-Jun-2020 08:38:04 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[12-Jun-2020 03:47:35 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[12-Jun-2020 04:43:32 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[12-Jun-2020 04:43:32 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[12-Jun-2020 13:02:48 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 7
+[12-Jun-2020 13:02:48 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[12-Jun-2020 16:50:31 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 7
+[12-Jun-2020 16:50:31 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[15-Jun-2020 10:31:56 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 7
+[15-Jun-2020 10:31:56 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[15-Jun-2020 06:01:49 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[15-Jun-2020 11:16:34 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry.php on line 11
+[15-Jun-2020 06:26:50 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[15-Jun-2020 06:34:05 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[15-Jun-2020 06:46:09 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[15-Jun-2020 07:02:11 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[15-Jun-2020 14:04:35 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 7
+[15-Jun-2020 14:04:35 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[15-Jun-2020 10:18:05 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[15-Jun-2020 16:29:35 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry.php on line 11
+[16-Jun-2020 07:49:14 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 7
+[16-Jun-2020 07:49:14 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[16-Jun-2020 03:50:03 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[16-Jun-2020 03:58:01 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[16-Jun-2020 04:01:46 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[16-Jun-2020 09:11:33 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 7
+[16-Jun-2020 09:11:33 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[16-Jun-2020 05:09:11 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[16-Jun-2020 05:17:19 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[16-Jun-2020 05:18:47 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[16-Jun-2020 05:18:47 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[16-Jun-2020 05:21:58 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[16-Jun-2020 05:21:59 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[16-Jun-2020 05:21:59 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[16-Jun-2020 06:01:35 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[16-Jun-2020 06:12:48 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[16-Jun-2020 06:25:47 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[16-Jun-2020 07:21:17 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[16-Jun-2020 07:54:35 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[16-Jun-2020 07:54:35 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[16-Jun-2020 08:37:52 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[16-Jun-2020 08:37:52 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[16-Jun-2020 13:57:51 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 7
+[16-Jun-2020 13:57:51 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[17-Jun-2020 09:15:36 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 7
+[17-Jun-2020 09:15:36 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[17-Jun-2020 16:30:26 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry.php on line 11
+[17-Jun-2020 18:21:49 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry.php on line 11
+[18-Jun-2020 07:55:05 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 7
+[18-Jun-2020 07:55:05 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[18-Jun-2020 13:33:46 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 7
+[18-Jun-2020 13:33:46 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[18-Jun-2020 13:33:46 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[18-Jun-2020 13:33:46 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[18-Jun-2020 13:33:47 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[18-Jun-2020 13:44:29 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[18-Jun-2020 13:46:22 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[18-Jun-2020 13:46:30 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[18-Jun-2020 13:54:34 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[18-Jun-2020 13:54:48 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[18-Jun-2020 13:55:26 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[18-Jun-2020 13:55:42 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[18-Jun-2020 13:55:47 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[18-Jun-2020 13:56:21 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[18-Jun-2020 13:59:04 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[18-Jun-2020 13:59:17 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[18-Jun-2020 13:59:17 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[18-Jun-2020 13:59:17 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[18-Jun-2020 13:59:19 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[18-Jun-2020 09:08:48 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[18-Jun-2020 14:09:37 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[18-Jun-2020 14:45:02 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 7
+[18-Jun-2020 14:45:02 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[18-Jun-2020 10:38:35 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[18-Jun-2020 16:21:16 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry.php on line 11
+[18-Jun-2020 16:48:22 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\erp\pages\fin\header.php:99) in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 7
+[18-Jun-2020 16:48:22 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\fin\journal_entry_kontra_bon_form.php on line 15
+[18-Jun-2020 12:04:26 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[18-Jun-2020 15:28:03 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[18-Jun-2020 15:28:03 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[18-Jun-2020 15:57:37 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5
+[18-Jun-2020 15:57:37 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\fin\index.php on line 5

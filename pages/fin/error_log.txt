@@ -1,0 +1,3 @@
+[28-Feb-2024 01:58:49 Europe/Berlin] PHP Fatal error:  Call to undefined function base_url() in D:\xampp\htdocs\erp\pages\fin\index.php on line 62
+[28-Feb-2024 02:00:39 Europe/Berlin] PHP Fatal error:  Call to undefined function base_url() in D:\xampp\htdocs\erp\pages\fin\index.php on line 62
+[28-Feb-2024 02:18:58 Europe/Berlin] PHP Fatal error:  Call to undefined function base_url() in D:\xampp\htdocs\erp\pages\fin\index.php on line 62

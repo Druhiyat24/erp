@@ -1,0 +1,4 @@
+[04-Aug-2020 10:51:06 Europe/Berlin] PHP Notice:  Undefined variable: _SESSION in D:\xampp\htdocs\erp_module_lama\pages\pur\DraftPoBW\DraftPoBWPage.php on line 4
+[04-Aug-2020 10:51:06 Europe/Berlin] PHP Notice:  Undefined variable: _SESSION in D:\xampp\htdocs\erp_module_lama\pages\pur\DraftPoBW\DraftPoBWPage.php on line 5
+[04-Aug-2020 10:52:57 Europe/Berlin] PHP Notice:  Undefined variable: _SESSION in D:\xampp\htdocs\erp_module_lama\pages\pur\DraftPoBW\InvoiceScrapForm.php on line 4
+[04-Aug-2020 10:52:57 Europe/Berlin] PHP Notice:  Undefined variable: _SESSION in D:\xampp\htdocs\erp_module_lama\pages\pur\DraftPoBW\InvoiceScrapForm.php on line 5

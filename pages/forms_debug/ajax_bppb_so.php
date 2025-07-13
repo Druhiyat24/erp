@@ -1,0 +1,260 @@
+<?PHP
+include "../../include/conn.php";
+include "../forms/fungsi.php";
+
+$rscomp=mysql_fetch_array(mysql_query("select * from mastercompany"));
+  $nm_company=$rscomp["company"];
+  $st_company=$rscomp["status_company"];
+  $jenis_company=$rscomp["jenis_company"];
+$modenya = $_GET['modeajax'];
+
+if ($modenya=="view_list_jo")
+{ 
+
+?>
+
+<?php
+
+	echo "<head>";
+    echo "<link rel='stylesheet' href='../../plugins/datatables_responsive/responsive.dataTables.min.css'>";
+    echo "<link rel='stylesheet' href='../../plugins/datatables_responsive/jquery.dataTables.min.css'>";
+	
+?>
+
+
+<?php 
+	
+	
+  echo "</head>";
+}
+
+if ($modenya=="view_list_jo")
+{ $id_cost = json_encode($_REQUEST['id_jo']);
+  $id_cost = str_replace("[","",$id_cost);
+  $id_cost = str_replace("]","",$id_cost);
+  ?>
+  <table id="examplefix" class="display responsive" style="width:100%">
+    <thead>
+    <tr>
+      <th>SO #</th>
+      <th>Product</th>
+      <th>Product Desc</th>
+      <th>Buyer PO</th>
+      <?php if($jenis_company!="VENDOR LG") { ?>
+        <th>Dest</th>
+        <th>Color</th>
+        <th>Size</th>
+        <th>SKU</th>
+      <?php } ?>
+      <th>Qty SO</th>
+      <th>Unit SO</th>
+      <th>Bal</th>
+      <th>Qty BKB</th>
+      <th>Curr</th>
+      <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+      <?php
+      # QUERY TABLE
+      $tblnya="bppb"; $tblnya2="bpb";
+      $sql="select sod.id,sum(mo.qty) qtyout,sum(co.qty) qtyprev,so.so_no,so.buyerno,
+        sod.dest,sod.color,sod.size,sod.sku,sod.qty,so.unit,so.curr,sod.price,so.fob,
+        mp.product_group,mp.product_item 
+        from so inner join so_det sod on so.id=sod.id_so
+        inner join act_costing ac on so.id_cost=ac.id 
+        inner join masterproduct mp on ac.id_product=mp.id  
+        inner join 
+        (select a.id_so_det,sum(a.qty) qty from $tblnya2 a inner join so_det s on a.id_so_det=s.id 
+          inner join so d on s.id_so=d.id where d.id_cost in ($id_cost) group by id_so_det) co on sod.id=co.id_so_det
+        left join 
+        (select a.id_so_det,sum(a.qty) qty from $tblnya a inner join so_det s on a.id_so_det=s.id 
+          inner join so d on s.id_so=d.id where d.id_cost in ($id_cost) group by id_so_det) mo on sod.id=mo.id_so_det
+        where so.id_cost in ($id_cost) and sod.cancel='N' group by sod.id";
+      #echo $sql;
+      $query = mysql_query($sql); 
+      $no = 1; 
+	  $total_qty_so = 0;
+	  $total_bal = 0;
+	  $trigger_sub_total = "0";
+	  $trigger_js = 0;
+      while($data = mysql_fetch_array($query))
+      { 
+		$trigger_js++;
+		//echo "<script>var jsn ={bkb_qty :0}  <script>";
+		
+		$trigger_sub_total = "1";
+		if($jenis_company=="VENDOR LG") { $defpx=$data['fob']; } else { $defpx=$data['price']; }
+        echo "<tr>";
+          $id=$data['id'];
+          echo "
+          <td>$data[so_no]</td>
+          <td>$data[product_group]</td>
+          <td>$data[product_item]</td>
+          <td>$data[buyerno]</td>";
+          if($jenis_company!="VENDOR LG")
+          { echo "
+            <td>$data[dest]</td>
+            <td>$data[color]</td>
+            <td>$data[size]</td>
+            <td>$data[sku]</td>"; 
+          }
+          echo "
+          <td>$data[qty]</td>
+          <td><input type ='text' style='width:70px;' name ='itemunit[$id]' class='unitclass' value='$data[unit]' readonly></td>";
+          $sisa=$data['qtyprev']-$data['qtyout'];
+          echo "<td><input type ='text' style='width:70px;' name ='itemsisa[$id]' class='sisaclass'value='$sisa' readonly></td>"; 
+          echo "
+          <td>
+            <input type ='text' style='width:70px;' onkeyup='handle_key_up(this)' name ='itemqty[$id]' class='qtyclass qtybkb_$no'>
+          </td>
+          <td>
+            <input type ='text' style='width:70px;' name ='itemcurr[$id]' class='currclass' value='$data[curr]'>
+          </td>
+          <td>
+            <input type ='text' style='width:70px;' name ='itemprice[$id]' class='priceclass' value='$defpx'>
+          </td>"; 
+        echo "</tr>";
+		$total_qty_so = $total_qty_so + $data['qty'];
+		$total_bal = $total_bal + $sisa;
+        $no++; // menambah nilai nomor urut
+      }
+	  $my_td ="";
+	  if( $trigger_sub_total == "1" ){
+		 $my_td .="<td colspan=8>";
+		 $my_td .="Total";		
+		 $my_td .="</td>";
+		 
+		 $my_td .="<td >";
+		 $my_td .=$total_qty_so;		
+		 $my_td .="</td>";		 
+	
+		 $my_td .="<td >";
+		 $my_td .="-";		
+		 $my_td .="</td>";
+
+		 $my_td .="<td >";
+		 $my_td .=$total_bal;		
+		 $my_td .="</td>";
+		 
+
+		 $my_td .="<td class='total_qty_input'>";
+		 $my_td .="0";//total_bkb		
+		 $my_td .="</td>";
+
+		 $my_td .="<td >";
+		 $my_td .="-";		
+		 $my_td .="</td>";
+
+
+		 $my_td .="<td >";
+		 $my_td .="-";		
+		 $my_td .="</td>";
+		 
+		 
+		 
+		 
+		 
+		 
+		   echo "<tr>".$my_td."</tr>"; 
+	  }
+      ?>
+    </tbody>
+  </table>
+  <?php 
+}
+?>
+<?php 
+if ($modenya=="view_list_jo")
+{?>
+  <script src="../../plugins/datatables_responsive/jquery.dataTables.min.js"></script>
+  <script src="../../plugins/datatables_responsive/dataTables.responsive.min.js"></script>
+  <script>
+	array_json =[];
+	function handle_key_up(that){
+		var tot_qty_bkb = 0;
+		var last_qtybkb = $(".total_qty_input").text();
+		var populasi_classNames = that.className.split(" ");
+		var classNames = populasi_classNames[1];
+		var spl_classNames = classNames.split("_");
+		var idx = parseFloat(spl_classNames[1]) - 1;
+		if(isNaN(that.value)){
+			$(".qtybkb_"+spl_classNames[1]).val("0");
+			return false;
+		}
+		array_json[parseFloat(idx)].qtybpb = that.value;
+			for(var i =0; i<array_json.length; i++){
+				tot_qty_bkb = parseFloat(tot_qty_bkb) + parseFloat(array_json[i].qtybpb);
+			}
+			setTimeout(function(){
+				if(isNaN(tot_qty_bkb)){
+					$(".total_qty_input").text(last_qtybkb);
+					array_json[parseFloat(idx)].qtybpb = 0;
+					return false;
+				}else{
+					$(".total_qty_input").text(tot_qty_bkb);
+				}	
+				
+				
+				
+				
+			},400)
+		console.log(array_json);
+	}
+	
+
+</script>
+
+<?php 
+	if($trigger_js > 0){
+		echo "<script>";
+			echo "var_js = '$trigger_js';";
+			echo " for(var i=0;i < var_js;i++ ) { ";
+			echo " jsn = {qtybpb : 0 }; ";
+			echo " array_json.push(jsn);";
+			echo " }";
+		echo "</script>";	
+		
+	
+	}
+
+?>
+
+<script>	
+	
+	
+
+
+  $("#example1").DataTable();
+  //Datatable fix header
+  $(document).ready(function() {
+    var table = $('#examplefix').DataTable
+    ({  scrollY: "300px",
+        scrollCollapse: true,
+        paging: false,
+		destroy:true,
+        searching: false,
+        pageLength: 50,/* 
+        fixedColumns:   
+        { leftColumns: 1,
+          rightColumns: 1
+        } */
+    });
+  });
+  //Datatable fix header no pagination and searching
+  $(document).ready(function() {
+    var table = $('#examplefix2').DataTable
+    ({  scrollY: "300px",
+        scrollCollapse: true,
+        paging: false,
+        searching: false,
+        fixedColumns:   
+        { leftColumns: 1,
+          rightColumns: 1
+        }
+    });
+  });
+</script>
+<?php
+}
+?>

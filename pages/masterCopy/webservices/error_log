@@ -1,0 +1,2 @@
+[23-Oct-2019 19:50:55 Asia/Jakarta] PHP Parse error:  syntax error, unexpected 'die' (T_EXIT) in /home/mfathir/public_html/demo2/pages/master/webservices/getListMasterCurrencyKursPajak.php on line 111
+[23-Oct-2019 19:52:29 Asia/Jakarta] PHP Parse error:  syntax error, unexpected 'die' (T_EXIT) in /home/mfathir/public_html/demo2/pages/master/webservices/getListMasterCurrencyKursPajak.php on line 111

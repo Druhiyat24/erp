@@ -1,0 +1,130 @@
+[18-Jun-2020 09:24:20 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[13-Jul-2020 04:30:55 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\PdfInvoiceLocal.php on line 3
+[13-Jul-2020 04:30:55 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\PdfInvoiceLocal.php on line 3
+[04-Nov-2020 04:09:06 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[02-Dec-2020 09:13:48 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[02-Dec-2020 09:13:48 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[02-Dec-2020 09:13:48 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[02-Dec-2020 09:13:48 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[02-Dec-2020 09:58:29 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[03-Dec-2020 07:36:51 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[03-Dec-2020 07:36:51 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[03-Jan-2021 09:04:18 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[03-Jan-2021 09:04:19 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[03-Jan-2021 09:20:21 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[22-Jan-2021 05:05:05 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[25-Jan-2021 04:13:55 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[02-Feb-2021 10:13:25 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[02-Feb-2021 10:13:25 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[02-Feb-2021 10:13:25 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[03-Feb-2021 15:46:41 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[11-Feb-2021 09:19:00 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[15-Feb-2021 08:21:59 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[16-Feb-2021 02:02:28 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[16-Feb-2021 04:36:03 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[19-Feb-2021 05:16:18 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[23-Feb-2021 04:42:44 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[23-Feb-2021 04:42:44 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[23-Feb-2021 04:42:44 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[01-Mar-2021 05:37:21 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[03-Mar-2021 08:29:00 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[03-Mar-2021 09:59:28 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[03-Mar-2021 10:01:40 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[05-Mar-2021 09:30:11 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[05-Mar-2021 09:58:33 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[06-Mar-2021 01:50:50 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[08-Mar-2021 03:19:49 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[09-Mar-2021 05:27:25 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[10-Mar-2021 03:41:36 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[10-Mar-2021 04:08:14 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[10-Mar-2021 05:52:47 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[10-Mar-2021 07:37:49 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[10-Mar-2021 08:39:27 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[10-Mar-2021 09:55:10 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[11-Mar-2021 12:43:44 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[12-Mar-2021 02:09:38 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[15-Mar-2021 08:11:31 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[17-Mar-2021 04:53:12 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[17-Mar-2021 05:08:51 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[23-Mar-2021 08:05:48 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[31-Mar-2021 11:02:23 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[31-Mar-2021 11:02:23 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[06-Apr-2021 11:21:09 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\PdfInvoiceLocal.php on line 3
+[06-Apr-2021 12:29:24 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[08-Apr-2021 09:08:16 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[09-Apr-2021 04:54:46 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[09-Apr-2021 09:39:45 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[15-Apr-2021 00:10:47 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[20-Apr-2021 06:39:44 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[25-Apr-2021 23:38:11 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[26-Apr-2021 23:11:16 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[26-Apr-2021 23:11:16 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[29-Jun-2021 13:10:38 Asia/Jakarta] PHP Notice:  Undefined index: username in C:\xampp\htdocs\erp\pages\shp\ProformaInvoice\HeaderPage.php on line 8
+[29-Jun-2021 13:10:38 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\shp\ProformaInvoice\HeaderPage.php on line 9
+[29-Jun-2021 13:10:38 Asia/Jakarta] PHP Notice:  Undefined index: username in C:\xampp\htdocs\erp\pages\shp\ProformaInvoice\ProformaInvoicePage.php on line 4
+[29-Jun-2021 13:10:38 Asia/Jakarta] PHP Notice:  Undefined index: sesi in C:\xampp\htdocs\erp\pages\shp\ProformaInvoice\ProformaInvoicePage.php on line 5
+[14-Jul-2021 07:08:19 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[23-Jul-2021 11:49:12 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[08-Aug-2021 11:13:22 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[08-Aug-2021 11:27:14 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[08-Aug-2021 13:25:17 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[08-Aug-2021 14:11:38 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[08-Aug-2021 14:16:07 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[08-Aug-2021 15:33:00 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[20-Sep-2021 06:30:04 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[20-Sep-2021 06:30:04 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[29-Oct-2021 04:44:26 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[30-Oct-2021 07:10:10 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[09-Mar-2023 09:21:55 Europe/Berlin] PHP Warning:  include(../../conn/conn.php): failed to open stream: No such file or directory in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 30
+[09-Mar-2023 09:21:55 Europe/Berlin] PHP Warning:  include(): Failed opening '../../conn/conn.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 30
+[09-Mar-2023 09:21:55 Europe/Berlin] PHP Notice:  Undefined variable: conn2 in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 41
+[09-Mar-2023 09:21:55 Europe/Berlin] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 41
+[09-Mar-2023 09:21:55 Europe/Berlin] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 42
+[09-Mar-2023 09:21:55 Europe/Berlin] PHP Notice:  Undefined variable: conn2 in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 46
+[09-Mar-2023 09:21:55 Europe/Berlin] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 46
+[09-Mar-2023 09:21:55 Europe/Berlin] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 47
+[09-Mar-2023 09:21:55 Europe/Berlin] PHP Notice:  Undefined variable: status in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 56
+[09-Mar-2023 09:21:55 Europe/Berlin] PHP Notice:  Undefined variable: conn2 in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 85
+[09-Mar-2023 09:21:55 Europe/Berlin] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 92
+[09-Mar-2023 09:21:55 Europe/Berlin] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 96
+[09-Mar-2023 09:23:21 Europe/Berlin] PHP Warning:  include(../../conn/conn.php): failed to open stream: No such file or directory in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 30
+[09-Mar-2023 09:23:21 Europe/Berlin] PHP Warning:  include(): Failed opening '../../conn/conn.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 30
+[09-Mar-2023 09:23:21 Europe/Berlin] PHP Notice:  Undefined variable: conn2 in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 41
+[09-Mar-2023 09:23:21 Europe/Berlin] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 41
+[09-Mar-2023 09:23:21 Europe/Berlin] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 42
+[09-Mar-2023 09:23:21 Europe/Berlin] PHP Notice:  Undefined variable: conn2 in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 46
+[09-Mar-2023 09:23:21 Europe/Berlin] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 46
+[09-Mar-2023 09:23:21 Europe/Berlin] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 47
+[09-Mar-2023 09:23:21 Europe/Berlin] PHP Notice:  Undefined variable: status in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 56
+[09-Mar-2023 09:23:21 Europe/Berlin] PHP Notice:  Undefined variable: conn2 in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 85
+[09-Mar-2023 09:23:21 Europe/Berlin] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 92
+[09-Mar-2023 09:23:21 Europe/Berlin] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 96
+[09-Mar-2023 09:25:01 Europe/Berlin] PHP Warning:  include(../../conn/conn.php): failed to open stream: No such file or directory in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 30
+[09-Mar-2023 09:25:01 Europe/Berlin] PHP Warning:  include(): Failed opening '../../conn/conn.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 30
+[09-Mar-2023 09:25:01 Europe/Berlin] PHP Notice:  Undefined variable: conn2 in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 41
+[09-Mar-2023 09:25:01 Europe/Berlin] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 41
+[09-Mar-2023 09:25:01 Europe/Berlin] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 42
+[09-Mar-2023 09:25:01 Europe/Berlin] PHP Notice:  Undefined variable: conn2 in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 46
+[09-Mar-2023 09:25:01 Europe/Berlin] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 46
+[09-Mar-2023 09:25:01 Europe/Berlin] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 47
+[09-Mar-2023 09:25:01 Europe/Berlin] PHP Notice:  Undefined variable: status in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 56
+[09-Mar-2023 09:25:01 Europe/Berlin] PHP Notice:  Undefined variable: conn2 in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 85
+[09-Mar-2023 09:25:01 Europe/Berlin] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 92
+[09-Mar-2023 09:25:01 Europe/Berlin] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in C:\xampp\htdocs\sb1test\pages\shp\ekspor_tb_ytd.php on line 96
+[07-Nov-2023 03:19:15 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[07-Nov-2023 03:46:18 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[07-Nov-2023 03:46:18 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[04-Dec-2023 08:26:26 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[04-Dec-2023 08:26:26 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[04-Dec-2023 08:26:26 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[04-Dec-2023 08:26:26 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[04-Dec-2023 08:42:09 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[21-Dec-2023 02:27:35 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[28-Jan-2024 14:40:06 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[28-Jan-2024 14:40:06 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[28-Jan-2024 14:40:06 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[28-Jan-2024 14:40:06 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\index.php on line 3
+[05-Jun-2024 04:08:51 Europe/Berlin] PHP Deprecated:  mysql_query(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in D:\xampp\htdocs\erp\pages\doc_handover\exc_trans_bpb.php on line 80
+[05-Jun-2024 04:08:52 Europe/Berlin] PHP Warning:  mysql_query(): Access denied for user ''@'localhost' (using password: NO) in D:\xampp\htdocs\erp\pages\doc_handover\exc_trans_bpb.php on line 80
+[05-Jun-2024 04:08:52 Europe/Berlin] PHP Warning:  mysql_query(): A link to the server could not be established in D:\xampp\htdocs\erp\pages\doc_handover\exc_trans_bpb.php on line 80
+[05-Jun-2024 04:08:52 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in D:\xampp\htdocs\erp\pages\doc_handover\exc_trans_bpb.php on line 82

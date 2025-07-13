@@ -1,0 +1,32 @@
+<?php 
+
+if (empty($_SESSION['username'])) { 
+    header("location:../../../index.php"); 
+}
+
+$user=$_SESSION['username'];
+$sesi=$_SESSION['sesi'];
+# CEK HAK AKSES KEMBALI
+$akses = flookup("dc_set_form","userpassword","username='$user'");
+
+if ($akses=="0") { 
+    echo "<script>alert('Access Not Permitted'); window.location.href='?mod=1';</script>"; 
+}
+# END CEK HAK AKSES KEMBALI
+include 'DCSetForm.php';
+
+?>
+
+<div id="myOverlay">
+    <div class="col-md-3 col-sm-offset-6" style="padding-top:400px">
+    </div>
+</div>
+
+<link rel="stylesheet" href="./css/overlay.css"> 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="js/global.js?<?php echo date('Ymdhms') ?>"></script>
+<script src="js/DCSetForm.js?<?php echo date('Ymdhms') ?>"></script>
+
+<!-- <script src="js/jquery.autocomplete.min.js?<?php #echo date('Ymdhms') ?>"></script>
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script> -->

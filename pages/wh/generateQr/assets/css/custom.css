@@ -1,0 +1,21 @@
+.page-title{
+    color: rgb(84, 106, 253);
+}
+
+.card-title{
+    color: rgb(84, 106, 253);
+}
+
+.rak-item .card-body .table .td{
+    font-size: 25px !important;
+}
+  
+@media (max-width: 576px) {
+    .rak-item .card-body {
+      padding: 5px !important;
+    }
+  
+    .rak-item .table th, .rak-item .table td{
+      padding: 10px 5px !important;
+    }
+}

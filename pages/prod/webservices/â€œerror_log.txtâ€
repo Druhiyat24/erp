@@ -1,0 +1,61 @@
+[30-Mar-2021 09:32:01 Europe/Berlin] PHP Notice:  Undefined index: data in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingOutputCategory.php on line 10
+[30-Mar-2021 09:32:01 Europe/Berlin] PHP Notice:  Undefined index: detail in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingOutputCategory.php on line 11
+[07-Jun-2021 05:34:38 Europe/Berlin] PHP Notice:  Undefined variable: id_cost in C:\xampp\htdocs\erp\pages\prod\webservices\getDataLaporanSummary.php on line 328
+[07-Jun-2021 05:34:38 Europe/Berlin] PHP Notice:  Undefined variable: pop_field_cutting in C:\xampp\htdocs\erp\pages\prod\webservices\production_interface.php on line 1121
+[07-Jun-2021 05:34:38 Europe/Berlin] PHP Notice:  Undefined variable: pop_field_cutting in C:\xampp\htdocs\erp\pages\prod\webservices\production_interface.php on line 1121
+[07-Jun-2021 05:34:38 Europe/Berlin] PHP Notice:  Undefined variable: pop_field_cutting in C:\xampp\htdocs\erp\pages\prod\webservices\production_interface.php on line 1121
+[07-Jun-2021 05:34:38 Europe/Berlin] PHP Notice:  Undefined variable: pop_field_cutting in C:\xampp\htdocs\erp\pages\prod\webservices\production_interface.php on line 1121
+[07-Jun-2021 05:34:38 Europe/Berlin] PHP Warning:  Missing argument 7 for Proses::eksekusi_query_datatable(), called in C:\xampp\htdocs\erp\pages\prod\webservices\getDataLaporanSummary.php on line 41 and defined in C:\xampp\htdocs\erp\pages\prod\webservices\getDataLaporanSummary.php on line 177
+[07-Jun-2021 05:34:38 Europe/Berlin] PHP Warning:  Missing argument 8 for Proses::eksekusi_query_datatable(), called in C:\xampp\htdocs\erp\pages\prod\webservices\getDataLaporanSummary.php on line 41 and defined in C:\xampp\htdocs\erp\pages\prod\webservices\getDataLaporanSummary.php on line 177
+[07-Jun-2021 05:34:38 Europe/Berlin] PHP Notice:  Undefined variable: columnSortOrder in C:\xampp\htdocs\erp\pages\prod\webservices\getDataLaporanSummary.php on line 180
+[07-Jun-2021 05:34:48 Europe/Berlin] PHP Notice:  Undefined variable: id_cost in C:\xampp\htdocs\erp\pages\prod\webservices\getDataLaporanSummary.php on line 328
+[07-Jun-2021 05:34:48 Europe/Berlin] PHP Notice:  Undefined variable: pop_field_cutting in C:\xampp\htdocs\erp\pages\prod\webservices\production_interface.php on line 1121
+[07-Jun-2021 05:34:48 Europe/Berlin] PHP Notice:  Undefined variable: pop_field_cutting in C:\xampp\htdocs\erp\pages\prod\webservices\production_interface.php on line 1121
+[07-Jun-2021 05:34:48 Europe/Berlin] PHP Notice:  Undefined variable: pop_field_cutting in C:\xampp\htdocs\erp\pages\prod\webservices\production_interface.php on line 1121
+[07-Jun-2021 05:34:48 Europe/Berlin] PHP Notice:  Undefined variable: pop_field_cutting in C:\xampp\htdocs\erp\pages\prod\webservices\production_interface.php on line 1121
+[07-Jun-2021 05:34:48 Europe/Berlin] PHP Warning:  Missing argument 7 for Proses::eksekusi_query_datatable(), called in C:\xampp\htdocs\erp\pages\prod\webservices\getDataLaporanSummary.php on line 41 and defined in C:\xampp\htdocs\erp\pages\prod\webservices\getDataLaporanSummary.php on line 177
+[07-Jun-2021 05:34:48 Europe/Berlin] PHP Warning:  Missing argument 8 for Proses::eksekusi_query_datatable(), called in C:\xampp\htdocs\erp\pages\prod\webservices\getDataLaporanSummary.php on line 41 and defined in C:\xampp\htdocs\erp\pages\prod\webservices\getDataLaporanSummary.php on line 177
+[07-Jun-2021 05:34:48 Europe/Berlin] PHP Notice:  Undefined variable: columnSortOrder in C:\xampp\htdocs\erp\pages\prod\webservices\getDataLaporanSummary.php on line 180
+[17-Jun-2021 03:51:32 Europe/Berlin] PHP Notice:  Undefined index: d_api in C:\xampp\htdocs\erp\pages\prod\webservices\saveMarkerEntryDetail.php on line 44
+[30-Jul-2021 11:10:26 Europe/Berlin] PHP Notice:  Undefined variable: id_cost in C:\xampp\htdocs\erp\pages\prod\webservices\getDataLaporanSummary.php on line 328
+[30-Jul-2021 11:10:26 Europe/Berlin] PHP Notice:  Undefined variable: pop_field_cutting in C:\xampp\htdocs\erp\pages\prod\webservices\production_interface.php on line 1121
+[30-Jul-2021 11:10:26 Europe/Berlin] PHP Notice:  Undefined variable: pop_field_cutting in C:\xampp\htdocs\erp\pages\prod\webservices\production_interface.php on line 1121
+[30-Jul-2021 11:10:26 Europe/Berlin] PHP Notice:  Undefined variable: pop_field_cutting in C:\xampp\htdocs\erp\pages\prod\webservices\production_interface.php on line 1121
+[30-Jul-2021 11:10:26 Europe/Berlin] PHP Notice:  Undefined variable: pop_field_cutting in C:\xampp\htdocs\erp\pages\prod\webservices\production_interface.php on line 1121
+[30-Jul-2021 11:10:26 Europe/Berlin] PHP Warning:  Missing argument 7 for Proses::eksekusi_query_datatable(), called in C:\xampp\htdocs\erp\pages\prod\webservices\getDataLaporanSummary.php on line 41 and defined in C:\xampp\htdocs\erp\pages\prod\webservices\getDataLaporanSummary.php on line 177
+[30-Jul-2021 11:10:26 Europe/Berlin] PHP Warning:  Missing argument 8 for Proses::eksekusi_query_datatable(), called in C:\xampp\htdocs\erp\pages\prod\webservices\getDataLaporanSummary.php on line 41 and defined in C:\xampp\htdocs\erp\pages\prod\webservices\getDataLaporanSummary.php on line 177
+[30-Jul-2021 11:10:26 Europe/Berlin] PHP Notice:  Undefined variable: columnSortOrder in C:\xampp\htdocs\erp\pages\prod\webservices\getDataLaporanSummary.php on line 180
+[05-Aug-2021 04:07:19 Europe/Berlin] PHP Notice:  Undefined index: data in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingOutputCategory.php on line 10
+[05-Aug-2021 04:07:19 Europe/Berlin] PHP Notice:  Undefined index: detail in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingOutputCategory.php on line 11
+[05-Aug-2021 04:32:30 Europe/Berlin] PHP Notice:  Undefined index: data in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingOutputCategory.php on line 10
+[05-Aug-2021 04:32:30 Europe/Berlin] PHP Notice:  Undefined index: detail in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingOutputCategory.php on line 11
+[05-Aug-2021 05:12:48 Europe/Berlin] PHP Notice:  Undefined index: data in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingOutputCategory.php on line 10
+[05-Aug-2021 05:12:48 Europe/Berlin] PHP Notice:  Undefined index: detail in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingOutputCategory.php on line 11
+[05-Aug-2021 05:32:35 Europe/Berlin] PHP Notice:  Undefined index: data in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingOutputCategory.php on line 10
+[05-Aug-2021 05:32:35 Europe/Berlin] PHP Notice:  Undefined index: detail in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingOutputCategory.php on line 11
+[05-Aug-2021 05:32:41 Europe/Berlin] PHP Notice:  Undefined index: data in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingOutputCategory.php on line 10
+[05-Aug-2021 05:32:41 Europe/Berlin] PHP Notice:  Undefined index: detail in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingOutputCategory.php on line 11
+[05-Aug-2021 05:37:09 Europe/Berlin] PHP Notice:  Undefined index: data in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingOutputCategory.php on line 10
+[05-Aug-2021 05:37:09 Europe/Berlin] PHP Notice:  Undefined index: detail in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingOutputCategory.php on line 11
+[05-Aug-2021 05:38:39 Europe/Berlin] PHP Notice:  Undefined index: data in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingOutputCategory.php on line 10
+[05-Aug-2021 05:38:39 Europe/Berlin] PHP Notice:  Undefined index: detail in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingOutputCategory.php on line 11
+[06-Aug-2021 09:37:58 Europe/Berlin] PHP Warning:  Missing argument 7 for Proses::eksekusi_query_datatable(), called in C:\xampp\htdocs\erp\pages\prod\webservices\getListSecondaryInput.php on line 29 and defined in C:\xampp\htdocs\erp\pages\prod\webservices\getListSecondaryInput.php on line 165
+[06-Aug-2021 09:37:58 Europe/Berlin] PHP Warning:  Missing argument 8 for Proses::eksekusi_query_datatable(), called in C:\xampp\htdocs\erp\pages\prod\webservices\getListSecondaryInput.php on line 29 and defined in C:\xampp\htdocs\erp\pages\prod\webservices\getListSecondaryInput.php on line 165
+[07-Aug-2021 10:20:49 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'public' (T_PUBLIC) in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingInput.php on line 198
+[07-Aug-2021 10:20:52 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'public' (T_PUBLIC) in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingInput.php on line 198
+[07-Aug-2021 10:24:55 Europe/Berlin] PHP Notice:  Undefined index: data in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingOutputCategory.php on line 10
+[07-Aug-2021 10:24:55 Europe/Berlin] PHP Notice:  Undefined index: detail in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingOutputCategory.php on line 11
+[07-Aug-2021 10:35:15 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'return' (T_RETURN), expecting function (T_FUNCTION) in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingInput.php on line 236
+[07-Aug-2021 10:35:17 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'return' (T_RETURN), expecting function (T_FUNCTION) in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingInput.php on line 236
+[07-Aug-2021 10:35:17 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'return' (T_RETURN), expecting function (T_FUNCTION) in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingInput.php on line 236
+[07-Aug-2021 10:35:17 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'return' (T_RETURN), expecting function (T_FUNCTION) in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingInput.php on line 236
+[07-Aug-2021 10:35:18 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'return' (T_RETURN), expecting function (T_FUNCTION) in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingInput.php on line 236
+[07-Aug-2021 10:35:18 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'return' (T_RETURN), expecting function (T_FUNCTION) in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingInput.php on line 236
+[07-Aug-2021 10:35:18 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'return' (T_RETURN), expecting function (T_FUNCTION) in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingInput.php on line 236
+[07-Aug-2021 11:38:32 Europe/Berlin] PHP Warning:  Missing argument 7 for Proses::eksekusi_query_datatable(), called in C:\xampp\htdocs\erp\pages\prod\webservices\getListSecondaryInput.php on line 29 and defined in C:\xampp\htdocs\erp\pages\prod\webservices\getListSecondaryInput.php on line 165
+[07-Aug-2021 11:38:32 Europe/Berlin] PHP Warning:  Missing argument 8 for Proses::eksekusi_query_datatable(), called in C:\xampp\htdocs\erp\pages\prod\webservices\getListSecondaryInput.php on line 29 and defined in C:\xampp\htdocs\erp\pages\prod\webservices\getListSecondaryInput.php on line 165
+[07-Aug-2021 12:24:51 Europe/Berlin] PHP Parse error:  syntax error, unexpected '=' in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingInput.php on line 117
+[07-Aug-2021 12:25:51 Europe/Berlin] PHP Parse error:  syntax error, unexpected '=' in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingInput.php on line 117
+[07-Aug-2021 12:28:06 Europe/Berlin] PHP Parse error:  syntax error, unexpected '=' in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingInput.php on line 115
+[07-Aug-2021 12:28:09 Europe/Berlin] PHP Parse error:  syntax error, unexpected '=' in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingInput.php on line 115
+[07-Aug-2021 12:28:27 Europe/Berlin] PHP Parse error:  syntax error, unexpected '=' in C:\xampp\htdocs\erp\pages\prod\webservices\saveCuttingInput.php on line 115

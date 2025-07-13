@@ -1,0 +1,948 @@
+<?php
+if (isset($_GET['parfromv']))
+	{	$toexcel="Y";
+$rpt="mut";
+header("Content-type: application/octet-stream"); 
+	header("Content-Disposition: attachment; filename=$rpt.xls");//ganti nama sesuai keperluan 
+	header("Pragma: no-cache"); 
+	header("Expires: 0");
+}
+else
+	{	$toexcel = "N"; }
+
+$rscomp=mysql_fetch_array(mysql_query("select * from mastercompany"));
+$nm_company = $rscomp["company"];
+$st_company = $rscomp["status_company"];
+$logo_company = $rscomp["logo_company"];
+//session_start();
+if (empty($_SESSION['username'])) { header("location:../../index.php"); }
+
+$user = $_SESSION['username']; #mendapatkan data id  dari method get
+$sesi = $_SESSION['sesi'];;
+if (isset($_GET['rptid'])) { $rpt = $_GET['rptid']; } else { $rpt = ""; }
+
+if ($nm_company=="PT. Seyang Indonesia")
+	{$mattypenya = "";}
+else
+	{$mattypenya = "";}
+
+if ($st_company=="KITE" AND $rpt=='bahanbaku2') {$header_cap="F. LAPORAN MUTASI BAHAN BAKU";} 
+elseif ($rpt=='bahanbaku2') {$header_cap="D. LAPORAN PERTANGGUNGJAWABAN MUTASI BAHAN BAKU DAN BAHAN PENOLONG 2";}
+elseif ($rpt=='mwipdet' OR $rpt=='mwiptot') {$header_cap="C. LAPORAN POSISI BARANG DALAM PROSES (WIP)";}
+elseif ($rpt=='hasil') {$header_cap="INPUT HASIL STOCKOPNAME BAHAN BAKU";}
+elseif ($rpt=='hasilsl') {$header_cap="INPUT HASIL STOCKOPNAME LIMBAH / SCRAP";}
+elseif ($rpt=='hasilwip') {$header_cap="INPUT HASIL STOCKOPNAME BARANG DALAM PROSES";}
+elseif ($rpt=='hasilmes') {$header_cap="INPUT HASIL STOCKOPNAME MESIN";}
+elseif ($rpt=='hasilfg') {$header_cap="INPUT HASIL STOCKOPNAME FG";}
+elseif ($rpt=='bahanbakupo' OR $rpt=='bahanbakupoitem') {$header_cap="LAPORAN PERTANGGUNGJAWABAN MUTASI BAHAN BAKU";} 
+elseif ($rpt=='gb_bahanbaku') {$header_cap="LAPORAN PERTANGGUNGJAWABAN MUTASI BARANG";} 
+elseif ($st_company=="KITE" AND $rpt=='barangjadi') {$header_cap="G. LAPORAN MUTASI HASIL PRODUKSI";}
+elseif ($st_company!="KITE" AND $rpt=='barangjadi') {$header_cap="LAPORAN PERTANGGUNGJAWABAN MUTASI BARANG JADI";}
+elseif ($rpt=='barangsisa') {$header_cap="LAPORAN PERTANGGUNGJAWABAN MUTASI BARANG SISA DAN SCRAP";}
+elseif ($rpt=='mesin') {$header_cap="LAPORAN PERTANGGUNGJAWABAN MUTASI MESIN DAN PERALATAN PERKANTORAN";}
+elseif ($rpt=='itemgen') {$header_cap="LAPORAN MUTASI ITEM GENERAL";}
+
+
+if (isset($_GET['parfromv']))
+	{	$tglf = $_GET['parfrom'];
+$perf = date('d F Y', strtotime($tglf));
+$tglt = $_GET['parto'];
+$pert = date('d F Y', strtotime($tglt));
+}
+else
+	{	$tglf = fd($_POST['txtfrom']);
+$perf = date('d F Y', strtotime($tglf));
+$tglt = fd($_POST['txtto']);
+$pert = date('d F Y', strtotime($tglt));
+
+}
+//===adyz====================================================
+if ($rpt=='itemgen')
+{
+	if (isset($_GET['katitemgen']))
+		{$MTCLASSGEN= $_GET['katitemgen'];}
+	else
+		{$MTCLASSGEN= $_POST['txtparitem'];}
+	$header_cap="LAPORAN MUTASI ITEM GENERAL ($MTCLASSGEN)";	
+}
+elseif ($rpt=='bahanbaku2')
+{
+	if (isset($_GET['katitembb']))
+	{
+		$katbb = $_GET['katitembb'];
+		if ($katbb=='-')
+		{    
+			$f_class=" and matclass in ('ACCESORIES PACKING','ACCESORIES SEWING')";
+			$header_cap="LAPORAN PERTANGGUNGJAWABAN MUTASI BAHAN BAKU DAN BAHAN PENOLONG ACCESORIES PACKING DAN SEWING";	
+		}
+		else
+		{
+			$f_class=" and matclass='".$_GET['katitembb']."'";
+			$header_cap="LAPORAN PERTANGGUNGJAWABAN MUTASI BAHAN BAKU DAN BAHAN PENOLONG (".$_GET['katitembb'].")";				
+		}
+	}
+	else
+	{ 
+		$katbb = $_POST['txtparitem'];
+		if ($katbb=='-')
+		{
+			$f_class=" and matclass in ('ACCESORIES PACKING','ACCESORIES SEWING')";
+		}
+		else
+		{
+			$f_class=" and matclass='".$_POST['txtparitem']."'";
+		}
+		$header_cap="LAPORAN PERTANGGUNGJAWABAN MUTASI BAHAN BAKU DAN BAHAN PENOLONG (".$_POST['txtparitem'].")";		
+	}
+	
+}
+else
+{
+	if (isset($_POST['txtparitem'])) { $f_class=" and matclass='".$_POST['txtparitem']."'"; } else { $f_class=""; }
+}
+
+//----------------------------------------------------------------------------------------------------------------
+
+//if (isset($_POST['txtparitem'])) { $f_class=" and matclass='".$_POST['txtparitem']."'"; } else { $f_class=""; }
+$sql="X".$header_cap."-".$rpt." Dari ".$perf." s/d ".$pert;
+
+insert_log($sql,$user);
+?>
+
+<html>
+<head>
+	<title><?PHP echo $header_cap;?></title>
+</head>
+<body>
+	<?PHP
+
+	if ($rpt=="hasil" OR $rpt=="hasilsl" OR $rpt=="hasilwip" OR $rpt=="hasilmes" OR $rpt=="hasilfg")
+		{	echo "<form method='post' name='form' action='save_hasil_opname.php?tgl=$tglt&mode=$rpt'>"; }
+	if ($rpt=='gb_bahanbaku')
+		{ echo "GUDANG BERIKAT "; echo strtoupper($nm_company); }
+	elseif ($st_company=="KITE")
+		{ echo $header_cap; echo "<br>"; echo strtoupper($nm_company); }
+	elseif ($st_company!="KITE" AND $rpt!="hasil" AND $rpt!="hasilsl" AND $rpt!="hasilwip" AND $rpt!="hasilmes" AND $rpt!="hasilfg")
+		{ echo "KAWASAN BERIKAT "; echo strtoupper($nm_company); }
+	if ($st_company!="KITE" AND $rpt!="hasil" AND $rpt!="hasilsl" AND $rpt!="hasilwip" AND $rpt!="hasilmes" AND $rpt!="hasilfg") { echo "<br>"; echo $header_cap; }
+	if ($rpt!="hasil" AND $rpt!="hasilsl" AND $rpt!="hasilwip" AND $rpt!="hasilmes" AND $rpt!="hasilfg") 
+		{ echo "<br>";
+	echo "PERIODE "; echo strtoupper($perf); echo " S/D "; echo strtoupper($pert); 
+	echo "<br>";
+}
+else
+	{ if ($rpt=="hasil")
+{	echo "INPUT HASIL STOCK OPNAME BAHAN BAKU DAN PENOLONG PERIODE "; }
+else if ($rpt=="hasilsl")
+	{	echo "INPUT HASIL STOCK OPNAME SCRAP / LIMBAH PERIODE "; }
+else if ($rpt=="hasilwip")
+	{	echo "INPUT HASIL STOCK OPNAME BARANG DALAM PROSES PERIODE "; }
+else if ($rpt=="hasilmes")
+	{	echo "INPUT HASIL STOCK OPNAME MESIN PERIODE "; }
+else if ($rpt=="hasilfg")
+	{	echo "INPUT HASIL STOCK OPNAME BARANG JADI PERIODE "; }
+echo strtoupper($perf); echo " S/D "; echo strtoupper($pert); 
+}
+?>
+<?PHP 
+if ($toexcel!="Y" AND $rpt!="hasil" AND $rpt!="hasilsl" AND $rpt!="hasilwip" AND $rpt!="hasilmes" AND $rpt!="hasilfg")
+{	
+		//=adyz===========================================================================================================================================================================================
+	if ($rpt=='itemgen')
+	{	
+		echo "<a class='btn btn-info btn-sm' href='?mod=view_mut&katitemgen=$MTCLASSGEN&parfrom=$tglf&parto=$tglt&parfromv=$perf&partov=$pert&rptid=$rpt&dest=xls'>Export To Excel</a>";	
+		echo "<br>";
+		echo "-";
+	}
+	elseif ($rpt=='bahanbaku2')
+	{
+		if ($katbb == 'FABRIC') {
+			echo "<a class='btn btn-info btn-sm' href='?mod=lap_mutasi_fabric&parfrom=$tglf&parto=$tglt&dest=xls'>Export To Excel</a>";	
+		echo "<br>";
+		echo "-";
+		}else{
+
+		echo "<a class='btn btn-info btn-sm' href='?mod=view_mut_new&katitembb=$katbb&parfrom=$tglf&parto=$tglt&parfromv=$perf&partov=$pert&rptid=$rpt&dest=xls'>Export To Excel</a>";	
+		echo "<br>";
+		echo "-";
+		}
+	}
+	else
+		{	echo "<a class='btn btn-info btn-sm' href='?mod=view_mut&parfrom=$tglf&parto=$tglt&parfromv=$perf&partov=$pert&rptid=$rpt&dest=xls'>Save To Excel</a>";	
+	echo "<br>";
+	echo "-";
+}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+}
+
+$vNama_View = Array("vmut_in_before", "vmut_out_before", "vmut_ri_before", "vmut_ro_before");
+$vNama_Tbl = Array("bpb", "bppb", "hreturn", "hreturn");
+$vNama_Alias = Array("QtyBPB", "QtyBPPB", "QtyRI", "QtyRO");
+$vWherey = Array("a.bpbdate", "a.bppbdate", "a.returndate", "a.returndate");
+if ($rpt=='bahanbaku2' or $rpt=='bahanbakupo' or $rpt=='bahanbakupoitem' or $rpt=='gb_bahanbaku')
+	{	$tbl_master = "masteritem";
+if ($nm_company=="PT. Youngil Leather Indonesia")
+		{ $cri_mat = "where a.mattype not in ('M','S','L')"; } # Type C tetap dimunculkan
+	else
+		{ $cri_mat = "where a.mattype not in ('M','S','L','C','N') $f_class "; }
+	$fld_mat = "z.mattype";
+	if ($nm_company=="PT. Jinwoo Engineering Indonesia")
+		{	$fld_item = "if (a.matclass='' OR a.matclass='-',a.itemdesc,concat(a.matclass,' (',a.itemdesc,')'))"; }
+	else if ($nm_company=="PT. Hwaseung IBS Indonesia")
+		{	$fld_item = "if (a.goods_code2='',a.itemdesc,concat(a.itemdesc,' (',a.goods_code2,')'))"; }
+	else if ($nm_company=="PT. Bangun Sarana Alloy")
+		{	$fld_item = "concat(a.itemdesc,' ',a.color,' ',a.size)"; }
+	else
+		{	$fld_item = "a.itemdesc"; }
+	$vWherex = Array("left(a.bpbno,2)<>'FG' and left(a.bpbno,1) not in ('M','S','L')", 
+		"mid(a.bppbno,4,2)<>'FG' and mid(a.bppbno,4,1) not in ('M','S','L')",
+		"left(a.returnno,5)<>'RI-FG' and left(a.returnno,4) not in ('RI-M','RI-S','RI-L')", 
+		"left(a.returnno,5)<>'RO-FG' and left(a.returnno,4) not in ('RO-M','RO-S','RO-L')");
+}
+elseif ($rpt=='barangjadi')
+	{	$tbl_master = "masterstyle";
+$cri_mat = "";
+$fld_mat = "'FG'";
+if ($nm_company=="PT. Bangun Sarana Alloy")
+	{	$fld_item = "a.size";	}
+else if ($nm_company=="PT. Bintang Mandiri Hanafindo")
+	{	$fld_item = "concat(a.kpno,' ',a.styleno,' ',a.itemname)";	}
+else
+	{	$fld_item = "a.itemname";	}
+$vWherex = Array("left(a.bpbno,2)='FG'", "mid(a.bppbno,4,2)='FG'", "left(a.returnno,5)='RI-FG'", "left(a.returnno,5)='RO-FG'");
+}
+elseif ($rpt=='barangsisa')
+	{	$tbl_master = "masteritem";
+$cri_mat = "where a.mattype in ('S','L')";
+$fld_mat = "z.mattype";
+$fld_item = "a.itemdesc";
+$vWherex = Array("left(a.bpbno,2)<>'FG' and left(a.bpbno,1) in ('S','L')", 
+	"mid(a.bppbno,4,2)<>'FG' and mid(a.bppbno,4,1) in ('S','L')",
+	"left(a.returnno,5)<>'RI-FG' and left(a.returnno,4) in ('RI-S','RI-L')", 
+	"left(a.returnno,5)<>'RO-FG' and left(a.returnno,4) in ('RO-S','RO-L')");
+}
+elseif ($rpt=='mesin')
+	{	$tbl_master = "masteritem";
+$cri_mat = "where (a.mattype in ('M') or a.tipe_mut='Mesin')";
+$fld_mat = "z.mattype";
+$fld_item = "a.itemdesc";
+$vWherex = Array(
+	"left(a.bpbno,2)<>'FG' and (left(a.bpbno,1) in ('M') or s.tipe_mut='Mesin')",
+	"mid(a.bppbno,4,2)<>'FG' and (mid(a.bppbno,4,1) in ('M') or s.tipe_mut='Mesin')",
+	"left(a.returnno,5)<>'RI-FG' and (left(a.returnno,4) in ('RI-M') or s.tipe_mut='Mesin')",
+	"left(a.returnno,5)<>'RO-FG' and (left(a.returnno,4) in ('RO-M') or s.tipe_mut='Mesin')");
+}
+
+elseif ($rpt=='itemgen')
+{	
+	if (isset($MTCLASSGEN)) 
+		{ $cri_mat = "where a.mattype in ('N') and a.n_code_category in (select n_id from mapping_category where description='$MTCLASSGEN') ";} 
+	else 
+		{ $cri_mat = "where a.mattype in ('N') "; }; 
+
+	$tbl_master = "masteritem";		
+	$fld_mat = "z.mattype";
+	$fld_item = "a.itemdesc";
+	$vWherex = Array(
+		"left(a.bpbno,2)<>'FG' and left(a.bpbno,1) in ('N')",
+		"mid(a.bppbno,4,2)<>'FG' and mid(a.bppbno,4,1) in ('N')",
+		"left(a.returnno,5)<>'RI-FG' and left(a.returnno,4) in ('RI-N') ",
+		"left(a.returnno,5)<>'RO-FG' and left(a.returnno,4) in ('RO-N') ");
+
+}
+
+elseif ($rpt=='mwiptot' OR $rpt=='mwipdet')
+	{	$tbl_master = "masteritem";
+$cri_mat = "where a.mattype in ('C')";
+$fld_mat = "z.mattype";
+$fld_item = "a.itemdesc";
+$vWherex = Array("left(a.bpbno,2)<>'FG' and left(a.bpbno,1) in ('C')",
+	"mid(a.bppbno,4,2)<>'FG' and mid(a.bppbno,4,1) in ('C')",
+	"left(a.returnno,5)<>'RI-FG' and left(a.returnno,4) in ('RI-C')",
+	"left(a.returnno,5)<>'RO-FG' and left(a.returnno,4) in ('RO-C')");
+}
+elseif ($rpt=='hasil')
+	{	$tbl_master = "masteritem";
+$cekmutwip=flookup("username","userpassword","mutasi_wip='1' limit 1");
+$strmatnya = "'A','F','P','B'";
+$cri_mat = "where (a.mattype in ($strmatnya) or it_inv='Y') ";
+$fld_mat = "z.mattype";
+if ($nm_company=="PT. Hwaseung IBS Indonesia")
+	{ $fld_item = "if (a.goods_code2='',a.itemdesc,concat(a.itemdesc,' (',a.goods_code2,')'))"; } 
+else
+	{ $fld_item = "a.itemdesc"; }
+$vWherex = Array("left(a.bpbno,2)<>'FG' and left(a.bpbno,1) in ($strmatnya)",
+	"mid(a.bppbno,4,2)<>'FG' and mid(a.bppbno,4,1) in ($strmatnya) ",
+	"left(a.returnno,5)<>'RI-FG' and mid(a.returnno,4,1) in ($strmatnya)",
+	"left(a.returnno,5)<>'RO-FG' and mid(a.returnno,4,1) in ($strmatnya)");
+}
+elseif ($rpt=='hasilsl')
+	{	$tbl_master = "masteritem";
+$strmatnya = "'S','L'";
+$cri_mat = "where a.mattype in ($strmatnya)";
+$fld_mat = "z.mattype";
+$fld_item = "a.itemdesc";
+$vWherex = Array("left(a.bpbno,2)<>'FG' and left(a.bpbno,1) in ($strmatnya)",
+	"mid(a.bppbno,4,2)<>'FG' and mid(a.bppbno,4,1) in ($strmatnya)",
+	"left(a.returnno,5)<>'RI-FG' and left(a.returnno,4) in ('RI-C')",
+	"left(a.returnno,5)<>'RO-FG' and left(a.returnno,4) in ('RO-C')");
+}
+elseif ($rpt=='hasilwip')
+	{	$tbl_master = "masteritem";
+$strmatnya = "'C'";
+$cri_mat = "where a.mattype in ($strmatnya)";
+$fld_mat = "z.mattype";
+$fld_item = "a.itemdesc";
+$vWherex = Array("left(a.bpbno,2)<>'FG' and left(a.bpbno,1) in ($strmatnya)",
+	"mid(a.bppbno,4,2)<>'FG' and mid(a.bppbno,4,1) in ($strmatnya)",
+	"left(a.returnno,5)<>'RI-FG' and left(a.returnno,4) in ('RI-C')",
+	"left(a.returnno,5)<>'RO-FG' and left(a.returnno,4) in ('RO-C')");
+}
+elseif ($rpt=='hasilmes')
+	{	$tbl_master = "masteritem";
+$strmatnya = "'M'";
+$cri_mat = "where a.mattype in ($strmatnya)";
+$fld_mat = "z.mattype";
+$fld_item = "a.itemdesc";
+$vWherex = Array("left(a.bpbno,2)<>'FG' and left(a.bpbno,1) in ($strmatnya)",
+	"mid(a.bppbno,4,2)<>'FG' and mid(a.bppbno,4,1) in ($strmatnya)",
+	"left(a.returnno,5)<>'RI-FG' and left(a.returnno,4) in ('RI-C')",
+	"left(a.returnno,5)<>'RO-FG' and left(a.returnno,4) in ('RO-C')");
+}
+elseif ($rpt=='hasilfg')
+	{	$tbl_master = "masterstyle";
+$strmatnya = "'FG'";
+$cri_mat = "";
+$fld_mat = "'FG'";
+$fld_item = "a.itemname";
+$vWherex = Array("left(a.bpbno,2)='FG' ",
+	"mid(a.bppbno,4,2)='FG' ",
+	"left(a.returnno,5)='RI-FG' ",
+	"left(a.returnno,5)='RO-FG' ");
+}
+
+## UNTUK SALDO AWAL TRANSAKSI====================================================================
+For($aa=0;$aa<=3;$aa++)
+{	$nama_view = $vNama_View[$aa];
+	if ($nama_view=='vmut_ri_before') 
+		{ $sql2 = " and returnno like 'RI%'"; }
+	elseif ($nama_view=='vmut_ro_before') 
+		{ $sql2 = " and returnno like 'RO%'"; }
+	else
+		{ $sql2 = " "; }
+
+	mysql_query ("drop table if exists $vNama_View[$aa]");
+	if ($rpt=='bahanbakupo' or $rpt=='bahanbakupoitem')
+		{ if ($nama_view=='vmut_ri_before' OR $nama_view=='vmut_ro_before')
+	{ $vfldpo="a.returnno";}
+	else if ($nama_view=='vmut_out_before')
+		{ $vfldpo="a.kpno";}
+	else
+		{ $vfldpo="a.pono";}
+	if ($rpt=="bahanbakupoitem")
+		{ mysql_query ("create table $vNama_View[$aa] select 'FG',$vfldpo pono,a.id_item,sum(a.qty) $vNama_Alias[$aa],a.unit from $vNama_Tbl[$aa] a inner join 
+			$tbl_master s on a.id_item=s.id_item where a.qty>0 
+			and $vWherex[$aa] and $vWherey[$aa] <'$tglf' $sql2 group by $vfldpo,a.id_item,a.unit" );
+}
+else
+	{ mysql_query ("create table $vNama_View[$aa] select 'FG',$vfldpo id_item,sum(a.qty) $vNama_Alias[$aa],a.unit from $vNama_Tbl[$aa] a inner join 
+		$tbl_master s on a.id_item=s.id_item where a.qty>0 
+		and $vWherex[$aa] and $vWherey[$aa] <'$tglf' $sql2 group by $vfldpo,a.unit" );									
+
+}
+mysql_query ("alter table $vNama_View[$aa] add index id_idx(id_item)");
+}
+else
+	{ mysql_query ("create table $vNama_View[$aa] select 'FG',a.id_item,sum(a.qty) $vNama_Alias[$aa],a.unit from $vNama_Tbl[$aa] a inner join 
+		$tbl_master s on a.id_item=s.id_item where a.qty>0 
+		and $vWherex[$aa] and $vWherey[$aa] <'$tglf' $sql2 group by s.id_item,a.unit" );
+
+				//  echo ("create table $vNama_View[$aa] select 'FG',a.id_item,sum(a.qty) $vNama_Alias[$aa],a.unit from $vNama_Tbl[$aa] a inner join 
+				//  $tbl_master s on a.id_item=s.id_item where a.qty>0 
+				//  and $vWherex[$aa] and $vWherey[$aa] <'$tglf' $sql2 group by s.id_item,a.unit" );
+
+				// echo (
+				// 	"create table $vNama_View[$aa] select 'FG',a.id_item,sum(a.qty) $vNama_Alias[$aa],a.unit from $vNama_Tbl[$aa] a inner join 
+				// $tbl_master s on a.id_item=s.id_item where a.qty>0 
+				// and $vWherex[$aa] and $vWherey[$aa] <'$tglf' $sql2 group by s.id_item,a.unit"
+				// );
+
+mysql_query ("alter table $vNama_View[$aa] add index id_idx(id_item)");
+}
+}
+
+ ##UNTUK YANG CURRENT TRANSAKSI ##==============================================================
+
+$vNama_View = Array("vmut_in_curr", "vmut_out_curr", "vmut_ri_curr", "vmut_ro_curr");
+For($aa=0;$aa<=3;$aa++)
+{	$nama_view = $vNama_View[$aa];
+	if ($nama_view=='vmut_ri_curr') 
+		{ $sql2 = " and returnno like 'RI%'"; }
+	elseif ($nama_view=='vmut_ro_curr') 
+		{ $sql2 = " and returnno like 'RO%'"; }
+	else
+		{ $sql2 = " "; }
+
+	mysql_query ("drop table if exists $vNama_View[$aa]");
+	if ($rpt=="bahanbakupo" or $rpt=="bahanbakupoitem")
+		{ if ($nama_view=='vmut_ri_curr' OR $nama_view=='vmut_ro_curr')
+	{ $vfldpo="a.returnno";}
+	else if ($nama_view=='vmut_out_curr')
+		{ $vfldpo="a.kpno";}
+	else
+		{ $vfldpo="a.pono";}
+	if ($rpt=="bahanbakupoitem")
+		{ mysql_query ("create table $vNama_View[$aa] select 'FG',$vfldpo pono,a.id_item,sum(a.qty) $vNama_Alias[$aa],a.unit from $vNama_Tbl[$aa] a inner join 
+			$tbl_master s on a.id_item=s.id_item where a.qty>0 $sql2 and $vWherex[$aa] and $vWherey[$aa]>='$tglf' and $vWherey[$aa]<='$tglt' 
+			group by $vfldpo,a.id_item,a.unit");
+}
+else
+	{ mysql_query ("create table $vNama_View[$aa] select 'FG',$vfldpo id_item,sum(a.qty) $vNama_Alias[$aa],a.unit from $vNama_Tbl[$aa] a inner join 
+		$tbl_master s on a.id_item=s.id_item where a.qty>0 $sql2 and $vWherex[$aa] and $vWherey[$aa]>='$tglf' and $vWherey[$aa]<='$tglt' 
+		group by $vfldpo,a.unit");
+}  
+mysql_query ("alter table $vNama_View[$aa] add index id_idx(id_item)");
+}
+else
+	{ mysql_query ("create table $vNama_View[$aa] select 'FG',a.id_item,sum(a.qty) $vNama_Alias[$aa],a.unit from $vNama_Tbl[$aa] a inner join 
+		$tbl_master s on a.id_item=s.id_item where a.qty>0 $sql2 and $vWherex[$aa] and $vWherey[$aa]>='$tglf' and $vWherey[$aa]<='$tglt' 
+		group by s.id_item,a.unit");
+
+				//  echo("create table $vNama_View[$aa] select 'FG',a.id_item,sum(a.qty) $vNama_Alias[$aa],a.unit from $vNama_Tbl[$aa] a inner join 
+				//  $tbl_master s on a.id_item=s.id_item where a.qty>0 $sql2 and $vWherex[$aa] and $vWherey[$aa]>='$tglf' and $vWherey[$aa]<='$tglt' 
+				//  group by s.id_item,a.unit");
+
+mysql_query ("alter table $vNama_View[$aa] add index id_idx(id_item)");
+}
+}
+
+  ##GABUNGKAN TRANS UNTUK CARI SALDO AWAL======================================================= 
+mysql_query ("drop table if exists vmut_gab_before");
+if ($rpt=="bahanbakupo" or $rpt=="bahanbakupoitem")
+	{ if ($rpt=="bahanbakupoitem")
+{ $fromnya = "from vmut_in_before s left join vmut_out_before d on s.pono=d.pono and s.id_item=d.id_item 
+left join vmut_ri_before f on s.pono=f.pono and s.id_item=f.id_item left join vmut_ro_before g on s.pono=g.pono and s.id_item=g.id_item";
+$fldidnya = "s.pono,s.id_item";
+}
+else
+	{ $fromnya = "from vmut_in_before s left join vmut_out_before d on s.id_item=d.id_item 
+left join vmut_ri_before f on s.id_item=f.id_item left join vmut_ro_before g on s.id_item=g.id_item";
+$fldidnya = "s.id_item";
+}
+$fld_mat = "''";
+}
+else
+{ 
+		// $fromnya = "from $tbl_master z left join vmut_in_before s on z.id_item=s.id_item left join vmut_out_before d on z.id_item=d.id_item left join 
+		// vmut_ri_before f on z.id_item=f.id_item left join vmut_ro_before g on z.id_item=g.id_item";
+
+	$fromnya = "from $tbl_master z 
+	left join vmut_in_before s on z.id_item=s.id_item 
+	left join vmut_out_before d on z.id_item=d.id_item AND s.unit=d.unit 
+	left join vmut_ri_before f on z.id_item=f.id_item AND s.unit=f.unit 
+	left join vmut_ro_before g on z.id_item=g.id_item AND s.unit=g.unit  ";
+
+
+	$fldidnya = "z.id_item";
+}
+	// $sql = "create table vmut_gab_before 
+	//      select $fld_mat vMat,$fldidnya,
+	//  	if(isnull(s.QtyBPB),0,s.QtyBPB) QtyBPB_Before,
+	//  	if(isnull(d.QtyBPPB),0,d.QtyBPPB) QtyBPPB_Before,
+	// 	if(isnull(f.QtyRI),0,f.QtyRI) QtyRI_Before,
+	//  	if(isnull(g.QtyRO),0,g.QtyRO) QtyRO_Before,
+	//  	(if(isnull(s.QtyBPB),0,s.QtyBPB)+if(isnull(f.QtyRI),0,f.QtyRI))  - (if(isnull(d.QtyBPPB),0,d.QtyBPPB)+if(isnull(g.QtyRO),0,g.QtyRO)) Saldo_Akhir,
+	//  	s.unit $fromnya  
+	// 	group by $fldidnya,s.unit ";
+
+$sql = "create table vmut_gab_before 
+SELECT kat AS vMat,id_item, SUM(qtyin) AS QtyBPB_Before, SUM(qtyout) AS QtyBPPB_Before, SUM(qtyri) AS QtyRI_Before, SUM(qtyro) AS QtyRO_Before, 
+(SUM(qtyin)+SUM(qtyri))-(SUM(qtyout)+SUM(qtyro)) AS Saldo_Akhir,unit 
+FROM ( SELECT FG AS KAT,ID_ITEM, QtyBPB AS QTYIN,0 AS QTYOUT,0 QTYRI, 0 QTYRO, UNIT FROM vmut_in_before 
+UNION 
+SELECT FG AS KAT, ID_ITEM,0 AS QTYIN, QtyBPPB AS QTYOUT,0 QTYRI, 0 QTYRO, UNIT FROM vmut_OUT_before 
+UNION 
+SELECT FG AS KAT,ID_ITEM,0 AS QTYIN,0 AS QTYOUT,QTYRI AS QTYRI,0 QTYRO, UNIT FROM vmut_RI_before
+UNION 
+SELECT FG AS KAT,ID_ITEM,0 AS QTYIN,0 AS QTYOU, 0 AS QTYRI, QTYRO AS RO, UNIT FROM vmut_RO_before) AS tx 
+GROUP BY kat,id_item,unit 
+ORDER BY id_item ";	
+
+	 #echo($sql); 	
+
+mysql_query ($sql);
+
+#==========================================================================================================================
+
+# GABUNGKAN UNTUK TRANSAKSI CURRENT
+mysql_query ("drop table if exists vmut_gab_curr");
+if ($rpt=="bahanbakupo" or $rpt=="bahanbakupoitem")
+	{ if ($rpt=="bahanbakupoitem")
+{ $fromnya = "from vmut_in_curr s left join vmut_out_curr d on s.pono=d.pono and s.id_item=d.id_item 
+left join vmut_ri_curr f on s.pono=f.pono and s.id_item=f.id_item left join vmut_ro_curr g on s.pono=g.pono and s.id_item=g.id_item";
+$fldidnya = "s.pono,s.id_item";
+}
+else
+	{ $fromnya = "from vmut_in_curr s left join vmut_out_curr d on s.id_item=d.id_item 
+left join vmut_ri_curr f on s.id_item=f.id_item left join vmut_ro_curr g on s.id_item=g.id_item";
+$fldidnya = "s.id_item";
+}
+$fld_mat = "''";
+}
+else
+{ 
+	$fromnya = "from $tbl_master z left join vmut_in_curr s on z.id_item=s.id_item left join vmut_out_curr d on z.id_item=d.id_item and s.unit=d.unit
+	left join vmut_ri_curr f on z.id_item=f.id_item and s.unit=f.unit left join vmut_ro_curr g on z.id_item=g.id_item and s.unit=g.unit ";
+	$fldidnya = "z.id_item";
+}
+
+
+	// $sql = 
+	//     "create table vmut_gab_curr select $fld_mat vMat,$fldidnya,
+	// 	if(isnull(s.QtyBPB),0,s.QtyBPB) QtyBPB_curr,
+	// 	if(isnull(d.QtyBPPB),0,d.QtyBPPB) QtyBPPB_curr,
+	// 	if(isnull(f.QtyRI),0,f.QtyRI) QtyRI_curr,
+	// 	if(isnull(g.QtyRO),0,g.QtyRO) QtyRO_curr,
+	// 	(if(isnull(s.QtyBPB),0,s.QtyBPB)+if(isnull(f.QtyRI),0,f.QtyRI))  - (if(isnull(d.QtyBPPB),0,d.QtyBPPB)+if(isnull(g.QtyRO),0,g.QtyRO)) Saldo_Akhir,
+	// 	if(isnull(s.unit),d.unit,s.unit) unit $fromnya  group by $fldidnya,unit ";
+
+
+$sql = 
+"create table vmut_gab_curr 
+SELECT kat AS vMat,id_item, SUM(qtyin) AS QtyBPB_curr, SUM(qtyout) AS QtyBPPB_curr, SUM(qtyri) AS QtyRI_curr, SUM(qtyro) AS QtyRO_curr, 
+(SUM(qtyin)+SUM(qtyri))-(SUM(qtyout)+SUM(qtyro)) AS Saldo_Akhir,unit FROM
+(SELECT FG AS KAT,ID_ITEM, QtyBPB AS QTYIN,0 AS QTYOUT,0 QTYRI, 0 QTYRO, UNIT FROM vmut_in_curr
+UNION
+SELECT FG AS KAT, ID_ITEM,0 AS QTYIN, QtyBPPB AS QTYOUT,0 QTYRI, 0 QTYRO, UNIT FROM vmut_OUT_curr
+UNION
+SELECT FG AS KAT,ID_ITEM,0 AS QTYIN,0 AS QTYOUT,QTYRI AS QTYRI,0 QTYRO, UNIT FROM vmut_RI_curr
+UNION
+SELECT FG AS KAT,ID_ITEM,0 AS QTYIN,0 AS QTYOU, 0 AS QTYRI, QTYRO AS RO, UNIT FROM vmut_RO_curr) AS tx
+GROUP BY kat,id_item,unit
+ORDER BY id_item ";
+
+	#echo ($sql);
+
+mysql_query ($sql);
+
+	#==========================================================================================================================
+
+mysql_query ("delete from vmut_gab_curr where qtybpb_curr=0 and qtyri_curr=0 and qtybppb_curr=0 and qtyro_curr=0");
+mysql_query ("delete from vmut_gab_before where (qtybpb_before+qtyri_before)-(qtybppb_before+qtyro_before)=0");
+$cek=flookup("goods_code_only","mastercompany","goods_code_only='Y'");
+
+if ($nm_company=="PT. Bangun Sarana Alloy" AND $rpt=="bahanbaku") 
+	{	$grnya = "a.id_item"; } 
+else if ($nm_company=="PT. Bangun Sarana Alloy" AND $rpt=='barangjadi') 
+	{	$grnya = "a.size"; } 
+else if ($nm_company=="PT. Jinwoo Engineering Indonesia" AND $rpt=='barangjadi') 
+	{	$grnya = "a.goods_code"; } 
+else if ($logo_company=="S" AND $rpt=='barangjadi') 
+	{	$grnya = "a.goods_code,a.itemname"; } 
+else if ($cek=="Y") 
+	{	$grnya = "a.goods_code, unit";	}
+else 
+	{	$grnya = "a.id_item";	}
+
+if ($nm_company=="PT. Seyang Indonesia" AND $rpt!='barangjadi') 
+	{	$kdnya = "if(goods_code<>'',goods_code,concat(a.mattype,' ',a.id_item))";	} 
+else if ($nm_company=="PT. Sinar Gaya Busana" AND $rpt!='barangjadi') 
+	{	$kdnya = " goods_code ";	} 
+else if ($nm_company=="PT. Bangun Sarana Alloy" AND $rpt=='barangjadi') 
+	{	$kdnya = "if(a.itemname like 'WIRE%',itemname,styleno)";	} 
+else
+	{	if ($rpt=='barangjadi' OR $rpt=="hasilfg")
+{ $kdnya = "if(a.goods_code<>'' AND a.goods_code<>'-' AND a.goods_code<>'0'
+,a.goods_code,concat('FG ',a.id_item))"; 
+}
+else 
+	{ $kdnya = "if(a.goods_code<>'' AND a.goods_code<>'-' AND a.goods_code<>'0'
+,a.goods_code,concat(a.mattype,' ',a.id_item))"; 
+}
+}
+
+mysql_query ("alter table vmut_gab_curr add index id_idx(id_item)");
+mysql_query ("alter table vmut_gab_before add index id_idx(id_item)");
+
+if ($rpt=="bahanbakupo")
+	{ mysql_query ("drop table if exists master_po");
+mysql_query ("CREATE TABLE master_po (id_item varchar(50) NULL, mattype varchar(1) NULL)");
+mysql_query ("insert into master_po select a.id_item,'A' from vmut_gab_before a left join master_po s on a.id_item=s.id_item where s.id_item is null group by a.id_item");
+mysql_query ("insert into master_po select a.id_item,'A' from vmut_gab_curr a left join master_po s on a.id_item=s.id_item where s.id_item is null group by a.id_item");
+$tbl_master = "master_po";
+$kdnya = "a.id_item";
+$fld_item = "''";
+}
+else if ($rpt=="bahanbakupoitem")
+	{ $kdnya = "d.pono";
+$grnya = "d.pono,a.id_item";
+}
+if ($nm_company=="PT. Gaya Indah Kharisma" OR $nm_company=="PT. Sinar Gaya Busana")
+	{ $ordernya="a.goods_code"; }
+else
+	{ $ordernya=$grnya; }
+
+if ($rpt=="hasil" OR $rpt=="hasilsl" OR $rpt=="hasilwip" OR $rpt=="hasilmes" OR $rpt=="hasilfg")
+	{	echo "<table id='examplefix3' class='table table-bordered table-striped' style='font-size:11px;'>"; }
+else
+	{	echo "<table id='examplefix3' width='100%' border='1' style='font-size:12px;' class='table table-bordered table-striped'>"; }
+?>
+<thead>
+	<tr>
+		<th>NO.</th>
+		<th>ID ITEM</th>
+		<?php
+		if ($rpt=="bahanbakupo")
+			{ echo "<th>NO. PO</th>";
+		echo "<th>&nbsp </th>";
+	}
+	else if ($rpt=="barangjadi" AND $nm_company=="PT. Bangun Sarana Alloy")
+		{ echo "<th>NO. ORDER</th>"; 
+	echo "<th>KODE BARANG</th>";
+	echo "<th>SIZE</th>";
+	echo "<th>NAMA BARANG</th>";
+	echo "<th>WARNA</th>";
+}
+else if ($rpt=="bahanbakupoitem")
+	{ echo "<th>NO. PO</th>";
+echo "<th>JENIS BENANG</th>";
+}
+else
+	{ if ($rpt=="hasil")
+{	echo "<th>KLASIFIKASI</th>"; }
+echo "<th>KODE BARANG</th>";
+echo "<th>NAMA BARANG </th>";
+}
+?>
+<th>SAT</th>
+<?php 
+if ($rpt!="mwiptot")
+	{	echo "
+<th>SALDO AWAL</th>
+<th>PEMASUKAN</th>
+<th>PENGELUARAN</th>
+<th>PENYESUAIAN</th>
+<th>SALDO AKHIR</th>
+<th>STOCK OPNAME</th>
+<th>SELISIH</th>
+<th>KETERANGAN</th>";
+}
+else
+{	
+	echo "
+	<th>JUMLAH</th>
+	<th>KETERANGAN</th>";
+}
+?>
+</tr>
+</thead>
+<tbody>
+	<?php
+	if ($tbl_master=="masterstyle") 
+	{ 
+		$sql_add=",kpno,itemname,color"; 
+	}
+	else if ($tbl_master=="masteritem") 
+	{ 
+		$sql_add=",matclass"; 
+	} 
+	else 
+	{ 
+		$sql_add=""; 
+	}
+	/*
+	$sqlk = "select  $kdnya kode_brg,$fld_item nama_brg,
+		sum(ifnull(s.saldo_akhir,0)) saldo_awal,
+		sum(ifnull((d.qtybpb_curr+d.qtyri_curr),0)) qtyrcv,
+		sum(ifnull((d.qtybppb_curr+d.qtyro_curr),0)) qtyout,
+		if(max(d.unit)='' or isnull(max(d.unit)),max(s.unit),max(d.unit)) unit,
+		a.id_item $sql_add 
+		from $tbl_master a left join vmut_gab_curr d on a.id_item=d.id_item 
+		left join vmut_gab_before s on a.id_item=s.id_item $cri_mat group by $grnya,unit order by $ordernya";*/
+		
+	//  $sqlk = "select  $kdnya kode_brg,$fld_item nama_brg,
+	//  	sum(ifnull(s.saldo_akhir,0)) saldo_awal,
+	//  	sum(ifnull((d.qtybpb_curr+d.qtyri_curr),0)) qtyrcv,
+	//  	sum(ifnull((d.qtybppb_curr+d.qtyro_curr),0)) qtyout,
+	//  	if(d.unit='' or isnull(d.unit),s.unit,d.unit) unit,
+	//  	a.id_item $sql_add 
+	//  	from $tbl_master a left join vmut_gab_curr d on a.id_item=d.id_item 
+	//  	left join vmut_gab_before s on a.id_item=s.id_item $cri_mat 
+	//  	group by $grnya,unit 
+	//  	HAVING SUM(IFNULL(s.saldo_akhir,0))+SUM(IFNULL((d.qtybpb_curr+d.qtyri_curr),0))+SUM(IFNULL((d.qtybppb_curr+d.qtyro_curr),0)) >0
+	//  	order by $ordernya";
+
+	 // $sqlk = "SELECT b.vmat,a.matclass,b.id_item,a.goods_code as kode_brg,a.itemdesc as nama_brg, 
+	 //         round(SUM(b.SALDOAWAL),2) as saldo_awal , (SUM(b.INCURR) + SUM(b.RICURR)) as qtyrcv , (SUM(b.OUTCURR) + SUM(b.ROCURR)) as qtyout ,  
+		// 	CASE WHEN b.UNIT='PIECES' THEN 'PCS' WHEN b.UNIT='KILOGRAM' THEN 'KGM' WHEN b.UNIT='Cones' THEN 'CNS' ELSE b.UNIT END AS unit 
+	 // 		FROM 
+	 // 		(SELECT x.vmat,x.id_item,x.Saldo_AkHIR AS SALDOAWAL,0 AS INCURR, 0 AS OUTCURR, 0 AS RICURR,0 AS ROCURR, 
+	 // 		CASE WHEN x.UNIT='PIECES' THEN 'PCS' WHEN x.UNIT='KILOGRAM' THEN 'KGM' WHEN x.UNIT='Cones' THEN 'CNS' ELSE x.UNIT END AS UNIT  FROM vmut_gab_before AS x
+	 // 		UNION
+	 // 		SELECT y.vMat,y.id_item,0 AS saldoawal, y.QtyBPB_curr AS INCURR, y.QtyBPPB_curr AS OUTCURR, y.QtyRI_curr AS RICURR, y.QtyRO_curr AS ROCURR,
+	 // 		CASE WHEN y.UNIT='PIECES' THEN 'PCS' WHEN y.UNIT='KILOGRAM' THEN 'KGM' WHEN y.UNIT='Cones' THEN 'CNS' ELSE y.UNIT END AS UNIT 
+	 // 		FROM vmut_gab_curr AS y)  AS b
+	 // 		INNER JOIN masteritem AS a ON b.id_Item=a.id_item
+		// 	$cri_mat
+	 // 		GROUP BY VMAT, a.matclass, b.ID_ITEM,UNIT,a.goods_code,a.itemdesc";
+
+		//fabric
+		// $sqlk = "SELECT b.vmat,a.matclass,b.id_item,a.goods_code as kode_brg,a.itemdesc as nama_brg, 
+	 //         round(SUM(b.SALDOAWAL),2) as saldo_awal , (SUM(b.INCURR) + SUM(b.RICURR)) as qtyrcv , (SUM(b.OUTCURR) + SUM(b.ROCURR)) as qtyout ,  
+		// 	CASE WHEN b.UNIT='PIECES' THEN 'PCS' WHEN b.UNIT='KILOGRAM' THEN 'KGM' WHEN b.UNIT='Cones' THEN 'CNS' ELSE b.UNIT END AS unit 
+	 // 		FROM 
+	 // 		(SELECT x.vmat,x.id_item,x.Saldo_AkHIR AS SALDOAWAL,0 AS INCURR, 0 AS OUTCURR, 0 AS RICURR,0 AS ROCURR, 
+	 // 		CASE WHEN x.UNIT='PIECES' THEN 'PCS' WHEN x.UNIT='KILOGRAM' THEN 'KGM' WHEN x.UNIT='Cones' THEN 'CNS' ELSE x.UNIT END AS UNIT  FROM vmut_gab_before AS x
+	 // 		UNION
+	 // 		SELECT y.vMat,y.id_item,0 AS saldoawal, y.QtyBPB_curr AS INCURR, y.QtyBPPB_curr AS OUTCURR, y.QtyRI_curr AS RICURR, y.QtyRO_curr AS ROCURR,
+	 // 		CASE WHEN y.UNIT='PIECES' THEN 'PCS' WHEN y.UNIT='KILOGRAM' THEN 'KGM' WHEN y.UNIT='Cones' THEN 'CNS' ELSE y.UNIT END AS UNIT 
+	 // 		FROM vmut_gab_curr AS y)  AS b
+	 // 		INNER JOIN masteritem AS a ON b.id_Item=a.id_item
+		// 	$cri_mat
+	 // 		GROUP BY VMAT, a.matclass, b.ID_ITEM,UNIT,a.goods_code,a.itemdesc";
+
+		if(strpos($_POST['txtparitem'], 'FABRIC') !== false && $tglf >= '2024-02-01') {
+			$sqlk = "SELECT '' vmat,'F' matclass,id_item, goods_code kode_brg, itemdesc nama_brg, satuan unit, sum(sal_awal) saldo_awal, sum(qty_in) qtyrcv, sum(qty_out) qtyout, sum(sal_akhir) sal_akhir, GROUP_CONCAT(IF(sal_akhir > 0,CONCAT(kode_lok,'(',sal_akhir,') '),null)) keterangan from (select kode_lok,id_jo,no_ws,styleno,buyer,id_item,goods_code,itemdesc,satuan,round((sal_awal - qty_out_sbl),2) sal_awal,round(qty_in,2) qty_in,ROUND(qty_out_sbl,2) qty_out_sbl,ROUND(qty_out,2) qty_out, round((sal_awal + qty_in - qty_out_sbl - qty_out),2) sal_akhir from (select a.kode_lok kode_lok,a.id_jo,no_ws,styleno,buyer,a.id_item,goods_code,itemdesc,a.satuan,sal_awal,qty_in,coalesce(qty_out_sbl,'0') qty_out_sbl,coalesce(qty_out,'0') qty_out from (select b.kode_lok,b.id_jo,b.no_ws,b.styleno,b.buyer,b.id_item,b.goods_code,b.itemdesc,b.satuan, sal_awal, qty_in from (select id_item,unit from whs_sa_fabric  group by id_item,unit
+				UNION
+				select id_item,unit from whs_inmaterial_fabric_det group by id_item,unit) a left join
+			(select kode_lok,id_jo,no_ws,styleno,buyer,id_item,goods_code,itemdesc,satuan, sum(sal_awal) sal_awal,sum(qty_in) qty_in from (select 'TR' id,a.kode_lok,a.id_jo,a.no_ws,jd.styleno,mb.supplier buyer,a.id_item,b.goods_code,b.itemdesc,a.satuan, sum(qty_sj) sal_awal,'0' qty_in from whs_lokasi_inmaterial a 
+				inner join whs_inmaterial_fabric bpb on bpb.no_dok = a.no_dok
+				inner join masteritem b on b.id_item = a.id_item
+				inner join (select ac.id_buyer,ac.styleno,jd.id_jo, ac.kpno from jo_det jd inner join so on jd.id_so = so.id inner join act_costing ac on so.id_cost = ac.id where jd.cancel = 'N' group by id_cost order by id_jo asc) jd on a.id_jo = jd.id_jo
+				inner join mastersupplier mb on jd.id_buyer = mb.id_supplier where a.status = 'Y' and bpb.tgl_dok < '$tglf' group by a.kode_lok, a.id_item, a.id_jo, a.satuan
+				UNION
+				select 'SAM' id,lk.kode_lok,lk.id_jo,lk.no_ws,jd.styleno,mb.supplier buyer,lk.id_item,b.goods_code,b.itemdesc,lk.satuan, sum(qty_sj) sal_awal,'0' qty_in from whs_mut_lokasi_h a 
+				inner join whs_lokasi_inmaterial lk on lk.no_dok = a.no_mut
+				inner join masteritem b on b.id_item = lk.id_item
+				inner join (select ac.id_buyer,ac.styleno,jd.id_jo, ac.kpno from jo_det jd inner join so on jd.id_so = so.id inner join act_costing ac on so.id_cost = ac.id where jd.cancel = 'N' group by id_cost order by id_jo asc) jd on lk.id_jo = jd.id_jo
+				inner join mastersupplier mb on jd.id_buyer = mb.id_supplier where lk.status = 'Y' and a.tgl_mut < '$tglf' group by lk.kode_lok, lk.id_item, lk.id_jo, lk.satuan
+				UNION
+				select 'SA' id,a.kode_lok,a.id_jo,a.no_ws,jd.styleno,mb.supplier buyer,a.id_item,b.goods_code,b.itemdesc,a.unit, round(sum(qty),2) sal_awal,'0' qty_in from whs_sa_fabric a
+				inner join masteritem b on b.id_item = a.id_item
+				left join (select ac.id_buyer,ac.styleno,jd.id_jo, ac.kpno from jo_det jd inner join so on jd.id_so = so.id inner join act_costing ac on so.id_cost = ac.id where jd.cancel = 'N' group by id_jo order by id_jo asc) jd on a.id_jo = jd.id_jo
+				left join mastersupplier mb on jd.id_buyer = mb.id_supplier where a.qty > 0  group by a.kode_lok, a.id_item, a.id_jo, a.unit
+				UNION 
+				select 'TRI' id,a.kode_lok,a.id_jo,a.no_ws,jd.styleno,mb.supplier buyer,a.id_item,b.goods_code,b.itemdesc,a.satuan,'0' sal_awal, round(sum(qty_sj),2) qty_in from whs_lokasi_inmaterial a 
+				inner join whs_inmaterial_fabric bpb on bpb.no_dok = a.no_dok
+				inner join masteritem b on b.id_item = a.id_item
+				inner join (select ac.id_buyer,ac.styleno,jd.id_jo, ac.kpno from jo_det jd inner join so on jd.id_so = so.id inner join act_costing ac on so.id_cost = ac.id where jd.cancel = 'N' group by id_cost order by id_jo asc) jd on a.id_jo = jd.id_jo
+				inner join mastersupplier mb on jd.id_buyer = mb.id_supplier where a.status = 'Y' and bpb.tgl_dok BETWEEN '$tglf' and '$tglt' group by a.kode_lok, a.id_item, a.id_jo, a.satuan
+				UNION
+				select 'TRM' id,lk.kode_lok,lk.id_jo,lk.no_ws,jd.styleno,mb.supplier buyer,lk.id_item,b.goods_code,b.itemdesc,lk.satuan, '0' sal_awal, sum(qty_sj) qty_in from whs_mut_lokasi_h a 
+				inner join whs_lokasi_inmaterial lk on lk.no_dok = a.no_mut
+				inner join masteritem b on b.id_item = lk.id_item
+				inner join (select ac.id_buyer,ac.styleno,jd.id_jo, ac.kpno from jo_det jd inner join so on jd.id_so = so.id inner join act_costing ac on so.id_cost = ac.id where jd.cancel = 'N' group by id_cost order by id_jo asc) jd on lk.id_jo = jd.id_jo
+				inner join mastersupplier mb on jd.id_buyer = mb.id_supplier where lk.status = 'Y' and a.tgl_mut BETWEEN '$tglf' and '$tglt' group by lk.kode_lok, lk.id_item, lk.id_jo, lk.satuan) a group by a.kode_lok, a.id_item, a.id_jo, a.satuan
+
+			) b on b.id_item = a.id_item and b.satuan = a.unit where kode_lok is not null) a left join (select kode_lok,id_item,id_jo,satuan,ROUND(sum(qty_out_sbl),2) qty_out_sbl,ROUND(sum(qty_out),2) qty_out from (select id,kode_lok,id_item,id_jo,satuan,qty_out_sbl,'0' qty_out from (select 'OMB' id,b.kode_lok,b.id_item,b.id_jo,satuan,sum(a.qty_mutasi) qty_out_sbl from whs_mut_lokasi a inner join (select no_barcode,kode_lok,id_item,id_jo,satuan FROM whs_lokasi_inmaterial GROUP BY no_barcode
+				UNION
+				select no_barcode,kode_lok,id_item,id_jo,unit satuan FROM whs_sa_fabric GROUP BY no_barcode) b on a.idbpb_det = b.no_barcode where a.status = 'Y' and tgl_mut < '$tglf' group by b.kode_lok,b.id_item,b.id_jo,satuan
+			UNION
+			select 'OTB' id,no_rak kode_lok,id_item,id_jo,satuan,round(sum(qty_out),2) qty_out_sbl from whs_bppb_det a inner join whs_bppb_h b on b.no_bppb = a.no_bppb where a.status = 'Y' and tgl_bppb < '$tglf' group by no_rak, id_item, id_jo, satuan) a
+			UNION
+			select id,kode_lok,id_item,id_jo,satuan,'0' qty_out_sbl, qty_out from (select 'OM' id,b.kode_lok,b.id_item,b.id_jo,satuan,sum(a.qty_mutasi) qty_out from whs_mut_lokasi a inner join (select no_barcode,kode_lok,id_item,id_jo,satuan FROM whs_lokasi_inmaterial GROUP BY no_barcode
+				UNION
+				select no_barcode,kode_lok,id_item,id_jo,unit satuan FROM whs_sa_fabric GROUP BY no_barcode) b on a.idbpb_det = b.no_barcode where a.status = 'Y' and tgl_mut BETWEEN '$tglf' and '$tglt' group by b.kode_lok,b.id_item,b.id_jo,satuan
+			UNION
+			select 'OT' id,no_rak kode_lok,id_item,id_jo,satuan,round(sum(qty_out),2) qty_out from whs_bppb_det a inner join whs_bppb_h b on b.no_bppb = a.no_bppb where a.status = 'Y' and tgl_bppb BETWEEN '$tglf' and '$tglt' group by no_rak, id_item, id_jo, satuan) a) a group by kode_lok, id_item, id_jo, satuan) b on b.kode_lok = a.kode_lok and b.id_jo = a.id_jo and b.id_item = a.id_item and b.satuan = a.satuan) a) a GROUP BY id_item, satuan";
+
+}else{
+	$sqlk = "SELECT vmat,matclass,id_item,kode_brg,nama_brg,saldo_awal,(qtyrcv + COALESCE(qty_in,0)) qtyrcv, (qtyout + COALESCE(qty_out,0)) qtyout,unit from (SELECT b.vmat,a.matclass,b.id_item,a.goods_code as kode_brg,a.itemdesc as nama_brg, round(SUM(b.SALDOAWAL),2) as saldo_awal , (SUM(b.INCURR) + SUM(b.RICURR)) as qtyrcv , (SUM(b.OUTCURR) + SUM(b.ROCURR)) as qtyout , CASE WHEN b.UNIT='PIECES' THEN 'PCS' WHEN b.UNIT='KILOGRAM' THEN 'KGM' WHEN b.UNIT='Cones' THEN 'CNS' ELSE b.UNIT END AS unit FROM (SELECT x.vmat,x.id_item,x.Saldo_AkHIR AS SALDOAWAL,0 AS INCURR, 0 AS OUTCURR, 0 AS RICURR,0 AS ROCURR, CASE WHEN x.UNIT='PIECES' THEN 'PCS' WHEN x.UNIT='KILOGRAM' THEN 'KGM' WHEN x.UNIT='Cones' THEN 'CNS' ELSE x.UNIT END AS UNIT FROM vmut_gab_before AS x UNION SELECT y.vMat,y.id_item,0 AS saldoawal, y.QtyBPB_curr AS INCURR, y.QtyBPPB_curr AS OUTCURR, y.QtyRI_curr AS RICURR, y.QtyRO_curr AS ROCURR, CASE WHEN y.UNIT='PIECES' THEN 'PCS' WHEN y.UNIT='KILOGRAM' THEN 'KGM' WHEN y.UNIT='Cones' THEN 'CNS' ELSE y.UNIT END AS UNIT FROM vmut_gab_curr AS y) AS b INNER JOIN masteritem AS a ON b.id_Item=a.id_item $cri_mat GROUP BY VMAT, a.matclass, b.ID_ITEM,UNIT,a.goods_code,a.itemdesc) a left join
+	(select a.id_item itemid, COALESCE(qty_in,0) qty_in, COALESCE(qty_out,0) qty_out from (select DISTINCT id_item from bpb_det where no_mut is not null) a LEFT JOIN
+		(select id_item,sum(roll_qty) qty_in from bpb_det where tgl_mut >= '$tglf' and tgl_mut <= '$tglt' group by id_item) b on b.id_item = a.id_item LEFT JOIN
+		(select id_item,sum(qty_out) qty_out from (select id_rak id_rak_loc,id_item,id_jo,unit,qty_awal,qty_in,qty_out from (select id_bpbdet,id_rak_loc,id_item,id_jo,unit,'0' qty_awal,'0' qty_in, roll_qty qty_out from bpb_det where tgl_mut >= '$tglf' and tgl_mut <= '$tglt') a inner join 
+			(select id,id_rak_loc id_rak,id_item itemid, id_jo joid from bpb_det where qty_mutasi > 0) b on b.id = a.id_bpbdet and a.id_item = b.itemid and a.id_jo = b.joid) a group by id_item) c on c.id_item = a.id_item) b on b.itemid = a.id_item";
+}
+
+	 // echo ($_POST['txtparitem']);
+	 // 		echo $tglf;
+		// 	echo $tglt;
+	// echo $sqlk;
+	$sql = mysql_query ($sqlk);
+	$tdata=mysql_num_rows($sql);
+	// echo $sqlk;
+	#CETAK
+	$no = 1; #nomor awal
+	while($data = mysql_fetch_array($sql))
+	{ #ketika data tabel mahasiswa di array kan maka lakukan perulangan hingga mahasiswa terakhir
+		if ($tbl_master=="masteritem")
+			{ $matclass=$data['matclass']; }
+		else
+			{ $matclass=""; }
+		$id_itemnya=$data['id_item'];
+		$kode_barang=$data['kode_brg'];
+		$id=$data['id_item'];
+		$i=$no;
+		$nama_barang=$data['nama_brg'];
+		$sat=$data['unit'];
+		$sawal=round($data['saldo_awal'],2);
+		$tot_ter=round($data['qtyrcv'],2);
+		$tot_kel=round($data['qtyout'],2);
+		$filter=$sawal+$tot_ter+$tot_kel;
+		$sakhir=($sawal+$tot_ter)-$tot_kel;
+		$sakhir=round($sakhir,2);
+
+		if ($rpt=="mwiptot")
+			{	$ada_trans=$sakhir; }
+		else
+		{	
+			$ada_trans=$sawal + $tot_ter + $tot_kel; }
+			if ($ada_trans>0  || $ada_trans<=0)
+				{	if ($sakhir<0)
+					{	$change_bgcolor="style='background-color: red;'";	}
+					else
+						{	$change_bgcolor="";	}
+					echo "
+					<tr>
+					<td align='center' $change_bgcolor>$no</td>
+					<td align='center' $change_bgcolor>$id_itemnya</td>";
+					if ($rpt=="barangjadi" AND $nm_company=="PT. Bangun Sarana Alloy")
+						{	echo "<td $change_bgcolor>".$data['kpno']."</td>
+					<td $change_bgcolor>$kode_barang</td>
+					<td $change_bgcolor>$nama_barang</td>
+					<td $change_bgcolor>".$data['itemname']."</td>
+					<td $change_bgcolor>".$data['color']."</td>
+					<td $change_bgcolor>$sat</td>";
+				}
+				else
+					{	if ($rpt=="hasil")
+				{	echo "<th>$matclass</th>"; }
+					//====adyz============================================================
+				echo "<td $change_bgcolor><button type='button' class='btn btn-primary' 
+				data-toggle='modal' data-target='#mybarang'
+				onclick=choose_barang('$kode_barang')>$kode_barang</button></td>
+
+				<td $change_bgcolor>$nama_barang</td>
+				<td $change_bgcolor>$sat</td>";
+				//-----------------------------------------------------------------
+			}
+			if ($rpt!="mwiptot")
+				{	echo "
+			<td align='right'>".number_format($sawal,2)."</td>
+			<td align='right'>".number_format($tot_ter,2)."</td>
+			<td align='right'>".number_format($tot_kel,2)."</td>";
+			if ($rpt=="hasil" OR $rpt=="hasilsl" OR $rpt=="hasilwip" OR $rpt=="hasilmes" OR $rpt=="hasilfg")
+				{	echo "<td align='right'>$sakhir</td>
+			<td align='right'><input type ='text' size='4' name ='itemstock[$id]' 
+			value='$sakhir' id='stockajax$i' readonly></td>"; 
+		}
+		else
+			{	echo "<td align='right'>0</td>
+		<td align='right'>".number_format($sakhir,2)."</td>"; 
+	}
+}
+else
+				{	#STOCK OPNAME
+					if($nm_company=="PT. Sinar Gaya Busana")
+						{	echo "<td align='right'></td>"; }
+					else
+						{	echo "<td align='right'>".number_format($sakhir,3)."</td>"; }
+				}
+				if ($nm_company=="PT. Multi Sarana Plasindo")
+					{	echo "<td align='right'>0</td>"; }
+				elseif ($rpt!="mwiptot")
+					{	if ($rpt=="hasil" OR $rpt=="hasilsl" OR $rpt=="hasilwip" OR $rpt=="hasilmes" OR $rpt=="hasilfg")
+				{	echo "<td align='right'><input type ='text' size='4' name ='item[$id]' 
+				id='itemajax' class='itemclass'></td>"; 
+			}
+			else
+				{	if($nm_company=="PT. Sinar Gaya Busana")
+			{	echo "<td align='right'></td>"; }
+			else
+				{	echo "<td align='right'>".number_format($sakhir,2)."</td>"; }
+		}
+	}
+	if ($rpt!="mwiptot")
+	{	
+		if(strpos($_POST['txtparitem'], 'FABRIC') !== false && $tglf >= '2024-02-01') {
+
+			echo "<td align='right'>0</td>
+		<td align='right'>".$data['keterangan']."</td>";
+
+		}else{
+		$rolldet=flookup("group_concat(kode_rak,' (',qty_rak,')')","
+			(Select kode_rak,sum((roll_qty-ifnull(roll_qty_used,0)) + (roll_foc-ifnull(roll_qty_foc_used,0))) qty_rak 
+			from bpb_roll_h a inner join bpb_roll s on a.id=s.id_h left join master_rak mr on s.id_rak_loc=mr.id 
+			Where id_item='$id_itemnya' and (roll_qty-ifnull(roll_qty_used,0)) + (roll_foc-ifnull(roll_qty_foc_used,0))>0 
+			group by kode_rak
+		) tmp_rak","qty_rak>0");
+		echo "
+		<td align='right'>0</td>
+		<td align='right'>$rolldet</td>";
+		}
+	}
+	else
+		{	echo "
+	<td align='right'></td>";
+}
+
+echo "
+</tr>
+";
+$no++;
+	}; #$no bertambah 1
+}
+?>
+</tbody>
+</table>
+<?php 
+if ($rpt=="hasil" OR $rpt=="hasilsl" OR $rpt=="hasilwip" OR $rpt=="hasilmes" OR $rpt=="hasilfg")
+	{	echo "<button type='submit' name='submit' class='btn btn-primary'>Simpan</button>"; }
+?>
+<p>&nbsp;</p>
+<?php 
+if ($rpt=="hasil" OR $rpt=="hasilsl" OR $rpt=="hasilwip" OR $rpt=="hasilmes" OR $rpt=="hasilfg")
+	{	echo "</form>"; }
+?>
+<!--=============adyz================================================================ -->
+
+<div class="modal fade" id="mybarang"  tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg" style="overflow-y:auto;" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Detail WS pada Barang ini</h4>
+			</div>
+			<div class="modal-body" style="overflow-y:auto; height:500px;">
+				<div id='detail_barang'></div>    
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type='text/javascript'>
+
+	function choose_barang(itid)
+	{ 
+
+		var html = $.ajax
+		({  type: "POST",
+			url: 'ajax_mutasi_bbws.php?modeajax=view_detailws',
+			data: {itid: itid},
+			async: false
+		}).responseText;
+		if(html)
+		{  
+			$("#detail_barang").html(html);
+		}
+		$(document).ready(function() {
+			var table = $('#examplefixbarang').DataTable
+			({  sorting: false,
+				searching: false,
+				paging: false,
+				fixedColumns:   
+				{ leftColumns: 1,
+					rightColumns: 1
+				}
+			});
+		});
+	};
+
+</script>
+
+<!------------------------------------------------------------------------------------------------>
+</body>
+</html>

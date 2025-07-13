@@ -1,0 +1,280 @@
+$( document ).ready(function() {
+	localStorage.clear();
+	sessionStorage.clear();
+	
+		$("#period_from").datepicker( {
+format: "dd M yyyy",
+        autoclose: true
+	});   
+	   
+        $("#period_to").datepicker( {
+format: "dd M yyyy",
+        autoclose: true
+    });   
+    
+/* 	$("#period_from").datepicker( {
+		format: "mm/yyyy",
+		viewMode: "months",
+		minViewMode: "months",
+		autoclose: true
+	}); */
+	
+	// $("#period_to").datepicker( {
+	// 	format: "mm/yyyy",
+	// 	viewMode: "months",
+	// 	minViewMode: "months",
+	// 	autoclose: true
+	// });		
+});
+data = {
+	iddatefrom : '',
+	iddateto : '',
+	tipejurnal : '',
+	stts : ''
+}
+$reload = 0;
+function back(){
+	overlayon();
+	location.reload(true);
+}
+function getListData(){
+	from = $("#period_from").val();
+	if(!from){
+		alert("Periode From Harus Diisi");
+		return false;
+	}
+	$(".list").css("display","");
+
+    to = $("#period_to").val();
+    if(!to){
+        alert("Periode To Harus Diisi");
+        return false;
+    }
+    $(".list").css("display","");
+
+	GenerateTable(from,to);
+
+	$("#label_from").text(from);
+    $("#label_to").text(to);
+}
+
+function overlayon(){
+
+	$("#myOverlay").css("display","block");
+	
+}
+function overlayoff(){
+	$("#myOverlay").css("display","none");
+}
+
+function check_journal(val){
+	if(val == '1' || val == '2' || val == '17' ){
+		$("#txtstatus").val('2').trigger("change");
+	}else{
+		$("#txtstatus").val('').trigger("change");
+		
+	}
+	
+	
+}
+
+
+
+/* For Export Buttons available inside jquery-datatable "server side processing" - Start
+- due to "server side processing" jquery datatble doesn't support all data to be exported
+- below function makes the datatable to export all records when "server side processing" is on */
+
+function newexportaction(e, dt, button, config) {
+    var self = this;
+    var oldStart = dt.settings()[0]._iDisplayStart;
+    dt.one('preXhr', function (e, s, data) {
+        // Just this once, load all data from the server...
+        data.start = 0;
+        data.length = 2147483647;
+        dt.one('preDraw', function (e, settings) {
+            // Call the original action function
+            if (button[0].className.indexOf('buttons-copy') >= 0) {
+                $.fn.dataTable.ext.buttons.copyHtml5.action.call(self, e, dt, button, config);
+            } else if (button[0].className.indexOf('buttons-excel') >= 0) {
+                $.fn.dataTable.ext.buttons.excelHtml5.available(dt, config) ?
+                    $.fn.dataTable.ext.buttons.excelHtml5.action.call(self, e, dt, button, config) :
+                    $.fn.dataTable.ext.buttons.excelFlash.action.call(self, e, dt, button, config);
+            } else if (button[0].className.indexOf('buttons-csv') >= 0) {
+                $.fn.dataTable.ext.buttons.csvHtml5.available(dt, config) ?
+                    $.fn.dataTable.ext.buttons.csvHtml5.action.call(self, e, dt, button, config) :
+                    $.fn.dataTable.ext.buttons.csvFlash.action.call(self, e, dt, button, config);
+            } else if (button[0].className.indexOf('buttons-pdf') >= 0) {
+                $.fn.dataTable.ext.buttons.pdfHtml5.available(dt, config) ?
+                    $.fn.dataTable.ext.buttons.pdfHtml5.action.call(self, e, dt, button, config) :
+                    $.fn.dataTable.ext.buttons.pdfFlash.action.call(self, e, dt, button, config);
+            } else if (button[0].className.indexOf('buttons-print') >= 0) {
+                $.fn.dataTable.ext.buttons.print.action(e, dt, button, config);
+            }
+            dt.one('preXhr', function (e, s, data) {
+                // DataTables thinks the first item displayed is index 0, but we're not drawing that.
+                // Set the property to what it was before exporting.
+                settings._iDisplayStart = oldStart;
+                data.start = oldStart;
+            });
+            // Reload the grid with the original page. Otherwise, API functions like table.cell(this) don't work properly.
+            setTimeout(dt.ajax.reload, 0);
+            // Prevent rendering of the full data to the DOM
+            return false;
+        });
+    });
+    // Requery the server with the new one-time export settings
+    dt.ajax.reload();
+};
+//For Export Buttons available inside jquery-datatable "server side processing" - End
+table = "";
+
+function GenerateTable(from,to){
+	table = $('#laporan_jurnal').DataTable( {
+      'processing': true,
+      'serverSide': true,
+	  "lengthMenu": [[10, 25, 50, 999999999], [10, 25, 50, "All"]],
+		'serverMethod': 'post',
+		
+        //"ajax": "webservices/getDataLaporanTrialBalance.php?from="+from+"&to="+to,
+        "ajax":  "webservices/getDataLaporanPembelianGeneral.php?from="+from+"&to="+to,
+        "columns": [
+		//Nomor_BPB
+        {
+			"data":           "Nomor_BPB",
+        } ,
+		//Tanggal_BPB
+        {
+			"data":           "Tanggal_BPB",
+        } ,	
+        //Nama_Supplier
+        {
+            "data":           "Nama_Supplier",
+        } , 
+        //Kode_Barang
+        {
+			"data":           "Kode_Barang",
+         } ,
+		 
+		//Nama_Barang
+        {
+			"data":           "Nama_Barang",
+         } ,			 
+
+		//Qty
+        {
+			"data":           "Qty",
+         } ,		
+
+
+		//Unit
+        {
+			"data":           "Unit",
+         } ,
+
+
+		//Currency
+        {
+			"data":           "Currency",
+         } ,
+		 
+		//Price
+        {
+			"data":           "Price",
+         } ,
+ 
+ 		//Total
+        {
+			"data":           "Total",
+         } ,
+		 
+ 		//remark
+        {
+			"data":           "remark",
+         } ,		 
+	
+ 		//invno
+        {
+			"data":           "invno",
+         } ,		 
+		       
+    
+        //Nomor_PO
+        {
+            "data":           "Nomor_PO",
+         } ,         
+        
+        //username
+        {
+            "data":           "username",
+         } ,         
+                
+        //Nomor_BC
+        {
+            "data":           "Nomor_BC",
+         } ,         
+                
+        //Tanggal_BC
+        {
+            "data":           "Tanggal_BC",
+         } ,         
+                
+        //Jenis_Dokumen
+        {
+            "data":           "Jenis_Dokumen",
+         } ,         
+                
+        //Confirm_By
+        {
+            "data":           "Confirm_By",
+         } ,       
+                
+        //Tanggal_Confirm
+        {
+            "data":           "Tanggal_Confirm",
+         } ,         
+        
+
+        ],
+		"autoWidth": true,
+		"scrollCollapse": true,
+
+        "order": [[1, 'asc']],
+        scrollY:        "500px",
+        scrollX:        true,
+        scrollCollapse: true,
+		
+        "destroy": true,
+		order: [[ 6, "desc" ]],
+        fixedColumns:   {
+            leftColumns: 7
+        },
+      dom: 'Bfrtip',
+        buttons: [
+{
+
+              extend: 'excel', 
+              text: '<i class="fa fa-file-excel-o" aria-hidden="true"></i> Export to Excel',
+              className: 'btn-primary',
+			  //title: 'Any title for file',
+			          message: "Periode "+from+" Sampai "+to+" \n",
+					  exportOptions:{
+						  search :'applied',
+						  order:'applied'
+					  },
+
+					   "action": newexportaction,
+					   
+					   
+					   
+
+                      }       
+		
+			
+        ], 
+		header: true,
+		    dom:
+			"<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +
+			"<'row'<'col-sm-12'tr>>"+
+    "<'row'<'col-sm-5'i><'col-sm-7'p>>",	
+    } );
+}

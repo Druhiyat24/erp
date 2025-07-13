@@ -1,0 +1,1 @@
+[28-Apr-2020 03:09:57 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225

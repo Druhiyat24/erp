@@ -1,0 +1,83 @@
+[28-Apr-2020 03:09:57 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[17-Jun-2020 03:19:52 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[17-Jun-2020 03:54:54 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[18-Jun-2020 09:42:25 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[18-Jun-2020 10:09:53 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[18-Jun-2020 10:10:09 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[18-Jun-2020 10:10:27 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[18-Jun-2020 10:10:43 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[18-Jun-2020 10:10:54 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[18-Jun-2020 10:11:06 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[18-Jun-2020 10:11:17 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[18-Jun-2020 10:11:28 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[18-Jun-2020 10:11:39 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[18-Jun-2020 10:11:51 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[18-Jun-2020 10:12:03 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[18-Jun-2020 10:12:20 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[18-Jun-2020 10:12:30 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[18-Jun-2020 10:12:42 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[18-Jun-2020 10:12:55 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[18-Jun-2020 10:13:05 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[18-Jun-2020 12:46:28 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[18-Jun-2020 12:51:03 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[19-Jun-2020 03:58:05 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[19-Jun-2020 15:26:28 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[19-Jun-2020 15:30:34 Europe/Berlin] PHP Parse error:  syntax error, unexpected ';' in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 314
+[19-Jun-2020 15:30:57 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[19-Jun-2020 15:33:40 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[19-Jun-2020 15:36:55 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$row' (T_VARIABLE) in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 325
+[19-Jun-2020 15:38:53 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$row' (T_VARIABLE) in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 325
+[19-Jun-2020 15:38:58 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$row' (T_VARIABLE) in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 325
+[19-Jun-2020 15:40:18 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$row' (T_VARIABLE) in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 325
+[19-Jun-2020 15:41:26 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$row' (T_VARIABLE) in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 325
+[19-Jun-2020 15:41:35 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$row' (T_VARIABLE) in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 325
+[19-Jun-2020 15:47:07 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[19-Jun-2020 15:50:46 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[19-Jun-2020 16:15:09 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[23-Jun-2020 09:06:44 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[23-Jun-2020 10:51:12 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[15-Jul-2020 06:16:30 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[15-Jul-2020 10:26:22 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[15-Jul-2020 10:26:35 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[15-Jul-2020 10:28:12 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[15-Jul-2020 10:30:30 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[26-Nov-2020 16:08:30 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[25-Dec-2020 02:32:16 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[26-Dec-2020 06:09:58 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[06-Jan-2021 10:36:11 Europe/Berlin] PHP Notice:  Undefined property: stdClass::$bppbno_int in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 57
+[06-Jan-2021 10:36:11 Europe/Berlin] PHP Notice:  Undefined property: stdClass::$idcosting in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 58
+[18-Jan-2021 02:24:34 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[20-Jan-2021 08:48:00 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[09-Feb-2021 07:27:38 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[10-Feb-2021 03:04:26 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\webservices\SaveInvoiceActualDetail.php on line 3
+[10-Feb-2021 03:04:26 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\webservices\SaveInvoiceActualDetail.php on line 3
+[19-Feb-2021 02:28:19 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[04-Mar-2021 03:28:54 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\webservices\SaveInvoiceActualDetail.php on line 3
+[04-Mar-2021 03:47:03 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\webservices\SaveInvoiceActualDetail.php on line 3
+[04-Mar-2021 03:47:03 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\webservices\SaveInvoiceActualDetail.php on line 3
+[12-Mar-2021 04:37:21 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[16-Mar-2021 15:57:06 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\webservices\postPackInv.php on line 4
+[17-Mar-2021 09:25:56 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 3
+[17-Mar-2021 09:29:44 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[22-Mar-2021 10:54:30 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\webservices\SaveInvoiceActualDetail.php on line 3
+[22-Mar-2021 10:54:30 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\webservices\SaveInvoiceActualDetail.php on line 3
+[25-Mar-2021 02:43:07 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\webservices\SaveInvoiceActualDetail.php on line 3
+[26-Mar-2021 08:14:41 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\webservices\SaveInvoiceActualDetail.php on line 3
+[15-Apr-2021 03:58:37 Europe/Berlin] PHP Notice:  Undefined property: stdClass::$bppbno_int in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 57
+[15-Apr-2021 03:58:37 Europe/Berlin] PHP Notice:  Undefined property: stdClass::$idcosting in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 58
+[15-Apr-2021 11:56:18 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[17-Apr-2021 07:04:22 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\webservices\UpdateInvoiceHeader.php on line 4
+[21-Apr-2021 08:50:54 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[21-Apr-2021 09:46:43 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[21-Apr-2021 09:54:48 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[26-Apr-2021 03:43:05 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\webservices\SaveInvoiceActualDetail.php on line 3
+[26-Apr-2021 03:43:05 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\webservices\SaveInvoiceActualDetail.php on line 3
+[26-Apr-2021 03:43:05 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\webservices\SaveInvoiceActualDetail.php on line 3
+[30-Apr-2021 11:18:39 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[18-May-2021 04:37:52 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\webservices\SaveInvoiceActualDetail.php on line 3
+[21-Jun-2021 04:05:31 Europe/Berlin] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\erp\pages\shp\webservices\SaveInvoiceActualDetail.php on line 3
+[09-Sep-2021 03:19:03 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[18-Oct-2021 10:32:36 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[15-Nov-2021 05:42:26 Europe/Berlin] PHP Notice:  Undefined variable: val_ex in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 225
+[17-Nov-2021 09:01:07 Europe/Berlin] PHP Notice:  Undefined property: stdClass::$bppbno_int in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 57
+[17-Nov-2021 09:01:07 Europe/Berlin] PHP Notice:  Undefined property: stdClass::$idcosting in C:\xampp\htdocs\erp\pages\shp\webservices\getListInvoiceDetail.php on line 58

@@ -1,0 +1,295 @@
+[31-May-2023 06:17:53 Europe/Berlin] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 12
+[31-May-2023 06:17:54 Europe/Berlin] PHP Notice:  Undefined index: rak in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 5
+[31-May-2023 06:18:21 Europe/Berlin] PHP Warning:  mysqli_select_db() expects exactly 2 parameters, 1 given in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 13
+[31-May-2023 06:18:21 Europe/Berlin] PHP Notice:  Undefined index: rak in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 5
+[31-May-2023 06:19:40 Europe/Berlin] PHP Warning:  mysqli_select_db() expects exactly 2 parameters, 1 given in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 13
+[31-May-2023 06:19:46 Europe/Berlin] PHP Warning:  mysqli_select_db() expects exactly 2 parameters, 1 given in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 13
+[31-May-2023 06:19:56 Europe/Berlin] PHP Warning:  mysqli_select_db() expects exactly 2 parameters, 1 given in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 13
+[31-May-2023 06:20:04 Europe/Berlin] PHP Warning:  mysqli_select_db() expects exactly 2 parameters, 1 given in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 13
+[31-May-2023 06:27:28 Europe/Berlin] PHP Warning:  mysqli_select_db() expects exactly 2 parameters, 1 given in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 13
+[31-May-2023 06:30:01 Europe/Berlin] PHP Fatal error:  Call to undefined function getKapasitas() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 54
+[31-May-2023 06:30:11 Europe/Berlin] PHP Warning:  mysqli_query() expects at least 2 parameters, 1 given in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 18
+[31-May-2023 06:30:25 Europe/Berlin] PHP Notice:  Undefined variable: conn in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 18
+[31-May-2023 06:30:25 Europe/Berlin] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 18
+[31-May-2023 06:30:58 Europe/Berlin] PHP Notice:  Undefined variable: conn in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 14
+[31-May-2023 06:30:58 Europe/Berlin] PHP Warning:  mysqli_select_db() expects parameter 1 to be mysqli, null given in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 14
+[31-May-2023 06:32:26 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 21
+[31-May-2023 06:32:26 Europe/Berlin] PHP Notice:  Undefined variable: hasil in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 25
+[31-May-2023 06:32:54 Europe/Berlin] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, object given in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 21
+[31-May-2023 06:32:54 Europe/Berlin] PHP Notice:  Undefined variable: hasil in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 25
+[31-May-2023 06:33:05 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 21
+[31-May-2023 06:33:05 Europe/Berlin] PHP Notice:  Undefined variable: hasil in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 25
+[31-May-2023 06:34:27 Europe/Berlin] PHP Deprecated:  mysql_query(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 19
+[31-May-2023 06:34:27 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 21
+[31-May-2023 06:34:27 Europe/Berlin] PHP Notice:  Undefined variable: hasil in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 25
+[31-May-2023 06:34:36 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 21
+[31-May-2023 06:34:36 Europe/Berlin] PHP Notice:  Undefined variable: hasil in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 25
+[31-May-2023 06:35:23 Europe/Berlin] PHP Notice:  Undefined variable: hasil in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 21
+[31-May-2023 06:37:14 Europe/Berlin] PHP Fatal error:  Call to undefined function dd() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 20
+[31-May-2023 06:37:29 Europe/Berlin] PHP Warning:  Illegal string offset 'kode' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 54
+[31-May-2023 06:37:39 Europe/Berlin] PHP Warning:  Illegal string offset 'kode' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 54
+[31-May-2023 06:40:41 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 20
+[31-May-2023 06:41:17 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 21
+[31-May-2023 06:42:44 Europe/Berlin] PHP Warning:  mysqli::mysqli(): (HY000/1045): Access denied for user 'root'@'IT-PC' (using password: NO) in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 14
+[31-May-2023 06:42:44 Europe/Berlin] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 19
+[31-May-2023 06:42:44 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 21
+[31-May-2023 06:42:59 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, object given in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 21
+[31-May-2023 06:42:59 Europe/Berlin] PHP Fatal error:  Cannot use object of type mysqli_result as array in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 54
+[31-May-2023 06:43:02 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, object given in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 21
+[31-May-2023 06:43:02 Europe/Berlin] PHP Fatal error:  Cannot use object of type mysqli_result as array in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 54
+[31-May-2023 06:43:31 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, object given in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 22
+[31-May-2023 06:43:31 Europe/Berlin] PHP Fatal error:  Cannot use object of type mysqli_result as array in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 54
+[31-May-2023 06:43:33 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, object given in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 22
+[31-May-2023 06:43:33 Europe/Berlin] PHP Fatal error:  Cannot use object of type mysqli_result as array in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 54
+[31-May-2023 06:44:37 Europe/Berlin] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 14
+[31-May-2023 06:47:44 Europe/Berlin] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 14
+[31-May-2023 06:47:44 Europe/Berlin] PHP Warning:  mysql_connect(): Access denied for user 'user'@'IT-PC' (using password: YES) in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 14
+[31-May-2023 06:47:44 Europe/Berlin] PHP Deprecated:  mysql_query(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 23
+[31-May-2023 06:47:53 Europe/Berlin] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'user'@'IT-PC' (using password: YES) in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 14
+[31-May-2023 06:47:53 Europe/Berlin] PHP Deprecated:  mysql_query(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 23
+[31-May-2023 06:48:12 Europe/Berlin] PHP Deprecated:  mysql_query(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 23
+[31-May-2023 06:48:15 Europe/Berlin] PHP Deprecated:  mysql_query(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 23
+[31-May-2023 06:51:09 Europe/Berlin] PHP Notice:  Undefined variable: result in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 27
+[31-May-2023 06:51:09 Europe/Berlin] PHP Fatal error:  Call to a member function fetch_assoc() on null in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 27
+[31-May-2023 06:51:19 Europe/Berlin] PHP Notice:  Undefined index: kode in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 54
+[31-May-2023 06:51:34 Europe/Berlin] PHP Notice:  Undefined index: kode_rak in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 54
+[31-May-2023 06:52:15 Europe/Berlin] PHP Notice:  Undefined variable: result in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 27
+[31-May-2023 06:52:15 Europe/Berlin] PHP Fatal error:  Call to a member function fetch_assoc() on null in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 27
+[31-May-2023 06:52:23 Europe/Berlin] PHP Notice:  Undefined index: id in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 28
+[31-May-2023 06:52:23 Europe/Berlin] PHP Notice:  Undefined index: firstname in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 28
+[31-May-2023 06:52:23 Europe/Berlin] PHP Notice:  Undefined index: lastname in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 28
+[31-May-2023 06:52:23 Europe/Berlin] PHP Fatal error:  Cannot use object of type mysqli_result as array in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 54
+[31-May-2023 06:52:40 Europe/Berlin] PHP Fatal error:  Cannot use object of type mysqli_result as array in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 54
+[31-May-2023 06:54:01 Europe/Berlin] PHP Notice:  Undefined offset: 0 in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 54
+[31-May-2023 08:13:29 Europe/Berlin] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 79
+[31-May-2023 08:13:29 Europe/Berlin] PHP Notice:  Undefined variable: kapasitas in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 88
+[31-May-2023 08:13:29 Europe/Berlin] PHP Notice:  Undefined variable: total in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 88
+[31-May-2023 08:14:17 Europe/Berlin] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 79
+[31-May-2023 08:14:17 Europe/Berlin] PHP Notice:  Undefined variable: kapasitas in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 88
+[31-May-2023 08:14:17 Europe/Berlin] PHP Notice:  Undefined variable: total in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 88
+[31-May-2023 08:28:59 Europe/Berlin] PHP Fatal error:  Call to undefined function getLatestUpdate() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 7
+[31-May-2023 08:29:07 Europe/Berlin] PHP Fatal error:  Call to undefined function getLatestUpdateDate() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 7
+[31-May-2023 08:29:18 Europe/Berlin] PHP Fatal error:  Call to undefined function getLatestUpdateDate() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 7
+[31-May-2023 09:37:04 Europe/Berlin] PHP Notice:  Undefined variable: itemRak in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 134
+[31-May-2023 09:37:04 Europe/Berlin] PHP Notice:  Undefined variable: itemRak in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 136
+[31-May-2023 09:37:04 Europe/Berlin] PHP Notice:  Undefined variable: itemRak in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 138
+[31-May-2023 10:38:45 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[31-May-2023 10:38:45 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[31-May-2023 10:38:45 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[31-May-2023 10:38:45 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 141
+[31-May-2023 10:38:45 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 204
+[31-May-2023 10:38:50 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[31-May-2023 10:38:50 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[31-May-2023 10:38:50 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[31-May-2023 10:38:50 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 141
+[31-May-2023 10:38:50 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 204
+[31-May-2023 10:38:52 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[31-May-2023 10:38:52 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[31-May-2023 10:38:52 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[31-May-2023 10:38:52 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 141
+[31-May-2023 10:38:52 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 204
+[31-May-2023 10:38:54 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[31-May-2023 10:38:54 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[31-May-2023 10:38:54 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[31-May-2023 10:38:54 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 141
+[31-May-2023 10:38:54 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 204
+[31-May-2023 10:38:55 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[31-May-2023 10:38:55 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[31-May-2023 10:38:55 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[31-May-2023 10:38:55 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 141
+[31-May-2023 10:38:55 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 204
+[31-May-2023 10:39:28 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[31-May-2023 10:39:28 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[31-May-2023 10:39:28 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[31-May-2023 10:39:28 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 141
+[31-May-2023 10:39:28 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 204
+[31-May-2023 10:39:32 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[31-May-2023 10:39:32 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[31-May-2023 10:39:32 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[31-May-2023 10:39:32 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 141
+[31-May-2023 10:39:32 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 204
+[31-May-2023 10:40:24 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[31-May-2023 10:40:24 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[31-May-2023 10:40:24 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[31-May-2023 10:40:24 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 141
+[31-May-2023 10:40:24 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 204
+[31-May-2023 10:41:24 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[31-May-2023 10:41:24 Europe/Berlin] PHP Warning:  Illegal string offset 'kapasitas' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 63
+[31-May-2023 10:41:24 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[31-May-2023 10:41:24 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[31-May-2023 10:41:24 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 141
+[31-May-2023 10:41:24 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 204
+[31-May-2023 10:41:35 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[31-May-2023 10:41:35 Europe/Berlin] PHP Warning:  Illegal string offset 'kapasitas' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 63
+[31-May-2023 10:41:35 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[31-May-2023 10:41:35 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[31-May-2023 10:41:35 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 141
+[31-May-2023 10:41:35 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 204
+[31-May-2023 10:42:16 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[31-May-2023 10:42:16 Europe/Berlin] PHP Warning:  Illegal string offset 'kapasitas' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 63
+[31-May-2023 10:42:16 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[31-May-2023 10:42:16 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[31-May-2023 10:42:16 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 141
+[31-May-2023 10:42:20 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[31-May-2023 10:42:20 Europe/Berlin] PHP Warning:  Illegal string offset 'kapasitas' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 63
+[31-May-2023 10:42:20 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[31-May-2023 10:42:20 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[31-May-2023 10:42:20 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 141
+[31-May-2023 10:43:20 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[31-May-2023 10:43:20 Europe/Berlin] PHP Warning:  Illegal string offset 'kapasitas' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 63
+[31-May-2023 10:43:20 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[31-May-2023 10:43:20 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[31-May-2023 10:43:20 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 141
+[31-May-2023 10:43:49 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[31-May-2023 10:43:49 Europe/Berlin] PHP Warning:  Illegal string offset 'kapasitas' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 63
+[31-May-2023 10:43:49 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[31-May-2023 10:43:49 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[31-May-2023 10:43:49 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 141
+[31-May-2023 10:46:50 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[31-May-2023 10:46:50 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[31-May-2023 10:46:50 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[31-May-2023 10:46:50 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 141
+[31-May-2023 10:46:57 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[31-May-2023 10:46:57 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[31-May-2023 10:46:57 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[31-May-2023 10:46:57 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 141
+[31-May-2023 11:16:50 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[31-May-2023 11:16:50 Europe/Berlin] PHP Warning:  Illegal string offset 'kapasitas' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 63
+[31-May-2023 11:16:50 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[31-May-2023 11:16:50 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[31-May-2023 11:16:50 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 138
+[31-May-2023 11:16:50 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 183
+[02-Jun-2023 02:37:03 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[02-Jun-2023 02:37:03 Europe/Berlin] PHP Warning:  Illegal string offset 'kapasitas' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 58
+[02-Jun-2023 02:37:03 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[02-Jun-2023 02:37:03 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[02-Jun-2023 02:37:03 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 112
+[02-Jun-2023 02:37:03 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 160
+[02-Jun-2023 03:07:51 Europe/Berlin] PHP Notice:  Undefined index: rak in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 5
+[02-Jun-2023 03:07:51 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[02-Jun-2023 03:07:51 Europe/Berlin] PHP Warning:  Illegal string offset 'kapasitas' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 58
+[02-Jun-2023 03:07:51 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[02-Jun-2023 03:07:51 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[02-Jun-2023 03:07:51 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 112
+[02-Jun-2023 03:07:51 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 160
+[02-Jun-2023 03:07:54 Europe/Berlin] PHP Notice:  Undefined index: rak in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 5
+[02-Jun-2023 03:07:54 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[02-Jun-2023 03:07:54 Europe/Berlin] PHP Warning:  Illegal string offset 'kapasitas' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 58
+[02-Jun-2023 03:07:54 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[02-Jun-2023 03:07:54 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[02-Jun-2023 03:07:54 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 112
+[02-Jun-2023 03:07:54 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 160
+[02-Jun-2023 03:08:03 Europe/Berlin] PHP Notice:  Undefined index: rak in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 5
+[02-Jun-2023 03:08:03 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[02-Jun-2023 03:08:03 Europe/Berlin] PHP Warning:  Illegal string offset 'kapasitas' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 58
+[02-Jun-2023 03:08:03 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[02-Jun-2023 03:08:03 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[02-Jun-2023 03:08:03 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 112
+[02-Jun-2023 03:08:03 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 160
+[02-Jun-2023 03:12:35 Europe/Berlin] PHP Notice:  Undefined index: rak in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 5
+[02-Jun-2023 03:12:35 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[02-Jun-2023 03:12:35 Europe/Berlin] PHP Warning:  Illegal string offset 'kapasitas' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 58
+[02-Jun-2023 03:12:35 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[02-Jun-2023 03:12:35 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[02-Jun-2023 03:12:35 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 112
+[02-Jun-2023 03:12:35 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 160
+[02-Jun-2023 03:13:58 Europe/Berlin] PHP Notice:  Undefined index: rak in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 5
+[02-Jun-2023 03:13:58 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[02-Jun-2023 03:13:58 Europe/Berlin] PHP Warning:  Illegal string offset 'kapasitas' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 58
+[02-Jun-2023 03:13:58 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[02-Jun-2023 03:13:58 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[02-Jun-2023 03:13:58 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 112
+[02-Jun-2023 03:13:58 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 160
+[02-Jun-2023 03:39:49 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[02-Jun-2023 03:39:49 Europe/Berlin] PHP Warning:  Illegal string offset 'kapasitas' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 58
+[02-Jun-2023 03:39:49 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[02-Jun-2023 03:39:49 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[02-Jun-2023 03:39:49 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 112
+[02-Jun-2023 03:39:49 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 160
+[02-Jun-2023 11:56:37 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[02-Jun-2023 11:56:37 Europe/Berlin] PHP Warning:  Illegal string offset 'kapasitas' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 58
+[02-Jun-2023 11:56:37 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[02-Jun-2023 11:56:37 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[02-Jun-2023 11:56:37 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 112
+[02-Jun-2023 11:56:37 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 160
+[05-Jun-2023 09:11:33 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[05-Jun-2023 09:11:33 Europe/Berlin] PHP Warning:  Illegal string offset 'kapasitas' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 58
+[05-Jun-2023 09:11:33 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[05-Jun-2023 09:11:33 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[05-Jun-2023 09:11:33 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 112
+[05-Jun-2023 09:11:33 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 160
+[05-Jun-2023 10:27:42 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[05-Jun-2023 10:27:42 Europe/Berlin] PHP Warning:  Illegal string offset 'kapasitas' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 58
+[05-Jun-2023 10:27:42 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[05-Jun-2023 10:27:42 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[05-Jun-2023 10:27:42 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 112
+[05-Jun-2023 10:27:42 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 160
+[08-Nov-2023 07:44:18 Europe/Berlin] PHP Notice:  Trying to get property of non-object in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 105
+[08-Nov-2023 07:44:19 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[08-Nov-2023 07:44:19 Europe/Berlin] PHP Notice:  Trying to get property of non-object in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 51
+[08-Nov-2023 07:44:19 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[08-Nov-2023 07:44:19 Europe/Berlin] PHP Notice:  Trying to get property of non-object in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 79
+[08-Nov-2023 07:44:19 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[08-Nov-2023 07:44:19 Europe/Berlin] PHP Notice:  Trying to get property of non-object in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 143
+[08-Nov-2023 07:44:19 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in D:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 112
+[08-Nov-2023 07:44:19 Europe/Berlin] PHP Notice:  Trying to get property of non-object in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 143
+[08-Nov-2023 07:44:19 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in D:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 160
+[08-Nov-2023 07:44:38 Europe/Berlin] PHP Notice:  Trying to get property of non-object in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 105
+[08-Nov-2023 07:44:38 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[08-Nov-2023 07:44:38 Europe/Berlin] PHP Notice:  Trying to get property of non-object in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 51
+[08-Nov-2023 07:44:38 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[08-Nov-2023 07:44:38 Europe/Berlin] PHP Notice:  Trying to get property of non-object in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 79
+[08-Nov-2023 07:44:38 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[08-Nov-2023 07:44:38 Europe/Berlin] PHP Notice:  Trying to get property of non-object in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 143
+[08-Nov-2023 07:44:38 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in D:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 112
+[08-Nov-2023 07:44:38 Europe/Berlin] PHP Notice:  Trying to get property of non-object in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 143
+[08-Nov-2023 07:44:38 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in D:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 160
+[08-Nov-2023 07:45:49 Europe/Berlin] PHP Notice:  Trying to get property of non-object in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 105
+[08-Nov-2023 07:45:49 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 111
+[08-Nov-2023 07:45:49 Europe/Berlin] PHP Warning:  Illegal string offset 'kapasitas' in D:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 58
+[08-Nov-2023 07:45:49 Europe/Berlin] PHP Notice:  Trying to get property of non-object in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 51
+[08-Nov-2023 07:45:49 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 57
+[08-Nov-2023 07:45:49 Europe/Berlin] PHP Notice:  Trying to get property of non-object in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 79
+[08-Nov-2023 07:45:49 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 85
+[08-Nov-2023 07:45:49 Europe/Berlin] PHP Notice:  Trying to get property of non-object in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 143
+[08-Nov-2023 07:45:49 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in D:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 112
+[08-Nov-2023 07:45:49 Europe/Berlin] PHP Notice:  Trying to get property of non-object in D:\xampp\htdocs\warehouse\pages\wh\generateQr\config\database.php on line 143
+[08-Nov-2023 07:45:49 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in D:\xampp\htdocs\warehouse\pages\wh\generateQr\index.php on line 160
+[09-Nov-2023 01:57:11 Europe/Berlin] PHP Notice:  Undefined index: rak in C:\xampp\htdocs\erp\pages\wh\generateQr\index.php on line 5
+[09-Nov-2023 01:57:11 Europe/Berlin] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 105
+[09-Nov-2023 01:57:11 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 111
+[09-Nov-2023 01:57:11 Europe/Berlin] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 25
+[09-Nov-2023 01:57:11 Europe/Berlin] PHP Warning:  Illegal string offset 'kapasitas' in C:\xampp\htdocs\erp\pages\wh\generateQr\index.php on line 58
+[09-Nov-2023 01:57:11 Europe/Berlin] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 51
+[09-Nov-2023 01:57:11 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 57
+[09-Nov-2023 01:57:11 Europe/Berlin] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 79
+[09-Nov-2023 01:57:11 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 85
+[09-Nov-2023 01:57:11 Europe/Berlin] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 143
+[09-Nov-2023 01:57:11 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\erp\pages\wh\generateQr\index.php on line 112
+[09-Nov-2023 01:57:11 Europe/Berlin] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 143
+[09-Nov-2023 01:57:11 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\erp\pages\wh\generateQr\index.php on line 160
+[09-Nov-2023 01:58:07 Europe/Berlin] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 105
+[09-Nov-2023 01:58:07 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 111
+[09-Nov-2023 01:58:07 Europe/Berlin] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 25
+[09-Nov-2023 01:58:07 Europe/Berlin] PHP Warning:  Illegal string offset 'kapasitas' in C:\xampp\htdocs\erp\pages\wh\generateQr\index.php on line 58
+[09-Nov-2023 01:58:07 Europe/Berlin] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 51
+[09-Nov-2023 01:58:07 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 57
+[09-Nov-2023 01:58:07 Europe/Berlin] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 79
+[09-Nov-2023 01:58:07 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 85
+[09-Nov-2023 01:58:07 Europe/Berlin] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 143
+[09-Nov-2023 01:58:07 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\erp\pages\wh\generateQr\index.php on line 112
+[09-Nov-2023 01:58:07 Europe/Berlin] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 143
+[09-Nov-2023 01:58:07 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\erp\pages\wh\generateQr\index.php on line 160
+[09-Nov-2023 01:58:12 Europe/Berlin] PHP Notice:  Undefined index: rak in C:\xampp\htdocs\erp\pages\wh\generateQr\index.php on line 5
+[09-Nov-2023 01:58:12 Europe/Berlin] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 105
+[09-Nov-2023 01:58:12 Europe/Berlin] PHP Warning:  Illegal string offset 'latest_update' in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 111
+[09-Nov-2023 01:58:12 Europe/Berlin] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 25
+[09-Nov-2023 01:58:12 Europe/Berlin] PHP Warning:  Illegal string offset 'kapasitas' in C:\xampp\htdocs\erp\pages\wh\generateQr\index.php on line 58
+[09-Nov-2023 01:58:12 Europe/Berlin] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 51
+[09-Nov-2023 01:58:12 Europe/Berlin] PHP Warning:  Illegal string offset 'total' in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 57
+[09-Nov-2023 01:58:12 Europe/Berlin] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 79
+[09-Nov-2023 01:58:12 Europe/Berlin] PHP Warning:  Illegal string offset 'space_kosong' in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 85
+[09-Nov-2023 01:58:12 Europe/Berlin] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 143
+[09-Nov-2023 01:58:12 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\erp\pages\wh\generateQr\index.php on line 112
+[09-Nov-2023 01:58:12 Europe/Berlin] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\erp\pages\wh\generateQr\config\database.php on line 143
+[09-Nov-2023 01:58:12 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\erp\pages\wh\generateQr\index.php on line 160
