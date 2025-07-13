@@ -415,11 +415,11 @@ echo "else if (bppbdate == '') { document.form.txtbppbdate.focus();swal({ title:
 
 echo "else if ((new Date(bppbdate) < new Date(dtperiode1)) || (new Date(bppbdate) > new Date(dtperiode2)))
 
-    { valid = false;
+{ valid = false;
 
-      swal({ title: 'Tgl. Transaksi diluar Periode Aktif Gudang', $img_alert });
+  swal({ title: 'Tgl. Transaksi diluar Periode Aktif Gudang', $img_alert });
 
-    }";
+}";
 
 // echo "else if (new Date(bppbdate) > new Date()) 
 
@@ -586,22 +586,22 @@ function save_rak()
       qtyrollpil += Number(chkqty[i].value);
       crinya = chkcri[i].value;
       if (crirollnya == '')
-      { crirollnya = chkcri[i].value + "|" + Number(chkqty[i].value); }
+        { crirollnya = chkcri[i].value + "|" + Number(chkqty[i].value); }
       else
-      { crirollnya = crirollnya + "X" + chkcri[i].value + "|" + Number(chkqty[i].value); }
+        { crirollnya = crirollnya + "X" + chkcri[i].value + "|" + Number(chkqty[i].value); }
     }
   }
   var res = crinya.split("|"); 
   var rescri = res[0]+"|"+res[1];
   for (var i = 0; i < qtydet.length; i++) 
-    { 
-      if (qtydetori[i].value == rescri)
-      {
-        qtydet[i].value = crirollnya;
-        totqtydet[i].value = qtyrollpil;
-      }
+  { 
+    if (qtydetori[i].value == rescri)
+    {
+      qtydet[i].value = crirollnya;
+      totqtydet[i].value = qtyrollpil;
     }
-  };
+  }
+};
 </script>
 <!-- Modal -->
 <div class="modal fade" id="myRak"  tabindex="-1" role="dialog">
@@ -652,10 +652,10 @@ if ($mod=="35" or $mod=="35e")
   if($noreq!="") {$fldcri=" where bppbno='$noreq'";} else {$fldcri="";}
 
   $sql="select a.bppbno isi,concat(a.bppbno,'|',ac.kpno,'|',ac.styleno,'|',mb.supplier) tampil 
-    from bppb_req a inner join jo_det s on a.id_jo=s.id_jo 
-    inner join so on s.id_so=so.id inner join act_costing ac on so.id_cost=ac.id 
-    inner join mastersupplier mb on ac.id_buyer=mb.id_supplier  
-    $fldcri and a.cancel='N' and bppbdate >= '2021-01-01' group by bppbno";
+  from bppb_req a inner join jo_det s on a.id_jo=s.id_jo 
+  inner join so on s.id_so=so.id inner join act_costing ac on so.id_cost=ac.id 
+  inner join mastersupplier mb on ac.id_buyer=mb.id_supplier  
+  $fldcri and a.cancel='N' and bppbdate >= '2021-01-01' group by bppbno";
 
   IsiCombo($sql,$noreq,'Pilih Request #');
 
@@ -846,11 +846,11 @@ if ($mod=="35" or $mod=="35e")
 
   echo "                <select class='form-control select2' style='width: 100%;' name='txtjns_out' required>";
 
-                    $sqljns_out = "select nama_trans isi,nama_trans tampil from mastertransaksi where 
+  $sqljns_out = "select nama_trans isi,nama_trans tampil from mastertransaksi where 
 
-                          jenis_trans='OUT' and jns_gudang = 'FACC' order by id";
+  jenis_trans='OUT' and jns_gudang = 'FACC' order by id";
 
-                    IsiCombo($sqljns_out,'','Pilih Jenis Pengeluaran');    
+  IsiCombo($sqljns_out,'','Pilih Jenis Pengeluaran');    
   
   echo  "                </select>";            
 
@@ -1132,29 +1132,29 @@ if ($mod=="35v")
 
     </div>
 
-<div class='row'>
-    <form action="" method="post">
+    <div class='row'>
+      <form action="" method="post">
 
-    <div class="box-header">
-      <div class='col-md-2'>                            
-        <label>From Date (BPPB Req) : </label>
-        <input type='text' class='form-control' id='datepicker1' name='frdate' placeholder='Masukkan From Date' value='<?php echo $perf;?>' >
-             
-      </div>
-      <div class='col-md-2'>
-        <label>To Date (BPPB Req) : </label>
-        <input type='text' class='form-control' id='datepicker2' name='kedate' placeholder='Masukkan To Date' value='<?php echo $pert;?>' >
-      </div> 
-      <div class='col-md-3'>
-          <div>
-          <br>
+        <div class="box-header">
+          <div class='col-md-2'>                            
+            <label>From Date (BPPB Req) : </label>
+            <input type='text' class='form-control' id='datepicker1' name='frdate' placeholder='Masukkan From Date' value='<?php echo $perf;?>' >
+            
+          </div>
+          <div class='col-md-2'>
+            <label>To Date (BPPB Req) : </label>
+            <input type='text' class='form-control' id='datepicker2' name='kedate' placeholder='Masukkan To Date' value='<?php echo $pert;?>' >
+          </div> 
+          <div class='col-md-3'>
+            <div>
+              <br>
               <button type='submit' name='submit' class='btn btn-primary'>Tampilkan</button>              
-          </div>         
-      </div>
+            </div>         
+          </div>
 
-   </div>
-    </form>
-  </div>
+        </div>
+      </form>
+    </div>
 
 
     <div class="box-body">
@@ -1171,7 +1171,7 @@ if ($mod=="35v")
 
             <?php if($akses_date=="1") { ?>
 
-            <th>Original BPPB Date</th>
+              <th>Original BPPB Date</th>
 
             <?php } ?>           
 
@@ -1225,22 +1225,22 @@ if ($mod=="35v")
 
         if ($mode=="FG") { $tbl_mst="masterstyle"; $fld_desc="s.itemname"; } else { $tbl_mst="masteritem"; $fld_desc="s.itemdesc"; }
         $sql="SELECT a.bppbno_int,a.bppbno,a.bppbno_req,a.bppbdate, a.dateinput,
-          a.invno,a.bcno,a.bcdate,a.jenis_dok,s.goods_code,$fld_desc itemdesc,ms.supplier,mb.supplier buyer,
-          ac.styleno,ac.kpno,a.username,group_concat(distinct concat(' ',jo.jo_no)) jo_nya,
-          a.confirm_by, a.confirm_date, a.confirm,a.cancel_by, a.cancel_date, a.cancel, a.last_date_bppb,
-          if(ms.area='F' or ms.area='LINE','INTERNAL','EXTERNAL') out_to,a.confirm, a.jenis_trans    
-          FROM bppb a inner join $tbl_mst s on a.id_item=s.id_item
-          inner join mastersupplier ms on a.id_supplier=ms.id_supplier 
-          inner join jo_det jod on a.id_jo=jod.id_jo 
-          inner join jo on jod.id_jo=jo.id  
-          inner join so on jod.id_so=so.id 
-          inner join act_costing ac on so.id_cost=ac.id 
-          inner join mastersupplier mb on ac.id_buyer=mb.id_supplier  
-          where $fldnyacri and bppbno_req!='' and a.bppbdate >='$tglf' and a.bppbdate <='$tglt' 
-          GROUP BY a.bppbno ASC order by bppbdate desc, bppbno_int desc /* limit 1000 */";
-          $query = mysql_query($sql);
+        a.invno,a.bcno,a.bcdate,a.jenis_dok,s.goods_code,$fld_desc itemdesc,ms.supplier,mb.supplier buyer,
+        ac.styleno,ac.kpno,a.username,group_concat(distinct concat(' ',jo.jo_no)) jo_nya,
+        a.confirm_by, a.confirm_date, a.confirm,a.cancel_by, a.cancel_date, a.cancel, a.last_date_bppb,
+        if(ms.area='F' or ms.area='LINE','INTERNAL','EXTERNAL') out_to,a.confirm, a.jenis_trans    
+        FROM bppb a inner join $tbl_mst s on a.id_item=s.id_item
+        inner join mastersupplier ms on a.id_supplier=ms.id_supplier 
+        inner join jo_det jod on a.id_jo=jod.id_jo 
+        inner join jo on jod.id_jo=jo.id  
+        inner join so on jod.id_so=so.id 
+        inner join act_costing ac on so.id_cost=ac.id 
+        inner join mastersupplier mb on ac.id_buyer=mb.id_supplier  
+        where $fldnyacri and bppbno_req!='' and a.bppbdate >='$tglf' and a.bppbdate <='$tglt' 
+        GROUP BY a.bppbno ASC order by bppbdate desc, bppbno_int desc /* limit 1000 */";
+        $query = mysql_query($sql);
           #echo $sql;
-          while($data = mysql_fetch_array($query))
+        while($data = mysql_fetch_array($query))
         { 
           if($data['cancel']=="Y")
           {
@@ -1252,94 +1252,98 @@ if ($mod=="35v")
           }
           echo "<tr $fontcol>";
 
-        if($data['bppbno_int']!="")
+          if($data['bppbno_int']!="")
 
-          { echo "<td>$data[bppbno_int]</td>"; }
+            { echo "<td>$data[bppbno_int]</td>"; }
 
-        else
+          else
 
-          { echo "<td>$data[bppbno]</td>"; }
+            { echo "<td>$data[bppbno]</td>"; }
 
-        echo "
+          echo "
 
-        <td>".fd_view($data[bppbdate])."</td>";
-		if($akses_date=="1") {
-        echo "<td>".fd_view($data[last_date_bppb])."</td>";
-		}
-		echo "
-        <td>$data[bppbno_req]</td>
+          <td>".fd_view($data[bppbdate])."</td>";
+          if($akses_date=="1") {
+            echo "<td>".fd_view($data[last_date_bppb])."</td>";
+          }
+          echo "
+          <td>$data[bppbno_req]</td>
 
-        <td>$data[buyer]</td>
+          <td>$data[buyer]</td>
 
-        <td>$data[styleno]</td>";
+          <td>$data[styleno]</td>";
 
-        if($jenis_company=="VENDOR LG")
+          if($jenis_company=="VENDOR LG")
 
-          {	echo "<td>$data[jo_nya]</td>"; }
+            {	echo "<td>$data[jo_nya]</td>"; }
 
-        else
+          else
 
-         {	echo "<td>$data[kpno]</td>"; }
+           {	echo "<td>$data[kpno]</td>"; }
 
-       echo "
+         echo "
 
-       <td>$data[supplier]</td>
+         <td>$data[supplier]</td>
 
-       <td>$data[invno]</td>
+         <td>$data[invno]</td>
 
-       <td>$data[bcno]</td>
+         <td>$data[bcno]</td>
 
-       <td>".fd_view($data[bcdate])."</td>
+         <td>".fd_view($data[bcdate])."</td>
 
-       <td>$data[jenis_dok]</td>
+         <td>$data[jenis_dok]</td>
 
-       <td>$data[jenis_trans]</td>
+         <td>$data[jenis_trans]</td>
 
-       <td>$data[username] ($data[dateinput])</td>";
+         <td>$data[username] ($data[dateinput])</td>";
 
-       if($data['confirm'] == 'N' and $data['cancel'] == 'N') {  
-        echo "<td>&nbsp;</td>
-        <td>
+         if($data['confirm'] == 'N' and $data['cancel'] == 'N') {  
+          echo "<td>&nbsp;</td>
+          <td>
           <a href='?mod=35e&mode=$mode&noid=$data[bppbno]'
-            data-toggle='tooltip' title='$cub'><i class='fa fa-pencil'></i>
+          data-toggle='tooltip' title='$cub'><i class='fa fa-pencil'></i>
           </a>
-        </td>";
-      } 
-      else if($data['cancel']=="Y") 
-      {
-        $reason=flookup("reason","cancel_trans","trans_no='$data[bppbno]'");
-        $captses="Cancelled By ".$data['cancel_by']." (".fd_view_dt($data['cancel_date']).") Reason ".$reason;
-        echo "<td>$captses</td>
-        <td></td>";
-      }
-      else 
-      {
-        echo "<td>Confirmed by: $data[confirm_by] ($data[confirm_date])</td><td></td>";
-      }
-      if(
+          
+          <a href='?mod=edit_bppb&bppbno=$data[bppbno]' target='_blank'
+          data-toggle='tooltip' title='Edit New'><i class='fa fa-pencil-square-o text-success' aria-hidden='true'></i>
+          </a>
+          </td>";
+        } 
+        else if($data['cancel']=="Y") 
+        {
+          $reason=flookup("reason","cancel_trans","trans_no='$data[bppbno]'");
+          $captses="Cancelled By ".$data['cancel_by']." (".fd_view_dt($data['cancel_date']).") Reason ".$reason;
+          echo "<td>$captses</td>
+          <td></td>";
+        }
+        else 
+        {
+          echo "<td>Confirmed by: $data[confirm_by] ($data[confirm_date])</td><td></td>";
+        }
+        if(
           ($print_sj=="1" and $data['out_to']=="INTERNAL") or 
           ($print_sj=="1" and $data['out_to']=="EXTERNAL" and $data['confirm']=="Y")
         )
-      { 
-        $filepdf="pdfDO_.php";
-        echo "
-        <td>
+        { 
+          $filepdf="pdfDO_.php";
+          echo "
+          <td>
           <a href='$filepdf?mode=Out&noid=$data[bppbno]' 
-            data-toggle='tooltip' title='Cetak'><i class='fa fa-print'></i>
+          data-toggle='tooltip' title='Cetak'><i class='fa fa-print'></i>
           </a>
-        </td>"; 
+          </td>"; 
+        }
+        else
+          { echo "<td></td>"; }
+        echo "</tr>";
+
       }
-      else
-      { echo "<td></td>"; }
-    echo "</tr>";
 
-  }
+      ?>
 
-  ?>
+    </tbody>
 
-</tbody>
-
-</table>
+  </table>
 
 </div>
 

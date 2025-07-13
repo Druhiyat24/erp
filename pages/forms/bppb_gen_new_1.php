@@ -480,6 +480,10 @@ group by id_item ";
 
               </a>
 
+              <a href='?mod=edit_bppb&bppbno=$data[bppbno]' target='_blank'
+          data-toggle='tooltip' title='Edit New'><i class='fa fa-pencil-square-o text-success' aria-hidden='true'></i>
+          </a>
+
             </td>"; } else { echo "<td>Confirmed by $data[confirm_by] $data[confirm_date]</td><td></td>"; }
 
             if ($print_sj=="1")

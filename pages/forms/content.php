@@ -302,5 +302,9 @@ else if ($mod=="rptreqmat")
 {	include "rep_req_mat.php";	}
 else if ($mod=="rptrkonf")
 {	include "rep_konf.php";	}
+else if ($mod=="edit_bpb")
+{	include "edit_bpb.php";	}
+else if ($mod=="edit_bppb")
+{	include "edit_bppb.php";	}
 else
 {	echo "<h1>Halaman tidak tersedia</h1>";	}

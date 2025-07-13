@@ -513,7 +513,11 @@ if ($id_req == "") {
             {
               $captses = "";
                $status_view = "<a href='../forms/?mod=det_bppb_out&id=$data[bppbno]'
-               data-toggle='tooltip' target='_blank' ><i class='fa fa-pencil'></i> </a> ";              
+               data-toggle='tooltip' target='_blank' ><i class='fa fa-pencil'></i> </a> 
+
+               <a href='?mod=edit_bppb&bppbno=$data[bppbno]' target='_blank'
+              data-toggle='tooltip' title='Edit New'><i class='fa fa-pencil-square-o text-success' aria-hidden='true'></i>
+              </a>";              
               $code = "pencil";
               $status_print = "";
             }

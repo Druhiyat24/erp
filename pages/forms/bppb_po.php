@@ -712,9 +712,7 @@ if ($mod=="37v_bppb_po")
             { echo "
               <td></td>
               <td>
-                <a href='?mod=37e&mode=$mode&noid=$data[bppbno]'
-                  data-toggle='tooltip' title='$cub'><i class='fa fa-pencil'></i>
-                </a>
+                
               </td>"; 
             } 
             if(
@@ -730,7 +728,9 @@ if ($mod=="37v_bppb_po")
               </td>"; 
             }
             else
-            { echo "<td></td>"; }
+            { echo "<td><a href='?mod=edit_bppb&bppbno=$data[bppbno]' target='_blank'
+              data-toggle='tooltip' title='Edit New'><i class='fa fa-pencil-square-o text-success' aria-hidden='true'></i>
+              </a></td>"; }
           echo "</tr>";
         }
         ?>

@@ -374,7 +374,9 @@ $logo_company = $rscomp["logo_company"];
           data-toggle='tooltip' ><i class='fa fa-eye'></i>
         </a>";
             } else {
-              $status_print = "";
+              $status_print = "<a href='?mod=edit_bpb&bpbno=$data[bpbno]' target='_blank'
+              data-toggle='tooltip' title='Edit New'><i class='fa fa-pencil-square-o text-success' aria-hidden='true'></i>
+              </a>";
             }
             echo $status_print;
             echo " 

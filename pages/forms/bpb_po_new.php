@@ -1627,6 +1627,10 @@ else if ($mod=="26z")
 
                   </a>
 
+                  <a href='?mod=edit_bpb&bpbno=$data[bpbno]' target='_blank'
+              data-toggle='tooltip' title='Edit New'><i class='fa fa-pencil-square-o text-success' aria-hidden='true'></i>
+              </a>
+
                 </td>"; 
 
               }

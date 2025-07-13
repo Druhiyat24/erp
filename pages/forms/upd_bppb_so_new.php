@@ -11,7 +11,7 @@ $mod=$_GET['mod'];
 if ($mod == 'update')
 {
    $id_bppb = $_GET['id_bppb'];
- 
+
    $queryheader = mysql_query("SELECT * from bppb where bppbno = '$id_bppb' limit 1");
    $databppb    = mysql_fetch_array($queryheader);
    $bppbno_int  =$databppb['bppbno_int'];
@@ -23,14 +23,25 @@ if ($mod == 'update')
    $txtinvno = nb($_POST['txtinvno']);
    $txtjenis_dok = nb($_POST['txtjenis_dok']);
 
-   $sql	="update bppb set grade = '$txtgrade', bppbdate = '$txtbppbdate', id_buyer = '$txtbuyer', 
-   	id_supplier = '$txtid_supplier', invno = '$txtinvno', jenis_dok = '$txtjenis_dok'
-    where bppbno = '$id_bppb'";
-   insert_log($sql,$user);
-   $_SESSION['msg'] = 'Data Berhasil Disimpan. Nomor BKB : '.$bppbno_int;
-   echo "<script>
-	window.location.href='../forms/?mod=321ed&mode=FG&noid=$id_bppb';
-   </script>";
+   $idbppbs = $_POST['idbppb'];
+   $qtys = $_POST['qty'];
+
+   for ($i = 0; $i < count($idbppbs); $i++) {
+     $idbppb = nb($idbppbs[$i]);
+     $qty = nb($qtys[$i]);
+
+     $sql_det = "UPDATE bppb SET qty = '$qty' WHERE id = '$idbppb'";
+     insert_log($sql_det, $user);
+  }
+
+  $sql	="update bppb set grade = '$txtgrade', bppbdate = '$txtbppbdate', id_buyer = '$txtbuyer', 
+  id_supplier = '$txtid_supplier', invno = '$txtinvno', jenis_dok = '$txtjenis_dok'
+  where bppbno = '$id_bppb'";
+  insert_log($sql,$user);
+  $_SESSION['msg'] = 'Data Berhasil Disimpan. Nomor BKB : '.$bppbno_int;
+  echo "<script>
+  window.location.href='../forms/?mod=321ed&mode=FG&noid=$id_bppb';
+  </script>";
 }
 
 

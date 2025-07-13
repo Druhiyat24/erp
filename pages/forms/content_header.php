@@ -467,6 +467,10 @@ else if ($mod=="rptreqmat")
 {	echo "Lap. Permintaan Bahan Baku"; }
 else if ($mod=="rptrkonf")
 {	echo "Lap. Konfirmasi"; }
+else if ($mod=="edit_bpb")
+{	echo "Form Edit BPB"; }
+else if ($mod=="edit_bppb")
+{	echo "Form Edit BPPB"; }
 else
 {	if ($_SESSION['bahasa']=="Indonesia")
 	{	$menu=flookup("nama_pilihan","masterpilihan","kode_pilihan='Menu$mod'"); }

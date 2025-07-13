@@ -222,6 +222,26 @@ $tt_attach="data-toggle='tooltip' title='Attachment'><i class='fa fa-paperclip'>
   <script type="text/javascript" src="js/dataTables.buttons.min.js"></script>
 
   <script>
+  function updateTotalQty() {
+    let total = 0;
+    $('.qty-input').each(function() {
+      let val = parseFloat($(this).val().replace(',', '.')) || 0;
+      total += val;
+    });
+    $('#totalQty').val(total.toFixed(2));
+  }
+
+  // Update total saat load dan saat nilai qty berubah
+  $(document).ready(function() {
+    updateTotalQty();
+    $('.qty-input').on('input', function() {
+      updateTotalQty();
+    });
+  });
+</script>
+
+
+  <script>
     $(function () {
     //Initialize Select2 Elements
     $(".select2").select2();
@@ -265,6 +285,12 @@ $tt_attach="data-toggle='tooltip' title='Attachment'><i class='fa fa-paperclip'>
     ({  format: "dd M yyyy",
       autoclose: true
     });
+
+    $('#date_editbpb').datepicker
+    ({  format: "dd M yyyy",
+      autoclose: true
+    });
+
     $('#monthpicker').datepicker
     ({  format: "M yyyy",
       autoclose: true
