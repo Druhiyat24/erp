@@ -73,14 +73,6 @@ if (!isset($_POST['itemchk'])) {
 	}
 	if ($nm_tbl == "bpb") {
 		$bpbno_int = flookup("bpbno_int", "bpb", "bpbno='$txtbppbno'");
-		// $cekdata = mysql_query("select bpbno, bpbno_int, bpb.bpbdate, bpb.id_supplier, supplier, mattype, n_code_category, 
-		// 	if(matclass like '%ACCESORIES%','ACCESORIES',mi.matclass) matclass, bpb.curr, COALESCE(tax,0) tax,bpb.username, bpb.dateinput, 
-		// 	SUM(((qty - COALESCE(qty_reject,0)) * price) + (((qty - COALESCE(qty_reject,0)) * price) * (COALESCE(tax,0) /100))) as total,SUM(((qty - COALESCE(qty_reject,0)) * price)) as dpp,SUM((((qty - COALESCE(qty_reject,0)) * price) * (COALESCE(tax,0) /100))) as ppn
-		// 	from bpb 
-		// 	inner join masteritem mi on bpb.id_item = mi.id_item
-		// 	inner join mastersupplier ms on bpb.id_supplier = ms.id_supplier
-		// 	left join po_header ph on bpb.pono = ph.pono
-		// 	where bpbno  = '$txtbppbno' group by bpbno");
 
 		$cekdata = mysql_query("select SUBSTR(bpbno_int,1,3) fil_wip, phd.tipe_com, mi.itemdesc,bpb.confirm,bpbno, bpbno_int, bpb.bpbdate, bpb.id_supplier, supplier, mattype, n_code_category, 
 			if(matclass like '%ACCESORIES%','ACCESORIES',mi.matclass) matclass, bpb.curr, COALESCE(ph.tax,0) tax,bpb.username, bpb.dateinput, 
@@ -91,7 +83,8 @@ if (!isset($_POST['itemchk'])) {
 			left join po_header ph on bpb.pono = ph.pono
 			left join po_header_draft phd on phd.id = ph.id_draft
 			where bpbno = '$txtbppbno'  group by bpbno,mattype, n_code_category order by supplier");
-		$databpb    = mysql_fetch_array($cekdata);
+
+		while ($databpb = mysql_fetch_array($cekdata)) {
 		$no_bpb		= $databpb['bpbno_int'];
 		$supp		= $databpb['supplier'];
 		$id_supplier = $databpb['id_supplier'];
@@ -111,11 +104,11 @@ if (!isset($_POST['itemchk'])) {
 		$fil_wip = $databpb['fil_wip'];
 
 		if ($fil_wip == 'WIP') {
-		 	$no_costcenter		= 'DEP04SUB004';
-		 	$nama_costcenter	= 'DISTRIBUTION CENTER';
+			$no_costcenter		= 'DEP04SUB004';
+			$nama_costcenter	= 'DISTRIBUTION CENTER';
 		}else{
 			$no_costcenter		= '';
-		 	$nama_costcenter	= '';
+			$nama_costcenter	= '';
 		}
 
 		if ($mattype == 'C') {
@@ -259,6 +252,7 @@ if (!isset($_POST['itemchk'])) {
 				insert_log($queryss4, $user);
 			}
 		}
+	}
 
 		// echo $description;	
 	} else {
