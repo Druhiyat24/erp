@@ -2337,3 +2337,9 @@
 [08-Jul-2025 06:35:03 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
 [10-Jul-2025 04:16:57 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
 [10-Jul-2025 04:16:57 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
+[14-Jul-2025 05:39:16 Europe/Berlin] PHP Warning:  include(include/conn.php): failed to open stream: No such file or directory in C:\xampp\htdocs\new_erp\index.php on line 4
+[14-Jul-2025 05:39:16 Europe/Berlin] PHP Warning:  include(): Failed opening 'include/conn.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\new_erp\index.php on line 4
+[14-Jul-2025 05:39:16 Europe/Berlin] PHP Deprecated:  mysql_query(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in C:\xampp\htdocs\new_erp\index.php on line 6
+[14-Jul-2025 05:39:16 Europe/Berlin] PHP Warning:  mysql_query(): Access denied for user ''@'localhost' (using password: NO) in C:\xampp\htdocs\new_erp\index.php on line 6
+[14-Jul-2025 05:39:16 Europe/Berlin] PHP Warning:  mysql_query(): A link to the server could not be established in C:\xampp\htdocs\new_erp\index.php on line 6
+[14-Jul-2025 05:39:16 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in C:\xampp\htdocs\new_erp\index.php on line 7
