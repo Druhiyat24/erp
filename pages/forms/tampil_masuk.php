@@ -938,13 +938,22 @@ insert_log($sql,$user);
 				group by a.bcno,a.bppbno,s.goods_code,s.itemdesc,a.price
 				order by bcdate,bcno) a
 				UNION
-				SELECT 'BC 4.1 LOKAL' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bppbno_int!='',a.bppbno_int,a.bppbno) trans_no,a.bppbdate trans_date,d.supplier,
+				(SELECT 'BC 4.1 LOKAL' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bppbno_int!='',a.bppbno_int,a.bppbno) trans_no,a.bppbdate trans_date,d.supplier,
 				if(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0',s.goods_code,concat('FG ',s.id_item)) kode_brg,s.itemdesc itemdesc,a.unit,
 				sum(a.qty) qty,round(sum(a.qty*ifnull(a.price_bc,a.price)),2) nilai_barang,s.id_item id_item ,a.curr,a.price ,
 				'F' mattype from bppb a inner join masteritem s on a.id_item=s.id_item inner join 
 				mastersupplier d on a.id_supplier=d.id_supplier where bppbdate between '$tglf' and '$tglt' and left(bppbno_int,2)='GK' and jenis_dok='BC 4.1'
 				group by a.bcno,a.bppbno,s.goods_code,s.id_item,a.price
+				order by bcdate,bcno)
+				UNION
+				SELECT 'BC 4.1 LOKAL' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bppbno_int!='',a.bppbno_int,a.bppbno) trans_no,a.bppbdate trans_date,d.supplier,
+				if(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0',s.goods_code,concat('FG ',s.id_item)) kode_brg,s.itemdesc itemdesc,a.unit,
+				sum(a.qty) qty,round(sum(a.qty*ifnull(a.price_bc,a.price)),2) nilai_barang,s.id_item id_item ,a.curr,a.price ,
+				s.mattype from bppb a inner join masteritem s on a.id_item=s.id_item inner join 
+				mastersupplier d on a.id_supplier=d.id_supplier where bppbdate between '$tglf' and '$tglt' and left(bppbno_int,3)='GEN' and jenis_dok='BC 4.1'
+				group by a.bcno,a.bppbno,s.goods_code,s.id_item,a.price
 				order by bcdate,bcno";
+				// echo $sqlk;
 			insert_temp_perdok($sqlk,$user,$sesi,"Y");
 			$sqlk2 = "SELECT 'BC 4.1 LOKAL' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,
 				if(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0',s.goods_code,concat('FG ',s.id_item)) kode_brg,s.itemname itemdesc,a.unit,
