@@ -139,7 +139,7 @@ insert_log($sql, $user);
 				 where bppbdate between '$tglf' and '$tglt' and mid(bppbno,4,2)='FG' and jenis_dok='BC 3.0' and a.cancel = 'N'
 				 order by bcdate,bcno,bppbno) a
 					UNION
-					SELECT 'BC 3.0' jenis_dokumen,lpad(a.bcno,6,'0') bcno,
+					(SELECT 'BC 3.0' jenis_dokumen,lpad(a.bcno,6,'0') bcno,
 				a.bcdate,
 				if(a.bppbno_int!='',a.bppbno_int,a.bppbno) trans_no,
 				a.bppbno,
@@ -158,6 +158,27 @@ insert_log($sql, $user);
 				 inner join masteritem s on a.id_item=s.id_item 
 				 LEFT join mastersupplier d on a.id_supplier=d.id_supplier 
 				 where bppbdate between '$tglf' and '$tglt' and left(bppbno_int,2)='GK' and jenis_dok='BC 3.0' and a.cancel = 'N'
+				 order by bcdate,bcno,bppbno)
+					UNION
+					SELECT 'BC 3.0' jenis_dokumen,lpad(a.bcno,6,'0') bcno,
+				a.bcdate,
+				if(a.bppbno_int!='',a.bppbno_int,a.bppbno) trans_no,
+				a.bppbno,
+				 a.bppbdate trans_date,
+				 d.supplier,
+				 if(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0',s.goods_code,concat('F ',s.id_item)) kode_brg,
+				 s.itemdesc itemdesc,
+				 a.unit,
+				 a.qty,
+				 round(a.qty*ifnull(a.price_bc,a.price),2) nilai_barang,
+				 a.curr, 
+				 if(a.price_bc is null or '0' or '',a.price,a.price_bc) price ,
+				 'F' mattype,
+				 s.id_item, s.matclass
+				 from bppb a 
+				 inner join masteritem s on a.id_item=s.id_item 
+				 LEFT join mastersupplier d on a.id_supplier=d.id_supplier 
+				 where bppbdate between '$tglf' and '$tglt' and left(bppbno_int,3)='GEN' and jenis_dok='BC 3.0' and a.cancel = 'N'
 				 order by bcdate,bcno,bppbno
 				";
 					#echo $sql;

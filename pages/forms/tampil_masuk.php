@@ -878,6 +878,7 @@ insert_log($sql,$user);
 				LEFT join mastersupplier d on a.id_supplier=d.id_supplier 
 				where bppbdate between '$tglf' and '$tglt' and mid(bppbno,4,2)<>'FG' and jenis_dok='BC 3.0' order by bcdate,bcno,bppbno";
 			insert_temp_perdok($sqlk2,$user,$sesi,"N");
+			// echo $sqlk2;
 		} elseif ($rpt=='bc261keluar')
 		{	$kodenya = "if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item))";
 			$sqlk = "SELECT 'BC 2.6.1 KELUAR' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,
@@ -1087,7 +1088,9 @@ insert_log($sql,$user);
 				s.itemdesc,a.unit,a.qty,a.curr,round(ifnull(a.price_bc,a.price)*a.qty,2) nilai_barang,ifnull(a.price_bc,a.price),
 				berat_bersih,berat_kotor,right(nomor_aju,6) nomor_aju,tujuan
 				from bppb a inner join masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
-				where bppbdate between '$tglf' and '$tglt' and mid(bppbno,4,2)<>'FG' and d.area<>'F' and jenis_dok!='INHOUSE' order by bcdate,bcno,bppbno";
+				where bppbdate between '$tglf' and '$tglt' and mid(bppbno,4,2)<>'FG' and jenis_dok!='INHOUSE' order by bcdate,bcno,bppbno";
+				// and d.area<>'F'
+				// echo $sqlk;
 			insert_temp_perdok_rekap($sqlk,$user,$sesi,"Y");
 			$sqlk = "SELECT 
 				if(jenis_dok='BC 3.0','BC 3.0',
@@ -1105,6 +1108,7 @@ insert_log($sql,$user);
 				from bppb a inner join masterstyle s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
 				where bppbdate between '$tglf' and '$tglt' and mid(bppbno,4,2)='FG' and jenis_dok!='INHOUSE' order by bcdate,bcno,bppbno";
 			#and d.area<>'F'
+				// echo $sqlk;
 			insert_temp_perdok_rekap($sqlk,$user,$sesi,"N");
 		}
 		#CETAK SQLK / REPORT / PREVIEW
