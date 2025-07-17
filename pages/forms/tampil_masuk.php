@@ -1055,7 +1055,7 @@ insert_log($sql,$user);
 				if(jenis_dok='BC 4.0' and ucase(invno) not like '%SEWA%' and ucase(tujuan) like '%SUBKON%','BC 4.0 SUBKON',
 				if(d.area='I' and a.invno like '%PIB%' and a.invno not like '%PIBK%','BC 2.0 IMPOR PIB',
 				if(d.area='I' and a.invno like '%PIBK%','BC 2.1 IMPOR PIBK',
-				if(d.status_kb='KITTE' and d.area='L','BC 2.4 KITTE','N/A')))))))))) jenis_dokumen,
+				if(d.status_kb='KITTE' and d.area='L','BC 2.4 KITTE',jenis_dok)))))))))) jenis_dokumen,
 				lpad(a.bcno,6,'0') bcno,if(isnull(a.bcdate),a.bpbdate,a.bcdate) bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,a.bpbdate trans_date,d.supplier,
 				if(s.goods_code='' OR s.goods_code='-' OR s.goods_code='0',concat(s.mattype,' ',a.id_item),s.goods_code) kode_brg,
 				concat(s.itemdesc,' ',s.color,' ',s.size,' ',s.add_info) itemdesc,a.unit,a.qty,a.curr,round(ifnull(a.price_bc,a.price)*a.qty,2) nilai_barang,
