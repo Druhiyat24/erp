@@ -803,19 +803,27 @@ insert_log($sql,$user);
 		} elseif ($rpt=='bc40lkl')
 		{	$kode_brg = "if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item)) "; 
 			$kode_brg_fg = "if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat('FG ',s.id_item)) ";
-			$sqlk = "SELECT 'BC 4.0' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,a.bpbdate trans_date,d.supplier,
+			$sqlk = "(SELECT 'BC 4.0' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,a.bpbdate trans_date,d.supplier,
 				$kode_brg kode_brg,s.itemdesc,a.unit,sum(a.qty) qty,a.curr,round(sum(ifnull(a.price_bc,a.price)*a.qty),2) nilai_barang,a.id_item , remark 
 				from bpb a inner join masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
 				where a.cancel='N' and bpbdate between '$tglf' and '$tglt' and left(bpbno,2)<>'FG'  and a.jenis_dok='BC 4.0' 
 				and ucase(invno) not like '%SEWA%' 
-				and a.tujuan not like '%SUBKON%' group by bcno,bpbno,a.id_item,price order by bcdate,bcno";
-			insert_temp_perdok($sqlk,$user,$sesi,"Y");
-			$sqlk2 = "SELECT 'BC 4.0' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,a.bpbdate trans_date,d.supplier,
-				$kode_brg_fg kode_brg,s.itemname itemdesc,a.unit,sum(a.qty) qty,a.curr,round(sum(ifnull(a.price_bc,a.price)*a.qty),2) nilai_barang,a.id_item  
+				and a.tujuan not like '%SUBKON%' group by bcno,bpbno,a.id_item,price order by bcdate,bcno)
+				UNION
+				SELECT 'BC 4.0' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,a.bpbdate trans_date,d.supplier,
+				$kode_brg_fg kode_brg,s.itemname itemdesc,a.unit,sum(a.qty) qty,a.curr,round(sum(ifnull(a.price_bc,a.price)*a.qty),2) nilai_barang,a.id_item , remark  
 				from bpb a inner join masterstyle s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
 				where a.cancel='N' and bpbdate between '$tglf' and '$tglt' and left(bpbno,2)='FG' and d.area='L' and a.jenis_dok='BC 4.0' and ucase(invno) not like '%SEWA%' 
 				and a.tujuan not like '%SUBKON%' group by bcno,bpbno,a.id_item,price order by bcdate,bcno";
-			insert_temp_perdok($sqlk2,$user,$sesi,"N");
+			insert_temp_perdok($sqlk,$user,$sesi,"Y");
+			// echo $sqlk;
+			// echo $sesi;
+			// $sqlk2 = "SELECT 'BC 4.0' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,a.bpbdate trans_date,d.supplier,
+			// 	$kode_brg_fg kode_brg,s.itemname itemdesc,a.unit,sum(a.qty) qty,a.curr,round(sum(ifnull(a.price_bc,a.price)*a.qty),2) nilai_barang,a.id_item  
+			// 	from bpb a inner join masterstyle s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
+			// 	where a.cancel='N' and bpbdate between '$tglf' and '$tglt' and left(bpbno,2)='FG' and d.area='L' and a.jenis_dok='BC 4.0' and ucase(invno) not like '%SEWA%' 
+			// 	and a.tujuan not like '%SUBKON%' group by bcno,bpbno,a.id_item,price order by bcdate,bcno";
+			// insert_temp_perdok($sqlk2,$user,$sesi,"Y");
 		} elseif ($rpt=='bc40sewa')
 		{	$sqlk = "SELECT 'BC 4.0 MESIN (SEWA)' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,
 				a.bpbno trans_no,a.bpbdate trans_date,d.supplier,
@@ -1118,14 +1126,30 @@ insert_log($sql,$user);
 	  $no_dok_prev=""; $jenis_dok_prev="";
 if ($rpt=='bc40lkl')
 {
-		$sql = mysql_query("SELECT 'BC 4.0' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,a.bpbdate trans_date,d.supplier, if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item)) kode_brg,s.itemdesc,a.unit,sum(a.qty) qty,a.curr,round(sum(ifnull(a.price_bc,a.price)*a.qty),2) nilai_barang,a.id_item, b.matclass, remark from bpb a inner join masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier LEFT JOIN (select id_item iditem, if(matclass = '-' OR matclass is null, b.description, matclass) matclass from masteritem a left join mapping_category b on b.n_id = a.n_code_category GROUP BY id_item) b on b.iditem = a.id_item where a.cancel='N' and bpbdate between '$tglf' and '$tglt' and left(bpbno,2)<>'FG' and a.jenis_dok='BC 4.0' and ucase(invno) not like '%SEWA%' and a.tujuan not like '%SUBKON%' group by bcno,bpbno,a.id_item,price order by bcdate,bcno");
+		$sql = mysql_query("(SELECT 'BC 4.0' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,a.bpbdate trans_date,d.supplier, if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item)) kode_brg,s.itemdesc,a.unit,sum(a.qty) qty,a.curr,round(sum(ifnull(a.price_bc,a.price)*a.qty),2) nilai_barang,a.id_item, b.matclass, remark from bpb a inner join masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier LEFT JOIN (select id_item iditem, if(matclass = '-' OR matclass is null, b.description, matclass) matclass from masteritem a left join mapping_category b on b.n_id = a.n_code_category GROUP BY id_item) b on b.iditem = a.id_item where a.cancel='N' and bpbdate between '$tglf' and '$tglt' and left(bpbno,2)<>'FG' and a.jenis_dok='BC 4.0' and ucase(invno) not like '%SEWA%' and a.tujuan not like '%SUBKON%' group by bcno,bpbno,a.id_item,price order by bcdate,bcno)
+			UNION
+			SELECT 'BC 4.0' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,a.bpbdate trans_date,d.supplier,
+				if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat('FG ',s.id_item)) kode_brg,s.itemname itemdesc,a.unit,sum(a.qty) qty,a.curr,round(sum(ifnull(a.price_bc,a.price)*a.qty),2) nilai_barang,a.id_item ,'BARANG JADI' matclass , remark  
+				from bpb a inner join masterstyle s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
+				where a.cancel='N' and bpbdate between '$tglf' and '$tglt' and left(bpbno,2)='FG' and d.area='L' and a.jenis_dok='BC 4.0' and ucase(invno) not like '%SEWA%' 
+				and a.tujuan not like '%SUBKON%' group by bcno,bpbno,a.id_item,price order by bcdate,bcno");
+
+		// $sql = mysql_query("SELECT 'BC 4.0' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,a.bpbdate trans_date,d.supplier, if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item)) kode_brg,s.itemdesc,a.unit,sum(a.qty) qty,a.curr,round(sum(ifnull(a.price_bc,a.price)*a.qty),2) nilai_barang,a.id_item, b.matclass, remark from bpb a inner join masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier LEFT JOIN (select id_item iditem, if(matclass = '-' OR matclass is null, b.description, matclass) matclass from masteritem a left join mapping_category b on b.n_id = a.n_code_category GROUP BY id_item) b on b.iditem = a.id_item where a.cancel='N' and bpbdate between '$tglf' and '$tglt' and left(bpbno,2)<>'FG' and a.jenis_dok='BC 4.0' and ucase(invno) not like '%SEWA%' and a.tujuan not like '%SUBKON%' group by bcno,bpbno,a.id_item,price order by bcdate,bcno");
+
+		// echo "(SELECT 'BC 4.0' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,a.bpbdate trans_date,d.supplier, if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item)) kode_brg,s.itemdesc,a.unit,sum(a.qty) qty,a.curr,round(sum(ifnull(a.price_bc,a.price)*a.qty),2) nilai_barang,a.id_item, b.matclass, remark from bpb a inner join masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier LEFT JOIN (select id_item iditem, if(matclass = '-' OR matclass is null, b.description, matclass) matclass from masteritem a left join mapping_category b on b.n_id = a.n_code_category GROUP BY id_item) b on b.iditem = a.id_item where a.cancel='N' and bpbdate between '$tglf' and '$tglt' and left(bpbno,2)<>'FG' and a.jenis_dok='BC 4.0' and ucase(invno) not like '%SEWA%' and a.tujuan not like '%SUBKON%' group by bcno,bpbno,a.id_item,price order by bcdate,bcno)
+		// 	UNION
+		// 	SELECT 'BC 4.0' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,a.bpbdate trans_date,d.supplier,
+		// 		if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat('FG ',s.id_item)) kode_brg,s.itemname itemdesc,a.unit,sum(a.qty) qty,a.curr,round(sum(ifnull(a.price_bc,a.price)*a.qty),2) nilai_barang,a.id_item , 'BARANG JADI' matclass, remark  
+		// 		from bpb a inner join masterstyle s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
+		// 		where a.cancel='N' and bpbdate between '$tglf' and '$tglt' and left(bpbno,2)='FG' and d.area='L' and a.jenis_dok='BC 4.0' and ucase(invno) not like '%SEWA%' 
+		// 		and a.tujuan not like '%SUBKON%' group by bcno,bpbno,a.id_item,price order by bcdate,bcno";
 
 
 }
 else
 {  
 		$sql = mysql_query("select a.*, if(JENIS_BARANG like '%FG/%','BARANG JADI',matclass) matclass from upload_standard a LEFT JOIN (select id_item iditem, if(matclass = '-' OR matclass is null, b.description, matclass) matclass from masteritem a left join mapping_category b on b.n_id = a.n_code_category GROUP BY id_item) b on b.iditem = a.id_item where username='$user' and sesi='$sesi' order by jenis_dokumen,bcdate,bcno");
-		// echo "select * from upload_standard a LEFT JOIN (select id_item iditem, if(matclass = '-' OR matclass is null, b.description, matclass) matclass from masteritem a left join mapping_category b on b.n_id = a.n_code_category GROUP BY id_item) b on b.iditem = a.id_item where username='$user' and sesi='$sesi' order by jenis_dokumen,bcdate,bcno";
+		// echo "select a.*, if(JENIS_BARANG like '%FG/%','BARANG JADI',matclass) matclass from upload_standard a LEFT JOIN (select id_item iditem, if(matclass = '-' OR matclass is null, b.description, matclass) matclass from masteritem a left join mapping_category b on b.n_id = a.n_code_category GROUP BY id_item) b on b.iditem = a.id_item where username='$user' and sesi='$sesi'  and bcno = '729273' order by jenis_dokumen,bcdate,bcno";
 }	
 $no = 1;
 					$no_urt = 1;
