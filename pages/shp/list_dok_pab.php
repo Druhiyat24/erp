@@ -720,11 +720,23 @@ if($mod=="2U") {
           <td>$data[nomor_aju]</td>
           <td>$data[tanggal_aju]</td>
           
-          <td>
-          <a href='?mod=2U_new&trx=$jen_trx&dtrx=$tgl_trx&dtrx2=$tgl_trx2&noid=$data[trx_no_par]'
+          <td>";
+          if ($data['trx_date'] >= '2025-01-01') {
+            echo "<a href='?mod=2U_new&trx=$jen_trx&dtrx=$tgl_trx&dtrx2=$tgl_trx2&noid=$data[trx_no_par]'
           data-toggle='tooltip' title='edit'><i class='fa fa-pencil-square-o text-success' aria-hidden='true'></i>
-          </a>
-          </td>
+          </a>";
+          }else{
+            echo "<a href='?mod=$mod2&trx=$jen_trx&dtrx=$tgl_trx&dtrx2=$tgl_trx2&noid=$data[trx_no_par]'
+          data-toggle='tooltip' title='$cub'><i class='fa fa-pencil'></i>
+          </a>";
+          }
+          // <a href='?mod=$mod2&trx=$jen_trx&dtrx=$tgl_trx&dtrx2=$tgl_trx2&noid=$data[trx_no_par]'
+          // data-toggle='tooltip' title='$cub'><i class='fa fa-pencil'></i>
+          // </a>
+          // <a href='?mod=2U_new&trx=$jen_trx&dtrx=$tgl_trx&dtrx2=$tgl_trx2&noid=$data[trx_no_par]'
+          // data-toggle='tooltip' title='edit'><i class='fa fa-pencil-square-o text-success' aria-hidden='true'></i>
+          // </a>
+          echo "</td>
           <td>
           <a href='show_pdf.php?trx=$jen_trx&id=$data[trx_no_par]'
           data-toggle='tooltip' title='Attach File'><i class='fa fa-paperclip'></i>
