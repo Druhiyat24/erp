@@ -36,6 +36,11 @@ else if ($mod=="7779")
 else if ($mod=="7779_exc")
 {	include "lap_mut_mesin_dan_atk_new_exc.php";	}
 
+else if ($mod=="7780")
+{	include "lap_map_persediaan.php";	}
+else if ($mod=="7780_exc")
+{	include "lap_map_persediaan_exc.php";	}
+
 else if ($mod=="3L" or $mod=="3")
 {	include "master_fg.php";	}
 else if ($mod==4)

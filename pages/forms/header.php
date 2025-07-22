@@ -625,6 +625,7 @@ if ($user != 'bc'){
                 echo "<li><a href='?mod=7&mode=mut&rptid=mwiptot'>Laporan Mutasi Barang Dalam Proses</a></li>";
                 echo "<li><a href='?mod=7&mode=mut&rptid=mwipdet'>Detail Laporan Mutasi Barang Dalam Proses</a></li>";
                 echo "<li><a href='?mod=lap_mutasi_wip'>Laporan Mutasi WIP</a></li>";
+				echo "<li><a href='?mod=7780'>Laporan Mapping Persediaan</a></li>";
               } else {
                 if ($cekmutwip == "") {
                   echo "<li><a href='?mod=7&rptid=wip'>Laporan Mutasi Barang Dalam Proses</a></li>";
