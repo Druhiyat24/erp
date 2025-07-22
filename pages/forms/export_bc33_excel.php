@@ -14,7 +14,7 @@ $tglt = $_GET['parto'];
 
 // Set header Excel
 header("Content-Type: application/octet-stream");
-header("Content-Disposition: attachment; filename=laporan_bc30.xls");
+header("Content-Disposition: attachment; filename=laporan_bc33.xls");
 header("Pragma: no-cache");
 header("Expires: 0");
 
@@ -64,7 +64,7 @@ echo "<thead>
 // Gabungan SQL 3 UNION
 $sql = "
 SELECT * FROM (
-    SELECT 'BC 3.0' jenis_dokumen, LPAD(a.bcno,6,'0') bcno, a.bcdate,
+    SELECT 'BC 3.3' jenis_dokumen, LPAD(a.bcno,6,'0') bcno, a.bcdate,
     IF(a.bppbno_int!='',a.bppbno_int,a.bppbno) trans_no,
     a.bppbno, a.bppbdate trans_date, d.supplier,
     IF(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0', s.goods_code, CONCAT('FG ',s.id_item)) kode_brg,
@@ -76,11 +76,11 @@ SELECT * FROM (
     INNER JOIN masterstyle s ON a.id_item=s.id_item
     LEFT JOIN mastersupplier d ON a.id_supplier=d.id_supplier
     WHERE bppbdate BETWEEN '$tglf' AND '$tglt'
-    AND MID(bppbno,4,2)='FG' AND jenis_dok='BC 3.0' AND a.cancel = 'N'
+    AND MID(bppbno,4,2)='FG' AND jenis_dok='BC 3.3' AND a.cancel = 'N'
 
     UNION
 
-    SELECT 'BC 3.0', LPAD(a.bcno,6,'0'), a.bcdate,
+    SELECT 'BC 3.3', LPAD(a.bcno,6,'0'), a.bcdate,
     IF(a.bppbno_int!='',a.bppbno_int,a.bppbno), a.bppbno, a.bppbdate,
     d.supplier,
     IF(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0', s.goods_code, CONCAT('F ',s.id_item)),
@@ -92,11 +92,11 @@ SELECT * FROM (
     INNER JOIN masteritem s ON a.id_item=s.id_item
     LEFT JOIN mastersupplier d ON a.id_supplier=d.id_supplier
     WHERE bppbdate BETWEEN '$tglf' AND '$tglt'
-    AND LEFT(bppbno_int,2)='GK' AND jenis_dok='BC 3.0' AND a.cancel = 'N'
+    AND LEFT(bppbno_int,2)='GK' AND jenis_dok='BC 3.3' AND a.cancel = 'N'
 
     UNION
 
-    SELECT 'BC 3.0', LPAD(a.bcno,6,'0'), a.bcdate,
+    SELECT 'BC 3.3', LPAD(a.bcno,6,'0'), a.bcdate,
     IF(a.bppbno_int!='',a.bppbno_int,a.bppbno), a.bppbno, a.bppbdate,
     d.supplier,
     IF(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0', s.goods_code, CONCAT('F ',s.id_item)),
@@ -108,7 +108,7 @@ SELECT * FROM (
     INNER JOIN masteritem s ON a.id_item=s.id_item
     LEFT JOIN mastersupplier d ON a.id_supplier=d.id_supplier
     WHERE bppbdate BETWEEN '$tglf' AND '$tglt'
-    AND LEFT(bppbno_int,3)='GEN' AND jenis_dok='BC 3.0' AND a.cancel = 'N'
+    AND LEFT(bppbno_int,3)='GEN' AND jenis_dok='BC 3.3' AND a.cancel = 'N'
 ) a
 ORDER BY bcdate, bcno, trans_no
 ";

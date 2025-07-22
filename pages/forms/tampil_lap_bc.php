@@ -36,7 +36,7 @@ insert_log($sql, $user);
 <div class='box'>
 	<div class='box-body'>
 		<?php
-		if ($rpt == "bc30" or $st_company == "GB") {
+		if ($rpt == "bc30" or $st_company == "GB" or $rpt == "bc33") {
 			echo "GUDANG BERIKAT ";
 			echo strtoupper($nm_company);
 			echo "<br>";
@@ -50,9 +50,15 @@ insert_log($sql, $user);
 		echo "<br>";
 
 		if ($toexcel != "Y") {
+    // Tentukan file tujuan berdasarkan $rpt
+    if ($rpt == "bc33") {
+        $export_file = "export_bc33_excel.php";
+    } else {
+        $export_file = "export_bc30_excel.php";
+    }			
 			echo "
 		<a class='btn btn-primary btn-s' 
-       href='export_bc30_excel.php?parfrom=$tglf&parto=$tglt&rptid$rpt'>
+       href='$export_file?parfrom=$tglf&parto=$tglt&rptid$rpt'>
        <i class='fa fa-file-excel-o'></i> Save Excel
     </a>";
 		}
@@ -64,7 +70,7 @@ insert_log($sql, $user);
 		<table id='data_bc30' width='100%' border='1' style='font-size:12px;' class='table table-bordered table-striped'>
 			<thead>
 				<tr>
-					<?php if ($rpt == "bc30") {
+					<?php if ($rpt == "bc30" or $rpt == "bc33" ) {
 						echo "
 					<tr>
 						<th rowspan='2'>NO</th>
@@ -95,12 +101,21 @@ insert_log($sql, $user);
 		</table>
 <script src="../../plugins/jQuery/jquery-1.11.0.min.js"></script>		
 <script>
+    var ajaxUrl = "";
+
+    <?php if ($rpt == 'bc30'): ?>
+        ajaxUrl = "ajax_bc30.php";
+    <?php elseif ($rpt == 'bc33'): ?>
+        ajaxUrl = "ajax_bc33.php";
+    <?php else: ?>
+        ajaxUrl = ""; // fallback kalau tidak cocok
+    <?php endif; ?>
 $(document).ready(function() {
     $('#data_bc30').DataTable({
         "processing": true,
         "serverSide": true,
         "ajax": {
-            "url": "ajax_bc30.php",
+            "url": ajaxUrl,
             "type": "POST",
             "data": {
                 tglfrom: "<?= $tglf ?>",

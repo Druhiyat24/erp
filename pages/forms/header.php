@@ -545,6 +545,7 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
               #<li><a href='?mod=7&rptid=bc30'>BC 3.0 Export</a></li>
               echo "
                 <li><a href='?mod=lap_bc&rptid=bc30'>BC 3.0 Export</a></li>
+				<li><a href='?mod=lap_bc&rptid=bc33'>BC 3.3</a></li>
                 <li><a href='?mod=7&rptid=bc261keluar'>BC 2.6.1</a></li>
                 <li><a href='?mod=7&rptid=bc27keluar'>BC 2.7</a></li>
                 <li><a href='?mod=7&rptid=bc27subkon'>BC 2.7 Subkon</a></li>
