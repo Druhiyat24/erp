@@ -143,6 +143,7 @@ $supplier = $databpb['supplier'];
                 <th style="width: 15%;">Kode Barang</th>
                 <th style="width: 26%;">Nama Barang</th>
                 <th style="width: 10%;">Qty</th>
+                <th style="width: 10%;">Qty Reject</th>
                 <th style="width: 10%;">Satuan</th>
               </tr>
             </thead>
@@ -150,7 +151,7 @@ $supplier = $databpb['supplier'];
               <?php
               $bpbno = $_GET['bpbno'];
 
-              $sql = "select a.id, a.bpbno, jo.kpno, a.id_item, b.goods_code, b.itemdesc, a.qty, a.unit
+              $sql = "select a.id, a.bpbno, jo.kpno, a.id_item, b.goods_code, b.itemdesc, a.qty, a.unit, a.qty_reject
               FROM bpb a
               INNER JOIN masteritem b ON b.id_item = a.id_item
               LEFT JOIN (
@@ -172,6 +173,7 @@ $supplier = $databpb['supplier'];
                 echo "<td>{$data['goods_code']}</td>";
                 echo "<td>{$data['itemdesc']}</td>";
                 echo "<td><input type='text' class='form-control text-right' size='8' name='totqty[]' value='{$data['qty']}'></td>";
+                echo "<td><input type='text' class='form-control text-right' size='8' name='totqty_reject[]' value='{$data['qty_reject']}'></td>";
                 echo "<td>{$data['unit']}</td>";
                 echo "</tr>";
               }
