@@ -11,13 +11,15 @@ if (empty($_SESSION['username'])) {
 $user = $_SESSION['username'];
 $iddata_arr = $_POST['iddata'];
 $totqty_arr = $_POST['totqty'];
+$totqty_reject_arr = $_POST['totqty_reject'];
 $bpbno = $_POST['bpbno'];
 
 for ($i = 0; $i < count($iddata_arr); $i++) {
   $id = mysql_real_escape_string($iddata_arr[$i]);
   $qty = mysql_real_escape_string($totqty_arr[$i]);
+  $qty_reject = mysql_real_escape_string($totqty_reject_arr[$i]);
 
-  $sql = "UPDATE bpb SET qty = '$qty' WHERE id = '$id'";
+  $sql = "UPDATE bpb SET qty = '$qty', qty_reject = '$qty_reject' WHERE id = '$id'";
   insert_log($sql, $user);
   mysql_query($sql);
 }
