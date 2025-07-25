@@ -728,7 +728,11 @@ if($mod=="2U") {
           }else{
             echo "<a href='?mod=$mod2&trx=$jen_trx&dtrx=$tgl_trx&dtrx2=$tgl_trx2&noid=$data[trx_no_par]'
           data-toggle='tooltip' title='$cub'><i class='fa fa-pencil'></i>
-          </a>";
+          </a>
+          <a href='?mod=2U_new&trx=$jen_trx&dtrx=$tgl_trx&dtrx2=$tgl_trx2&noid=$data[trx_no_par]'
+          data-toggle='tooltip' title='edit'><i class='fa fa-pencil-square-o text-success' aria-hidden='true'></i>
+          </a>
+          ";
           }
           // <a href='?mod=$mod2&trx=$jen_trx&dtrx=$tgl_trx&dtrx2=$tgl_trx2&noid=$data[trx_no_par]'
           // data-toggle='tooltip' title='$cub'><i class='fa fa-pencil'></i>
