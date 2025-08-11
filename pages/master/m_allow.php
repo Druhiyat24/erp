@@ -109,5 +109,5 @@ echo "</div>";
     </table>
   </div>
 </div>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> 
+<script src="../../plugins/jQuery/jquery-1.7.1.min.js" type="text/javascript"></script> 
 <script src="js/Masterallow.js"></script>

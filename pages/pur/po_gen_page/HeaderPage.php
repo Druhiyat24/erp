@@ -20,5 +20,5 @@ include 'po_gen_table.php';
 </div>
 </div>
 <link rel="stylesheet" href="./css/style_po.css"> 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="../../plugins/jQuery/jquery-1.7.1.min.js" type="text/javascript"></script>
 <script src="js/po_gen.js"></script>

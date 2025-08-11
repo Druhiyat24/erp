@@ -65,7 +65,7 @@ if ($dalam_perbaikan == "Y") {
   <link rel="stylesheet" href="../plugins/datatables_responsive/responsive.dataTables.min.css">
   <link rel="stylesheet" href="../plugins/datatables_responsive/jquery.dataTables.min.css">
   <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../fontawesome/4.5.0/css/font-awesome.min.css">
   <script src="../../dist/sweetalert.js"></script>
   <link rel="stylesheet" href="../../dist/sweetalert.css">
 </head>

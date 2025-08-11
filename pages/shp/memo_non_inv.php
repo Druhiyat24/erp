@@ -618,7 +618,7 @@ if ($mod == "memo_list_non_inv") {
                   <label>Keperluan Buyer :</label>
                   <select class='form-control select2' style='width: 100%;' name='cbobuyer' id='cbobuyer'>
                     <?php
-                    $sql = "select a.id_supplier isi, supplier tampil from mastersupplier a where tipe_sup = 'C' and id_supplier = '$cbobuyer' order by supplier asc";
+                    $sql = "select a.id_supplier isi, supplier tampil from mastersupplier a where tipe_sup = 'C' order by supplier asc";
                     IsiCombo($sql, $cbobuyer, 'Pilih Buyer #');
                     ?>
                   </select>

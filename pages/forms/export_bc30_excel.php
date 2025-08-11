@@ -92,7 +92,10 @@ SELECT * FROM (
     INNER JOIN masteritem s ON a.id_item=s.id_item
     LEFT JOIN mastersupplier d ON a.id_supplier=d.id_supplier
     WHERE bppbdate BETWEEN '$tglf' AND '$tglt'
-    AND LEFT(bppbno_int,2)='GK' AND jenis_dok='BC 3.0' AND a.cancel = 'N'
+    AND (
+        LEFT(a.bppbno_int, 2) = 'GK' OR 
+        LEFT(a.bppbno_int, 3) = 'OFC'
+    ) AND jenis_dok='BC 3.0' AND a.cancel = 'N'
 
     UNION
 

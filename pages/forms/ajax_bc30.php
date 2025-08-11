@@ -72,7 +72,10 @@ SELECT * FROM (
     FROM bppb a
     INNER JOIN masteritem s ON a.id_item = s.id_item
     LEFT JOIN mastersupplier d ON a.id_supplier = d.id_supplier
-    $where AND LEFT(a.bppbno_int,2) = 'GK'
+    $where AND (
+        LEFT(a.bppbno_int, 2) = 'GK' OR 
+        LEFT(a.bppbno_int, 3) = 'OFC'
+    )
 
     UNION ALL
 
