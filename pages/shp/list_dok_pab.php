@@ -502,149 +502,153 @@ if($mod=="2U") {
               </div>
             </form> 
             <div class='col-md-12'>
-              <table id="examplefix" class="display responsive" style="width:100%; font-size: 13px;">
-              <thead>
-                <tr>
-                  <?php if($logo_company=="Z") { ?>
-                    <th>JO #</th>
-                    <th>Part #</th>
-                  <?php } else { ?>
-                    <th>ID</th>
-                    <th>WS #</th>
-                    <th>Style #</th>
-                  <?php } ?>
-                  <th>Kode Barang</th>
-                  <th>Nama Barang</th>
-                  <th>Qty</th>
-                  <th>Satuan</th>
-                  <th>Curr</th>
-                  <th>Price Ori</th>
-                  <th>Ket</th>
-                  <?php if ($jen_trx=="Pemasukan") { ?>
-                    <th>Tipe PO</th>  
-                  <?php } ?>  
-                  <th>Value</th>
-                  <th>Price BC Per Unit</th>
-                  <th>Currency</th>
-                  <th>Unit BC</th>
-                  <th>Qty BC</th>
-                  <th>Konfirmasi</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
+              <div style="width:100%; overflow-x:auto;">
+                <table id="examplefix" class="display nowrap" style="width:100%; font-size:13px; white-space:nowrap;">
+                  <thead>
+                    <tr>
+                      <?php if($logo_company=="Z") { ?>
+                        <th>JO #</th>
+                        <th>Part #</th>
+                      <?php } else { ?>
+                        <th>ID</th>
+                        <th>WS #</th>
+                        <th>Style #</th>
+                      <?php } ?>
+                      <th>Kode Barang</th>
+                      <th>Nama Barang</th>
+                      <th>Qty</th>
+                      <th>Satuan</th>
+                      <th>Curr</th>
+                      <th>Price Ori</th>
+                      <th>Ket</th>
+                      <?php if ($jen_trx=="Pemasukan") { ?>
+                        <th>Tipe PO</th>  
+                      <?php } ?>  
+                      <th>Value</th>
+                      <th>Price BC Per Unit</th>
+                      <th>Currency</th>
+                      <th>Unit BC</th>
+                      <th>Qty BC</th>
+                      <th>Kurs BC</th>
+                      <th>Konfirmasi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
       // LOGIKA QUERY
-                if (substr($trx_no,0,2)!="SJ") {
-                  $tbl="bpb"; $fldtrx="bpbno"; $trxdate="bpbdate";
-                  $tblmst = (substr($trx_no,0,2)=="FG") ? "masterstyle" : "masteritem";
-                  $tipe = "LEFT JOIN (SELECT pono, tipe_com FROM po_header ph INNER JOIN po_header_draft phd ON phd.id = ph.id_draft) tipe ON trx.pono = tipe.pono";
-                  $tipe_tampil = ",tipe_com";
-                } else {
-                  $tbl="bppb"; $fldtrx="bppbno"; $trxdate="bppbdate";
-                  $tblmst = (substr($trx_no,3,2)=="FG") ? "masterstyle" : "masteritem";
-                  $tipe = ""; $tipe_tampil = "";
-                }
+                    if (substr($trx_no,0,2)!="SJ") {
+                      $tbl="bpb"; $fldtrx="bpbno"; $trxdate="bpbdate";
+                      $tblmst = (substr($trx_no,0,2)=="FG") ? "masterstyle" : "masteritem";
+                      $tipe = "LEFT JOIN (SELECT pono, tipe_com FROM po_header ph INNER JOIN po_header_draft phd ON phd.id = ph.id_draft) tipe ON trx.pono = tipe.pono";
+                      $tipe_tampil = ",tipe_com";
+                    } else {
+                      $tbl="bppb"; $fldtrx="bppbno"; $trxdate="bppbdate";
+                      $tblmst = (substr($trx_no,3,2)=="FG") ? "masterstyle" : "masteritem";
+                      $tipe = ""; $tipe_tampil = "";
+                    }
 
-                $flddesc = ($tblmst=="masterstyle") ? "mi.itemname" : "mi.itemdesc";
+                    $flddesc = ($tblmst=="masterstyle") ? "mi.itemname" : "mi.itemdesc";
 
-                $sql = "SELECT trx.id, $fldtrx, $trxdate, trx.jenis_dok, trx.id line_id, mi.goods_code, 
-                CONCAT($flddesc, ' ', IFNULL(mi.color,''), ' ', IFNULL(mi.size,'')) item,
-                trx.qty, trx.unit, trx.curr, price price_ori, IFNULL(price_bc, trx.price) price, 
-                tmpjo.kpno, tmpjo.jo_no, tmpjo.styleno, trx.remark, trx.satuan_bc, trx.qty_bc, 
-                COALESCE(trx.curr_bc, trx.curr) curr_bc $tipe_tampil 
-                FROM $tbl trx 
-                INNER JOIN $tblmst mi ON trx.id_item = mi.id_item 
-                LEFT JOIN (
-                  SELECT jo.jo_no, jod.id_jo, ac.kpno, ac.styleno 
-                  FROM jo_det jod 
-                  INNER JOIN so ON jod.id_so = so.id 
-                  INNER JOIN act_costing ac ON so.id_cost = ac.id 
-                  INNER JOIN jo ON jod.id_jo = jo.id 
-                  GROUP BY jod.id_jo
-                  ) tmpjo ON tmpjo.id_jo = trx.id_jo 
-                $tipe 
-                WHERE trx.$fldtrx = '$trx_no'";
+                    $sql = "SELECT trx.id, $fldtrx, $trxdate, trx.jenis_dok, trx.id line_id, mi.goods_code, 
+                    CONCAT($flddesc, ' ', IFNULL(mi.color,''), ' ', IFNULL(mi.size,'')) item,
+                    trx.qty, trx.unit, trx.curr, price price_ori, IFNULL(price_bc, trx.price) price, 
+                    tmpjo.kpno, tmpjo.jo_no, tmpjo.styleno, trx.remark, trx.satuan_bc, trx.qty_bc, 
+                    COALESCE(trx.curr_bc, trx.curr) curr_bc, rate_bc $tipe_tampil 
+                    FROM $tbl trx 
+                    INNER JOIN $tblmst mi ON trx.id_item = mi.id_item 
+                    LEFT JOIN (
+                      SELECT jo.jo_no, jod.id_jo, ac.kpno, ac.styleno 
+                      FROM jo_det jod 
+                      INNER JOIN so ON jod.id_so = so.id 
+                      INNER JOIN act_costing ac ON so.id_cost = ac.id 
+                      INNER JOIN jo ON jod.id_jo = jo.id 
+                      GROUP BY jod.id_jo
+                      ) tmpjo ON tmpjo.id_jo = trx.id_jo 
+                    $tipe 
+                    WHERE trx.$fldtrx = '$trx_no'";
 
-                $query = mysql_query($sql);
-                while($data = mysql_fetch_array($query)) {
-                  $id = $data['line_id'];
-                  $harga = number_format($data['price'], 4);
-                  $qty_bc = isset($data['qty_bc']) && $data['qty_bc'] !== null ? number_format($data['qty_bc'], 4) : '0.0000';
-                  $satuan_bc = !empty($data['satuan_bc']) ? $data['satuan_bc'] : '';
-                  $curr_bc = !empty($data['curr_bc']) ? $data['curr_bc'] : '';
-                  $iddata = $data['id'];
-                  $dtrx = $data[$trxdate];
-                  $noid = $data[$fldtrx];
-                  $totnilnya = $data['qty'] * $data['price'];
+                    $query = mysql_query($sql);
+                    while($data = mysql_fetch_array($query)) {
+                      $id = $data['line_id'];
+                      $harga = number_format($data['price'], 4);
+                      $qty_bc = isset($data['qty_bc']) && $data['qty_bc'] !== null ? $data['qty_bc'] : '';
+                      $rate_bc = isset($data['rate_bc']) && $data['rate_bc'] !== null ? $data['rate_bc'] : '';
+                      $satuan_bc = !empty($data['satuan_bc']) ? $data['satuan_bc'] : '';
+                      $curr_bc = !empty($data['curr_bc']) ? $data['curr_bc'] : '';
+                      $iddata = $data['id'];
+                      $dtrx = $data[$trxdate];
+                      $noid = $data[$fldtrx];
+                      $totnilnya = $data['qty'] * $data['price'];
 
-                  echo "<tr><form method='post' action='update_harga.php?iddata=$iddata&dtrx=$dtrx&noid=$noid&jen_trx=$jen_trx&tbl=$tbl'>";
+                      echo "<tr><form method='post' action='update_harga.php?iddata=$iddata&dtrx=$dtrx&noid=$noid&jen_trx=$jen_trx&tbl=$tbl'>";
 
-                  if($logo_company=="Z") {
-                    echo "<td>{$data['jo_no']}</td><td>{$data['kpno']}</td>";
-                  } else {
-                    echo "<td>{$data['id']}</td><td>{$data['kpno']}</td><td>{$data['styleno']}</td>";
-                  }
+                      if($logo_company=="Z") {
+                        echo "<td>{$data['jo_no']}</td><td>{$data['kpno']}</td>";
+                      } else {
+                        echo "<td>{$data['id']}</td><td>{$data['kpno']}</td><td>{$data['styleno']}</td>";
+                      }
 
-                  echo "
-                  <td>{$data['goods_code']}</td>
-                  <td>{$data['item']}</td>
-                  <td>{$data['qty']}</td>
-                  <td>{$data['unit']}</td>
-                  <td>{$data['curr']}</td>
-                  <td>".fn($data['price_ori'],3)."</td>
-                  <td>{$data['remark']}</td>";
+                      echo "
+                      <td>{$data['goods_code']}</td>
+                      <td>{$data['item']}</td>
+                      <td>{$data['qty']}</td>
+                      <td>{$data['unit']}</td>
+                      <td>{$data['curr']}</td>
+                      <td>".fn($data['price_ori'],3)."</td>
+                      <td>{$data['remark']}</td>";
 
-                  if($jen_trx == "Pemasukan") {
-                    echo "<td>{$data['tipe_com']}</td>";
-                  }
+                      if($jen_trx == "Pemasukan") {
+                        echo "<td>{$data['tipe_com']}</td>";
+                      }
 
-                  if($data['jenis_dok']=="BC 2.6.2" || $data['jenis_dok']=="BC 2.6.1") {
-                    echo "<td><input type='text' class='form-control' size='8' name='totnil[$id]' value='$totnilnya'></td>";
-                  } else {
-                    echo "<td>".fn($totnilnya,3)."</td>";
-                  }
+                      if($data['jenis_dok']=="BC 2.6.2" || $data['jenis_dok']=="BC 2.6.1") {
+                        echo "<td><input type='text' class='form-control' size='8' name='totnil[$id]' value='$totnilnya'></td>";
+                      } else {
+                        echo "<td>".fn($totnilnya,3)."</td>";
+                      }
 
-                  echo "
-                  <td><input type='text' class='form-control' size='8' name='editharga' value='$harga'></td>
+                      echo "
+                      <td><input type='text' class='form-control' size='8' style='width:120px;' name='editharga' value='$harga'></td>
 
-                  <td>
-                  <select class='form-control select2' name='curr_bc'>
-                  <option value='' ".(empty($curr_bc) ? 'selected' : '').">Pilih</option>";
-                  $qCurr = mysql_query("SELECT DISTINCT nama_pilihan FROM whs_master_pilihan WHERE type_pilihan = 'currency'");
-                  while ($row = mysql_fetch_array($qCurr)) {
-                    $curr = htmlspecialchars($row['nama_pilihan']);
-                    $selected = ($curr == $curr_bc) ? "selected" : "";
-                    echo "<option value='$curr' $selected>$curr</option>";
-                  }
-                  echo "</select>
-                  </td>
+                      <td>
+                      <select class='form-control select2' style='width:100px;' name='curr_bc'>
+                      <option value='' ".(empty($curr_bc) ? 'selected' : '').">Pilih</option>";
+                      $qCurr = mysql_query("SELECT DISTINCT nama_pilihan FROM whs_master_pilihan WHERE type_pilihan = 'currency'");
+                      while ($row = mysql_fetch_array($qCurr)) {
+                        $curr = htmlspecialchars($row['nama_pilihan']);
+                        $selected = ($curr == $curr_bc) ? "selected" : "";
+                        echo "<option value='$curr' $selected>$curr</option>";
+                      }
+                      echo "</select>
+                      </td>
 
-                  <td>
-                  <select class='form-control select2' name='satuan_bc'>
-                  <option value='' ".(empty($satuan_bc) ? 'selected' : '').">Pilih</option>";
-                  $qSat = mysql_query("SELECT DISTINCT satuan_ceisa FROM mapping_satuan_ceisa ORDER BY satuan_ceisa ASC");
-                  while ($row2 = mysql_fetch_array($qSat)) {
-                    $satuan = htmlspecialchars($row2['satuan_ceisa']);
-                    $selected = ($satuan == $satuan_bc) ? "selected" : "";
-                    echo "<option value='$satuan' $selected>$satuan</option>";
-                  }
-                  echo "</select>
-                  </td>
+                      <td>
+                      <select class='form-control select2' style='width:100px;' name='satuan_bc'>
+                      <option value='' ".(empty($satuan_bc) ? 'selected' : '').">Pilih</option>";
+                      $qSat = mysql_query("SELECT DISTINCT satuan_ceisa FROM mapping_satuan_ceisa ORDER BY satuan_ceisa ASC");
+                      while ($row2 = mysql_fetch_array($qSat)) {
+                        $satuan = htmlspecialchars($row2['satuan_ceisa']);
+                        $selected = ($satuan == $satuan_bc) ? "selected" : "";
+                        echo "<option value='$satuan' $selected>$satuan</option>";
+                      }
+                      echo "</select>
+                      </td>
 
-                  <td><input type='text' class='form-control' min='0' size='8' name='qty_bc' value='$qty_bc'></td>
-                  <td><button type='submit' name='update' class='btn btn-primary'>Update</button></td>
-                  </form></tr>";
-                }
-                ?>
-              </tbody>
-            </table>
-
+                      <td><input type='text' class='form-control' size='8' style='width:120px;' name='qty_bc' value='$qty_bc'></td>
+                      <td><input type='text' class='form-control' size='8' style='width:120px;' name='rate_bc' value='$rate_bc'></td>
+                      <td><button type='submit' name='update' class='btn btn-primary'>Update</button></td>
+                      </form></tr>";
+                    }
+                    ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <script type="text/javascript">
-     $(document).ready(function() {
+      <script type="text/javascript">
+       $(document).ready(function() {
 
     // var jenisDokElement = document.getElementById('jenis_dok').value;
     // var jenisDok = jenisDokElement ? jenisDokElement.value : null;
@@ -723,16 +727,16 @@ if($mod=="2U") {
           <td>";
           if ($data['trx_date'] >= '2025-01-01') {
             echo "<a href='?mod=2U_new&trx=$jen_trx&dtrx=$tgl_trx&dtrx2=$tgl_trx2&noid=$data[trx_no_par]'
-          data-toggle='tooltip' title='edit'><i class='fa fa-pencil-square-o text-success' aria-hidden='true'></i>
-          </a>";
+            data-toggle='tooltip' title='edit'><i class='fa fa-pencil-square-o text-success' aria-hidden='true'></i>
+            </a>";
           }else{
             echo "<a href='?mod=$mod2&trx=$jen_trx&dtrx=$tgl_trx&dtrx2=$tgl_trx2&noid=$data[trx_no_par]'
-          data-toggle='tooltip' title='$cub'><i class='fa fa-pencil'></i>
-          </a>
-          <a href='?mod=2U_new&trx=$jen_trx&dtrx=$tgl_trx&dtrx2=$tgl_trx2&noid=$data[trx_no_par]'
-          data-toggle='tooltip' title='edit'><i class='fa fa-pencil-square-o text-success' aria-hidden='true'></i>
-          </a>
-          ";
+            data-toggle='tooltip' title='$cub'><i class='fa fa-pencil'></i>
+            </a>
+            <a href='?mod=2U_new&trx=$jen_trx&dtrx=$tgl_trx&dtrx2=$tgl_trx2&noid=$data[trx_no_par]'
+            data-toggle='tooltip' title='edit'><i class='fa fa-pencil-square-o text-success' aria-hidden='true'></i>
+            </a>
+            ";
           }
           // <a href='?mod=$mod2&trx=$jen_trx&dtrx=$tgl_trx&dtrx2=$tgl_trx2&noid=$data[trx_no_par]'
           // data-toggle='tooltip' title='$cub'><i class='fa fa-pencil'></i>

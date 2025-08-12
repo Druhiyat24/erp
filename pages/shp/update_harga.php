@@ -10,12 +10,13 @@ $editharga=$_POST['editharga'];
 $satuan_bc=$_POST['satuan_bc'];
 $curr_bc=$_POST['curr_bc'];
 $qty_bc=$_POST['qty_bc'];
+$rate_bc=$_POST['rate_bc'];
 $dtrx=$_GET['dtrx'];
 $noid=$_GET['noid'];
 $jen_trx=$_GET['jen_trx'];
 $tbl=$_GET['tbl'];
 #echo $dtrx;
-$sql="update $tbl set price_bc='$editharga', satuan_bc='$satuan_bc', qty_bc='$qty_bc', curr_bc='$curr_bc' where id='$id'";
+$sql="update $tbl set price_bc='$editharga', satuan_bc='$satuan_bc', qty_bc='$qty_bc', curr_bc='$curr_bc', rate_bc='$rate_bc' where id='$id'";
 insert_log($sql,$user);
 echo "<script>window.location.href='../shp/?mod=2U_new&trx=$jen_trx&dtrx=$dtrx&noid=$noid';</script>";
 ?>

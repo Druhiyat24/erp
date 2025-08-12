@@ -530,19 +530,48 @@ function showLoading() {
     });
   });
   //Datatable fix header
+  // $(document).ready(function() {
+  //   var table = $('#examplefix').DataTable({
+  //     scrollY: "300px",
+  //       scrollX: true, // ✅ ini yang ditambahkan
+  //       scrollCollapse: true,
+  //       paging: true,
+  //       pageLength: 20,
+  //       fixedColumns: {
+  //         leftColumns: 1,
+  //         rightColumns: 1
+  //       }
+  //     });
+  // });
+
   $(document).ready(function() {
-    var table = $('#examplefix').DataTable({
-      scrollY: "300px",
-        scrollX: true, // ✅ ini yang ditambahkan
-        scrollCollapse: true,
-        paging: true,
-        pageLength: 20,
-        fixedColumns: {
-          leftColumns: 1,
-          rightColumns: 1
-        }
-      });
+  var table = $('#examplefix').DataTable({
+    scrollX: true,
+    scrollY: "300px",
+    scrollCollapse: true,
+    autoWidth: false,
+    responsive: false,   // JANGAN pakai responsive:true kalau menggunakan FixedColumns
+    paging: true,
+    pageLength: 20,
+    fixedColumns: {
+      leftColumns: 1,
+      rightColumns: 0
+    }
   });
+
+  // adjust & relayout supaya ukuran kolom dihitung ulang
+  table.columns.adjust().draw();
+  if ( table.fixedColumns ) {
+    table.fixedColumns().relayout();
+  }
+
+  // juga saat resize window
+  $(window).on('resize', function(){
+    table.columns.adjust();
+    if ( table.fixedColumns ) table.fixedColumns().relayout();
+  });
+});
+
 
   //Datatable fix header no search and pagination
   $(document).ready(function () {
