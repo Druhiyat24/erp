@@ -759,7 +759,7 @@ insert_log($sql,$user);
 			} else
 			{ 	$kode_brg = "if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item)) ";
 				$sqlk = "SELECT 'BC 2.6.2 MASUK' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,a.bpbdate trans_date,d.supplier,
-					$kode_brg kode_brg,s.itemdesc,CASE WHEN a.id_supplier IN ('20','155','804') AND a.bpbno_int LIKE '%GM%' THEN IFNULL(a.satuan_bc,a.unit) ELSE a.unit END AS unit, CASE WHEN a.id_supplier IN ('20','155','804') AND a.bpbno_int LIKE '%GM%' THEN IFNULL(a.qty_bc,a.qty) ELSE a.qty END AS qty, a.curr, ROUND(IFNULL(a.price_bc,a.price) * (CASE WHEN a.id_supplier IN ('20','155','804') AND a.bpbno_int LIKE '%GMN%' THEN IFNULL(a.qty_bc,a.qty) ELSE a.qty END),2) AS nilai_barang,a.id_item  
+					$kode_brg kode_brg,s.itemdesc,CASE WHEN a.id_supplier IN ('20','155','804') AND a.bpbno_int LIKE '%GM%' THEN IFNULL(a.satuan_bc,a.unit) ELSE a.unit END AS unit, CASE WHEN a.id_supplier IN ('20','155','804') AND a.bpbno_int LIKE '%GM%' THEN IFNULL(a.qty_bc,a.qty) ELSE a.qty END AS qty, a.curr, ROUND(IFNULL(a.price_bc,a.price) * (CASE WHEN a.id_supplier IN ('20','155','804') AND a.bpbno_int LIKE '%GM%' THEN IFNULL(a.qty_bc,a.qty) ELSE a.qty END),2) AS nilai_barang,a.id_item  
 					from bpb a inner join 
 					masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
 					where bcno!='-' and  a.cancel='N' and bpbdate between '$tglf' and '$tglt' and bpbno not like 'FG%'  
