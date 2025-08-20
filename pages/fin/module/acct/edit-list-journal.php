@@ -342,7 +342,7 @@
                         $reffdate = date("d-m-Y",strtotime($row['reff_date'])); 
                     } 
 
-    echo'<tr>
+    echo'<tr style="font-size: 11px;">
             <td><input type="checkbox" id="select" name="select[]" value="" checked disabled></td>
             <td >
                 <select class="form-control selectpicker" name="nomor_coa" id="nomor_coa" data-live-search="true"> <option value="'.$row['no_coa'].'" >'.$row['coa'].'</option><option value="-" > - </option>';  $sql = mysqli_query($conn1,"select no_coa as id_coa,concat(no_coa,' ', nama_coa) as coa from mastercoa_sb where no_coa != '$coa'"); foreach ($sql as $cc) : echo'<option value="'.$cc["id_coa"].'"> '.$cc["coa"].' </option>'; endforeach; ?>
@@ -356,10 +356,10 @@
                 echo '</select>
     </td>
             <td>
-                <input type="text" class="form-control" name="keterangan[]" placeholder="" value="'.$row['no_reff'].'" autocomplete="off">
+                <input type="text" class="form-control" style="font-size: 11px;" name="keterangan[]" placeholder="" value="'.$row['no_reff'].'" autocomplete="off">
             </td>
             <td>
-                <input type="text" name="tgl_active" id="tgl_active" value="'.$reffdate.'" class="form-control tanggal" 
+                <input type="text" name="tgl_active" style="font-size: 11px;" id="tgl_active" value="'.$reffdate.'" class="form-control tanggal" 
             value="" autocomplete="off" placeholder="dd-mm-yyyy">
             </td>
             <td>
@@ -374,12 +374,12 @@
     </td>';
     if ($curr == 'IDR') {
         echo '<td>
-        <select class="form-control selectpicker" name="currenc" id="currenc" onchange="ubahrate(this.value)" data-live-search="true"><option value="'.$row['curr'].'" >'.$row['curr'].'</option><option value="USD">USD</option>
+        <select class="form-control selectpicker" style="font-size: 11px;" name="currenc" id="currenc" onchange="ubahrate(this.value)" data-live-search="true"><option value="'.$row['curr'].'" >'.$row['curr'].'</option><option value="USD">USD</option>
         </select>
     </td>';
     }else{
         echo '<td>
-        <select class="form-control selectpicker" name="currenc" id="currenc" onchange="ubahrate(this.value)" data-live-search="true"><option value="'.$row['curr'].'" >'.$row['curr'].'</option><option value="IDR">IDR</option>
+        <select class="form-control selectpicker" style="font-size: 11px;" name="currenc" id="currenc" onchange="ubahrate(this.value)" data-live-search="true"><option value="'.$row['curr'].'" >'.$row['curr'].'</option><option value="IDR">IDR</option>
         </select>
     </td>';
     }
@@ -388,25 +388,25 @@
             </td>';
             if ($debit == '0') {
                 echo '<td style="text-align: right;">
-            <input style="text-align: right;" type="number" min="1" class="form-control" id="txt_amount" name="txt_amount"  oninput="modal_input_amt(value)" autocomplete = "off" readonly>
+            <input style="text-align: right;" type="number" style="font-size: 11px;" min="1" class="form-control" id="txt_amount" name="txt_amount"  oninput="modal_input_amt(value)" autocomplete = "off" readonly>
             </td>';
             }else{
             echo '<td style="text-align: right;">
-            <input style="text-align: right;" type="number" min="1" value="'.$row['debit'].'" class="form-control" id="txt_amount" name="txt_amount"  oninput="modal_input_amt(value)" autocomplete = "off">
+            <input style="text-align: right;" type="number" style="font-size: 11px;" min="1" value="'.$row['debit'].'" class="form-control" id="txt_amount" name="txt_amount"  oninput="modal_input_amt(value)" autocomplete = "off">
             </td>';
         }
 
         if ($credit == '0') {
                 echo '<td>
-        <input style="text-align: right;" type="number" min="1" class="form-control" id="txt_amount" name="txt_amount"  oninput="modal_input_amt2(value)" autocomplete = "off" readonly>
+        <input style="text-align: right;" type="number" style="font-size: 11px;" min="1" class="form-control" id="txt_amount" name="txt_amount"  oninput="modal_input_amt2(value)" autocomplete = "off" readonly>
     </td>';
             }else{
             echo '<td>
-        <input style="text-align: right;" type="number" min="1" value="'.$row['credit'].'" class="form-control" id="txt_amount" name="txt_amount"  oninput="modal_input_amt2(value)" autocomplete = "off">
+        <input style="text-align: right;" type="number" style="font-size: 11px;" min="1" value="'.$row['credit'].'" class="form-control" id="txt_amount" name="txt_amount"  oninput="modal_input_amt2(value)" autocomplete = "off">
     </td>';
         }
             echo '
-            <td><input type="text" value="'.$row['keterangan'].'" class="form-control" name="keterangan[]" placeholder="" autocomplete="off"></td>
+            <td><input type="text" style="font-size: 11px;" value="'.$row['keterangan'].'" class="form-control" name="keterangan[]" placeholder="" autocomplete="off"></td>
             <td><input name="chk_a[]" type="checkbox" class="checkall_a" value=""></td>
         </tr>';
 }
@@ -449,7 +449,7 @@
                 <label for="nama_supp" class="col-form-label" style="width: 180px;"><b>Total Credit</b></label>
                 <input type="text" style="font-size: 14px;text-align: right;" class="form-control" id="txt_credit" name="txt_credit" value="<?php             
             $no_mj = base64_decode($_GET['no_mj']);
-            $sqldes = mysqli_query($conn2,"select format(sum(credit),2) as credit from sb_memorial_journal where no_mj = '$no_mj'");
+            $sqldes = mysqli_query($conn2,"select format(sum(credit),2) as credit from sb_list_journal where no_journal = '$no_mj'");
             $row = mysqli_fetch_array($sqldes);      
             $credit = $row['credit'];                  
             if(!empty($no_mj)) {
@@ -460,7 +460,7 @@
             } ?>" placeholder="0.00" readonly>
                  <input type="hidden" name="txt_credit_h" id="txt_credit_h" value="<?php             
             $no_mj = base64_decode($_GET['no_mj']);
-            $sqldes = mysqli_query($conn2,"select sum(credit) as credit from sb_memorial_journal where no_mj = '$no_mj'");
+            $sqldes = mysqli_query($conn2,"select sum(credit) as credit from sb_list_journal where no_journal = '$no_mj'");
             $row = mysqli_fetch_array($sqldes);      
             $credit = $row['credit'];                  
             if(!empty($no_mj)) {
@@ -475,7 +475,7 @@
                 <label for="nama_supp" class="col-form-label" style="width: 180px;"><b>Total Debit</b></label>
                 <input type="text" style="font-size: 14px;text-align: right;" class="form-control" id="txt_debit" name="txt_debit" value="<?php             
             $no_mj = base64_decode($_GET['no_mj']);
-            $sqldes = mysqli_query($conn2,"select format(sum(debit),2) as debit from sb_memorial_journal where no_mj = '$no_mj'");
+            $sqldes = mysqli_query($conn2,"select format(sum(debit),2) as debit from sb_list_journal where no_journal = '$no_mj'");
             $row = mysqli_fetch_array($sqldes);      
             $debit = $row['debit'];                  
             if(!empty($no_mj)) {
@@ -486,7 +486,7 @@
             } ?>" placeholder="0.00" readonly>
                  <input type="hidden" name="txt_debit_h" id="txt_debit_h" value="<?php             
             $no_mj = base64_decode($_GET['no_mj']);
-            $sqldes = mysqli_query($conn2,"select sum(debit) as debit from sb_memorial_journal where no_mj = '$no_mj'");
+            $sqldes = mysqli_query($conn2,"select sum(debit) as debit from sb_list_journal where no_journal = '$no_mj'");
             $row = mysqli_fetch_array($sqldes);      
             $debit = $row['debit'];                  
             if(!empty($no_mj)) {
@@ -501,7 +501,7 @@
                 <label for="nama_supp" class="col-form-label" style="width: 180px;"><b>Total Credit IDR</b></label>
                 <input type="text" style="font-size: 14px;text-align: right;" class="form-control" id="txt_credit_idr" name="txt_credit_idr" value="<?php             
             $no_mj = base64_decode($_GET['no_mj']);
-            $sqldes = mysqli_query($conn2,"select format(sum(credit_idr),2) as credit_idr from sb_memorial_journal where no_mj = '$no_mj'");
+            $sqldes = mysqli_query($conn2,"select format(sum(credit_idr),2) as credit_idr from sb_list_journal where no_journal = '$no_mj'");
             $row = mysqli_fetch_array($sqldes);      
             $credit_idr = $row['credit_idr'];                  
             if(!empty($no_mj)) {
@@ -512,7 +512,7 @@
             } ?>" placeholder="0.00"  readonly>
                  <input type="hidden" name="txt_credit_idr_h" id="txt_credit_idr_h" value="<?php             
             $no_mj = base64_decode($_GET['no_mj']);
-            $sqldes = mysqli_query($conn2,"select sum(credit_idr) as credit_idr from sb_memorial_journal where no_mj = '$no_mj'");
+            $sqldes = mysqli_query($conn2,"select sum(credit_idr) as credit_idr from sb_list_journal where no_journal = '$no_mj'");
             $row = mysqli_fetch_array($sqldes);      
             $credit_idr = $row['credit_idr'];                  
             if(!empty($no_mj)) {
@@ -527,7 +527,7 @@
                 <label for="nama_supp" class="col-form-label" style="width: 180px;"><b>Total Debit IDR</b></label>
                 <input type="text" style="font-size: 14px;text-align: right;" class="form-control" id="txt_debit_idr" name="txt_debit_idr" value="<?php             
             $no_mj = base64_decode($_GET['no_mj']);
-            $sqldes = mysqli_query($conn2,"select format(sum(debit_idr),2) as debit_idr from sb_memorial_journal where no_mj = '$no_mj'");
+            $sqldes = mysqli_query($conn2,"select format(sum(debit_idr),2) as debit_idr from sb_list_journal where no_journal = '$no_mj'");
             $row = mysqli_fetch_array($sqldes);      
             $debit_idr = $row['debit_idr'];                  
             if(!empty($no_mj)) {
@@ -538,7 +538,7 @@
             } ?>" placeholder="0.00" readonly>
                  <input type="hidden" name="txt_debit_idr_h" id="txt_debit_idr_h" value="<?php             
             $no_mj = base64_decode($_GET['no_mj']);
-            $sqldes = mysqli_query($conn2,"select sum(debit_idr) as debit_idr from sb_memorial_journal where no_mj = '$no_mj'");
+            $sqldes = mysqli_query($conn2,"select sum(debit_idr) as debit_idr from sb_list_journal where no_journal = '$no_mj'");
             $row = mysqli_fetch_array($sqldes);      
             $debit_idr = $row['debit_idr'];                  
             if(!empty($no_mj)) {
@@ -1265,8 +1265,8 @@ function addListener(elm,index){
         var no_mj = document.getElementById('no_doc').value;  
         var create_user = '<?php echo $user; ?>';
         var nama_type = $('select[name=nama_type] option').filter(':selected').val();
-        var credit = document.getElementById('txt_credit_h').value;
-        var debit = document.getElementById('txt_debit_h').value;
+        var credit = document.getElementById('txt_credit_idr_h').value;
+        var debit = document.getElementById('txt_debit_idr_h').value;
 
         if (nama_type != '' && credit == debit) {
         $.ajax({
@@ -1334,9 +1334,9 @@ function addListener(elm,index){
         alert("Please Select Type Journal");
         // }else if(document.getElementById('txt_credit_h').value == '' && document.getElementById('txt_debit_h').value == '' || document.getElementById('txt_credit_h').value == '0' && document.getElementById('txt_debit_h').value == '0'){
         // alert("Please Enter Amount");
-        }else if( document.getElementById('txt_credit_h').value < 0 && document.getElementById('txt_debit_h').value < 0){
+        }else if( document.getElementById('txt_credit_h').value < 0 && document.getElementById('txt_debit_idr_h').value < 0){
         alert("Amount Can't be minus");
-        }else if(document.getElementById('txt_credit_h').value != document.getElementById('txt_debit_h').value){
+        }else if(document.getElementById('txt_credit_h').value != document.getElementById('txt_debit_idr_h').value){
         alert("Debit and Credit can't Balance");
         }else{               
        
