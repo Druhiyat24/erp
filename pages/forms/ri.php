@@ -71,7 +71,7 @@ function validasi()
 {
 
   var sjno = document.form.txtsjno.value;
-
+  var profit_center = document.form.profit_center.value;
   var sjno2 = document.form.txtsjno2.value;
 
   var jendok = document.form.txtstatus_kb.value;
@@ -264,6 +264,21 @@ function validasi()
 
     });
 
+    $.ajax({
+        url: 'getProfitCenter2.php',
+        method: 'GET',
+        data: { bppbno: cri_item},
+        success: function(response) {
+          var data = JSON.parse(response);
+
+          if (data.profit_center != '' && data.profit_center != null) {
+            $("#profit_center").val(data.profit_center).trigger("change");
+          } else {
+            $("#profit_center").val("NAG").trigger("change");
+          }
+        }
+      });
+
   };
 
 </script>
@@ -306,17 +321,17 @@ onchange='getListData(this.value)'>
 
 </select>
 
-</div>
-
-<div class='form-group'>
-
-<label>Inv # / SJ # *</label>
-
-<input type='text' class='form-control' name='txtsjno2'>
-
-</div>
-
 </div>";
+
+    echo '<div class="form-group">';
+    echo '<label>Profit Center</label>';
+    echo '<select class="form-control select2" id="profit_center" name="profit_center" required>
+    <option value="NAG" ' . ($profit_center == "NAG" ? "selected" : "") . '>NIRWANA ALABARE GARMENT</option>
+    <option value="NAK" ' . ($profit_center == "NAK" ? "selected" : "") . '>NIRWANA ALABARE KNITTING</option>
+    </select>';
+    echo '</div>';
+
+echo"</div>";
 
 echo "<div class='col-md-3'>";
 
@@ -334,7 +349,14 @@ echo "<label>$caption[5] *</label>";
 
 echo "<input type='text' class='form-control' name='txtbpbdate' id='datepicker2' placeholder='$cmas $caption[5]' value='$ridate'>";
 
-echo "</div>";
+echo "</div>
+<div class='form-group'>
+
+<label>Inv # / SJ # *</label>
+
+<input type='text' class='form-control' name='txtsjno2'>
+
+</div>";
 
 echo "</div>";
 

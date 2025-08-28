@@ -76,7 +76,7 @@ if (!isset($_POST['itemchk'])) {
 
 		$cekdata = mysql_query("select SUBSTR(bpbno_int,1,3) fil_wip, phd.tipe_com, mi.itemdesc,bpb.confirm,bpbno, bpbno_int, bpb.bpbdate, bpb.id_supplier, supplier, mattype, n_code_category, 
 			if(matclass like '%ACCESORIES%','ACCESORIES',mi.matclass) matclass, bpb.curr, COALESCE(ph.tax,0) tax,bpb.username, bpb.dateinput, 
-			round(SUM(((qty - COALESCE(qty_reject,0)) * price) + (((qty - COALESCE(qty_reject,0)) * price) * (COALESCE(ph.tax,0) /100))),2) as total,round(SUM(((qty - COALESCE(qty_reject,0)) * price)),2) as dpp,round(SUM((((qty - COALESCE(qty_reject,0)) * price) * (COALESCE(ph.tax,0) /100))),2) as ppn
+			round(SUM(((qty - COALESCE(qty_reject,0)) * price) + (((qty - COALESCE(qty_reject,0)) * price) * (COALESCE(ph.tax,0) /100))),2) as total,round(SUM(((qty - COALESCE(qty_reject,0)) * price)),2) as dpp,round(SUM((((qty - COALESCE(qty_reject,0)) * price) * (COALESCE(ph.tax,0) /100))),2) as ppn, bpb.profit_center
 			from bpb 
 			inner join masteritem mi on bpb.id_item = mi.id_item
 			inner join mastersupplier ms on bpb.id_supplier = ms.id_supplier
@@ -102,6 +102,13 @@ if (!isset($_POST['itemchk'])) {
 		$dateinput = $databpb['dateinput'];
 		$tipe_com = $databpb['tipe_com'];
 		$fil_wip = $databpb['fil_wip'];
+		$profitcenter = $databpb['profit_center'];
+
+		if ($profitcenter == '' || $profitcenter == null) {
+			$profit_center = 'NAG';
+		}else{
+			$profit_center = $profitcenter;
+		}
 
 		if ($fil_wip == 'WIP') {
 			$no_costcenter		= 'DEP04SUB004';
@@ -191,9 +198,9 @@ if (!isset($_POST['itemchk'])) {
 		$no_coa_cre = $rowcoa['no_coa'];
 		$nama_coa_cre = $rowcoa['nama_coa'];
 
-		$queryss2 = "INSERT INTO tbl_list_journal (no_journal, tgl_journal, type_journal, no_coa, nama_coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date) 
+		$queryss2 = "INSERT INTO tbl_list_journal (no_journal, tgl_journal, type_journal, no_coa, nama_coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date, profit_center) 
 		VALUES 
-		('$no_bpb', '$tgl_bpb', 'AP - BPB', '$no_coa_cre', '$nama_coa_cre', '$no_costcenter', '$nama_costcenter', '-', '', '-', '-', '$curr', '$rate', '0', '$total', '0', '$idr_total', 'Approved', '$description', '$username', '$dateinput', '', '', '', '')";
+		('$no_bpb', '$tgl_bpb', 'AP - BPB', '$no_coa_cre', '$nama_coa_cre', '$no_costcenter', '$nama_costcenter', '-', '', '-', '-', '$curr', '$rate', '0', '$total', '0', '$idr_total', 'Approved', '$description', '$username', '$dateinput', '', '', '', '', '$profit_center')";
 		insert_log($queryss2, $user);
 
 		$sqlcoa2 = mysqli_query($conn_li, "SELECT no_coa, nama_coa from mastercoa_v2 where cus_ctg like '%$cust_ctg%' and mattype like '%$mattype%' and matclass like '%$matclass%' and n_code_category like '%$n_code_category%' and inv_type like '%bpb_debit%' Limit 1");
@@ -201,9 +208,9 @@ if (!isset($_POST['itemchk'])) {
 		$no_coa_deb = $rowcoa2['no_coa'];
 		$nama_coa_deb = $rowcoa2['nama_coa'];
 
-		$queryss3 = "INSERT INTO tbl_list_journal (no_journal, tgl_journal, type_journal, no_coa, nama_coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date) 
+		$queryss3 = "INSERT INTO tbl_list_journal (no_journal, tgl_journal, type_journal, no_coa, nama_coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date, profit_center) 
 		VALUES 
-		('$no_bpb', '$tgl_bpb', 'AP - BPB', '$no_coa_deb', '$nama_coa_deb',  '$no_costcenter', '$nama_costcenter', '-', '', '-', '-', '$curr', '$rate', '$dpp', '0', '$idr_dpp', '0', 'Approved', '$description', '$username', '$dateinput', '', '', '', '')";
+		('$no_bpb', '$tgl_bpb', 'AP - BPB', '$no_coa_deb', '$nama_coa_deb',  '$no_costcenter', '$nama_costcenter', '-', '', '-', '-', '$curr', '$rate', '$dpp', '0', '$idr_dpp', '0', 'Approved', '$description', '$username', '$dateinput', '', '', '', '','$profit_center')";
 		insert_log($queryss3, $user);
 
 		if ($tax >= 1) {
@@ -213,9 +220,9 @@ if (!isset($_POST['itemchk'])) {
 			$nama_coa_ppn = $rowcoa3['nama_coa'];
 
 
-			$queryss4 = "INSERT INTO tbl_list_journal (no_journal, tgl_journal, type_journal, no_coa, nama_coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date) 
+			$queryss4 = "INSERT INTO tbl_list_journal (no_journal, tgl_journal, type_journal, no_coa, nama_coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date, profit_center) 
 			VALUES 
-			('$no_bpb', '$tgl_bpb', 'AP - BPB', '$no_coa_ppn', '$nama_coa_ppn',  '$no_costcenter', '$nama_costcenter', '-', '', '-', '-', '$curr', '$rate', '$ppn', '0', '$idr_ppn', '0', 'Approved', '$description', '$username', '$dateinput', '', '', '', '')";
+			('$no_bpb', '$tgl_bpb', 'AP - BPB', '$no_coa_ppn', '$nama_coa_ppn',  '$no_costcenter', '$nama_costcenter', '-', '', '-', '-', '$curr', '$rate', '$ppn', '0', '$idr_ppn', '0', 'Approved', '$description', '$username', '$dateinput', '', '', '', '', '$profit_center')";
 
 			insert_log($queryss4, $user);
 		} else {
@@ -227,15 +234,15 @@ if (!isset($_POST['itemchk'])) {
 			$no_coa_cre = $rowcoa['no_coa'];
 			$nama_coa_cre = $rowcoa['nama_coa'];
 
-			$queryss2 = "INSERT INTO tbl_list_journal (no_journal, tgl_journal, type_journal, no_coa, nama_coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date) 
+			$queryss2 = "INSERT INTO tbl_list_journal (no_journal, tgl_journal, type_journal, no_coa, nama_coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date, profit_center) 
 			VALUES 
-			('$no_bpb', '$tgl_bpb', 'AP - BPB', '$no_coa_cre', '$nama_coa_cre',  '$no_costcenter', '$nama_costcenter', '-', '', '-', '-', '$curr', '$rate', '0', '$total', '0', '$idr_total', 'Approved', '$description', '$username', '$dateinput_', '$user', '$dateinput', '', '')";
+			('$no_bpb', '$tgl_bpb', 'AP - BPB', '$no_coa_cre', '$nama_coa_cre',  '$no_costcenter', '$nama_costcenter', '-', '', '-', '-', '$curr', '$rate', '0', '$total', '0', '$idr_total', 'Approved', '$description', '$username', '$dateinput_', '$user', '$dateinput', '', '', '$profit_center')";
 			insert_log($queryss2, $user);
 
 
-			$queryss3 = "INSERT INTO tbl_list_journal (no_journal, tgl_journal, type_journal, no_coa, nama_coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date) 
+			$queryss3 = "INSERT INTO tbl_list_journal (no_journal, tgl_journal, type_journal, no_coa, nama_coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date, profit_center) 
 			VALUES 
-			('$no_bpb', '$tgl_bpb', 'AP - BPB', '1.34.05', 'PIUTANG LAIN-LAIN PIHAK KETIGA - BAHAN BAKU / BAHAN PEMBANTU',  '$no_costcenter', '$nama_costcenter', '-', '', '-', '-', '$curr', '$rate', '$dpp', '0', '$idr_dpp', '0', 'Approved', '$description', '$username', '$dateinput_', '$user', '$dateinput', '', '')";
+			('$no_bpb', '$tgl_bpb', 'AP - BPB', '1.34.05', 'PIUTANG LAIN-LAIN PIHAK KETIGA - BAHAN BAKU / BAHAN PEMBANTU',  '$no_costcenter', '$nama_costcenter', '-', '', '-', '-', '$curr', '$rate', '$dpp', '0', '$idr_dpp', '0', 'Approved', '$description', '$username', '$dateinput_', '$user', '$dateinput', '', '', '$profit_center')";
 			insert_log($queryss3, $user);
 
 			if ($tax >= 1) {
@@ -245,9 +252,9 @@ if (!isset($_POST['itemchk'])) {
 				$nama_coa_ppn = $rowcoa3['nama_coa'];
 
 
-				$queryss4 = "INSERT INTO tbl_list_journal (no_journal, tgl_journal, type_journal, no_coa, nama_coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date) 
+				$queryss4 = "INSERT INTO tbl_list_journal (no_journal, tgl_journal, type_journal, no_coa, nama_coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date, profit_center) 
 				VALUES 
-				('$no_bpb', '$tgl_bpb', 'AP - BPB', '$no_coa_ppn', '$nama_coa_ppn',  '$no_costcenter', '$nama_costcenter', '-', '', '-', '-', '$curr', '$rate', '$ppn', '0', '$idr_ppn', '0', 'Approved', '$description', '$username', '$dateinput_', '$user', '$dateinput', '', '')";
+				('$no_bpb', '$tgl_bpb', 'AP - BPB', '$no_coa_ppn', '$nama_coa_ppn',  '$no_costcenter', '$nama_costcenter', '-', '', '-', '-', '$curr', '$rate', '$ppn', '0', '$idr_ppn', '0', 'Approved', '$description', '$username', '$dateinput_', '$user', '$dateinput', '', '', '$profit_center')";
 
 				insert_log($queryss4, $user);
 			}
@@ -260,7 +267,7 @@ if (!isset($_POST['itemchk'])) {
 		$bppbno_int = flookup("bppbno_int", "bppb", "bppbno='$txtbppbno'");
 		$cekdata = mysql_query("select bppbno,bppbno_int,bppbdate,curr,id_supplier,supplier,mattype,n_code_category,matclass,curr,tax,username,dateinput,(dpp + (dpp * (tax/100))) total,dpp,(dpp * (tax/100)) ppn from (select bppbno, bppbno_int, bppb.bppbdate, bppb.id_supplier, supplier, mattype, n_code_category, 
 			if(matclass like '%ACCESORIES%','ACCESORIES',mi.matclass) matclass, bppb.curr,bppb.username, bppb.dateinput, 
-			SUM(((qty) * price)) as dpp,bpbno_ro
+			SUM(((qty) * price)) as dpp,bpbno_ro, profit_center
 			from bppb 
 			inner join masteritem mi on bppb.id_item = mi.id_item
 			inner join mastersupplier ms on bppb.id_supplier = ms.id_supplier
@@ -285,6 +292,13 @@ if (!isset($_POST['itemchk'])) {
 		$ppn	= $databpb['ppn'];
 		$tgl_bpb = $databpb['bppbdate'];
 		$dateinput = $databpb['dateinput'];
+		$profitcenter = $databpb['profit_center'];
+
+		if ($profitcenter == '' || $profitcenter == null) {
+			$profit_center = 'NAG';
+		}else{
+			$profit_center = $profitcenter;
+		}
 
 		if ($mattype == 'C') {
 			if ($matclass1 == 'CMT' || $matclass1 == 'PRINTING' || $matclass1 == 'EMBRODEIRY' || $matclass1 == 'WASHING' || $matclass1 == 'PAINTING' || $matclass1 == 'HEATSEAL') {
@@ -366,9 +380,9 @@ if (!isset($_POST['itemchk'])) {
 		$no_coa_cre = $rowcoa['no_coa'];
 		$nama_coa_cre = $rowcoa['nama_coa'];
 
-		$queryss2 = "INSERT INTO tbl_list_journal (no_journal, tgl_journal, type_journal, no_coa, nama_coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date) 
+		$queryss2 = "INSERT INTO tbl_list_journal (no_journal, tgl_journal, type_journal, no_coa, nama_coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date, profit_center) 
 		VALUES 
-		('$no_bpb', '$tgl_bpb', 'AP - BPB RETURN', '$no_coa_cre', '$nama_coa_cre', '-', '-', '-', '', '-', '-', '$curr', '$rate', '$total', '0', '$idr_total', '0', 'Approved', '$description', '$username', '$dateinput', '', '', '', '')";
+		('$no_bpb', '$tgl_bpb', 'AP - BPB RETURN', '$no_coa_cre', '$nama_coa_cre', '-', '-', '-', '', '-', '-', '$curr', '$rate', '$total', '0', '$idr_total', '0', 'Approved', '$description', '$username', '$dateinput', '', '', '', '', '$profit_center')";
 		insert_log($queryss2, $user);
 
 		$sqlcoa2 = mysqli_query($conn_li, "SELECT no_coa, nama_coa from mastercoa_v2 where cus_ctg like '%$cust_ctg%' and mattype like '%$mattype%' and matclass like '%$matclass%' and n_code_category like '%$n_code_category%' and inv_type like '%bpb_debit%' Limit 1");
@@ -376,9 +390,9 @@ if (!isset($_POST['itemchk'])) {
 		$no_coa_deb = $rowcoa2['no_coa'];
 		$nama_coa_deb = $rowcoa2['nama_coa'];
 
-		$queryss3 = "INSERT INTO tbl_list_journal (no_journal, tgl_journal, type_journal, no_coa, nama_coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date) 
+		$queryss3 = "INSERT INTO tbl_list_journal (no_journal, tgl_journal, type_journal, no_coa, nama_coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date, profit_center) 
 		VALUES 
-		('$no_bpb', '$tgl_bpb', 'AP - BPB RETURN', '$no_coa_deb', '$nama_coa_deb', '-', '-', '-', '', '-', '-', '$curr', '$rate', '0', '$dpp', '0', '$idr_dpp', 'Approved', '$description', '$username', '$dateinput', '', '', '', '')";
+		('$no_bpb', '$tgl_bpb', 'AP - BPB RETURN', '$no_coa_deb', '$nama_coa_deb', '-', '-', '-', '', '-', '-', '$curr', '$rate', '0', '$dpp', '0', '$idr_dpp', 'Approved', '$description', '$username', '$dateinput', '', '', '', '', '$profit_center')";
 		insert_log($queryss3, $user);
 
 		if ($tax >= 1) {
@@ -388,9 +402,9 @@ if (!isset($_POST['itemchk'])) {
 			$nama_coa_ppn = $rowcoa3['nama_coa'];
 
 
-			$queryss4 = "INSERT INTO tbl_list_journal (no_journal, tgl_journal, type_journal, no_coa, nama_coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date) 
+			$queryss4 = "INSERT INTO tbl_list_journal (no_journal, tgl_journal, type_journal, no_coa, nama_coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date, profit_center) 
 			VALUES 
-			('$no_bpb', '$tgl_bpb', 'AP - BPB RETURN', '$no_coa_ppn', '$nama_coa_ppn', '-', '-', '-', '', '-', '-', '$curr', '$rate', '0', '$ppn', '0', '$idr_ppn', 'Approved', '$description', '$username', '$dateinput', '', '', '', '')";
+			('$no_bpb', '$tgl_bpb', 'AP - BPB RETURN', '$no_coa_ppn', '$nama_coa_ppn', '-', '-', '-', '', '-', '-', '$curr', '$rate', '0', '$ppn', '0', '$idr_ppn', 'Approved', '$description', '$username', '$dateinput', '', '', '', '', '$profit_center')";
 
 			insert_log($queryss4, $user);
 		}

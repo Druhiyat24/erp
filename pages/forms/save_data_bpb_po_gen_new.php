@@ -34,6 +34,7 @@ if (isset($_POST['txtid_sec'])) { $txtid_sec=$_POST['txtid_sec']; } else { $txti
 $txtjam_masuk=nb($_POST['txtjam_masuk']);
 $txtnomor_mobil=nb($_POST['txtnomor_mobil']);
 $txtpono=nb($_POST['txtpono']);
+$profit_center = isset($_POST['profit_center']) ? $_POST['profit_center'] : '';
 if (isset($_POST['txtkpno'])) { $txtkpno=nb($_POST['txtkpno']); } else { $txtkpno=""; }
 if ($txtid_item_fg=="") 
 { $txtid_item_fg = $txtkpno; 
@@ -135,12 +136,12 @@ if (($bpbno=="" AND $id_item=="") OR ($bpbno<>"" AND $id_item==""))
 				//die();
 				$sql = "insert into bpb (id_item,id_item_fg,qty,qty_over,unit,curr,price,remark,jam_masuk,berat_bersih,berat_kotor,nomor_mobil,pono,id_supplier,
 							invno,nomor_kk_bc,bcno,bcdate,no_fp,tgl_fp,bpbno,bpbno_int,bpbdate,tujuan,jenis_dok,username,use_kite,nomor_aju,tanggal_aju,
-							kpno,id_gudang,nomor_rak,status_retur,id_po_item,id_jo,id_sec,qty_reject,no_contract,jenis_trans,reffno)
+							kpno,id_gudang,nomor_rak,status_retur,id_po_item,id_jo,id_sec,qty_reject,no_contract,jenis_trans,reffno, profit_center)
 							values ('$txtid_item','$txtid_item_fg','$txtqty','$txtsisa','$txtunit','$curr','$price','$txtremark','$txtjam_masuk','$txtberat_bersih',
 							'$txtberat_kotor','$txtnomor_mobil','$txtpono','$txtid_supplier','$txtinvno','$txtkkbc','$txtbcno','$txtbcdate',
 							'$txtno_fp','$txttglfp','$txtbpbno','$txtbpbno2',
 							'$txtbpbdate','$txttujuan','$status_kb','$user','1','$txtbcaju','$txttglaju','$txtkpno',
-							'$txtid_gudang','$txtnomor_rak','$retur','$line_item','$id_jo','$txtid_sec','$txtqtyr','$txtcontractno','$txtjns_in','$txtpo_asal')";
+							'$txtid_gudang','$txtnomor_rak','$retur','$line_item','$id_jo','$txtid_sec','$txtqtyr','$txtcontractno','$txtjns_in','$txtpo_asal', '$profit_center')";
 						insert_log($sql,$user);
 						calc_stock($cbomat,$txtid_item);	
 						#echo "<br>".$sql;

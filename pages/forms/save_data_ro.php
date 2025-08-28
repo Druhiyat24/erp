@@ -17,6 +17,7 @@ $tgl_ro = fd($_POST['txtbpbdate']);
 $jenis_dok=$_POST['txtstatus_kb'];
 $txtbcno=$_POST['txtbcno'];
 $txtbcdate=$_POST['txtbcdate'];
+$profit_center = isset($_POST['profit_center']) ? $_POST['profit_center'] : '';
 $txtbcaju="";
 $txttglaju="";
 $cbomat=substr($txtbpbno_ro,0,1);
@@ -73,11 +74,11 @@ else
 	    $retur="Y";
 	    $sql = "insert into bppb (id_item,id_item_fg,qty,unit,curr,price,remark,berat_bersih,berat_kotor,nomor_mobil,id_supplier,invno,bcno,bcdate,bppbno,bppbno_int,
 				bppbdate,jenis_dok,username,use_kite,nomor_aju,tanggal_aju,kpno,
-				nomor_rak,status_retur,bpbno_ro,id_jo) values ('$id_item','$txtid_item_fg',
+				nomor_rak,status_retur,bpbno_ro,id_jo,profit_center) values ('$id_item','$txtid_item_fg',
 				'$txtqtyro','$txtunit','$txtcurr','$txtprice','$txtremark','$txtberat_bersih','$txtberat_kotor',
 				'$txtnomor_mobil','$txtid_supplier','$txtinvno','$txtbcno','$txtbcdate','$txtrono','$txtrono2',
 				'$tgl_ro','$jenis_dok','$user','1','$txtbcaju','$txttglaju',
-				'$txtkpno','$txtnomor_rak','$retur','$txtbpbno_ro','$id_jo')";
+				'$txtkpno','$txtnomor_rak','$retur','$txtbpbno_ro','$id_jo','$profit_center')";
 			insert_log($sql,$user);
 			calc_stock($cbomat,$id_item);
 	  	if($RollArr!="")

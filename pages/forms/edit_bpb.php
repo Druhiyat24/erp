@@ -11,7 +11,7 @@ $mod=$_GET['mod'];
 $bpbno = $_GET['bpbno'];
 $username =  $_SESSION['username'];
 
-$sql_cek_data  = mysql_query("select bpbno_int, bpbdate, a.id_supplier, remark, invno, pono, jenis_dok, jenis_trans, supplier from bpb a INNER JOIN mastersupplier b on b.id_supplier = a.id_supplier where bpbno = '$bpbno' limit 1");
+$sql_cek_data  = mysql_query("select bpbno_int, bpbdate, a.id_supplier, remark, invno, pono, jenis_dok, jenis_trans, supplier, profit_center from bpb a INNER JOIN mastersupplier b on b.id_supplier = a.id_supplier where bpbno = '$bpbno' limit 1");
 $databpb = mysql_fetch_array($sql_cek_data);
 
 $bpbno_int = $databpb['bpbno_int'];
@@ -23,6 +23,13 @@ $pono = $databpb['pono'];
 $jenis_dok = $databpb['jenis_dok'];
 $jenis_trans = $databpb['jenis_trans'];
 $supplier = $databpb['supplier'];
+$profitcenter = $databpb['profit_center'];
+
+if ($profitcenter == '' || $profitcenter == null) {
+      $profit_center = 'NAG';
+    }else{
+      $profit_center = $profitcenter;
+    }
 
 ?>
 <script type='text/javascript'>
@@ -113,14 +120,26 @@ $supplier = $databpb['supplier'];
         </div>
 
         <div class='row' style="margin-left:8px;">
+
           <div class='col-md-3'>
+            <div class='form-group'>
+              <label>Profit Center</label>
+              <select class='form-control select2' id='profit_center' name='profit_center' value='<?php echo $profit_center; ?>'>
+                <option>Pilih Data</option>
+                <option value="NAG" <?php if ($profit_center == "NAG") {echo "selected";} ?>>NIRWANA ALABARE GARMENT</option>
+                <option value="NAK" <?php if ($profit_center == "NAK") {echo "selected";} ?>>NIRWANA ALABARE KNITTING</option>
+              </select>
+            </div>
+          </div>
+
+          <div class='col-md-2'>
             <div class='form-group'>
               <label>Nomor SJ/Inv *</label>
               <input type='text' class='form-control' name='invno' value='<?php echo $invno;?>' >
             </div>
           </div>
 
-          <div class='col-md-5'>
+          <div class='col-md-3'>
             <div class='form-group'>
               <label>Keterangan *</label>
               <input type='text' class='form-control' name='remark' value='<?php echo $remark;?>' >

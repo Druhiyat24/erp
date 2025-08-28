@@ -15,9 +15,10 @@ $jenis_dok=$_POST['jenis_dok'];
 $jenis_trans=$_POST['jenis_trans'];
 $invno=$_POST['invno'];
 $remark=$_POST['remark'];
+$profit_center=$_POST['profit_center'];
 
 $sql="update bpb set bpbdate='$bpbdate', id_supplier='$id_supplier', jenis_dok='$jenis_dok' 
-	, jenis_trans='$jenis_trans', invno='$invno', remark='$remark' where bpbno = '$bpbno'";
+	, jenis_trans='$jenis_trans', invno='$invno', remark='$remark', profit_center='$profit_center' where bpbno = '$bpbno'";
 insert_log($sql,$user);
 
 $_SESSION['msg'] = "Data telah diperbarui";

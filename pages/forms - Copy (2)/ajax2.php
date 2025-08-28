@@ -247,6 +247,20 @@ if ($modenya=="cari_defect")
 	}
 }
 
+
+if ($modenya == "get_profit_center") {
+    $cri_item = $_REQUEST['cri_item'];
+    $sql = "SELECT profit_center FROM bpb WHERE bpbno = '".$cri_item."' LIMIT 1";
+    $result = mysqli_query($conn_li, $sql);
+
+    if ($result && ($row = mysqli_fetch_assoc($result))) {
+        echo json_encode(['profit_center' => $row['profit_center']]);
+    } else {
+        // kirim JSON kosong supaya JS bisa handle
+        echo json_encode(['profit_center' => null]);
+    }
+}
+
 if ($modenya=="cari_defect2")
 {	$crinya = 'A';
 	$cbomat=substr($crinya,0,1);
