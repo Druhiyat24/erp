@@ -21,8 +21,8 @@ if ($tipe_mat != "")
 {	
 	$sql="select bppbno isi, concat(bppbno,' | ',ac.kpno,' | ',ac.styleno,' | ',mb.supplier) tampil from (
 		select br.*, coalesce(qty_out,0) qty_out from
-		(select bppbno, id_item, id_jo, sum(qty) qty_req, bppbdate from bppb_req where bppbdate >= '2023-01-01' group by bppbno, id_item, id_jo) br
-		left join (select bppbno,bppbno_req, id_item, id_jo, sum(qty) qty_out from bppb where bppbdate >= '2023-01-01' group by bppbno_req, id_item, id_jo) bppb 
+		(select bppbno, id_item, id_jo, sum(qty) qty_req, bppbdate from bppb_req where bppbdate >= '2025-01-01' group by bppbno, id_item, id_jo) br
+		left join (select bppbno,bppbno_req, id_item, id_jo, sum(qty) qty_out from bppb where bppbdate >= '2025-01-01' group by bppbno_req, id_item, id_jo) bppb 
 		on br.bppbno = bppb.bppbno_req and br.id_item = bppb.id_item and br.id_jo = bppb.id_jo
 		where br.bppbno like 'RQ-$tipe_mat%'
 		group by bppbno, id_item, id_jo
