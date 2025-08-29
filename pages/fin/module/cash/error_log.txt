@@ -4048,3 +4048,8 @@
 [26-Jun-2025 09:57:55 Europe/Berlin] PHP Notice:  Undefined index: nama_supp in C:\xampp\htdocs\erp\pages\fin\module\cash\cash-in.php on line 35
 [26-Jun-2025 09:57:55 Europe/Berlin] PHP Notice:  Undefined index: nama_supp in C:\xampp\htdocs\erp\pages\fin\module\cash\cash-in.php on line 35
 [26-Jun-2025 09:57:55 Europe/Berlin] PHP Notice:  Undefined index: nama_supp in C:\xampp\htdocs\erp\pages\fin\module\cash\cash-in.php on line 35
+[28-Aug-2025 06:39:48 Europe/Berlin] PHP Notice:  Undefined index: accountid in C:\xampp\htdocs\erp\pages\fin\module\cash\cashreport.php on line 23
+[28-Aug-2025 06:39:48 Europe/Berlin] PHP Notice:  Undefined index: accountid in C:\xampp\htdocs\erp\pages\fin\module\cash\cashreport.php on line 23
+[28-Aug-2025 06:39:48 Europe/Berlin] PHP Notice:  Undefined index: accountid in C:\xampp\htdocs\erp\pages\fin\module\cash\cashreport.php on line 23
+[28-Aug-2025 06:39:48 Europe/Berlin] PHP Notice:  Undefined index: accountid in C:\xampp\htdocs\erp\pages\fin\module\cash\cashreport.php on line 23
+[28-Aug-2025 06:39:48 Europe/Berlin] PHP Notice:  Undefined index: accountid in C:\xampp\htdocs\erp\pages\fin\module\cash\cashreport.php on line 23
