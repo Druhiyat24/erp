@@ -271,7 +271,7 @@ if ($mode=="Detail_Out")
 			LEFT OUTER JOIN mapping_category AS m ON s.n_code_category=m.n_id
 			left join bpb on a.bpbno_ro =  bpb.bpbno and a.id_item = bpb.id_item and a.id_jo = bpb.id_jo
 			where $whereout and a.bppbdate between '$from' and '$to' 
-			$que_cl $que_supp order by a.bppbdate",26);
+			$que_cl $que_supp order by a.bppbdate",27);
 	}
 	else if ($tipenya == "Barang Jadi")
 	{
@@ -383,7 +383,7 @@ if ($mode=="Detail_Out")
         left join (select id_jo,kpno,styleno from act_costing ac inner join so on ac.id=so.id_cost inner join jo_det jod on so.id=jod.id_so group by id_jo) tmpjo on tmpjo.id_jo=a.id_jo
         left join (select id_jo,bom_jo_item.id_item,group_concat(distinct(nama_panel)) nama_panel from bom_jo_item inner join masterpanel mp on bom_jo_item.id_panel = mp.id where id_panel != '0' group by id_item, id_jo) cp on s.id_gen = cp.id_item and a.id_jo = cp.id_jo
         left join (select id_item, id_jo, group_concat(distinct(color)) color_gmt from bom_jo_item k inner join so_det sd on k.id_so_det = sd.id where status = 'M' and k.cancel = 'N' group by id_item, id_jo) cc on s.id_gen = cc.id_item and a.id_jo = cc.id_jo
-        where a.tgl_mut BETWEEN  '$from' and '$to')) a left join (select id_jo,kpno,styleno from act_costing ac inner join so on ac.id=so.id_cost inner join jo_det jod on so.id=jod.id_so group by id_jo) b on b.id_jo=a.id_jo)",31);
+        where a.tgl_mut BETWEEN  '$from' and '$to')) a left join (select id_jo,kpno,styleno from act_costing ac inner join so on ac.id=so.id_cost inner join jo_det jod on so.id=jod.id_so group by id_jo) b on b.id_jo=a.id_jo)",32);
       		}else{
       		tampil_data("select if(bppbno_int!='',bppbno_int,bppbno) bppbno,a.bppbno_req,bppbdate,'NIRWANA ALABARE GARMENT' profit_center, invno,jenis_dok,right(nomor_aju,6),tanggal_aju,
       			lpad(bcno,6,'0') bcno,bcdate,supplier,a.id_item,goods_code,$fld itemdesc,s.color,s.size,
@@ -404,7 +404,7 @@ if ($mode=="Detail_Out")
       			where status = 'M' and k.cancel = 'N'
       			group by id_item, id_jo) cc on s.id_gen = cc.id_item and a.id_jo = cc.id_jo				 
       			where $whereout and bppbdate between '$from' and '$to'
-      			$que_cl $que_supp order by bppbdate",31);
+      			$que_cl $que_supp order by bppbdate",32);
       	}
 
       		// echo $classnya;
@@ -450,7 +450,7 @@ else
 			LEFT OUTER JOIN mapping_category AS m ON s.n_code_category=m.n_id
 			left join reqnon_header r on a.id_jo = r.id
 			where  bpbno_int LIKE '%GEN%' $que_supp AND a.bpbdate >= '$from'
-			AND a.bpbdate <= '$to'",30);					
+			AND a.bpbdate <= '$to'",31);					
 	}
 	else
 	{
@@ -567,7 +567,7 @@ else
         where a.tgl_mut BETWEEN  '$from' and '$to') a
         left join (select id_jo,kpno,styleno from act_costing ac inner join so on ac.id=so.id_cost inner join jo_det jod on so.id=jod.id_so group by id_jo) tmpjo on tmpjo.id_jo=a.id_jo
         left join (select id_jo,bom_jo_item.id_item,group_concat(distinct(nama_panel)) nama_panel from bom_jo_item inner join masterpanel mp on bom_jo_item.id_panel = mp.id where id_panel != '0' group by id_item, id_jo) cp on a.id_gen = cp.id_item and a.id_jo = cp.id_jo
-        left join (select id_item, id_jo, group_concat(distinct(color)) color_gmt from bom_jo_item k inner join so_det sd on k.id_so_det = sd.id where status = 'M' and k.cancel = 'N' group by id_item, id_jo) cc on a.id_gen = cc.id_item and a.id_jo = cc.id_jo",35);
+        left join (select id_item, id_jo, group_concat(distinct(color)) color_gmt from bom_jo_item k inner join so_det sd on k.id_so_det = sd.id where status = 'M' and k.cancel = 'N' group by id_item, id_jo) cc on a.id_gen = cc.id_item and a.id_jo = cc.id_jo",36);
       	}else{
 
       	tampil_data("select if(bpbno_int!='',bpbno_int,bpbno) bpbno,bpbdate,'NIRWANA ALABARE GARMENT' profit_center, invno,jenis_dok,right(nomor_aju,6),tanggal_aju,
@@ -591,7 +591,7 @@ else
       		group by id_item, id_jo) cp on s.id_gen = cp.id_item and a.id_jo = cp.id_jo
       		left join (select id_item, id_jo, group_concat(distinct(color)) color_gmt from bom_jo_item k inner join so_det sd on k.id_so_det = sd.id where status = 'M' and k.cancel = 'N' group by id_item, id_jo) cc on s.id_gen = cc.id_item and a.id_jo = cc.id_jo    
       		where $where and bpbdate between '$from' and '$to'
-      		$que_cl $que_supp order by bpbdate",35);
+      		$que_cl $que_supp order by bpbdate",36);
       }
       	// echo $classnya;
 
