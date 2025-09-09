@@ -324,7 +324,7 @@ header("Cache-Control: max-age=0");
           $fromcri = date('Y-m-d', strtotime($from));
           $tocri = date('Y-m-d', strtotime($to));
 
-          $sql = "select concat(kode_rak ,' ', nama_rak) lokasi,
+          $sql = "select * from (select concat(kode_rak ,' ', nama_rak) lokasi,
           jd.id_jo,
           jd.kpno,
           jd.styleno,
@@ -397,7 +397,7 @@ header("Cache-Control: max-age=0");
          group by id_cost order by id_jo asc) jd on a.id_jo = jd.id_jo
           inner join mastersupplier mb on jd.id_buyer = mb.id_supplier
           inner join masteritem mi on a.id_item = mi.id_item
-          group by a.id_rak_loc, a.id_item, a.id_jo, a.unit";
+          group by a.id_rak_loc, a.id_item, a.id_jo, a.unit) a where (qty_awal + qty_in) > 0 ";
 
 
 // $sql = "select concat(kode_rak ,' ', nama_rak) lokasi,
