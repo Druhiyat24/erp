@@ -38,10 +38,15 @@ if ($cbotipe == 'A') {
   $cbotipefix = $cbotipe;
 }
 
-header("Content-type: application/octet-stream");
-header("Content-Disposition: attachment; filename=Lap_$tipe_data_xls$cbojenis_xls$cbotipefix_xls.xls"); //ganti nama sesuai keperluan 
-header("Pragma: no-cache");
-header("Expires: 0");
+// header("Content-type: application/octet-stream");
+// header("Content-Disposition: attachment; filename=Lap_$tipe_data_xls$cbojenis_xls$cbotipefix_xls.xls"); //ganti nama sesuai keperluan 
+// header("Pragma: no-cache");
+// header("Expires: 0");
+
+header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+header("Content-Disposition: attachment; filename=Lap_{$tipe_data_xls}{$cbojenis_xls}{$cbotipefix_xls}.xlsx");
+header("Cache-Control: max-age=0");
+
 
 ?>
 <?php
