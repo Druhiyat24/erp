@@ -888,20 +888,38 @@ insert_log($sql,$user);
 			insert_temp_perdok($sqlk2,$user,$sesi,"N");
 			// echo $sqlk2;
 		} elseif ($rpt=='bc261keluar')
-		{	$kodenya = "if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item))";
+		{	
+			// $kodenya = "if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item))";
+			// $sqlk = "SELECT 'BC 2.6.1 KELUAR' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,
+			// 	$kodenya kode_brg,s.itemdesc,a.unit,a.qty,round(a.qty*ifnull(a.price_bc,a.price),2) nilai_barang,a.id_item ,a.curr,a.price ,s.mattype,
+			// 	s.id_item from bppb a inner join masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
+			// 	where bcno!='-' and bppbdate between '$tglf' and '$tglt'   and jenis_dok='BC 2.6.1' and mid(a.bppbno,4,2) not in ('FG') 
+			// 	order by bcdate,bcno";
+			// insert_temp_perdok($sqlk,$user,$sesi,"Y");
+			// $kodenya = "if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat('FG ',s.id_item))";
+			// $sqlk2 = "SELECT 'BC 2.6.1 KELUAR' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,
+			// 	$kodenya kode_brg,s.itemname itemdesc,a.unit,a.qty,round(a.qty*ifnull(a.price_bc,a.price),2) nilai_barang,s.id_so_det id_item ,a.curr,a.price ,'FG' mattype,
+			// 	s.id_item from bppb a inner join masterstyle s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
+			// 	where bcno!='-' and bppbdate between '$tglf' and '$tglt'   and jenis_dok='BC 2.6.1' and mid(a.bppbno,4,2) in ('FG') and 
+			// 	mid(a.bppbno,4,1) not in ('P') order by bcdate,bcno";
+			// insert_temp_perdok($sqlk2,$user,$sesi,"N");
+
+
+			$kodenya = "if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item))";
 			$sqlk = "SELECT 'BC 2.6.1 KELUAR' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,
-				$kodenya kode_brg,s.itemdesc,a.unit,a.qty,round(a.qty*ifnull(a.price_bc,a.price),2) nilai_barang,a.id_item ,a.curr,a.price ,s.mattype,
+				$kodenya kode_brg,s.itemdesc,IFNULL(a.satuan_bc,a.unit) unit,IFNULL(a.qty_bc,a.qty) qty,ROUND(IFNULL(a.price_bc,a.price) * IFNULL(a.qty_bc,a.qty),2) AS nilai_barang,a.id_item ,IFNULL(a.curr_bc,a.curr) curr,a.price ,s.mattype,
 				s.id_item from bppb a inner join masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
 				where bcno!='-' and bppbdate between '$tglf' and '$tglt'   and jenis_dok='BC 2.6.1' and mid(a.bppbno,4,2) not in ('FG') 
 				order by bcdate,bcno";
 			insert_temp_perdok($sqlk,$user,$sesi,"Y");
 			$kodenya = "if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat('FG ',s.id_item))";
 			$sqlk2 = "SELECT 'BC 2.6.1 KELUAR' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,
-				$kodenya kode_brg,s.itemname itemdesc,a.unit,a.qty,round(a.qty*ifnull(a.price_bc,a.price),2) nilai_barang,s.id_so_det id_item ,a.curr,a.price ,'FG' mattype,
+				$kodenya kode_brg,s.itemname itemdesc,IFNULL(a.satuan_bc,a.unit) unit,IFNULL(a.qty_bc,a.qty) qty,ROUND(IFNULL(a.price_bc,a.price) * IFNULL(a.qty_bc,a.qty),2) AS nilai_barang,s.id_so_det id_item ,IFNULL(a.curr_bc,a.curr) curr,a.price ,'FG' mattype,
 				s.id_item from bppb a inner join masterstyle s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
 				where bcno!='-' and bppbdate between '$tglf' and '$tglt'   and jenis_dok='BC 2.6.1' and mid(a.bppbno,4,2) in ('FG') and 
 				mid(a.bppbno,4,1) not in ('P') order by bcdate,bcno";
 			insert_temp_perdok($sqlk2,$user,$sesi,"N");
+
 		} elseif ($rpt=='bc27keluar' or $rpt=='bc27subkon')
 		{	$kdnya = "if(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0'
 				,s.goods_code,concat('FG ',s.id_item))";
