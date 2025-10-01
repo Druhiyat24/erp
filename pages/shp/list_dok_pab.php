@@ -535,37 +535,45 @@ if($mod=="2U") {
                   </thead>
                   <tbody>
                     <?php
+
       // LOGIKA QUERY
-                    if (substr($trx_no,0,2)!="SJ") {
-                      $tbl="bpb"; $fldtrx="bpbno"; $trxdate="bpbdate";
-                      $tblmst = (substr($trx_no,0,2)=="FG") ? "masterstyle" : "masteritem";
-                      $tipe = "LEFT JOIN (SELECT pono, tipe_com FROM po_header ph INNER JOIN po_header_draft phd ON phd.id = ph.id_draft) tipe ON trx.pono = tipe.pono";
-                      $tipe_tampil = ",tipe_com";
-                    } else {
-                      $tbl="bppb"; $fldtrx="bppbno"; $trxdate="bppbdate";
-                      $tblmst = (substr($trx_no,3,2)=="FG") ? "masterstyle" : "masteritem";
-                      $tipe = ""; $tipe_tampil = "";
+
+                    if (substr($trx_no,0,5)!="SJ-FG") {
+                      if (substr($trx_no,0,2)!="SJ") {
+                        $tbl="bpb"; $fldtrx="bpbno"; $trxdate="bpbdate";
+                        $tblmst = (substr($trx_no,0,2)=="FG") ? "masterstyle" : "masteritem";
+                        $tipe = "LEFT JOIN (SELECT pono, tipe_com FROM po_header ph INNER JOIN po_header_draft phd ON phd.id = ph.id_draft) tipe ON trx.pono = tipe.pono";
+                        $tipe_tampil = ",tipe_com";
+                      } else {
+                        $tbl="bppb"; $fldtrx="bppbno"; $trxdate="bppbdate";
+                        $tblmst = (substr($trx_no,3,2)=="FG") ? "masterstyle" : "masteritem";
+                        $tipe = ""; $tipe_tampil = "";
+                      }
+
+                      $flddesc = ($tblmst=="masterstyle") ? "mi.itemname" : "mi.itemdesc";
+
+                      $sql = "SELECT trx.id, $fldtrx, $trxdate, trx.jenis_dok, trx.id line_id, mi.goods_code, 
+                      CONCAT($flddesc, ' ', IFNULL(mi.color,''), ' ', IFNULL(mi.size,'')) item,
+                      trx.qty, trx.unit, trx.curr, price price_ori, IFNULL(price_bc, trx.price) price, 
+                      tmpjo.kpno, tmpjo.jo_no, tmpjo.styleno, trx.remark, trx.satuan_bc, trx.qty_bc, 
+                      COALESCE(trx.curr_bc, trx.curr) curr_bc, rate_bc $tipe_tampil 
+                      FROM $tbl trx 
+                      INNER JOIN $tblmst mi ON trx.id_item = mi.id_item 
+                      LEFT JOIN (
+                        SELECT jo.jo_no, jod.id_jo, ac.kpno, ac.styleno 
+                        FROM jo_det jod 
+                        INNER JOIN so ON jod.id_so = so.id 
+                        INNER JOIN act_costing ac ON so.id_cost = ac.id 
+                        INNER JOIN jo ON jod.id_jo = jo.id 
+                        GROUP BY jod.id_jo
+                        ) tmpjo ON tmpjo.id_jo = trx.id_jo 
+                      $tipe 
+                      WHERE trx.$fldtrx = '$trx_no'";
+                    }else{
+
+
+                      $sql = "SELECT trx.id, bppbno, bppbdate, trx.jenis_dok, trx.id line_id, mi.goods_code, CONCAT(mi.itemname, ' ', IFNULL(mi.color,''), ' ', IFNULL(mi.size,'')) item, trx.qty, trx.unit, trx.curr, price price_ori, IFNULL(price_bc, trx.price) price, tmpjo.kpno, tmpjo.jo_no, tmpjo.styleno, trx.remark, trx.satuan_bc, trx.qty_bc, COALESCE(trx.curr_bc, trx.curr) curr_bc, rate_bc FROM bppb trx INNER JOIN masterstyle mi ON trx.id_item = mi.id_item LEFT JOIN ( SELECT sd.id id_so_det, jo.jo_no, jod.id_jo, ac.kpno, ac.styleno FROM jo_det jod INNER JOIN so ON jod.id_so = so.id INNER JOIN so_det sd ON sd.id_so = so.id INNER JOIN act_costing ac ON so.id_cost = ac.id INNER JOIN jo ON jod.id_jo = jo.id GROUP BY sd.id) tmpjo ON tmpjo.id_so_det = trx.id_so_det WHERE trx.bppbno = '$trx_no' GROUP BY trx.id";
                     }
-
-                    $flddesc = ($tblmst=="masterstyle") ? "mi.itemname" : "mi.itemdesc";
-
-                    $sql = "SELECT trx.id, $fldtrx, $trxdate, trx.jenis_dok, trx.id line_id, mi.goods_code, 
-                    CONCAT($flddesc, ' ', IFNULL(mi.color,''), ' ', IFNULL(mi.size,'')) item,
-                    trx.qty, trx.unit, trx.curr, price price_ori, IFNULL(price_bc, trx.price) price, 
-                    tmpjo.kpno, tmpjo.jo_no, tmpjo.styleno, trx.remark, trx.satuan_bc, trx.qty_bc, 
-                    COALESCE(trx.curr_bc, trx.curr) curr_bc, rate_bc $tipe_tampil 
-                    FROM $tbl trx 
-                    INNER JOIN $tblmst mi ON trx.id_item = mi.id_item 
-                    LEFT JOIN (
-                      SELECT jo.jo_no, jod.id_jo, ac.kpno, ac.styleno 
-                      FROM jo_det jod 
-                      INNER JOIN so ON jod.id_so = so.id 
-                      INNER JOIN act_costing ac ON so.id_cost = ac.id 
-                      INNER JOIN jo ON jod.id_jo = jo.id 
-                      GROUP BY jod.id_jo
-                      ) tmpjo ON tmpjo.id_jo = trx.id_jo 
-                    $tipe 
-                    WHERE trx.$fldtrx = '$trx_no'";
 
                     $query = mysql_query($sql);
                     while($data = mysql_fetch_array($query)) {
