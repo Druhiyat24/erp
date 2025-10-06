@@ -570,6 +570,9 @@ if($mod=="2U") {
                       $tipe 
                       WHERE trx.$fldtrx = '$trx_no'";
                     }else{
+                      $tbl="bppb"; $fldtrx="bppbno"; $trxdate="bppbdate";
+                        $tblmst = (substr($trx_no,3,2)=="FG") ? "masterstyle" : "masteritem";
+                        $tipe = ""; $tipe_tampil = "";
 
 
                       $sql = "SELECT trx.id, bppbno, bppbdate, trx.jenis_dok, trx.id line_id, mi.goods_code, CONCAT(mi.itemname, ' ', IFNULL(mi.color,''), ' ', IFNULL(mi.size,'')) item, trx.qty, trx.unit, trx.curr, price price_ori, IFNULL(price_bc, trx.price) price, tmpjo.kpno, tmpjo.jo_no, tmpjo.styleno, trx.remark, trx.satuan_bc, trx.qty_bc, COALESCE(trx.curr_bc, trx.curr) curr_bc, rate_bc FROM bppb trx INNER JOIN masterstyle mi ON trx.id_item = mi.id_item LEFT JOIN ( SELECT sd.id id_so_det, jo.jo_no, jod.id_jo, ac.kpno, ac.styleno FROM jo_det jod INNER JOIN so ON jod.id_so = so.id INNER JOIN so_det sd ON sd.id_so = so.id INNER JOIN act_costing ac ON so.id_cost = ac.id INNER JOIN jo ON jod.id_jo = jo.id GROUP BY sd.id) tmpjo ON tmpjo.id_so_det = trx.id_so_det WHERE trx.bppbno = '$trx_no' GROUP BY trx.id";
