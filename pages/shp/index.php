@@ -284,6 +284,9 @@ if (jenisDok !== null) {
         success: function(response) {
           console.log(response);
           $('#nomor_daftar').html(response); // Update pilihan nomor pengajuan
+          $('input[name="txttanggal_aju"]').val('');
+          $('input[name="txtnomor_aju"]').val('');
+          $('input[name="txttanggal_daftar"]').val('');
         }
       });
   });

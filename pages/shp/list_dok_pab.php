@@ -44,10 +44,12 @@ $logo_company=$rscomp["logo_company"];
     var tgpen = document.form.txttanggal_daftar.value;
 
     if (jdok == '') { alert('Jenis Dokumen Kosong'); valid = false;}
-    else if (noaju == '') { alert('Nomor Aju Kosong'); valid = false;}
+    else if (jdok != 'INHOUSE') {
+    if (noaju == '') { alert('Nomor Aju Kosong'); valid = false;}
     else if (noaju != '-' && tgaju == '') { alert('Tanggal Aju Kosong'); valid = false;}
     else if (nopen == '') { alert('Nomor Daftar Kosong'); valid = false;}
     else if (nopen != '-' && tgpen == '') { alert('Tanggal Daftar Kosong'); valid = false;}
+    }
     else valid = true;
     return valid;
     exit;
@@ -381,6 +383,7 @@ if($mod=="2U") {
           $nomor_daftar=$rs['bcno'];
           $tanggal_daftar=fd_view($rs['bcdate']);
           $nomor_fp=$rs['no_fp'];
+          $rate_bc_h=$rs['rate_bc'];
           $totqty=fn($rs['totqty'],3);
           $totval=fn($rs['totval'],3);
           $tanggal_fp=fd_view($rs['tgl_fp']);
@@ -404,6 +407,20 @@ if($mod=="2U") {
             <label>Nomor SJ/Inv</label>
             <input type='text' class='form-control' name='txtinvno' value='<?php echo $invno;?>' >
           </div>
+          <div class='row'>
+            <div class='col-md-6'>        
+                    <div class='form-group'>
+                      <label>Total Qty</label>
+                      <input type='text' readonly class='form-control' name='txttotqty' value='<?php echo $totqty;?>' >
+                    </div>
+                  </div>
+                  <div class='col-md-6'>        
+                    <div class='form-group'>
+                      <label>Total Value</label>
+                      <input type='text' readonly class='form-control' name='txttotval' value='<?php echo $totval;?>' >
+                    </div>
+                  </div>
+                </div>
           <button type='submit' name='submit' class='btn btn-primary'>Simpan</button>
           <p>
           </div>
@@ -464,14 +481,8 @@ if($mod=="2U") {
                   </div>
                   <div class='col-md-6'>        
                     <div class='form-group'>
-                      <label>Total Qty</label>
-                      <input type='text' readonly class='form-control' name='txttotqty' value='<?php echo $totqty;?>' >
-                    </div>
-                  </div>
-                  <div class='col-md-6'>        
-                    <div class='form-group'>
-                      <label>Total Value</label>
-                      <input type='text' readonly class='form-control' name='txttotval' value='<?php echo $totval;?>' >
+                      <label>Kurs BC</label>
+                      <input type='text' class='form-control' name='rate_bc_h' value='<?php echo $rate_bc_h;?>' >
                     </div>
                   </div>
                 </div>

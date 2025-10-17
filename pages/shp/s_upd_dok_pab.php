@@ -21,6 +21,15 @@ $txttanggal_daftar=fd($_POST['txttanggal_daftar']);
 $txtnomor_fp=$_POST['txtnomor_fp'];
 $txttanggal_fp=fd($_POST['txttanggal_fp']);
 $txtinvno=$_POST['txtinvno'];
+$ratebc_h = isset($_POST['rate_bc_h']) ? $_POST['rate_bc_h'] : '';
+
+if ($ratebc_h === '' || floatval($ratebc_h) < 1) {
+    $rate_bc_h = null;
+} else {
+    $rate_bc_h = floatval($ratebc_h);
+}
+
+$rate_value = is_null($rate_bc_h) ? "NULL" : "'" . $rate_bc_h . "'";
 if(isset($_POST['txtbm'])) { $txtbm=$_POST['txtbm']; } else { $txtbm=0; }
 if(isset($_POST['txtppn'])) { $txtppn=$_POST['txtppn']; } else { $txtppn=0; }
 if(isset($_POST['txtpph'])) { $txtpph=$_POST['txtpph']; } else { $txtpph=0; }
@@ -44,7 +53,7 @@ if($totnil!="")
 }
 $sql="update $tbl set jenis_dok='$txtjenis_dok',nomor_aju='$txtnomor_aju',tanggal_aju='$txttanggal_aju' 
 	,bcno='$txtnomor_daftar',bcdate='$txttanggal_daftar'
-	,no_fp='$txtnomor_fp',tgl_fp='$txttanggal_fp',invno='$txtinvno' $add_fld where $fld='$trx_no'";
+	,no_fp='$txtnomor_fp',tgl_fp='$txttanggal_fp',invno='$txtinvno',rate_bc=$rate_value $add_fld where $fld='$trx_no'";
 insert_log($sql,$user);
 if($txtjenis_dok=="BC 2.3")
 {	$cek=flookup("bcno","detail_bm","jenis_dok='$txtjenis_dok' 
