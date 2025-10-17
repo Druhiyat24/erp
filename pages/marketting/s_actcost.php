@@ -44,6 +44,7 @@ $id_buyer=$_POST['txtid_buyer'];
 $id_product=$_POST['txtid_product'];
 $styleno=nb($_POST['txtstyle']);
 $tipe_ws = nb($_POST['tipe_ws']);
+$mkt_order = nb($_POST['mkt_order']);
 $app1 = "W";
 $app1_by = "";
 $app1_date = "";
@@ -83,13 +84,13 @@ if ($cek=="0")
 	$sql = "insert into act_costing (id_pre_cost,cost_no,cost_date,
 		kpno,id_smode,smv_min,smv_sec,book_min,book_sec,notes,deldate,
 		attach_file,id_buyer,id_product,styleno,qty,status,status_order,
-		username,curr,vat,deal_allow,ga_cost,unit,cfm_price,comm_cost,dateinput,type_ws,app1,app1_by,app1_date,brand,main_dest)
+		username,curr,vat,deal_allow,ga_cost,unit,cfm_price,comm_cost,dateinput,type_ws,app1,app1_by,app1_date,brand,main_dest,mkt_order)
 		values ('$txtid_pre_cost','$txtcost_no','$txtcost_date',
 		'$txtkpno','$txtid_smode','$txtsmv_min','$txtsmv_sec',
 		'$txtbook_min','$txtbook_sec','$txtnotes','$txtdeldate',
 		'$txtattach_file','$id_buyer','$id_product','$styleno',
 		'$qty','$status','$status_order','$user','$txtcurr','$txtvat','$txtdeal','$txtga',
-		'$txtunit','$txtcfm','$txtcomm','$dateinput','$tipe_ws','$app1','$app1_by','$app1_date','$txtbrand','$txtmaindest')";
+		'$txtunit','$txtcfm','$txtcomm','$dateinput','$tipe_ws','$app1','$app1_by','$app1_date','$txtbrand','$txtmaindest','$mkt_order')";
 	insert_log($sql,$user);
 	$_SESSION['msg'] = 'Data Berhasil Disimpan';
 	$id=flookup("id","act_costing","cost_no='$txtcost_no'");

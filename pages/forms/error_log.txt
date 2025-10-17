@@ -4419,3 +4419,7 @@
 [05-Sep-2024 08:11:03 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\pdfDO_.php on line 5
 [05-Sep-2024 08:11:22 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\pdfBarcode_whs.php on line 3
 [24-Apr-2025 10:39:18 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'item_desc' (T_STRING) in C:\xampp\htdocs\erp\pages\forms\pdfBarcode_whs_mut.php on line 75
+[09-Oct-2025 11:13:27 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 1048576) (tried to allocate 1048576 bytes) in C:\xampp\htdocs\erp\pages\forms\pdfBarcode_whs.php on line 3
+[09-Oct-2025 11:13:29 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 4718592) (tried to allocate 458752 bytes) in C:\xampp\htdocs\erp\mpdf57\mpdf.php on line 21564
+[09-Oct-2025 11:13:29 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 5242880) (tried to allocate 458752 bytes) in C:\xampp\htdocs\erp\mpdf57\mpdf.php on line 26741
+[09-Oct-2025 11:13:30 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 5242880) (tried to allocate 458752 bytes) in C:\xampp\htdocs\erp\mpdf57\mpdf.php on line 26741

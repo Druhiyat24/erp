@@ -102,6 +102,8 @@ switch ($mod)
 		echo "Update SMV"; break;
 	case ($mod=="26" || $mod=="26L"):
 		echo "Sales Order Sample"; break;
+	case "111":
+	  echo "Laporan Detail Buyer"; break;
 	default:
 		break;
 }

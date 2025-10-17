@@ -221,7 +221,9 @@ switch ($mod)
 		include "laporan_bom_det.php";
 		break;
 	case "28v":
-		include "lap_bom_det_list.php";				 
+		include "lap_bom_det_list.php";
+	case "111":
+		include "lap_dtl_byr.php";				 
 	#TAUFAN
 	 case "22DEV":
   include "bom_jo_dev.php"; break;

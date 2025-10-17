@@ -145,7 +145,9 @@ switch ($mod)
 	case "23DEV":
 	  echo "Work Sheet Development"; break;  
 	case ($mod=="cek_data_ws"):
-		echo "Check Data WS"; break;	  
+		echo "Check Data WS"; break;
+	case "111":
+	  echo "Laporan Detail Buyer"; break;	  
 	 default:
 		break;
 }

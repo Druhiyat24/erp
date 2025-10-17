@@ -153,6 +153,7 @@
             echo "<li><a href='?mod=19'>History</a></li>";
             echo "<li><a href='?mod=CSO_Global'>Costing vs Sales Order Global</a></li>";
             echo "<li><a href='?mod=CSO_Detail'>Costing vs Sales Order Detail</a></li>";
+            echo "<li><a href='?mod=111'>Detail Buyer</a></li>";
             ?>
           </ul>
         </li>

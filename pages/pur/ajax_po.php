@@ -191,6 +191,7 @@ if ($modenya == "view_list_jo") {
         left join mastersupplier m on k.id_supplier=m.id_supplier
         where k.id_jo in ($id_jo) 
         and (k.id_supplier='$id_supplier' or k.id_supplier2='$id_supplier') 
+        and k.status = '$jenis_item'
         and k.cancel='N' group by k.id_jo,k.id_item";
         echo $sql;
       } elseif ($id_jo != '""') {

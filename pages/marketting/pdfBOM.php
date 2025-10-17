@@ -285,14 +285,13 @@ class Model{
 
             left join masterpanel mp on k.id_panel=mp.id
 
-            WHERE k.id_jo= $jo_id and k.status='P'
-
-            ORDER BY posno,nama_group,color,urut,size ) a
+            WHERE k.id_jo= $jo_id and k.status='P' ) a
             order by case when nama_group = 'FABRIC' THEN '1'
             WHEN nama_group = 'ACCESORIES SEWING' THEN '2'
             WHEN nama_group = 'ACCESORIES PACKING' THEN '3'
             ELSE '4'
-END	
+END,
+id ASC;	
             ";
 
         #echo $sql;

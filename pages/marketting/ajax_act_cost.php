@@ -75,16 +75,16 @@ if ($modajax=="get_kode_cust")
 if ($modajax=="calc_usd_idr")
 {	$px=$_REQUEST['pxnya'];
 	$tgl=$_REQUEST['tglnya'];
-	$rate=flookup("rate_jual","masterrate","curr='USD' and v_codecurr IN('HARIAN','COSTING3','COSTING6','COSTING8','COSTING12')
-		and tanggal<='".fd($tgl)."' order by tanggal desc limit 1");
+	$rate=flookup("rate_jual","masterrate","curr='USD' and v_codecurr = 'COSTING3'
+		and tanggal<='".fd($tgl)."' AND rate_jual <> 0 order by tanggal desc limit 1");
 	$hsl=$px * $rate;
 	echo json_encode(array($hsl,'J'));
 }
 if ($modajax=="calc_idr_usd")
 {	$px=$_REQUEST['pxnya'];
 	$tgl=$_REQUEST['tglnya'];
-	$rate=flookup("rate_beli","masterrate","curr='USD' and v_codecurr IN('HARIAN','COSTING3','COSTING6','COSTING8','COSTING12')
-		and tanggal<='".fd($tgl)."' order by tanggal desc limit 1");
+	$rate=flookup("rate_beli","masterrate","curr='USD' and v_codecurr = 'COSTING3'
+		and tanggal<='".fd($tgl)."' AND rate_beli <> 0 order by tanggal desc limit 1");
 	$hsl=round($px/$rate,3);
 	echo json_encode(array($hsl,'B'));
 }

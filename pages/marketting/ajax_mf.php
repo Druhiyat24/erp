@@ -2,8 +2,10 @@
 include "../../include/conn.php";
 include "../forms/fungsi.php";
 session_start();
+date_default_timezone_set('Asia/Jakarta');
 if (empty($_SESSION['username'])) { header("location:../../index.php"); }
 $user=$_SESSION['username'];
+$now = date("Y-m-d H:i:s");
 
 $jenis_company = flookup("jenis_company","mastercompany","company!=''");
 $id_cs = $_REQUEST['id_cs'];
@@ -37,7 +39,11 @@ if ($id_mf=="")
 	}	
 }
 else
-{	$sql = "update act_costing_mfg set jenis_rate='$j_rate_mf',price='$price_mf',cons='$cons_mf',unit='$unit_mf',allowance='$allow_mf',
+{
+$sql_copy = "insert into act_costing_mfg_log select *,'$now','$user' from act_costing_mfg where id_act_cost='$id_cs' and id='$id_mf'";
+insert_log($sql_copy,$user);
+
+	$sql = "update act_costing_mfg set jenis_rate='$j_rate_mf',price='$price_mf',cons='$cons_mf',unit='$unit_mf',allowance='$allow_mf',
 		material_source='$mat_sour_mf' where id_act_cost='$id_cs' and id='$id_mf'";
 	insert_log($sql,$user);
 	if ($jenis_company=="VENDOR LG")

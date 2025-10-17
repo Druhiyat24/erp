@@ -92,6 +92,7 @@ else
 	$qty=$data['qty'];
 	$unit=$data['unit'];
 	$tipe_ws=$data['type_ws'];
+	$mkt_order=$data['mkt_order'];
 	$txtbrand=$data['brand'];
 	$txtmaindest=$data['main_dest'];
 	
@@ -119,7 +120,32 @@ else
 	$ga = $data['ga_cost'];
 	$deldate = fd_view($data['deldate']);
 	$attach_file = $data['attach_file'];
-	$rs=mysql_fetch_array(mysql_query("select * from masterrate  WHERE v_codecurr IN('COSTING3','COSTING6','COSTING8','COSTING12') AND curr='USD' and tanggal='".fd($deldate)."'"));
+	$rs=mysql_fetch_array(mysql_query("SELECT
+  COALESCE(beli.rate_beli, 0) AS rate_beli,
+  COALESCE(jual.rate_jual, 0) AS rate_jual
+FROM
+  (
+    SELECT rate_beli
+    FROM masterrate
+    WHERE v_codecurr = 'COSTING3'
+      AND curr = 'USD'
+      AND rate_beli <> 0
+      AND tanggal <= '".fd($deldate)."'
+    ORDER BY tanggal DESC
+    LIMIT 1
+  ) AS beli
+CROSS JOIN
+  (
+    SELECT rate_jual
+    FROM masterrate
+    WHERE v_codecurr = 'COSTING3'
+      AND curr = 'USD'
+      AND rate_jual <> 0
+      AND tanggal <= '".fd($deldate)."'
+    ORDER BY tanggal DESC
+    LIMIT 1
+  ) AS jual
+"));
 		$rate_jual=$rs['rate_jual'];
 		$rate_beli=$rs['rate_beli'];
 	$tot_cd = flookup("sum((if(jenis_rate='B',price/rate_beli,price)*cons)+((if(jenis_rate='B',price/rate_beli,price)*cons)*allowance/100))",
@@ -260,7 +286,7 @@ if ($mod=="5")
       { alert(request.responseText); },
     });
   };
-/*  function USD_IDR(Data)
+  function USD_IDR(Data)
   { 
   
 	if(Data == 'add'){
@@ -419,7 +445,7 @@ console.log($('#txtprice_idr_mf2').val());
       { alert(request.responseText); },
     });
   };
- */
+
 
  function CalcSMVSec()
   { var smvnya = document.form.txtsmv_sec.value;
@@ -666,6 +692,15 @@ console.log($('#txtprice_idr_mf2').val());
 					</div>
 					<button type='submit' name='submit' class='btn btn-primary'>Simpan</button>
 				</div>
+								<div class='col-md-3'>
+					<div class='form-group'>
+						<label>Marketing Order *</label>
+					<select class='form-control select2' id='mkt_order'  name='mkt_order' value='<?php echo $mkt_order;?> '>
+						<option value="BANDUNG" <?php if($mkt_order=="BANDUNG"){echo "selected";} ?>>BANDUNG</option>
+						<option value="JAKARTA" <?php if($mkt_order=="JAKARTA"){echo "selected";} ?>>JAKARTA</option>
+					</select> 
+					</div>
+				</div>	
 			</form>
 		</div>
 	</div>
@@ -818,10 +853,10 @@ console.log($('#txtprice_idr_mf2').val());
 				<label>Price (USD) *</label>
 				<input type='text' class='form-control' 
 					id='txtprice_mf2' placeholder='Masukkan Price' 
-					value='<?php echo $price_mf;?>' onchange='USD_IDR_MF("edit")'>
+value='<?php echo $price_mf;?>' onchange='USD_IDR_MF("edit")'>
 			</div>
 			<div class='form-group'>
-				<label>Price (IDR)</label>
+				<label>Price (IDR) 1</label>
 				<input type='text' class='form-control' 
 					id='txtprice_idr_mf2' placeholder='Masukkan Price' 
 					value='<?php echo $price_idr_mf;?>' onchange='IDR_USD_MF("edit")'>
@@ -1991,10 +2026,10 @@ setTimeout(function(){
   	{	swal({ title: 'Complexity Tidak Boleh Kosong', <?php echo $img_alert; ?> }); 
 			exit;
 		}
-		else if (price_mf == '' || price_mf == 0)
-  	{	swal({ title: 'Price Tidak Boleh Kosong', <?php echo $img_alert; ?> }); 
-			exit;
-		}
+		// else if (price_mf == '' || price_mf == 0)
+  	// {	swal({ title: 'Price Tidak Boleh Kosong', <?php echo $img_alert; ?> }); 
+		// 	exit;
+		// }
   	else if (cons_mf == '' || cons_mf == 0)
   	{	swal({ title: 'Cons Tidak Boleh Kosong', <?php echo $img_alert; ?> }); 
 			exit;
@@ -2062,10 +2097,10 @@ setTimeout(function(){
   	{	swal({ title: 'Others Cost Tidak Boleh Kosong', <?php echo $img_alert; ?> }); 
 			exit;
 		}
-		else if (price_ot == '' || price_ot == 0)
-  	{	swal({ title: 'Price Tidak Boleh Kosong', <?php echo $img_alert; ?> }); 
-			exit;
-		}
+		// else if (price_ot == '' || price_ot == 0)
+  	// {	swal({ title: 'Price Tidak Boleh Kosong', <?php echo $img_alert; ?> }); 
+		// 	exit;
+		// }
   	else
   	{	jQuery.ajax
 	    ({url: "ajax_ot.php",
