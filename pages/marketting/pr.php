@@ -366,168 +366,29 @@ if ($mod=="15L" or $mod=="15aL" or $mod=="15bL" or $mod=="15LC") {
     <h3 class="box-title">Purchase Request Detail</h3>
   </div>
   <div class="box-body">
-    <form name='frmsup' method='post' action='s_upd_supp_pr.php?mod=<?php echo $mod;?>&id=<?php echo $id_jo;?>'>
-      <table id="examplefixnopage" class="display responsive" style="width:100%">
+    <form name="frmsup" method="post" action="s_upd_supp_pr.php?mod=<?php echo $mod;?>&id=<?php echo $id_jo;?>">
+      <table id="examplefixnopage" class="display nowrap" style="width:100%">
         <thead>
-        <tr>
-  	    	<th>No</th>
-          <th>Item</th>
-          <th>ID Item</th>
-          <th>ID Sub Group</th>
-  				<th>Qty BOM</th>
-  				<th>Allowance</th>
-          <th>Qty PR</th>
-          <th>Unit</th>
-          <th>Stock</th>
-          <th>Booking</th>
-          <th>Supplier</th>
-          <th>Supplier 2</th>
-          <th>Notes</th>
-          <th>Status</th>
-          <th>PO #</th>
-  				<th></th>
-          <th></th>
-        </tr>
+          <tr>
+            <th>No</th>
+            <th>Item</th>
+            <th>ID Item</th>
+            <th>ID Sub Group</th>
+            <th>Qty BOM</th>
+            <th>Allowance</th>
+            <th>Qty PR</th>
+            <th>Unit</th>
+            <th>Stock</th>
+            <th>Booking</th>
+            <th>Supplier</th>
+            <th>Supplier 2</th>
+            <th>Notes</th>
+            <th>Status</th>
+            <th>PO #</th>
+            <th></th>
+            <th></th>
+          </tr>
         </thead>
-        <tbody>
-          <?php
-          # QUERY TABLE
-          $sql = "select k.status,s.id idsubgroup,k.id_item,l.color,l.size,concat(a.nama_group,' ',s.nama_sub_group,' ',
-            d.nama_type,' ',e.nama_contents,' ',f.nama_width,' ',
-            g.nama_length,' ',h.nama_weight,' ',i.nama_color,' ',j.nama_desc,' ',j.add_info) item,
-            l.qty qty_gmt,k.cons,round(sum(l.qty*k.cons),2) qty_bom,
-            k.unit,m.supplier,m2.supplier supplier2,k.notes,if(jo.app='W','Waiting','Approved') status_app,
-            k.id_supplier,k.id_supplier2,a.id nama_group  
-            from bom_jo_item k inner join jo on k.id_jo=jo.id 
-            inner join so_det l on k.id_so_det=l.id inner join mastergroup a inner join mastersubgroup s on a.id=s.id_group
-            inner join mastertype2 d on s.id=d.id_sub_group
-            inner join mastercontents e on d.id=e.id_type
-            inner join masterwidth f on e.id=f.id_contents 
-            inner join masterlength g on f.id=g.id_width
-            inner join masterweight h on g.id=h.id_length
-            inner join mastercolor i on h.id=i.id_weight
-            inner join masterdesc j on i.id=j.id_color and k.id_item=j.id 
-            left join mastersupplier m on k.id_supplier=m.id_supplier
-            left join mastersupplier m2 on k.id_supplier2=m2.id_supplier
-            where k.id_jo='$id_jo' and k.cancel='N' and k.status='M' group by k.id_item
-            union all 
-            select k.status,0 idsubgroup,k.id_item,l.color,l.size,concat(mi.matclass,' ',mi.goods_code,' ',mi.itemdesc) item,
-            l.qty qty_gmt,k.cons,round(sum(l.qty*k.cons),2) qty_bom,
-            k.unit,m.supplier,m2.supplier supplier2,k.notes,if(jo.app='W','Waiting','Approved') status_app,
-            k.id_supplier,k.id_supplier2,'999' nama_group  
-            from bom_jo_item k inner join jo on k.id_jo=jo.id 
-            inner join so_det l on k.id_so_det=l.id inner join 
-            masteritem mi on k.id_item=mi.id_item inner join mastercf j on mi.matclass=j.cfdesc 
-            left join mastersupplier m on k.id_supplier=m.id_supplier
-            left join mastersupplier m2 on k.id_supplier2=m2.id_supplier
-            where k.id_jo='$id_jo' and k.cancel='N' and k.status='P' group by k.id_item 
-            order by nama_group asc";
-          #echo $sql;
-          $query = mysql_query($sql); 
-          $no = 1; 
-  				while($data = mysql_fetch_array($query))
-  			  { $allow=flookup("allowance","masterallow","id_sub_group='$data[idsubgroup]'
-              and qty1<=$data[qty_bom] and qty2>=$data[qty_bom]");
-            if ($allow==null) { $allow=0; }
-            $allowq=$data['qty_bom'] * $allow/100;
-            $qtypr=$data['qty_bom'] + $allowq; 
-            if($data['status']=="P")
-            {
-              $filjen=" and s.jenis='P' ";
-            }
-            else
-            {
-              $filjen=" and s.jenis='M' ";
-            }
-            $rspo=mysql_fetch_array(mysql_query("select group_concat(distinct concat(pono,' ',podate)) cekpo,
-              sum(a.qty) cekqpo from po_item a inner join po_header s 
-              on a.id_po=s.id where a.id_jo='$id_jo' and a.id_gen='$data[id_item]' $filjen and a.cancel='N'"));
-            $cekpo=$rspo['cekpo'];
-            $cekqpo=$rspo['cekqpo'];
-            $bookqty=flookup("sum(qty)","transfer_post","status_app='Y' and status_app_qc='Y' 
-              and id_jo_to='$id_jo' and id_item='$data[id_item]'");
-            #$test="PR ".$qtypr." PO ".$cekqpo;
-            if($cekqpo>=$qtypr) 
-            {$bgcol=" style='background-color: red; color:yellow;'";} 
-            else if($cekqpo<$qtypr and $cekqpo>0) 
-            {$bgcol=" style='background-color: gray; color:yellow;'";} 
-            else 
-            {$bgcol="";}
-            echo "<tr $bgcol>";
-  				    echo "<td>$no</td>"; 
-              echo "<td>$data[item]</td>";
-              echo "<td>$data[id_item]</td>";
-              echo "<td>$data[idsubgroup]</td>";
-  						echo "<td>".fn($data['qty_bom'],2)."</td>";
-  						echo "<td>".fn($allow,2)."</td>";
-              echo "<td>".fn($qtypr,2)."</td>";
-              echo "<td>$data[unit]</td>";
-  						$id_item_bb=flookup("id_item","masteritem","id_gen='$data[id_item]'");
-              if ($id_item_bb!="")
-              { $sisa_stock=flookup("stock","stock","id_item='$id_item_bb'"); }
-              else
-              { $sisa_stock=0; }
-              if($bookqty>=$qtypr)
-              {
-                $wheresup=" and supplier='XXX'";
-              }
-              else
-              {
-                $wheresup=" ";
-              }
-              echo "<td>$sisa_stock</td>";
-              echo "<td>$bookqty</td>";
-              echo "<td>";
-                $keycri=$data['id_item'].":".$id_jo;
-                echo "<select class='form-control select2 txtsupplierarr' style='width: 120px;' name='txtsupplierarr[$keycri]' id='txtsupplierarr$keycri'>";
-                  $sql="select id_supplier isi,supplier tampil from mastersupplier where 
-                    tipe_sup='S' and non_aktif='0' $wheresup order by supplier";
-                  IsiCombo($sql,$data['id_supplier'],'Pilih Supplier');
-                echo "</select>";
-              echo "</td>";
-              echo "<td>";
-                $keycri=$data['id_item'].":".$id_jo;
-                echo "<select class='form-control select2 txtsupplier2arr' style='width: 120px;' name='txtsupplier2arr[$keycri]' id='txtsupplier2arr$keycri'>";
-                  $sql="select id_supplier isi,supplier tampil from mastersupplier where 
-                    tipe_sup='S' and non_aktif='0' $wheresup order by supplier";
-                  IsiCombo($sql,$data['id_supplier2'],'Pilih Supplier');
-                echo "</select>";
-              echo "</td>";
-              echo "
-              <td>$data[notes]</td>
-              <td>$data[status_app]</td>
-              <td>$cekpo</td>";
-              if($cekqpo>0)
-              { echo "
-                <td></td>
-                <td></td>";
-              }
-              else
-              { 
-                echo "
-                <td>
-                  <a href='?mod=$mod&idd=$data[id_item]&id=$id_jo&status=$data[status]'
-                    data-toggle='tooltip' title='Update'><i class='fa fa-pencil'></i>
-                  </a>
-                </td>";
-                if($sisa_stock>0)
-                { echo "
-                  <td>
-                    <a href='../pur/?mod=5&id=$id_jo'
-                      data-toggle='tooltip' title='Booking'><i class='fa fa-exchange'></i>
-                    </a>
-                  </td>";
-                }
-                else
-                { echo "
-                  <td></td>";
-                }
-              }
-            echo "</tr>";
-  				  $no++; // menambah nilai nomor urut
-  				}
-  			  ?>
-        </tbody>
       </table>
       <i style='background-color:red;color:yellow;'>Full PO Created</i>
       <i style='background-color:gray;color:yellow;'>Not Full PO Created</i>
