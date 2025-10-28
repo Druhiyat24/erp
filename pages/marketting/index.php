@@ -348,7 +348,11 @@
     ajax: {
       url: 'ajax_pr_detail.php',
       type: 'POST',
-      data: { id_jo: '<?php echo $id_jo; ?>' }
+      data: { id_jo: '<?php echo $id_jo; ?>' },
+      dataSrc: function(json) {
+        console.log(json); // lihat hasil json di console
+        return json.data;  // wajib return array data
+      }
     },
     fixedColumns: { leftColumns: 1, rightColumns: 1 },
     columns: [
@@ -370,14 +374,19 @@
       { data: 'edit', orderable: false, searchable: false },
       { data: 'booking', orderable: false, searchable: false }
     ],
-    drawCallback: function(settings) {
-      // Re-init Select2 setelah data load
-      $('.select2').select2({
-        width: 'resolve' // pastikan lebar sesuai container
-      });
+    createdRow: function(row, data) {
+      // Terapkan style manual
+      if (data.DT_RowAttr && data.DT_RowAttr.style) {
+        $(row).attr('style', data.DT_RowAttr.style);
+      }
+    },
+    drawCallback: function() {
+      // Re-init Select2 setelah render
+      $('.select2').select2({ width: 'resolve' });
     }
   });
 });
+
 
   $(document).ready(function() {
      var table = $('#tbl_cek_data_ws').DataTable

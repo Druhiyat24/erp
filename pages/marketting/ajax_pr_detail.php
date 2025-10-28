@@ -2,7 +2,7 @@
 include '../../include/conn.php';
 include '../forms/fungsi.php';
 
-$id_jo = isset($_POST['id_jo']) ? $_POST['id_jo'] : '';
+$id_jo = isset($_POST['id_jo']) ? $_POST['id_jo'] : '6295';
 
 header('Content-Type: application/json');
 
@@ -164,8 +164,8 @@ while ($row = mysql_fetch_assoc($result)) {
     $sisa_stock = isset($stock_all[$id_item_bb]) ? $stock_all[$id_item_bb] : 0;
 
     // Row style
-    if ($cekqpo >= $qtypr) $rowstyle = "style='background-color:red;color:yellow;'";
-    elseif ($cekqpo < $qtypr && $cekqpo > 0) $rowstyle = "style='background-color:gray;color:yellow;'";
+    if ($cekqpo >= $qtypr) $rowstyle = "background-color:red;color:yellow;";
+    elseif ($cekqpo < $qtypr && $cekqpo > 0) $rowstyle = "background-color:gray;color:yellow;";
     else $rowstyle = "";
 
     // Edit & Booking
