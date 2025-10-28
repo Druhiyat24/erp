@@ -367,7 +367,7 @@ if ($mod=="15L" or $mod=="15aL" or $mod=="15bL" or $mod=="15LC") {
   </div>
   <div class="box-body">
     <form name="frmsup" method="post" action="s_upd_supp_pr.php?mod=<?php echo $mod;?>&id=<?php echo $id_jo;?>">
-      <table id="examplefixnopage" class="display nowrap" style="width:100%">
+      <table id="MarketingTablePR" class="display nowrap" style="width:100%">
         <thead>
           <tr>
             <th>No</th>

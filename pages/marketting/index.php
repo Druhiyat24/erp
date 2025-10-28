@@ -326,7 +326,20 @@
   });
   
   $(document).ready(function() {
-  var table = $('#examplefixnopage').DataTable({
+    var table = $('#examplefixnopage').DataTable
+    ({  scrollY: "300px",
+        scrollCollapse: true,
+        paging: false,
+        fixedColumns:   
+        { leftColumns: 1,
+          rightColumns: 1
+        }
+    });
+  });
+
+
+   $(document).ready(function() {
+  var table = $('#MarketingTablePR').DataTable({
     processing: true,
     serverSide: true,
     scrollY: "300px",
@@ -365,7 +378,6 @@
     }
   });
 });
-
 
   $(document).ready(function() {
      var table = $('#tbl_cek_data_ws').DataTable
