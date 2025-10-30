@@ -78,10 +78,11 @@ if ($tipe=="SO")
                      <th>Product</th>
                      <th>Product Type</th>
                      <th>Season</th>
+                     <th>Marketing Order</th>
           <?php
         echo "</tr>";
       echo "</thead>";
-        $sql=mysql_query("select so_date, so_no, ac.kpno,ms.supplier,ac.styleno,sd.color, sd.size, sd.qty, sd.unit, so.buyerno,ac.smv_min, ac.smv_sec, so.fob, product_group, product_item, ac.brand, ac.main_dest,so.curr,sd.price,season 
+        $sql=mysql_query("select so_date, so_no, ac.kpno,ms.supplier,ac.styleno,sd.color, sd.size, sd.qty, sd.unit, so.buyerno,ac.smv_min, ac.smv_sec, so.fob, product_group, product_item, ac.brand, ac.main_dest,so.curr,sd.price,season,ac.mkt_order 
           from so 
                                 inner join so_det sd on sd.id_so = so.id
                                 inner join act_costing ac on ac.id=so.id_cost
@@ -113,7 +114,8 @@ if ($tipe=="SO")
               <td>$rs[smv_sec]</td>
               <td>$rs[product_group]</td>
               <td>$rs[product_item]</td>
-              <td>$rs[season]</td>";
+              <td>$rs[season]</td>
+              <td>$rs[mkt_order]</td>";
           echo "</tr>";
           $no++; // menambah nilai nomor urut
         }
@@ -140,10 +142,11 @@ else if ($tipe =="Warna")
                      <th>Price</th>                     
                      <th>No PO Buyer</th>
                      <th>Season</th>
+                     <th>Marketing Order</th>
           <?php
         echo "</tr>";
       echo "</thead>";
-        $sql=mysql_query("select ac.kpno, ms.supplier, ac.styleno, sd.color, sum(sd.qty) tot_qty, sd.unit, so.buyerno, ac.brand, ac.main_dest,so.curr,sd.price,season from so
+        $sql=mysql_query("select ac.kpno, ms.supplier, ac.styleno, sd.color, sum(sd.qty) tot_qty, sd.unit, so.buyerno, ac.brand, ac.main_dest,so.curr,sd.price,season,ac.mkt_order from so
                                 inner join so_det sd on sd.id_so = so.id
                                 inner join act_costing ac on ac.id=so.id_cost
                                 inner join mastersupplier ms on ac.id_buyer = ms.id_supplier
@@ -168,7 +171,8 @@ else if ($tipe =="Warna")
               <td>$rs[curr]</td>
               <td>$rs[price]</td>              
               <td>$rs[buyerno]</td>
-              <td>$rs[season]</td>";
+              <td>$rs[season]</td>
+              <td>$rs[mkt_order]</td>";
           echo "</tr>";
           $no++; // menambah nilai nomor urut
         }
@@ -197,10 +201,11 @@ else if ($tipe =="Size")
                      <th>Price</th>                     
                      <th>No PO Buyer</th>
                      <th>Season</th>
+                     <th>Marketing Order</th>
           <?php
         echo "</tr>";
       echo "</thead>";
-        $sql=mysql_query("select ac.kpno, ms.supplier, ac.styleno, sd.size, sum(sd.qty) tot_qty, sd.unit, so.buyerno, ac.brand, ac.main_dest,so.curr,sd.price,season from so
+        $sql=mysql_query("select ac.kpno, ms.supplier, ac.styleno, sd.size, sum(sd.qty) tot_qty, sd.unit, so.buyerno, ac.brand, ac.main_dest,so.curr,sd.price,season,ac.mkt_order from so
                                 inner join so_det sd on sd.id_so = so.id
                                 inner join act_costing ac on ac.id=so.id_cost
                                 inner join mastersupplier ms on ac.id_buyer = ms.id_supplier
@@ -225,7 +230,8 @@ else if ($tipe =="Size")
               <td>$rs[curr]</td>
               <td>$rs[price]</td>              
               <td>$rs[buyerno]</td>
-              <td>$rs[season]</td>";
+              <td>$rs[season]</td>
+              <td>$rs[mkt_order]</td>";
           echo "</tr>";
           $no++; // menambah nilai nomor urut
         }

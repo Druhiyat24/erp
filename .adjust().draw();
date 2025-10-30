@@ -1,0 +1,365 @@
+[33mcommit 05557e532826f3fa975de9b1a72559d9b5c4131b[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Druhiyat24 <dederuhiyat24@gmail.com>
+Date:   Tue Oct 28 08:31:36 2025 +0700
+
+    adjust
+
+[33mcommit 85ca16fb2e07b294c01e5e1040c8c961c46d6c03[m
+Author: Druhiyat24 <dederuhiyat24@gmail.com>
+Date:   Tue Oct 28 07:39:10 2025 +0700
+
+    revisi name datatable PR marketing
+
+[33mcommit db52ff982106aa5d9f1f4876dd5d939b585430fb[m
+Author: Druhiyat24 <dederuhiyat24@gmail.com>
+Date:   Mon Oct 27 17:28:37 2025 +0700
+
+    adjust
+
+[33mcommit 1edaf1219cfe8312d2fdd87c765240cfcf5e1bd0[m
+Author: Druhiyat24 <dederuhiyat24@gmail.com>
+Date:   Fri Oct 17 08:29:43 2025 +0700
+
+    adjust update dokumen pabean
+
+[33mcommit a1c5ac03bbb38f73d36e8bbe6e9fd0bc57d0f9cf[m
+Author: it-nag <ramon@ptnag.com>
+Date:   Fri Oct 17 07:53:20 2025 +0700
+
+    adjust
+
+[33mcommit b19f187e7945ef9a27c115f9075834cd4f8909c5[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Mon Oct 6 15:19:47 2025 +0700
+
+    adjust
+
+[33mcommit 75929572850f0611377b9f38632eb0c99eebf398[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Wed Oct 1 15:07:10 2025 +0700
+
+    add ws and style to upload dok pabean fgout
+
+[33mcommit acfcd36c06a374f0d9ff42b6da8dba948a31c2ed[m
+Author: it-nag <ramon@ptnag.com>
+Date:   Mon Sep 29 08:51:58 2025 +0700
+
+    adjust
+
+[33mcommit 78f04b0cc7b21048495ac82d7354bd456cd99f96[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Mon Sep 15 17:13:00 2025 +0700
+
+    adjust bc 2.6.1
+
+[33mcommit 96757e62405c193d49d6b6ac280d3468ad140908[m
+Author: it-nag <ramon@ptnag.com>
+Date:   Mon Sep 15 16:57:23 2025 +0700
+
+    adjust
+
+[33mcommit 9b4da2272be0df9e362af540aef8a730b2c9dcec[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Tue Sep 9 09:43:45 2025 +0700
+
+    adjust
+
+[33mcommit 2e7326856b73c813006c274b339760a7134291f3[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Tue Sep 9 09:34:47 2025 +0700
+
+    adjust
+
+[33mcommit 535d64fa7382900c164f12e3297c05f7797de8c4[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Mon Sep 8 11:19:29 2025 +0700
+
+    adjust
+
+[33mcommit 662ba646f24a47c3fb3ee00826d255756a8a68bb[m
+Author: it-nag <ramon@ptnag.com>
+Date:   Mon Sep 8 10:39:38 2025 +0700
+
+    adjust
+
+[33mcommit 9aebdf01f6f8a13a30ecc9afde86793b0f5ca618[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Wed Sep 3 09:17:20 2025 +0700
+
+    adjust
+
+[33mcommit c31de960aec4a9cd9b8b795691c716dc443ec9ec[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Wed Sep 3 09:10:38 2025 +0700
+
+    adjust
+
+[33mcommit 9f7faaa09f718d8e23a852288fff3a92e167b741[m
+Merge: dce155e 00bb648
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Fri Aug 29 13:30:33 2025 +0700
+
+    Merge branch 'main' of https://github.com/Druhiyat24/erp
+
+[33mcommit dce155ed5dd7cc9463d3bc4de32814e1a419c054[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Fri Aug 29 13:30:27 2025 +0700
+
+    adjust request
+
+[33mcommit 00bb6485c67d7f564b4d6576725b188b74afeca0[m
+Author: it-nag <ramon@ptnag.com>
+Date:   Fri Aug 29 13:23:39 2025 +0700
+
+    adjust
+
+[33mcommit e21712890882fb1e3e098094a1994a95406e2eb0[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Fri Aug 29 13:18:40 2025 +0700
+
+    adjust
+
+[33mcommit 854b520e6c31e2b1480f1b2bedf69a5101ea831a[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Thu Aug 28 13:30:21 2025 +0700
+
+    add profit center in report detail in-out
+
+[33mcommit c6e49c2248544f5c851ceef51958c0e3de69bfec[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Thu Aug 28 11:11:23 2025 +0700
+
+    add profit center bpb General
+
+[33mcommit 68c1460b26e326cb230d7e75f94a650212ee5bbd[m
+Author: it-nag <ramon@ptnag.com>
+Date:   Thu Aug 28 07:27:21 2025 +0700
+
+    adjust
+
+[33mcommit 47d74cd4e3c14fcab55fe25c6be3fbbbfb5f4a9f[m
+Merge: f5ed4b8 85789bb
+Author: it-nag <ramon@ptnag.com>
+Date:   Wed Aug 20 09:01:18 2025 +0700
+
+    Merge branch 'main' of https://github.com/Druhiyat24/erp
+
+[33mcommit f5ed4b872642dd3fefd934df9fbe0a19841884d1[m
+Author: it-nag <ramon@ptnag.com>
+Date:   Wed Aug 20 09:00:26 2025 +0700
+
+    add file
+
+[33mcommit 85789bbfa81f36ffcba73f31cc9a3edde3ae9552[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Wed Aug 20 08:59:21 2025 +0700
+
+    adjust
+
+[33mcommit 55b18b0d968d4c94310bedb3f2d317978ae01bc0[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Mon Aug 18 16:23:11 2025 +0700
+
+    update dok pabean
+
+[33mcommit 9e8cac8694fdc097008cb51d694760cfdcdb409e[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Mon Aug 18 15:56:11 2025 +0700
+
+    adjust
+
+[33mcommit 399ec223a1f8b7edf04e11db325324533014ff6b[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Mon Aug 18 14:30:52 2025 +0700
+
+    adjust bc 262
+
+[33mcommit 27e6f33d5e81187ff5a433cf89c3deecbc2767ab[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Mon Aug 18 08:56:39 2025 +0700
+
+    adjust lap bc 2.6.2
+
+[33mcommit 2090f9870b509068a7a458cb2835fff6eebfcbdf[m
+Merge: 3ee766e f258ff3
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Mon Aug 18 08:54:23 2025 +0700
+
+    Merge branch 'main' of https://github.com/Druhiyat24/erp
+
+[33mcommit 3ee766e6fed489ea5e0da44ea6681e1f2fbf159d[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Mon Aug 18 08:54:15 2025 +0700
+
+    adjust
+
+[33mcommit f258ff3da85081949ad6592c379578b66dd91bcc[m
+Author: it-nag <ramon@ptnag.com>
+Date:   Mon Aug 18 08:49:55 2025 +0700
+
+    add file
+
+[33mcommit 974aca1f006abf7e9ae70dec85145fd0807a74d5[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Tue Aug 12 14:34:59 2025 +0700
+
+    adjust
+
+[33mcommit e856063c36285c77279b8722cd480ebaa5826252[m
+Merge: f9d2683 3a5f88a
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Tue Aug 12 11:42:59 2025 +0700
+
+    Merge branch 'main' of https://github.com/Druhiyat24/erp
+
+[33mcommit f9d26836c422abdff7e226bd0d21ab87a5dbe4d6[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Tue Aug 12 11:42:52 2025 +0700
+
+    adjust qty, satuan update to report BC 2.6.2 IN
+
+[33mcommit 3a5f88aa818c02135050da15aafb2296c28f0165[m
+Author: it-nag <ramon@ptnag.com>
+Date:   Tue Aug 12 11:10:06 2025 +0700
+
+    adjust
+
+[33mcommit 5db7edb3691e71287be6b40f71fe3a8bd9d38ad7[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Tue Aug 12 11:09:25 2025 +0700
+
+    adjust update dok pabean
+
+[33mcommit c115dfde6401104aed46c5838b37f25795e8f3d0[m
+Author: it-nag <ramon@ptnag.com>
+Date:   Mon Aug 11 15:33:05 2025 +0700
+
+    adjust
+
+[33mcommit 5c15438c236a4192e630fac4626586e0839df088[m
+Author: it-nag <ramon@ptnag.com>
+Date:   Fri Jul 25 17:39:21 2025 +0700
+
+    adjust
+
+[33mcommit 8bc267647b5462c28612205b24594483605d78c5[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Wed Jul 23 15:57:10 2025 +0700
+
+    adjust
+
+[33mcommit 85f2ccad1508cdd78c34b98b50c9949d2bbf4bd4[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Wed Jul 23 15:56:54 2025 +0700
+
+    add qty reject update bpb
+
+[33mcommit 70ad84eb81450f9dc7d2f6cee988ff65bba1f7e3[m
+Author: it-nag <ramon@ptnag.com>
+Date:   Tue Jul 22 15:57:36 2025 +0700
+
+    penambahan laporan mutasi general non BC
+
+[33mcommit c821f6a382e12e0aef3980bf3e5da4ebce8613d1[m
+Author: it-nag <ramon@ptnag.com>
+Date:   Tue Jul 22 11:10:04 2025 +0700
+
+    adjust
+
+[33mcommit 750035a578e8c1c57495e09e0788b4c0809fb85d[m
+Author: it-nag <ramon@ptnag.com>
+Date:   Thu Jul 17 14:38:01 2025 +0700
+
+    server side process BC 3.0
+
+[33mcommit 06af207351fa9bd8b4a653b26ec589d504e368ba[m
+Author: it-nag <ramon@ptnag.com>
+Date:   Thu Jul 17 14:32:14 2025 +0700
+
+    adjust
+
+[33mcommit b8a1e1f7390ea203c8cb21bfaccbe10b16572f65[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Thu Jul 17 09:45:40 2025 +0700
+
+    rev inrekap BC
+
+[33mcommit 6ca6f8201cacfe0a88d19ca6567bae0bb6bcc936[m
+Merge: e11311c a7d5369
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Thu Jul 17 08:10:32 2025 +0700
+
+    Merge branch 'main' of https://github.com/Druhiyat24/erp
+
+[33mcommit e11311cd11464471c902b04aa092745580d5709c[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Thu Jul 17 08:10:26 2025 +0700
+
+    revisi outrekap BC
+
+[33mcommit a7d53693ba0939cebfc537aeb396809e46268e79[m
+Author: it-nag <ramon@ptnag.com>
+Date:   Thu Jul 17 07:47:41 2025 +0700
+
+    adjust
+
+[33mcommit 97fcf3efc5842a6096a08e4669992a66e95fed46[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Thu Jul 17 07:46:20 2025 +0700
+
+    revisi report BC
+
+[33mcommit a7084b9f1e5536c11c644e95a7d9e26eb82ecc03[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Wed Jul 16 13:24:52 2025 +0700
+
+    revisi lap bc
+
+[33mcommit 5b56b8573fdee2bf2fd87af3fe05f1e590948ae1[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Wed Jul 16 10:52:35 2025 +0700
+
+    lap bc
+
+[33mcommit de77e3389fd6a2d5005d12d3189245a62bcb9632[m
+Merge: ac91a09 580c691
+Author: it-nag <ramon@ptnag.com>
+Date:   Tue Jul 15 13:34:07 2025 +0700
+
+    Merge branch 'main' of https://github.com/Druhiyat24/erp
+
+[33mcommit ac91a09086965059b19ae2a6ca0916b989fc9ba5[m
+Author: it-nag <ramon@ptnag.com>
+Date:   Tue Jul 15 13:33:44 2025 +0700
+
+    adjust
+
+[33mcommit 580c69128ec9e4d754c813ccdebd207a44ccb728[m
+Author: dede_ruhiyat <dederuhiyat24@gmail.com>
+Date:   Tue Jul 15 13:30:44 2025 +0700
+
+    adjust approve memo & jurnal bpb
+
+[33mcommit 728bef7cb580b5c0e274d5c4acdb41d43e9cf6b3[m
+Author: Dede Ruhiyat <dederuhiyat24@gmail.com>
+Date:   Sun Jul 13 19:52:33 2025 +0700
+
+    add edit bpb dan bppb
+
+[33mcommit 8b215ae7c838c7a08bbcdf68122893b2116d9642[m
+Author: Dede Ruhiyat <dederuhiyat24@gmail.com>
+Date:   Sun Jul 13 13:12:02 2025 +0700
+
+    ads accounting erp
+
+[33mcommit 1d2cb592f783d28104b21505eb58710470d6f635[m
+Author: Dede Ruhiyat <dederuhiyat24@gmail.com>
+Date:   Sun Jul 13 12:11:06 2025 +0700
+
+    adjust
+
+[33mcommit 9ae38b7e95428f587292f6c7777ffe7016642119[m
+Author: Dede Ruhiyat <dederuhiyat24@gmail.com>
+Date:   Sun Jul 13 11:42:53 2025 +0700
+
+    add erp

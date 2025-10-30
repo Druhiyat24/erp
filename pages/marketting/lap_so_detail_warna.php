@@ -57,10 +57,11 @@ echo "<div class='box'>";
           <th>Color</th>
           <th>Qty</th>
           <th>Unit</th>
+          <th>Marketing Order</th>
           <?php
         echo "</tr>";
       echo "</thead>";
-        $sql=mysql_query("select so_date, so_no, ac.kpno,ms.supplier,ac.styleno,sd.color, sum(sd.qty) qty, so.buyerno, sd.deldate_det,product_group,product_item,so.unit from so 
+        $sql=mysql_query("select so_date, so_no, ac.kpno,ms.supplier,ac.styleno,sd.color, sum(sd.qty) qty, so.buyerno, sd.deldate_det,product_group,product_item,so.unit,ac.mkt_order from so 
                                 inner join so_det sd on sd.id_so = so.id
                                 inner join act_costing ac on ac.id=so.id_cost
                                 inner join masterproduct mp on ac.id_product=mp.id
@@ -83,7 +84,8 @@ echo "<div class='box'>";
               <td>$rs[product_item]</td>
               <td>$rs[color]</td>
               <td>$rs[qty]</td>
-              <td>$rs[unit]</td>";
+              <td>$rs[unit]</td>
+              <td>$rs[mkt_order]</td>";
           echo "</tr>";
           $no++; // menambah nilai nomor urut
         }

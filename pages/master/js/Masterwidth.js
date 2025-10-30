@@ -6,11 +6,13 @@ $(document ).ready(function() {
 
 function GenerateTable(){
     table = $('#mwidth').DataTable( {
-      'processing': true,
+
       'serverSide': true,
       'destroy': true,
       'serverMethod': 'post',
       'autoWidth':false,
+    'ordering': true, // ✅ enable ordering
+    'order': [[1, 'desc']], // ✅ auto order by 2nd column (index starts from 0)
       'ajax': {
           'url':'webservices/getListMasterWidth.php',
       },

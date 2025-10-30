@@ -11,6 +11,8 @@ function GenerateTable(){
       'destroy': true,
       'serverMethod': 'post',
       'autoWidth':false,
+                'ordering': true, // ✅ enable ordering
+    'order': [[1, 'desc']], // ✅ auto order by 2nd column (index starts from 0)
       'ajax': {
           'url':'webservices/getListMasterWeight.php',
       },

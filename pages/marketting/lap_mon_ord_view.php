@@ -98,6 +98,7 @@ echo "<div class='box'>";
 					<th>Buyer</th>
 					<th>Style</th>
 					<th>1st Gmt Delv</th>
+          <th>Marketing Order</th>
 					<th>Costing Date</th>
 					<th>Aging</th>
 					<th>Due</th>
@@ -149,7 +150,7 @@ echo "<div class='box'>";
       $sqldatatable = "select jo.app_date pr_date,jo.id id_jo,jo.jo_date,so.so_date,ac.id,ac.cost_date,ac.app1_date,ac.kpno,ac.styleno,mb.supplier buyer,
 		  	jo.jo_no,tqty_so qty_order,ac.ga_cost,ac.vat,ac.deal_allow deal,ac.curr,ac.cfm_price,
 		  	sod.min_del,upcs.fullname usercs,upappcs.fullname appbycs,upso.fullname userso
-		  	,upjo.fullname userjo          
+		  	,upjo.fullname userjo,ac.mkt_order          
 		  	from jo inner join jo_det jod on jo.id=jod.id_jo inner join 
 		  	(select id_so,sum(qty) tqty_so,min(deldate_det) min_del from so_det where cancel='N' group by id_so) sod on jod.id_so=sod.id_so
 				inner join so on so.id=sod.id_so inner join act_costing ac on so.id_cost=ac.id 
@@ -176,6 +177,7 @@ echo "<div class='box'>";
   				<td>$data[buyer]</td>
   				<td>$data[styleno]</td>
   				<td>".fd_view($data['min_del'])."</td>
+          <td>$data[mkt_order]</td>
   				<td>".fd_view($data['cost_date'])."</td>
   				<td>0</td>
   				<td>$duecost</td>

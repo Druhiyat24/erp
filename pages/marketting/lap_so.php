@@ -65,12 +65,13 @@ echo "<div class='box'>";
           <th>FOB</th>
           <th>Group Mkt</th>
           <th>Qty Keluar</th>
+          <th>Marketing Order</th>
           <?php
         echo "</tr>";
       echo "</thead>";
         $sql=mysql_query("select so.id id_so,a.id,so_no,so_date,supplier,styleno,
           deldate,a.status,mp.product_group,mp.product_item,a.kpno,so.qty,so.unit, 
-          ms.shipmode,up.kode_mkt,so.buyerno,so.fob,jo.jo_no from act_costing a inner join mastersupplier f on a.id_buyer=f.id_supplier
+          ms.shipmode,up.kode_mkt,so.buyerno,so.fob,jo.jo_no,a.mkt_order from act_costing a inner join mastersupplier f on a.id_buyer=f.id_supplier
           inner join masterproduct mp on a.id_product=mp.id
           left join mastershipmode ms on a.id_smode=ms.id
           inner join so on so.id_cost=a.id 
@@ -101,7 +102,8 @@ echo "<div class='box'>";
               <td>$rs[unit]</td>
               <td>$rs[fob]</td>
               <td>$rs[kode_mkt]</td>
-              <td>".fn($qtyout,0)."</td>";
+              <td>".fn($qtyout,0)."</td>
+              <td>$rs[mkt_order]</td>";
           echo "</tr>";
           $no++; // menambah nilai nomor urut
         }

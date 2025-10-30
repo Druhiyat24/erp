@@ -37,6 +37,7 @@ $searchQuery = " AND (
 	OR X.kode_length       	  	   LIKE'%".$searchValue."%'
 	OR X.nama_length               LIKE'%".$searchValue."%'
 	)
+	ORDER BY id DESC
 	";
 }
 

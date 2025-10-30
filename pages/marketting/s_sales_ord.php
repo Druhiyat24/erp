@@ -3,7 +3,7 @@ include '../../include/conn.php';
 include '../forms/fungsi.php';
 session_start();
 if (empty($_SESSION['username'])) { header("location:../../index.php"); }
-
+$now = date("Y-m-d H:i:s");
 $user=$_SESSION['username'];
 $mod=$_GET['mod'];
 $mode="";
@@ -63,8 +63,8 @@ if (($cek=="0" and $id_so=="") or ($cek=="0" and $id_so!="" and $pro=="Copy" and
 	insert_log($sql,$user);
 	if ($id_so!="" and $pro=="Copy")
 	{	$id_so_new=flookup("id","so","so_no='$txtso_no'");
-		$sql="insert into so_det (id_so,dest,color,size,qty,unit,sku,barcode,notes,reff_no) 
-			select '$id_so_new',dest,color,size,qty,unit,sku,barcode,notes,reff_no
+		$sql="insert into so_det (id_so,dest,color,size,qty,unit,sku,barcode,notes,reff_no,created_by,created_date) 
+			select '$id_so_new',dest,color,size,qty,unit,sku,barcode,notes,reff_no,'$user','$now'
 			from so_det where id_so='$id_so'";
 		insert_log($sql,$user);
 	}

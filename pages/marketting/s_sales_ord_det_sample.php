@@ -6,6 +6,7 @@ if (empty($_SESSION['username'])) { header("location:../../index.php"); }
 $user=$_SESSION['username'];
 $mod=$_GET['mod'];
 $mode="";
+$now = date("Y-m-d H:i:s");
 $nm_company=flookup("company","mastercompany","company!=''");
 $id_so=$_GET['id'];
 if (isset($_GET['idd'])) {$id_det=$_GET['idd'];} else {$id_det="";}
@@ -84,9 +85,9 @@ if ($id_det=="")
 							and sku='$txtsku' and size='$txtsize' and cancel='N' ");
 						if ($cek=="0")
 						{	$sql = "insert into so_det (id_so,deldate_det,dest,color,sku,notes,size,qty,qty_add,
-								unit,barcode,price)
+								unit,barcode,price,created_by,created_date)
 								values ('$id_so','$txtdeldate','$txtdest','$txtcolor','$txtsku','$txtnotes','$txtsize'
-								,'$txtqty','$qtyaddnya','$txtunit','$barnya','$pxnya')";
+								,'$txtqty','$qtyaddnya','$txtunit','$barnya','$pxnya','$user','$now')";
 							insert_log($sql,$user);
 						}
 						else

@@ -38,6 +38,7 @@ $searchQuery = " AND (
 	OR X.kode_weight       	       LIKE'%".$searchValue."%'
 	OR X.nama_weight               LIKE'%".$searchValue."%'
 	)
+	ORDER BY id DESC
 	";
 }
 

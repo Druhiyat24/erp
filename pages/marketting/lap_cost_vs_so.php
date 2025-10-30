@@ -82,6 +82,7 @@ echo "<div class='box'>";
           <th>Est P/L</th>
           <th>CM Px</th>
           <th>Mkt</th>
+          <th>Marketing Order</th>
           <?php
         echo "</tr>";
       echo "</thead>";
@@ -89,7 +90,7 @@ echo "<div class='box'>";
           deldate,a.status,mp.product_group,mp.product_item,a.kpno,a.qty qty_cost,
           so.qty qty_so,a.unit,so.fob px_so,so.tax tax_so, 
           ms.shipmode,up.kode_mkt,so.so_no,so.so_date,so.buyerno,a.cfm_price,a.curr cfm_price_curr,
-          so.cancel_h from 
+          so.cancel_h,a.mkt_order from 
           act_costing a inner join mastersupplier f on a.id_buyer=f.id_supplier
           inner join masterproduct mp on a.id_product=mp.id
           inner join mastershipmode ms on a.id_smode=ms.id
@@ -172,7 +173,8 @@ echo "<div class='box'>";
             <td>".fn($val_so,2)."</td>
             <td>".fn($val_bal,2)."</td>
             <td>".fn($tot_mf,4)."</td>
-            <td>$rs[kode_mkt]</td>";
+            <td>$rs[kode_mkt]</td>
+            <td>$rs[mkt_order]</td>";
           echo "</tr>";
           $t_cost = $t_cost + $rs['qty_cost'];
           $t_sales = $t_sales + $rs['qty_so'];

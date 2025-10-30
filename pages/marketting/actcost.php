@@ -695,9 +695,16 @@ console.log($('#txtprice_idr_mf2').val());
 								<div class='col-md-3'>
 					<div class='form-group'>
 						<label>Marketing Order *</label>
-					<select class='form-control select2' id='mkt_order'  name='mkt_order' value='<?php echo $mkt_order;?> '>
-						<option value="BANDUNG" <?php if($mkt_order=="BANDUNG"){echo "selected";} ?>>BANDUNG</option>
-						<option value="JAKARTA" <?php if($mkt_order=="JAKARTA"){echo "selected";} ?>>JAKARTA</option>
+					<select class='form-control select2' id='mkt_order'  name='mkt_order'>
+					<?php
+					// Ambil data dari tabel master_mkt_order
+					$query = mysql_query("SELECT id, mkt_order FROM master_mkt_order ORDER BY mkt_order ASC");
+					
+					while ($row = mysql_fetch_array($query)) {
+						$selected = ($row['mkt_order'] == $mkt_order) ? "selected" : "";
+						echo "<option value='{$row['mkt_order']}' $selected>{$row['mkt_order']}</option>";
+						}
+						?>
 					</select> 
 					</div>
 				</div>	
@@ -1679,6 +1686,7 @@ SELECT d.id as kode,d.otherscode cod,
 				<th>Delv. Date</th>
 				<th>Status</th>
 				<th>Created By</th>
+				<th>Marketing Order</th>
 				<th width='14%'>Action</th>
 			</tr>
       </thead>
@@ -1709,7 +1717,7 @@ SELECT d.id as kode,d.otherscode cod,
 				*/
 $sql="select a.id,cost_no,a.brand,cost_date,supplier,styleno,
 		    	qty,deldate,fullname,status,mp.product_item,mp.product_group, a.cfm_price,
-		    	a.username,kpno from act_costing a inner join mastersupplier s 
+		    	a.username,kpno,a.mkt_order from act_costing a inner join mastersupplier s 
 		    	on a.id_buyer=s.id_supplier inner join userpassword d 
 		    	on a.username=d.username inner join masterproduct mp 
 		    	on a.id_product=mp.id
@@ -1732,6 +1740,7 @@ $sql="select a.id,cost_no,a.brand,cost_date,supplier,styleno,
 						<td>".fd_view($rs['deldate'])."</td>
 						<td>$rs[status]</td>
 						<td>$rs[fullname]</td>
+						<td>$rs[mkt_order]</td>
 						<td>
 							<a class='btn-s' href='pdfCost.php?id=$rs[id]'
 							data-toggle='tooltip' title='Save PDF' target='_blank'><i class='fa fa-file-pdf-o'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";

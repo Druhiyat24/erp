@@ -30,12 +30,13 @@ echo "<div class='box'>";
           <th>Total Costing</th>
           <th>Total SO</th>
           <th>Persentase</th>
+          <th>Marketing Order</th>
           <?php
         echo "</tr>";
       echo "</thead>";
-      $query = mysql_query("select ms.id_supplier,ms.supplier,coalesce(data_cost.total_costing,0) total_costing,coalesce(data_so.total_so,0) total_so from mastersupplier ms
+      $query = mysql_query("select ms.id_supplier,ms.supplier,coalesce(data_cost.total_costing,0) total_costing,coalesce(data_so.total_so,0) total_so,data_cost.mkt_order from mastersupplier ms
 left join 
-(select id_supplier,supplier,count(supplier) total_costing from act_costing ac
+(select id_supplier,supplier,count(supplier) total_costing,ac.mkt_order from act_costing ac
 inner join mastersupplier ms on ms.id_supplier = ac.id_buyer
 where ac.app1 = 'A'
 group by ms.supplier) data_cost on data_cost.id_supplier = ms.id_supplier
@@ -60,6 +61,7 @@ order by supplier asc");
           <td>$data[total_costing]</td>
           <td>$data[total_so]</td>
           <td>$persentase %</td>
+          <td>$data[mkt_order]</td>
         </tr>";
         $no++; // menambah nilai nomor urut
       }

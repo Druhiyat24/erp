@@ -193,6 +193,10 @@ echo "<script type='text/javascript'>
 						<div>
 							<br>
 							<button type='submit' name='submitfilter' class='btn btn-primary'>Tampilkan</button>
+							<?php
+							echo "<a href='bom_jo_global_xls.php?jo_date_awal=$tglbomawal&jo_date_akhir=$tglbomakhir&dest=excel' class='btn btn-success'>
+							<i class='fa fa-file-excel-o'></i> Export Excel</a>";
+							?>							
 						</div>
 					</div>
 
@@ -212,6 +216,7 @@ echo "<script type='text/javascript'>
 						<th>Job Order Date</th>
 						<th>Style #</th>
 						<th>Created By</th>
+						<th></th>
 						<th></th>
 						<th></th>
 					</tr>
@@ -238,7 +243,10 @@ echo "<script type='text/javascript'>
 				    <td>$data[jo_no]</td>
 				    <td>" . fd_view($data['jo_date']) . "</td>
 				    <td>$data[styleno]</td>
-				    <td>$createby</td>";
+				    <td>$createby</td>
+					<td><a href='bom_jo_global_exc.php?id_jo=$data[id_jo]&dest=excel data-toggle='tooltip' title='Save Excel''>
+					<i class='fa fa-file-excel-o'></i></a>
+					</td>";				    
 						echo "
             	<td>
             	<a href='pdfBOM.php?id=$data[id]'

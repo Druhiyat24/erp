@@ -14,6 +14,7 @@ $txtdest = nb($_POST['txtdest']);
 $txtcolor = nb($_POST['txtcolor']);
 $txtreffno = nb($_POST['txtreffno']);
 $txtstyleno_prod = nb($_POST['txtstyleno_prod']);
+$now = date("Y-m-d H:i:s");
 if ($nm_company=="PT. Bintang Mandiri Hanafindo" and 
 	strpos($txtcolor,";")<>0) 
 	{$pecah="Y";} 
@@ -48,9 +49,9 @@ if ($id_det=="")
 							color='$valuec' and reff_no='$txtreffno' and styleno_prod='$txtstyleno_prod'
 							and sku='$txtsku' and size='$txtsize' and cancel='N'");
 						if ($cek=="0")
-						{	$sql = "insert into so_det (id_so,deldate_det,dest,color,sku,notes,size,qty,unit,barcode,price,reff_no,styleno_prod)
+						{	$sql = "insert into so_det (id_so,deldate_det,dest,color,sku,notes,size,qty,unit,barcode,price,reff_no,styleno_prod,created_by,created_date)
 								values ('$id_so','$txtdeldate','$txtdest','$valuec','$txtsku','$txtnotes','$txtsize'
-								,'$txtqty','$txtunit','$barnya','$pxnya','$txtreffno','$txtstyleno_prod')";
+								,'$txtqty','$txtunit','$barnya','$pxnya','$txtreffno','$txtstyleno_prod','$user','$now')";
 							insert_log($sql,$user);
 						}
 						else
@@ -86,9 +87,9 @@ if ($id_det=="")
 							and sku='$txtsku' and size='$txtsize' and reff_no='$txtreffno' and styleno_prod='$txtstyleno_prod' and cancel='N' ");
 						if ($cek=="0")
 						{	$sql = "insert into so_det (id_so,deldate_det,dest,color,sku,notes,size,qty,qty_add,
-								unit,barcode,price, reff_no, styleno_prod)
+								unit,barcode,price, reff_no, styleno_prod,created_by,created_date)
 								values ('$id_so','$txtdeldate','$txtdest','$txtcolor','$txtsku','$txtnotes','$txtsize'
-								,'$txtqty','$qtyaddnya','$txtunit','$barnya','$pxnya','$txtreffno','$txtstyleno_prod')";
+								,'$txtqty','$qtyaddnya','$txtunit','$barnya','$pxnya','$txtreffno','$txtstyleno_prod','$user','$now')";
 							insert_log($sql,$user);
 						}
 						else
@@ -114,7 +115,7 @@ else
 	{	if (isset($_POST['txtqty'])) {$qty=$_POST['txtqty'];} else {$qty="0";}
 		if (isset($_POST['txtprice'])) {$price=$_POST['txtprice'];} else {$price="0";}
 		$sql = "update so_det set color='$txtcolor',deldate_det='$txtdeldate',dest='$txtdest',sku='$txtsku',notes='$txtnotes',barcode='$txtbarcode'
-			,qty='$qty',price='$price',reff_no='$txtreffno',styleno_prod='$txtstyleno_prod' where id='$id_det'";
+			,qty='$qty',price='$price',reff_no='$txtreffno',styleno_prod='$txtstyleno_prod', updated_by='$user', updated_date='$now' where id='$id_det'";
 		insert_log($sql,$user);
 		$_SESSION['msg'] = "Data Berhasil Dirubah";
 	}		
