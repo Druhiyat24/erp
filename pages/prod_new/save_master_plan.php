@@ -64,12 +64,29 @@ if ($mod == 'update_status') {
 
 	$dateinput		= date('Y-m-d H:i:s');
 
+	if ($id) {
+		$sql_cari_output_rft  		= mysql_query("select COUNT(*) as total_rft from output_rfts where master_plan_id = '$id' group by master_plan_id");
+		$sql_cari_output_defect  	= mysql_query("select COUNT(*) as total_defect from output_defects where master_plan_id = '$id' group by master_plan_id");
+		$sql_cari_output_reject  	= mysql_query("select COUNT(*) as total_reject from output_rejects where master_plan_id = '$id' group by master_plan_id");
+		$row_cari_output_rft 		= mysql_fetch_array($sql_cari_output_rft);
+		$row_cari_output_defect 	= mysql_fetch_array($sql_cari_output_defect);
+		$row_cari_output_reject 	= mysql_fetch_array($sql_cari_output_reject);
 
-	$sql = "update master_plan set cancel = case when cancel = 'Y' then'N' else 'Y' end
-	where id = '$id'";
-	insert_log($sql, $user); {
-		$_SESSION['msg'] = "Data Berhasil Di rubah, Nama Part : " . $txt_nmpart;
+		$s_total_rft = isset($row_cari_output_rft['total_rft']) ? $row_cari_output_rft['total_rft'] : 0;
+		$s_total_defect = isset($row_cari_output_defect['total_defect']) ? $row_cari_output_defect['total_defect'] : 0;
+		$s_total_reject = isset($row_cari_output_reject['total_reject']) ? $row_cari_output_reject['total_reject'] : 0;
+
+		if ($s_total_rft + $s_total_defect + $s_total_reject > 0) {
+			$_SESSION['msg'] = "X Master Plan Sudah Memiliki Output.";
+		} else {
+			$sql = "update master_plan set cancel = case when cancel = 'Y' then'N' else 'Y' end
+			where id = '$id'";
+			insert_log($sql, $user); {
+				$_SESSION['msg'] = "Data Berhasil Diubah.";
+			}
+		}
 	}
+
 	echo "<script>window.location.href='../prod_new/?mod=master_plan_h';</script>";
 }
 
