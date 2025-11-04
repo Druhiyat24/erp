@@ -65,6 +65,7 @@ if ($mod == 'update_status') {
 	$dateinput		= date('Y-m-d H:i:s');
 
 	if ($id) {
+		// Check Total Output 
 		$sql_cari_output_rft  		= mysql_query("select COUNT(*) as total_rft from output_rfts where master_plan_id = '$id' group by master_plan_id");
 		$sql_cari_output_defect  	= mysql_query("select COUNT(*) as total_defect from output_defects where master_plan_id = '$id' group by master_plan_id");
 		$sql_cari_output_reject  	= mysql_query("select COUNT(*) as total_reject from output_rejects where master_plan_id = '$id' group by master_plan_id");
@@ -77,8 +78,10 @@ if ($mod == 'update_status') {
 		$s_total_reject = isset($row_cari_output_reject['total_reject']) ? $row_cari_output_reject['total_reject'] : 0;
 
 		if ($s_total_rft + $s_total_defect + $s_total_reject > 0) {
+			// If Master Plan has Output
 			$_SESSION['msg'] = "X Master Plan Sudah Memiliki Output.";
 		} else {
+			// If Master Plan has no Output
 			$sql = "update master_plan set cancel = case when cancel = 'Y' then'N' else 'Y' end
 			where id = '$id'";
 			insert_log($sql, $user); {
