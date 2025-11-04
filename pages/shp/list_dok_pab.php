@@ -602,7 +602,7 @@ if($mod=="2U") {
                       $noid = $data[$fldtrx];
                       $totnilnya = $data['qty'] * $data['price'];
 
-                      echo "<tr><form method='post' action='update_harga.php?iddata=$iddata&dtrx=$dtrx&noid=$noid&jen_trx=$jen_trx&tbl=$tbl'>";
+                      echo "<tr><form method='post' class='form-harga' action='update_harga.php?iddata=$iddata&dtrx=$dtrx&noid=$noid&jen_trx=$jen_trx&tbl=$tbl'>";
 
                       if($logo_company=="Z") {
                         echo "<td>{$data['jo_no']}</td><td>{$data['kpno']}</td>";
@@ -657,13 +657,19 @@ if($mod=="2U") {
                       </td>
 
                       <td><input type='text' class='form-control' size='8' style='width:120px;' name='qty_bc' value='$qty_bc'></td>
-                      <td><input type='text' class='form-control' size='8' style='width:120px;' name='rate_bc' value='$rate_bc'></td>
-                      <td><button type='submit' name='update' class='btn btn-primary'>Update</button></td>
-                      </form></tr>";
+                      <td><input type='text' class='form-control' size='8' style='width:120px;' name='rate_bc' value='$rate_bc'></td>";
+                      echo" <td>
+      <form method='post' class='form-harga' action='update_harga.php?iddata=<?= $iddata ?>&dtrx=<?= $dtrx ?>&noid=<?= $noid ?>&jen_trx=<?= $jen_trx ?>&tbl=<?= $tbl ?>'>
+        <button type='submit' name='update' class='btn btn-primary'>Update</button>
+      </form>
+    </td></tr>";
                     }
                     ?>
                   </tbody>
                 </table>
+                <div style="text-align:right; margin-top:10px;">
+                <button type="button" id="btnUpdateAll" class="btn btn-success">Update All</button>
+              </div>
               </div>
             </div>
           </div>

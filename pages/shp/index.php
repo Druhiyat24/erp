@@ -234,6 +234,61 @@ $tt_attach="data-toggle='tooltip' title='Attachment'><i class='fa fa-paperclip'>
   <script src="../../plugins/datatables_responsive/jquery.dataTables.min.js"></script>
   <script src="../../plugins/datatables_responsive/dataTables.responsive.min.js"></script>
 
+<script>
+$(document).ready(function() {
+  $('#btnUpdateAll').on('click', function() {
+    const forms = $('form.form-harga');
+    console.log("Jumlah form ditemukan:", forms.length);
+
+    if (forms.length === 0) {
+      alert("Tidak ada data untuk diupdate!");
+      return;
+    }
+
+    if (!confirm(`Apakah Anda yakin ingin menjalankan ${forms.length} update satu per satu tanpa reload?`)) return;
+
+    let sukses = 0, gagal = 0;
+
+    // Proses semua form satu per satu via AJAX
+    forms.each(function(i, form) {
+      const fd = new FormData(form);
+
+      // Ambil action dari form (update_harga.php?iddata=...&dll)
+      const action = $(form).attr('action');
+
+      $.ajax({
+        url: action,
+        method: 'POST',
+        data: fd,
+        processData: false,
+        contentType: false,
+        success: function(res) {
+          console.log(`Baris ${i+1} berhasil`, res);
+          sukses++;
+        },
+        error: function(err) {
+          console.error(`Baris ${i+1} gagal`, err);
+          gagal++;
+        },
+        complete: function() {
+          // Kalau sudah di akhir form terakhir → tampilkan ringkasan
+          if (i === forms.length - 1) {
+            Swal.fire({
+              icon: 'info',
+              title: 'Update Selesai',
+              // html: `Berhasil: <b>${sukses}</b> &nbsp;&nbsp; Gagal: <b>${gagal}</b>`,
+              confirmButtonText: 'OK'
+            }).then(() => location.reload());
+          }
+        }
+      });
+    });
+  });
+});
+</script>
+
+
+
   <script>
   // Menginisialisasi Select2
   $(document).ready(function() {

@@ -157,3 +157,4 @@
 [27-May-2025 15:24:43 Europe/Berlin] PHP Parse error:  syntax error, unexpected '}' in D:\xampp\htdocs\erp_dev\pages\shp\ajax_bc27in.php on line 258
 [27-May-2025 16:44:03 Europe/Berlin] PHP Parse error:  syntax error, unexpected '?' in D:\xampp\htdocs\erp_dev\pages\shp\ajax_bc27in.php on line 256
 [28-May-2025 03:29:57 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$no_dok' (T_VARIABLE), expecting ',' or ';' in D:\xampp\htdocs\erp_dev\pages\shp\ajax_bc27in.php on line 298
+[30-Oct-2025 09:41:36 Europe/Berlin] PHP Parse error:  syntax error, unexpected '?' in D:\xampp\htdocs\signalbit_erp\pages\shp\s_upd_dok_pab_all.php on line 24
