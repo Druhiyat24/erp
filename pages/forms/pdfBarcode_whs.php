@@ -23,7 +23,7 @@ $mode=$_GET['mode'];
 // { $space_head=55; }
 //end paging------------------------------
 
- $space_head=41;
+ $space_head=39;
 
  $ukuran_kertas="A7"; 
 
@@ -77,8 +77,6 @@ $product_code_40 = "<img alt='code 128 bar code' src='barcode.php?codetype=Code1
               <td>'.$rshder['no_ws'].'</td>
               <tr> <td>Style <td>:<td></tr>
               <td>'.$rshder['styleno'].'</td>
-              <tr> <td>No Barcode Lama <td>:<td></tr>
-              <td>'.$rshder['no_barcode_old'].'</td>              
             </table>             
             ';
               //             <tr> <td>No WS <td>:<td></tr>
