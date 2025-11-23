@@ -17,6 +17,7 @@
     </div>
     <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
       <ul class="nav navbar-nav">
+        <?php if($user != 'guest'){ ?>
         <li class="dropdown">
           <a href="" class="dropdown-toggle" data-toggle="dropdown">Master<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
@@ -28,9 +29,11 @@
             ?>
           </ul>
         </li>
+      <?php } ?>
         <li class="dropdown">
           <a href="" class="dropdown-toggle" data-toggle="dropdown">Proses<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
+            <?php if($user != 'guest'){ ?>
             <?php 
             $akses = $rsU["update_dok_pab"];
             if ($akses=="1") {echo "<li><a href='?mod=2'>Update Dok Pabean</a></li>";}
@@ -58,8 +61,12 @@
             if ($akses=="1") { echo "<li><a href='?mod=InvocieMaterialPage'>Invoice Material</a></li>"; }       
             ?>
             <li><a href='?mod=upload_exim'>Upload</a></li>
+            <?php }else{ ?>
+              <li><a href='?mod=2'>Update Dok Pabean</a></li>
+            <?php } ?>
           </ul>
         </li>
+        <?php if($user != 'guest'){ ?>
         <li class="dropdown">
           <a href="" class="dropdown-toggle" data-toggle="dropdown">Laporan<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
@@ -69,6 +76,7 @@
             <li><a href='?mod=lap_dok_pabean_det'>Report Dok Pabean Detail</a></li> -->
           </ul>
         </li>
+        <?php } ?>
         <li class="dropdown">
           <a href="../">Main Menu</a>
         </li>
