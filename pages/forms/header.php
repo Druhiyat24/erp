@@ -189,6 +189,14 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
                 if ($akses == "1") {
                   echo "<li><a href='?mod=bpb_po&mode=Bahan_Baku'>Bahan Baku PO (New)</a></li>";
                 }
+
+                if ($user == "guest") {
+                  echo "<li><a href='?mod=bpb_global&mode=Bahan_Baku'>Bahan Baku Global</a></li>";
+                   echo "<li><a href='?mod=bpb_po&mode=Bahan_Baku'>Bahan Baku PO (New)</a></li>";
+                   echo "<li><a href='?mod=26z&mode=General'>Item General (PO) (New)</a></li>";
+                }
+
+
                 $akses = $rsUser["mnuBPB"];
                 if ($akses == "1") {
                   echo "<li><a href='?mod=51v&mode=Bahan_Baku'>$c5</a></li>";
@@ -267,7 +275,7 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
                 echo "<li><a href='?mod=31v'>$c8 (SO)</a></li>";
               }
               $akses = $rsUser["mnuBPBFG_so"];
-              if ($akses == "1") {
+              if ($akses == "1" and $user!="guest") {
                 echo "<li><a href='?mod=31z'>$c8 (Switch In)</a></li>";
               }
               $akses = $rsUser["konfirmasi_sj"];
@@ -282,6 +290,12 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
               if ($akses == "1") {
                 echo "<li><a href='?mod=18v'>Detail Pemasukan (Temporary)</a></li>";
               }
+
+              if ($user == "guest") {
+                echo "<li><a href='?mod=31v_bj_po'>$c8 (PO)</a></li>";
+                echo "<li><a href='?mod=17'>Konfirmasi Penerimaan</a></li>";
+              }
+
               $akses = $rsUser["bpb_roll"];
               //--ADYZ BARCODE ========================================================================================
               if ($akses == "1") {
@@ -331,12 +345,19 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
                 if ($akses == "1") {
                   echo "<li><a href='?mod=list_bppb_req'>Permintaan Bahan Baku New</a></li>";
                 }
+
                 // $akses = $rsUser["picklist"];
                 // if ($akses=="1") {echo "<li><a href='?mod=61rs&mode=Bahan_Baku'>Status Material Request (RQ)</a></li>"; }
                 // $akses = $rsUser["picklist"];              
                 // if ($akses=="1") {echo "<li><a href='?mod=61rvp&mode=Bahan_Baku'>Picklist $c5</a></li>"; }
                 // $akses = $rsUser["mnuBPPB"];
                 // if ($akses=="1") {echo "<li><a href='?mod=61v&mode=Bahan_Baku'>$c5</a></li>";}
+                if ($user == "guest") {
+                  echo "<li><a href='?mod=list_bppb_req'>Permintaan Bahan Baku New</a></li>";
+                  echo "<li><a href='?mod=list_bppb_out'>Pengeluaran Bahan Baku (Request New)</a></li>";
+                  echo "<li><a href='?mod=list_bppb_gen'>Pengeluaran Item General (New)</a></li>";
+                }
+
                 $akses = $rsUser["bppb_req"];
                 if ($akses == "1") {
                   echo "<li><a href='?mod=list_bppb_out'>Pengeluaran Bahan Baku (Request New)</a></li>";
@@ -431,6 +452,10 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
               if ($akses == "1") {
                 echo "<li><a href='?mod=9&mode=Out'>$captupl</a></li>";
               }
+              if ($user == "guest") {
+                echo "<li><a href='?mod=32z&mode=FG'>$c8 (SO) (New)</a></li>";
+                  echo "<li><a href='?mod=17O'>Konfirmasi Pengeluaran</a></li>";
+                }
               ?>
             </ul>
           </li>

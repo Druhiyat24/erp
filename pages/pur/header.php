@@ -51,6 +51,9 @@
             if ($akses=="1") {
       echo "<li><a style='color:blue' href='?mod=po_header'>Purchase Order New</a></li>";
             }      
+            if ($user=="guest") {
+      echo "<li><a style='color:blue' href='?mod=po_header'>Purchase Order New</a></li>";
+            }      
             // if ($akses=="1") { echo "<li><a href='?mod=x3L'>Purchase Order Development</a></li>"; }
             $akses = $rsuser["purch_ord_gen"];
             if ($akses=="1") { echo "<li><a href='?mod=9L'>Purchase Order General</a></li>"; }

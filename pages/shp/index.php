@@ -557,7 +557,7 @@ function showLoading() {
     $('#datepicker1_memo').datepicker
     ({  format: "dd M yyyy",
       autoclose: true,
-      startDate : "01-05-2025",
+      startDate : "01-11-2025",
     });
     //Date picker
     $('#datepicker2').datepicker

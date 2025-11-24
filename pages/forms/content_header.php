@@ -1,5 +1,6 @@
 <?PHP
 $mod=$_GET['mod'];
+$user = $_SESSION['username'];
 $nm_company=flookup("company","mastercompany","company!=''");
 $st_company=flookup("status_company","mastercompany","company!=''");
 if (isset($_GET['rptid'])) { $rpt=$_GET['rptid']; } else { $rpt=""; }
@@ -401,7 +402,7 @@ else if ($mod==30)
 {	echo "Laporan Devisa"; }
 else if ($mod=="31" or $mod=="31v")
 {	echo "Pemasukan Barang Jadi (SO)"; }
-else if ($mod=="311" or $mod=="31z")
+else if ($mod=="311" or $mod=="31z") 
 {	echo "Pemasukan Barang Jadi (Switch In)"; }
 else if ($mod=="31e")
 {	echo "Pemasukan Barang Jadi (SO) (Change)"; }
