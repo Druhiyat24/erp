@@ -372,14 +372,14 @@ input::-webkit-inner-spin-button {
         <span class="fa fa-print fa-fw "></span>
         <span class="menu-collapsed">General Ledger</span>
     </a> 
-    <a href="../acct/financial_statement_ytd.php" class="dropdown-item bg-dark text-white">
+    <!-- <a href="../acct/financial_statement_ytd.php" class="dropdown-item bg-dark text-white">
         <span class="fa fa-calendar fa-fw "></span>
         <span class="menu-collapsed">Financial Statement YTD</span>
     </a>  
     <a href="../acct/trial-balance-monthly.php" class="dropdown-item bg-dark text-white">
         <span class="fa fa-calendar-o fa-fw "></span>
         <span class="menu-collapsed">Financial Statement Monthly</span>
-    </a>   
+    </a>    -->
 </div>
 </li>
 
