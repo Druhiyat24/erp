@@ -592,7 +592,7 @@ if($mod=="2U") {
                     $query = mysql_query($sql);
                     while($data = mysql_fetch_array($query)) {
                       $id = $data['line_id'];
-                      $harga = number_format($data['price'], 4);
+                      $harga = $data['price'];
                       $qty_bc = isset($data['qty_bc']) && $data['qty_bc'] !== null ? $data['qty_bc'] : null;
                       $rate_bc = isset($data['rate_bc']) && $data['rate_bc'] !== null ? $data['rate_bc'] : null;
                       $satuan_bc = !empty($data['satuan_bc']) ? $data['satuan_bc'] : '';

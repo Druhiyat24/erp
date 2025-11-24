@@ -1,5 +1,6 @@
 <?php
 $mod=$_GET['mod'];
+$user = $_SESSION['username'];
 $grafik=flookup("grafik","mastercompany","company!='' ");
 if ($mod==1)
 {	if ($grafik=="Y")
