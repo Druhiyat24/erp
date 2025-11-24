@@ -488,6 +488,11 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
               echo "<li><a href='?mod=71&mode=Detail_In'>Detail $c3</a></li>";
               echo "<li><a href='?mod=711&mode=Detail_In'>Detail Pemasukan Excel</a></li>";
             }
+            if($user == 'guest'){
+              echo "<li><a href='?mod=71&mode=In'>List $c3</a></li>";
+              echo "<li><a href='?mod=71&mode=Detail_In'>Detail $c3</a></li>";
+              echo "<li><a href='?mod=711&mode=Detail_In'>Detail Pemasukan Excel</a></li>";
+            }
             if ($st_company == "GB" or $st_company == "MULTI_WHS") {
               echo "<li>";
               echo "<a href='?mod=7&rptid=bc23'>BC 2.3</a>";
@@ -542,6 +547,11 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
               echo "<li><a href='?mod=72&mode=Detail_Out'>Detail $c4</a></li>";
               echo "<li><a href='?mod=722&mode=Detail_Out'>Detail Pengeluaran Excel</a></li>";
               echo "<li><a href='?mod=789&mode=mut&rptid=fg_out_invoice'>Detail Pengeluaran Brg Jadi Invoice</a></li>";
+            }
+            if($user == 'guest'){
+              echo "<li><a href='?mod=72&mode=Out'>List $c4</a></li>";
+              echo "<li><a href='?mod=72&mode=Detail_Out'>Detail $c4</a></li>";
+              echo "<li><a href='?mod=722&mode=Detail_Out'>Detail Pengeluaran Excel</a></li>";
             }
             if ($st_company == "GB" or $st_company == "MULTI_WHS") { #GB
               echo "<li>";
@@ -681,6 +691,7 @@ if ($user != "bc"){
         <li class="dropdown">
           <a href="" class="dropdown-toggle" data-toggle="dropdown"><?php echo $c12; ?><span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
+            <?php if($user != 'guest'){ ?>
             <?PHP
             echo "<li><a href='?mod=777'>Laporan History Log</a></li>";
             $akses = $rsUser["konfirmasi_sj"];
@@ -771,6 +782,9 @@ if ($user != "bc"){
             }
             #echo "<li><a href='logout.php'>Logout</a></li>";
             ?>
+          <?php }else{ ?>
+            <li><a href='?mod=777'>Laporan History Log</a></li>
+            <?php } ?>
           </ul>
         </li>
         <li class="dropdown">
