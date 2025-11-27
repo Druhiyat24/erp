@@ -119,7 +119,7 @@ left JOIN
 
 (select id,ind_name as idndircredit, eng_name as engdircredit from tbl_master_cashflow) dircredit on dircredit.id = b.id_direct_credit left join
 
-(select id,ind_name as idnindir, eng_name as engindir from tbl_master_cashflow) indir on indir.id = b.id_indirect left join (select * from status_memorial_journal where mj_date BETWEEN '$start_date' and '$end_date' GROUP BY no_mj) c on c.no_mj_sb = a.no_journal where a.debit != 0 OR a.credit != 0
+(select id,ind_name as idnindir, eng_name as engindir from tbl_master_cashflow) indir on indir.id = b.id_indirect left join (select * from status_memorial_journal where mj_date BETWEEN '$start_date' and '$end_date' GROUP BY no_mj_sb) c on c.no_mj_sb = a.no_journal where a.debit != 0 OR a.credit != 0
 ");
 
         $no = 1;

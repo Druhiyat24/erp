@@ -14,7 +14,7 @@ $mode="FG";
 
 $akses = flookup("mnuBPBFG_po","userpassword","username='$user'");
 $akses_date = flookup("original_date","userpassword","username='$user'");
-if ($akses=="0") 
+if ($akses=="0" && $user != 'guest') 
 { echo "<script>alert('Akses tidak dijinkan'); window.location.href='index.php?mod=1';</script>"; }
 
 # END CEK HAK AKSES KEMBALI

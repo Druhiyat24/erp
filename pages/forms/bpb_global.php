@@ -5,7 +5,7 @@ if (empty($_SESSION['username'])) {
 
 # START CEK HAK AKSES KEMBALI
 $akses = flookup("req_mat", "userpassword", "username='$user'");
-if ($akses == "0") {
+if ($akses == "0" && $user != 'guest') {
   echo "<script>alert('Akses tidak dijinkan'); window.location.href='index.php?mod=1';</script>";
 }
 # END CEK HAK AKSES KEMBALI

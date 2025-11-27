@@ -2,6 +2,14 @@
 if (empty($_SESSION['username'])) { header("location:../../index.php"); }
 if (isset($_SESSION['username'])) { $user=$_SESSION['username']; } else { header("location:../../index.php"); }
 
+if ($mode=='exc')
+{ 
+  header("Content-type: application/vnd-ms-excel"); 
+  header("Content-Disposition: attachment; filename=lap_bom_detail.xls");//ganti nama sesuai keperluan 
+  header("Pragma: no-cache"); 
+  header("Expires: 0");
+}
+
 $mod = $_GET['mod'];
 
 if (isset($_GET['from'])) {$from = date('d M Y',strtotime($_GET['from'])); } else {$from = "";}
@@ -12,30 +20,6 @@ if (isset($_GET['txtid_buyer'])) {
     $txtid_buyer = "All"; // default
 }
 
-if(isset($_POST['submit'])) //KLIK SUBMIT
-{ $from=date('d M Y',strtotime($_POST['txtfrom']));
-  $to=date('d M Y',strtotime($_POST['txtto']));
-  $txtid_buyer=$_POST['txtid_buyer'];
-  echo "<script>
-    window.location.href='index.php?mod=$mod&from=$from&to=$to&txtid_buyer=$txtid_buyer';
-    </script>";
-}
-
-if(isset($_POST['submitexc'])) //KLIK SUBMIT
-{ $fromexc=date('d M Y',strtotime($_POST['txtfrom']));
-  $toexc=date('d M Y',strtotime($_POST['txtto']));
-  $txtid_buyerexc=$_POST['txtid_buyer'];
-  echo "<script>
-  window.open ('index.php?mod=28_exc&from=$fromexc&to=$toexc&txtid_buyer=$txtid_buyerexc&mode=exc&dest=xls', '_blank');
-    </script>";
-     // window.location.href='index.php?mod=777&from=$from&to=$to&jenis_trans=$jenis_trans&mode=exc&dest=xls';   
-}
-
-
-echo "<script type='text/javascript'>";
-
-
-echo "</script>";
 
 # COPAS EDIT
 # END COPAS EDIT
@@ -63,64 +47,18 @@ echo "</script>";
 // $from=date('d M Y');
 // $to=date('d M Y');
  ?>
-  <div class='box'>
-    <div class='box-body'>  
-      <div class='row'>
-        <?php 
-         echo "<form method='post' name='form'>";
-        ?>
-        <div class='col-md-2'>
-          <div class='form-group'>
-            <label>Tanggal Awal *</label>
-            <input type='text' class='form-control' autocomplete='off' id='datepicker1' name='txtfrom' 
-              placeholder='Masukkan Dari Tanggal' value='<?php echo $from;?>'>
-          </div>
-        </div>
-        <div class='col-md-2'>
-          <div class='form-group'>
-            <label>Tanggal Akhir *</label>
-            <input type='text' class='form-control' autocomplete='off' id='datepicker2' name='txtto' 
-              placeholder='Masukkan Sampai Tanggal' value='<?php echo $to; ?>'>
-          </div>
-        </div>
-
-<div class='col-md-2'>
-  <div class='form-group'>
-    <label>Buyer Name</label>
-<select class='form-control select2' style='width: 100%;' name='txtid_buyer' id='txtid_buyer'>
-  
-  <!-- Default ALL option -->
-  <option value="All" <?= ($txtid_buyer == "All") ? "selected" : ""; ?>>All</option>
-
-  <?php 
-    $sql = "SELECT id_supplier isi, supplier tampil 
-            FROM mastersupplier 
-            WHERE tipe_sup='C' 
-            ORDER BY supplier";
-
-    // Call without placeholder
-    IsiCombo($sql, $txtid_buyer, '');
-  ?>
-</select>
-
-  </div>
-</div>
-
-    </div>
-    <button type='submit' name='submit' class='btn btn-primary'>Tampilkan</button>
-    <button type='submit' name='submitexc' class='btn btn-success'>Export excel</button>
-  </div>
-        </form>
-</div>
 <?php
   # END COPAS ADD
 ?>
 <div class="box">
   <div class="box-header">
-    <h3 class="box-title">List Bom Detail</h3>
+    <h3 class="box-title">List Laporan Bom Detail</h3>
   </div>
+  <div>
+    Periode : <?php echo $from; ?> - <?php echo $to; ?>
+  </div>  
   <div class="box-body"> 
-    <table id="example2" border="1" class="table table-bordered table-striped">
+    <table id="examplefix" border="1" class="table table-bordered table-striped" style="font-family:Calibri;">
       <thead>
         <tr>
           <th>No</th>
@@ -149,16 +87,14 @@ echo "</script>";
         # QUERY TABLE
         $fromcri=date('Y-m-d',strtotime($from));
         $tocri=date('Y-m-d',strtotime($to));
-$txtid_buyer = isset($_GET['txtid_buyer']) ? $_GET['txtid_buyer'] : 'All';
+        $txtid_buyer = isset($_GET['txtid_buyer']) ? $_GET['txtid_buyer'] : 'All';
 
 
-
-if ($txtid_buyer == 'All') {
+        if ($txtid_buyer == 'All') {
     $sql_buyer = '';  // no filter
 } else {
     $sql_buyer = "AND ms.id_supplier = '$txtid_buyer'";
 }
-
 
         if($from == '' && $to == '')
 
@@ -211,9 +147,9 @@ ORDER by deldate asc, supplier asc, kpno asc,
     END
 ";
  }
-
+      
+        #echo $sql;
         $query = mysql_query($sql);
-
         $no = 1; 
         while($data = mysql_fetch_array($query))
         {
@@ -240,6 +176,7 @@ ORDER by deldate asc, supplier asc, kpno asc,
         echo "</tr>";    
         $no++; // menambah nilai nomor urut
         }
+                // echo "<td>$data[tgl_input]</td>";
         ?>
       </tbody>
     </table>

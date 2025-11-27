@@ -220,6 +220,9 @@ switch ($mod)
 	case "28":
 		include "laporan_bom_det.php";
 		break;
+	case "28_exc":
+		include "lap_bom_det_exc.php";
+		break;			
 	case "28v":
 		include "lap_bom_det_list.php";
 	case "111":

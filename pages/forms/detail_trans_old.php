@@ -113,10 +113,6 @@ echo "<th>Type #</th>";
 echo "<th>Inv/SJ #</th>";
 }
 echo "<th>Id Item</th>";
-if ($tipenya=="Bahan Baku")
-{
-	echo "<th>Id Contents</th>";
-}	
 echo "<th>Kode Barang</th>";
 echo "<th>Nama Barang</th>";
 if ($tipenya_2=="Item General")
@@ -254,23 +250,11 @@ if ($mode=="Detail_Out")
 	{
 		$fldsty="s.styleno"; $fldsc="buyerno,'' stock_card,whs_code";
 		$joinjo = "left join (select sod.id_so,sod.id id_so_det from so_det sod  group by sod.id) tmpjod on tmpjod.id_so_det=a.id_so_det";
-		$join_mc ="";
-		$id_contents ="'' as id_contents";
-
 	} 
 	else 
 	{
 		$fldsty="a.styleno"; $fldsc="'' buyerno,stock_card,'' whs_code";
 		$joinjo = "left join (select id_jo,id_so from jo_det group by id_jo ) tmpjod on tmpjod.id_jo=a.id_jo";
-		$join_mc ="			left join 
-								(
-								select a.id as id_gen ,e.id_contents from masterdesc a 
-								left join mastercolor b on a.id_color = b.id
-								left join masterweight c on b.id_weight = c.id
-								left join masterlength d on c.id_length = d.id
-								left join masterwidth e on d.id_width = e.id
-								) mc on s.id_gen = mc.id_gen";
-$id_contents ="id_contents";								
 	}
 
 	if($tipenya_2 == "Item General")
@@ -374,18 +358,10 @@ $id_contents ="id_contents";
       {
 
       		if ($classnya == 'FABRIC' && $from >= '2025-01-01') {
-      			tampil_data("(select a.*, b.styleno style_aktual from ((select a.no_bppb bppbno,a.no_req bppbno_req,a.tgl_bppb bppbdate,'NIRWANA ALABARE GARMENT' profit_center, no_invoice invno,a.dok_bc jenis_dok,right(no_aju,6) no_aju,tgl_aju tanggal_aju, lpad(no_daftar,6,'0') bcno,tgl_daftar bcdate,a.tujuan supplier,b.id_item,id_contents,goods_code,concat(itemdesc,' ',add_info) itemdesc,s.color,s.size, sum(b.qty_out) qty,0 as qty_good,0 as qty_reject, b.satuan unit,'' berat_bersih,a.catatan remark,CONCAT(a.created_by,' (',a.created_at, ') ') username,CONCAT(a.approved_by,' (',a.approved_date, ') ') confirm_by,ac.kpno ws,ac.styleno,b.curr,b.price,br.idws_act,'' jenis_trans,cp.nama_panel, cc.color_gmt,IF(a.jenis_pengeluaran is null,'-',a.jenis_pengeluaran) jenis_pengeluaran, b.id_jo
+      			tampil_data("(select a.*, b.styleno style_aktual from ((select a.no_bppb bppbno,a.no_req bppbno_req,a.tgl_bppb bppbdate,'NIRWANA ALABARE GARMENT' profit_center, no_invoice invno,a.dok_bc jenis_dok,right(no_aju,6) no_aju,tgl_aju tanggal_aju, lpad(no_daftar,6,'0') bcno,tgl_daftar bcdate,a.tujuan supplier,b.id_item,goods_code,concat(itemdesc,' ',add_info) itemdesc,s.color,s.size, sum(b.qty_out) qty,0 as qty_good,0 as qty_reject, b.satuan unit,'' berat_bersih,a.catatan remark,CONCAT(a.created_by,' (',a.created_at, ') ') username,CONCAT(a.approved_by,' (',a.approved_date, ') ') confirm_by,ac.kpno ws,ac.styleno,b.curr,b.price,br.idws_act,'' jenis_trans,cp.nama_panel, cc.color_gmt,IF(a.jenis_pengeluaran is null,'-',a.jenis_pengeluaran) jenis_pengeluaran, b.id_jo
         from whs_bppb_h a
         inner join whs_bppb_det b on b.no_bppb = a.no_bppb
         inner join masteritem s on b.id_item=s.id_item
-                				left join 
-								(
-								select a.id as id_gen ,e.id_contents from masterdesc a 
-								left join mastercolor b on a.id_color = b.id
-								left join masterweight c on b.id_weight = c.id
-								left join masterlength d on c.id_length = d.id
-								left join masterwidth e on d.id_width = e.id
-								) mc on s.id_gen = mc.id_gen
         left join (select id_jo,id_so from jo_det group by id_jo ) tmpjod on tmpjod.id_jo=b.id_jo
         left join (select bppbno as no_req,idws_act from bppb_req group by no_req) br on a.no_req = br.no_req
         left join so on tmpjod.id_so=so.id
@@ -394,70 +370,34 @@ $id_contents ="id_contents";
         left join (select id_item, id_jo, group_concat(distinct(color)) color_gmt from bom_jo_item k inner join so_det sd on k.id_so_det = sd.id where status = 'M' and k.cancel = 'N' group by id_item, id_jo) cc on s.id_gen = cc.id_item and b.id_jo = cc.id_jo
         where LEFT(a.no_bppb,2) = 'GK' and b.status != 'N' and a.status != 'cancel' and a.tgl_bppb BETWEEN  '$from' and '$to' GROUP BY b.id_jo,b.id_item,b.satuan,b.no_bppb order by a.no_bppb)
         UNION
-        (select a.no_mut bpbno,'' bppbno_req,a.tgl_mut bpbdate,'NIRWANA ALABARE GARMENT' profit_center,a.no_invoice invno,a.type_bc jenis_dok,right(a.no_aju,6) no_aju,a.tgl_aju, lpad(a.no_daftar,6,'0') bcno,a.tgl_daftar bcdate,'Mutasi Lokasi' supplier,a.id_item,id_contents,goods_code,concat(itemdesc,' ',add_info) itemdesc,s.color,s.size, qty,'0' qty_good, qty_reject, a.unit,'' berat_bersih,a.deskripsi remark,a.username,a.confirm_by,a.no_ws ws,tmpjo.styleno,a.curr,if(z.tipe_com !='Regular','0',a.price)price, a.no_ws idws_act,'' jenis_trans,cp.nama_panel, cc.color_gmt, 'Mutasi Lokasi', a.id_jo from (select mut.no_ws,a.no_mut,a.tgl_mut,c.type_bc,c.no_aju,c.tgl_aju, c.no_daftar,c.tgl_daftar,c.supplier,c.no_po,c.no_invoice,b.id_item, sum(qty_mutasi) qty,sum(qty_mutasi) as qty_good,'0' as qty_reject, a.unit,mut.deskripsi,CONCAT(mut.created_by,' (',mut.created_at, ') ') username,CONCAT(mut.approved_by,' (',mut.approved_date, ') ') confirm_by,b.curr,b.price, c.type_pch,b.id_jo from whs_mut_lokasi a
+        (select a.no_mut bpbno,'' bppbno_req,a.tgl_mut bpbdate,'NIRWANA ALABARE GARMENT' profit_center,a.no_invoice invno,a.type_bc jenis_dok,right(a.no_aju,6) no_aju,a.tgl_aju, lpad(a.no_daftar,6,'0') bcno,a.tgl_daftar bcdate,'Mutasi Lokasi' supplier,a.id_item,goods_code,concat(itemdesc,' ',add_info) itemdesc,s.color,s.size, qty,'0' qty_good, qty_reject, a.unit,'' berat_bersih,a.deskripsi remark,a.username,a.confirm_by,a.no_ws ws,tmpjo.styleno,a.curr,if(z.tipe_com !='Regular','0',a.price)price, a.no_ws idws_act,'' jenis_trans,cp.nama_panel, cc.color_gmt, 'Mutasi Lokasi', a.id_jo from (select mut.no_ws,a.no_mut,a.tgl_mut,c.type_bc,c.no_aju,c.tgl_aju, c.no_daftar,c.tgl_daftar,c.supplier,c.no_po,c.no_invoice,b.id_item, sum(qty_mutasi) qty,sum(qty_mutasi) as qty_good,'0' as qty_reject, a.unit,mut.deskripsi,CONCAT(mut.created_by,' (',mut.created_at, ') ') username,CONCAT(mut.approved_by,' (',mut.approved_date, ') ') confirm_by,b.curr,b.price, c.type_pch,b.id_jo from whs_mut_lokasi a
         inner join whs_mut_lokasi_h mut on mut.no_mut = a.no_mut
         left join whs_inmaterial_fabric c on c.no_dok = a.no_bpb
         left join (select no_dok,id_jo,id_item,'-' curr, '0' price,satuan unit FROM whs_lokasi_inmaterial GROUP BY no_dok,id_item
         UNION
         select no_bpb,id_jo,id_item,'-' curr, '0' price,unit FROM whs_sa_fabric GROUP BY no_bpb,id_item) b on b.no_dok = a.no_mut and a.id_item = b.id_item where a.status = 'Y' GROUP BY a.no_mut,id_item,unit) a
         inner join masteritem s on a.id_item=s.id_item
-                				left join 
-								(
-								select a.id as id_gen ,e.id_contents from masterdesc a 
-								left join mastercolor b on a.id_color = b.id
-								left join masterweight c on b.id_weight = c.id
-								left join masterlength d on c.id_length = d.id
-								left join masterwidth e on d.id_width = e.id
-								) mc on s.id_gen = mc.id_gen
         left join (select no_dok no_mut,id_jo,id_item, GROUP_CONCAT(DISTINCT CONCAT(kode_lok,' FABRIC WAREHOUSE RACK')) rak from whs_lokasi_inmaterial  where status = 'Y' and no_mut is not null group by no_dok) lr on a.no_mut = lr.no_mut
         left join po_header po on po.pono = a.no_po
         left join po_header_draft z on z.id = po.id_draft
         left join (select id_jo,kpno,styleno from act_costing ac inner join so on ac.id=so.id_cost inner join jo_det jod on so.id=jod.id_so group by id_jo) tmpjo on tmpjo.id_jo=a.id_jo
         left join (select id_jo,bom_jo_item.id_item,group_concat(distinct(nama_panel)) nama_panel from bom_jo_item inner join masterpanel mp on bom_jo_item.id_panel = mp.id where id_panel != '0' group by id_item, id_jo) cp on s.id_gen = cp.id_item and a.id_jo = cp.id_jo
         left join (select id_item, id_jo, group_concat(distinct(color)) color_gmt from bom_jo_item k inner join so_det sd on k.id_so_det = sd.id where status = 'M' and k.cancel = 'N' group by id_item, id_jo) cc on s.id_gen = cc.id_item and a.id_jo = cc.id_jo
-        where a.tgl_mut BETWEEN  '$from' and '$to')) a left join (select id_jo,kpno,styleno from act_costing ac inner join so on ac.id=so.id_cost inner join jo_det jod on so.id=jod.id_so group by id_jo) b on b.id_jo=a.id_jo)",33);
+        where a.tgl_mut BETWEEN  '$from' and '$to')) a left join (select id_jo,kpno,styleno from act_costing ac inner join so on ac.id=so.id_cost inner join jo_det jod on so.id=jod.id_so group by id_jo) b on b.id_jo=a.id_jo)",32);
       		}elseif ($classnya == 'FABRIC FINISHED') {
-      		tampil_data("select if(a.bppbno_int!='',a.bppbno_int,a.bppbno) bppbno, IF(a.bppbno_req != '', a.bppbno_req, '-') bppbno_req, a.bppbdate, 'NIRWANA ALABARE GARMENT' profit_center, a.invno, a.jenis_dok, a.nomor_aju no_aju, a.tanggal_aju, a.bcno, a.bcdate, ms.supplier, a.id_item,id_contents, mi.goods_code, mi.itemdesc, mi.color, mi.size, a.qty, a.qty qty_good, 0 qty_reject, a.unit, a.berat_bersih, a.remark, a.username, a.confirm_by, '-' ws, '-' styleno, a.curr, a.price, '-' idws_act, a.jenis_trans, '-' nama_panel, '-' color_gmt, a.jenis_trans jenis_pengeluaran, a.id_jo, '-' style_aktual from bppb a INNER JOIN masteritem mi on mi.id_item = a.id_item 
-                				left join 
-								(
-								select a.id as id_gen ,e.id_contents from masterdesc a 
-								left join mastercolor b on a.id_color = b.id
-								left join masterweight c on b.id_weight = c.id
-								left join masterlength d on c.id_length = d.id
-								left join masterwidth e on d.id_width = e.id
-								) mc on mi.id_gen = mc.id_gen
-      			INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bPpbdate BETWEEN '$from' and '$to' and mattype = 'KM'",33);
+      		tampil_data("select if(a.bppbno_int!='',a.bppbno_int,a.bppbno) bppbno, IF(a.bppbno_req != '', a.bppbno_req, '-') bppbno_req, a.bppbdate, 'NIRWANA ALABARE GARMENT' profit_center, a.invno, a.jenis_dok, a.nomor_aju no_aju, a.tanggal_aju, a.bcno, a.bcdate, ms.supplier, a.id_item, mi.goods_code, mi.itemdesc, mi.color, mi.size, a.qty, a.qty qty_good, 0 qty_reject, a.unit, a.berat_bersih, a.remark, a.username, a.confirm_by, '-' ws, '-' styleno, a.curr, a.price, '-' idws_act, a.jenis_trans, '-' nama_panel, '-' color_gmt, a.jenis_trans jenis_pengeluaran, a.id_jo, '-' style_aktual from bppb a INNER JOIN masteritem mi on mi.id_item = a.id_item INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bPpbdate BETWEEN '$from' and '$to' and mattype = 'KM'",32);
       	}elseif ($classnya == 'FABRIC GREIGE') {
-      		tampil_data("select if(a.bppbno_int!='',a.bppbno_int,a.bppbno) bppbno, IF(a.bppbno_req != '', a.bppbno_req, '-') bppbno_req, a.bppbdate, 'NIRWANA ALABARE GARMENT' profit_center, a.invno, a.jenis_dok, a.nomor_aju no_aju, a.tanggal_aju, a.bcno, a.bcdate, ms.supplier, a.id_item, id_contents,mi.goods_code, mi.itemdesc, mi.color, mi.size, a.qty, a.qty qty_good, 0 qty_reject, a.unit, a.berat_bersih, a.remark, a.username, a.confirm_by, '-' ws, '-' styleno, a.curr, a.price, '-' idws_act, a.jenis_trans, '-' nama_panel, '-' color_gmt, a.jenis_trans jenis_pengeluaran, a.id_jo, '-' style_aktual from bppb a INNER JOIN masteritem mi 
-                				left join 
-								(
-								select a.id as id_gen ,e.id_contents from masterdesc a 
-								left join mastercolor b on a.id_color = b.id
-								left join masterweight c on b.id_weight = c.id
-								left join masterlength d on c.id_length = d.id
-								left join masterwidth e on d.id_width = e.id
-								) mc on mi.id_gen = mc.id_gen
-      			on mi.id_item = a.id_item INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bPpbdate BETWEEN '$from' and '$to' and mattype = 'G'",33);
+      		tampil_data("select if(a.bppbno_int!='',a.bppbno_int,a.bppbno) bppbno, IF(a.bppbno_req != '', a.bppbno_req, '-') bppbno_req, a.bppbdate, 'NIRWANA ALABARE GARMENT' profit_center, a.invno, a.jenis_dok, a.nomor_aju no_aju, a.tanggal_aju, a.bcno, a.bcdate, ms.supplier, a.id_item, mi.goods_code, mi.itemdesc, mi.color, mi.size, a.qty, a.qty qty_good, 0 qty_reject, a.unit, a.berat_bersih, a.remark, a.username, a.confirm_by, '-' ws, '-' styleno, a.curr, a.price, '-' idws_act, a.jenis_trans, '-' nama_panel, '-' color_gmt, a.jenis_trans jenis_pengeluaran, a.id_jo, '-' style_aktual from bppb a INNER JOIN masteritem mi on mi.id_item = a.id_item INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bPpbdate BETWEEN '$from' and '$to' and mattype = 'G'",32);
       	}elseif ($classnya == 'BENANG') {
-      		tampil_data("select if(a.bppbno_int!='',a.bppbno_int,a.bppbno) bppbno, IF(a.bppbno_req != '', a.bppbno_req, '-') bppbno_req, a.bppbdate, 'NIRWANA ALABARE GARMENT' profit_center, a.invno, a.jenis_dok, a.nomor_aju no_aju, a.tanggal_aju, a.bcno, a.bcdate, ms.supplier, a.id_item,id_contents, mi.goods_code, mi.itemdesc, mi.color, mi.size, a.qty, a.qty qty_good, 0 qty_reject, a.unit, a.berat_bersih, a.remark, a.username, a.confirm_by, '-' ws, '-' styleno, a.curr, a.price, '-' idws_act, a.jenis_trans, '-' nama_panel, '-' color_gmt, a.jenis_trans jenis_pengeluaran, a.id_jo, '-' style_aktual from bppb a INNER JOIN masteritem mi on mi.id_item = a.id_item 
-                				left join 
-								(
-								select a.id as id_gen ,e.id_contents from masterdesc a 
-								left join mastercolor b on a.id_color = b.id
-								left join masterweight c on b.id_weight = c.id
-								left join masterlength d on c.id_length = d.id
-								left join masterwidth e on d.id_width = e.id
-								) mc on mi.id_gen = mc.id_gen
-      			INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bPpbdate BETWEEN '$from' and '$to' and mattype = 'B'",33);
+      		tampil_data("select if(a.bppbno_int!='',a.bppbno_int,a.bppbno) bppbno, IF(a.bppbno_req != '', a.bppbno_req, '-') bppbno_req, a.bppbdate, 'NIRWANA ALABARE GARMENT' profit_center, a.invno, a.jenis_dok, a.nomor_aju no_aju, a.tanggal_aju, a.bcno, a.bcdate, ms.supplier, a.id_item, mi.goods_code, mi.itemdesc, mi.color, mi.size, a.qty, a.qty qty_good, 0 qty_reject, a.unit, a.berat_bersih, a.remark, a.username, a.confirm_by, '-' ws, '-' styleno, a.curr, a.price, '-' idws_act, a.jenis_trans, '-' nama_panel, '-' color_gmt, a.jenis_trans jenis_pengeluaran, a.id_jo, '-' style_aktual from bppb a INNER JOIN masteritem mi on mi.id_item = a.id_item INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bPpbdate BETWEEN '$from' and '$to' and mattype = 'B'",32);
       	}else{
       		tampil_data("select if(bppbno_int!='',bppbno_int,bppbno) bppbno,a.bppbno_req,bppbdate,'NIRWANA ALABARE GARMENT' profit_center, invno,jenis_dok,right(nomor_aju,6),tanggal_aju,
-      			lpad(bcno,6,'0') bcno,bcdate,supplier,a.id_item,$id_contents,goods_code,$fld itemdesc,s.color,s.size,
+      			lpad(bcno,6,'0') bcno,bcdate,supplier,a.id_item,goods_code,$fld itemdesc,s.color,s.size,
       			a.qty,0 as qty_good,0 as qty_reject,
       			a.unit,berat_bersih,remark,$flduser,a.confirm_by,ac.kpno ws,ac.styleno,a.curr,a.price,br.idws_act,a.jenis_trans,cp.nama_panel, cc.color_gmt 
       			from bppb a inner join $tbl s on a.id_item=s.id_item
       			inner join mastersupplier d on a.id_supplier=d.id_supplier
       			$joinjo
-      			$join_mc
       			left join (select bppbno as no_req,idws_act from bppb_req group by no_req) br  on a.bppbno_req = br.no_req   
       			left join so on tmpjod.id_so=so.id 
       			left join act_costing ac on so.id_cost=ac.id
@@ -470,7 +410,7 @@ $id_contents ="id_contents";
       			where status = 'M' and k.cancel = 'N'
       			group by id_item, id_jo) cc on s.id_gen = cc.id_item and a.id_jo = cc.id_jo				 
       			where $whereout and bppbdate between '$from' and '$to'
-      			$que_cl $que_supp order by bppbdate",33);
+      			$que_cl $que_supp order by bppbdate",32);
       	}
 
       		// echo $classnya;
@@ -612,93 +552,41 @@ else
       else
       {
       	if ($classnya == 'FABRIC' && $from >= '2025-01-01') {
-      		tampil_data("select bpbno,bpbdate,'NIRWANA ALABARE GARMENT' profit_center, invno,jenis_dok,no_aju,tgl_aju, bcno, bcdate,supplier,pono,tipe_com,invno,a.id_item,id_contents,goods_code,itemdesc,color,size, qty, qty_good,qty_reject, unit,berat_bersih, remark,username,confirm_by, if(bpbno like '%MT%',a.no_ws,tmpjo.kpno) ws,tmpjo.styleno,curr,price, price price_act, jenis_trans,reffno,rak,cp.nama_panel,cc.color_gmt 
-      			from (select s.id_gen,a.no_dok bpbno,a.tgl_dok bpbdate,type_bc jenis_dok,right(no_aju,6) no_aju,tgl_aju, lpad(no_daftar,6,'0') bcno,tgl_daftar bcdate,a.supplier,a.no_po pono,z.tipe_com,no_invoice invno,b.id_item,id_contents,goods_code,concat(itemdesc,' ',add_info) itemdesc,s.color,s.size, (b.qty_good + coalesce(b.qty_reject,0)) qty,b.qty_good as qty_good,coalesce(b.qty_reject,0) as qty_reject, b.unit,'' berat_bersih,a.deskripsi remark,CONCAT(a.created_by,' (',a.created_at, ') ') username,CONCAT(a.approved_by,' (',a.approved_date, ') ') confirm_by,b.curr,if(z.tipe_com ='FOC','0',b.price)price, a.type_pch jenis_trans,'' reffno,lr.rak,b.id_jo,'' no_ws, a.type_pch from whs_inmaterial_fabric a
+      		tampil_data("select bpbno,bpbdate,'NIRWANA ALABARE GARMENT' profit_center, invno,jenis_dok,no_aju,tgl_aju, bcno, bcdate,supplier,pono,tipe_com,invno,a.id_item,goods_code,itemdesc,color,size, qty, qty_good,qty_reject, unit,berat_bersih, remark,username,confirm_by, if(bpbno like '%MT%',a.no_ws,tmpjo.kpno) ws,tmpjo.styleno,curr,price, price price_act, jenis_trans,reffno,rak,cp.nama_panel,cc.color_gmt from (select s.id_gen,a.no_dok bpbno,a.tgl_dok bpbdate,type_bc jenis_dok,right(no_aju,6) no_aju,tgl_aju, lpad(no_daftar,6,'0') bcno,tgl_daftar bcdate,a.supplier,a.no_po pono,z.tipe_com,no_invoice invno,b.id_item,goods_code,concat(itemdesc,' ',add_info) itemdesc,s.color,s.size, (b.qty_good + coalesce(b.qty_reject,0)) qty,b.qty_good as qty_good,coalesce(b.qty_reject,0) as qty_reject, b.unit,'' berat_bersih,a.deskripsi remark,CONCAT(a.created_by,' (',a.created_at, ') ') username,CONCAT(a.approved_by,' (',a.approved_date, ') ') confirm_by,b.curr,if(z.tipe_com ='FOC','0',b.price)price, a.type_pch jenis_trans,'' reffno,lr.rak,b.id_jo,'' no_ws, a.type_pch from whs_inmaterial_fabric a
         inner join whs_inmaterial_fabric_det b on b.no_dok = a.no_dok
         inner join masteritem s on b.id_item=s.id_item
-        left join 
-								(
-								select a.id as id_gen ,e.id_contents from masterdesc a 
-								left join mastercolor b on a.id_color = b.id
-								left join masterweight c on b.id_weight = c.id
-								left join masterlength d on c.id_length = d.id
-								left join masterwidth e on d.id_width = e.id
-								) mc on s.id_gen = mc.id_gen	
         left join (select no_dok,id_jo,id_item, GROUP_CONCAT(DISTINCT CONCAT(kode_lok,' FABRIC WAREHOUSE RACK')) rak from whs_lokasi_inmaterial  where status = 'Y' group by no_dok,id_jo,id_item) lr on b.no_dok = lr.no_dok and b.id_item = lr.id_item and b.id_jo = lr.id_jo
         left join po_header po on po.pono = a.no_po
         left join po_header_draft z on z.id = po.id_draft
         where a.tgl_dok BETWEEN  '$from' and '$to' and b.status != 'N' and a.status != 'cancel'
         UNION
-        select s.id_gen,a.no_mut bpbno,a.tgl_mut bpbdate,a.type_bc jenis_dok,right(a.no_aju,6) no_aju,a.tgl_aju, lpad(a.no_daftar,6,'0') bcno,a.tgl_daftar bcdate,a.supplier,a.no_po pono,z.tipe_com,a.no_invoice invno,a.id_item,id_contents,goods_code,concat(itemdesc,' ',add_info) itemdesc,s.color,s.size, qty,qty_good, qty_reject, a.unit,'' berat_bersih,a.deskripsi remark,a.username,a.confirm_by,a.curr,if(z.tipe_com !='Regular','0',a.price)price, a.type_pch jenis_trans,'' reffno,lr.rak,a.id_jo,a.no_ws, 'Mutasi Lokasi' from (select mut.no_ws,a.no_mut,a.tgl_mut,c.type_bc,c.no_aju,c.tgl_aju, c.no_daftar,c.tgl_daftar,c.supplier,c.no_po,c.no_invoice,b.id_item, sum(qty_mutasi) qty,sum(qty_mutasi) as qty_good,'0' as qty_reject, a.unit,mut.deskripsi,CONCAT(mut.created_by,' (',mut.created_at, ') ') username,CONCAT(mut.approved_by,' (',mut.approved_date, ') ') confirm_by,b.curr,b.price, c.type_pch,b.id_jo from whs_mut_lokasi a
+        select s.id_gen,a.no_mut bpbno,a.tgl_mut bpbdate,a.type_bc jenis_dok,right(a.no_aju,6) no_aju,a.tgl_aju, lpad(a.no_daftar,6,'0') bcno,a.tgl_daftar bcdate,a.supplier,a.no_po pono,z.tipe_com,a.no_invoice invno,a.id_item,goods_code,concat(itemdesc,' ',add_info) itemdesc,s.color,s.size, qty,qty_good, qty_reject, a.unit,'' berat_bersih,a.deskripsi remark,a.username,a.confirm_by,a.curr,if(z.tipe_com !='Regular','0',a.price)price, a.type_pch jenis_trans,'' reffno,lr.rak,a.id_jo,a.no_ws, 'Mutasi Lokasi' from (select mut.no_ws,a.no_mut,a.tgl_mut,c.type_bc,c.no_aju,c.tgl_aju, c.no_daftar,c.tgl_daftar,c.supplier,c.no_po,c.no_invoice,b.id_item, sum(qty_mutasi) qty,sum(qty_mutasi) as qty_good,'0' as qty_reject, a.unit,mut.deskripsi,CONCAT(mut.created_by,' (',mut.created_at, ') ') username,CONCAT(mut.approved_by,' (',mut.approved_date, ') ') confirm_by,b.curr,b.price, c.type_pch,b.id_jo from whs_mut_lokasi a
         inner join whs_mut_lokasi_h mut on mut.no_mut = a.no_mut
         left join whs_inmaterial_fabric c on c.no_dok = a.no_bpb
         left join (select no_dok,id_jo,id_item,'-' curr, '0' price,satuan unit FROM whs_lokasi_inmaterial GROUP BY no_dok,id_item
         UNION
         select no_bpb,id_jo,id_item,'-' curr, '0' price,unit FROM whs_sa_fabric GROUP BY no_bpb,id_item) b on b.no_dok = a.no_mut and a.id_item = b.id_item where a.status = 'Y' GROUP BY a.no_mut,id_item,unit) a
         inner join masteritem s on a.id_item=s.id_item
-                left join 
-								(
-								select a.id as id_gen ,e.id_contents from masterdesc a 
-								left join mastercolor b on a.id_color = b.id
-								left join masterweight c on b.id_weight = c.id
-								left join masterlength d on c.id_length = d.id
-								left join masterwidth e on d.id_width = e.id
-								) mc on s.id_gen = mc.id_gen	
         left join (select no_dok no_mut,id_jo,id_item, GROUP_CONCAT(DISTINCT CONCAT(kode_lok,' FABRIC WAREHOUSE RACK')) rak from whs_lokasi_inmaterial  where status = 'Y' and no_mut is not null group by no_dok) lr on a.no_mut = lr.no_mut
         left join po_header po on po.pono = a.no_po
         left join po_header_draft z on z.id = po.id_draft
         where a.tgl_mut BETWEEN  '$from' and '$to') a
         left join (select id_jo,kpno,styleno from act_costing ac inner join so on ac.id=so.id_cost inner join jo_det jod on so.id=jod.id_so group by id_jo) tmpjo on tmpjo.id_jo=a.id_jo
         left join (select id_jo,bom_jo_item.id_item,group_concat(distinct(nama_panel)) nama_panel from bom_jo_item inner join masterpanel mp on bom_jo_item.id_panel = mp.id where id_panel != '0' group by id_item, id_jo) cp on a.id_gen = cp.id_item and a.id_jo = cp.id_jo
-        left join (select id_item, id_jo, group_concat(distinct(color)) color_gmt from bom_jo_item k inner join so_det sd on k.id_so_det = sd.id where status = 'M' and k.cancel = 'N' group by id_item, id_jo) cc on a.id_gen = cc.id_item and a.id_jo = cc.id_jo",37);
+        left join (select id_item, id_jo, group_concat(distinct(color)) color_gmt from bom_jo_item k inner join so_det sd on k.id_so_det = sd.id where status = 'M' and k.cancel = 'N' group by id_item, id_jo) cc on a.id_gen = cc.id_item and a.id_jo = cc.id_jo",36);
       	}elseif ($classnya == 'FABRIC FINISHED') {
-      		tampil_data("select bpbno_int, bpbdate, 'NIRWANA ALABARE GARMENT' profit_center, invno, jenis_dok, nomor_aju no_aju, tanggal_aju, bcno, bcdate, ms.supplier, a.pono, '-' tipe_com, invno, a.id_item,id_contents, mi.goods_code, mi.itemdesc, mi.color, mi.size, a.qty, a.qty qty_good, '0' qty_reject, a.unit, a.berat_bersih, a.remark, a.username, a.confirm_by, '-' ws, '-' styleno, a.curr, a.price, a.price price_act, jenis_trans, '-' reffno, '-' rak, '-' nama_panel, '-' color_gmt from bpb a INNER JOIN masteritem mi on mi.id_item = a.id_item 
-        left join 
-								(
-								select a.id as id_gen ,e.id_contents from masterdesc a 
-								left join mastercolor b on a.id_color = b.id
-								left join masterweight c on b.id_weight = c.id
-								left join masterlength d on c.id_length = d.id
-								left join masterwidth e on d.id_width = e.id
-								) mc on mi.id_gen = mc.id_gen	
-      			INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bpbdate BETWEEN '$from' and '$to' and mattype = 'KM'",37);
+      		tampil_data("select bpbno_int, bpbdate, 'NIRWANA ALABARE GARMENT' profit_center, invno, jenis_dok, nomor_aju no_aju, tanggal_aju, bcno, bcdate, ms.supplier, a.pono, '-' tipe_com, invno, a.id_item, mi.goods_code, mi.itemdesc, mi.color, mi.size, a.qty, a.qty qty_good, '0' qty_reject, a.unit, a.berat_bersih, a.remark, a.username, a.confirm_by, '-' ws, '-' styleno, a.curr, a.price, a.price price_act, jenis_trans, '-' reffno, '-' rak, '-' nama_panel, '-' color_gmt from bpb a INNER JOIN masteritem mi on mi.id_item = a.id_item INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bpbdate BETWEEN '$from' and '$to' and mattype = 'KM'",36);
       	}elseif ($classnya == 'FABRIC GREIGE') {
-      		tampil_data("select bpbno_int, bpbdate, 'NIRWANA ALABARE GARMENT' profit_center, invno, jenis_dok, nomor_aju no_aju, tanggal_aju, bcno, bcdate, ms.supplier, a.pono, '-' tipe_com, invno, a.id_item,id_contents, mi.goods_code, mi.itemdesc, mi.color, mi.size, a.qty, a.qty qty_good, '0' qty_reject, a.unit, a.berat_bersih, a.remark, a.username, a.confirm_by, '-' ws, '-' styleno, a.curr, a.price, a.price price_act, jenis_trans, '-' reffno, '-' rak, '-' nama_panel, '-' color_gmt from bpb a INNER JOIN masteritem mi on mi.id_item = a.id_item 
-        left join 
-								(
-								select a.id as id_gen ,e.id_contents from masterdesc a 
-								left join mastercolor b on a.id_color = b.id
-								left join masterweight c on b.id_weight = c.id
-								left join masterlength d on c.id_length = d.id
-								left join masterwidth e on d.id_width = e.id
-								) mc on mi.id_gen = mc.id_gen	
-      			INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bpbdate BETWEEN '$from' and '$to' and mattype = 'G'",37);
+      		tampil_data("select bpbno_int, bpbdate, 'NIRWANA ALABARE GARMENT' profit_center, invno, jenis_dok, nomor_aju no_aju, tanggal_aju, bcno, bcdate, ms.supplier, a.pono, '-' tipe_com, invno, a.id_item, mi.goods_code, mi.itemdesc, mi.color, mi.size, a.qty, a.qty qty_good, '0' qty_reject, a.unit, a.berat_bersih, a.remark, a.username, a.confirm_by, '-' ws, '-' styleno, a.curr, a.price, a.price price_act, jenis_trans, '-' reffno, '-' rak, '-' nama_panel, '-' color_gmt from bpb a INNER JOIN masteritem mi on mi.id_item = a.id_item INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bpbdate BETWEEN '$from' and '$to' and mattype = 'G'",36);
       	}elseif ($classnya == 'BENANG') {
-      		tampil_data("select bpbno_int, bpbdate, 'NIRWANA ALABARE GARMENT' profit_center, invno, jenis_dok, nomor_aju no_aju, tanggal_aju, bcno, bcdate, ms.supplier, a.pono, '-' tipe_com, invno, a.id_item, id_contents, mi.goods_code, mi.itemdesc, mi.color, mi.size, a.qty, a.qty qty_good, '0' qty_reject, a.unit, a.berat_bersih, a.remark, a.username, a.confirm_by, '-' ws, '-' styleno, a.curr, a.price, a.price price_act, jenis_trans, '-' reffno, '-' rak, '-' nama_panel, '-' color_gmt from bpb a INNER JOIN masteritem mi on mi.id_item = a.id_item
-        left join 
-								(
-								select a.id as id_gen ,e.id_contents from masterdesc a 
-								left join mastercolor b on a.id_color = b.id
-								left join masterweight c on b.id_weight = c.id
-								left join masterlength d on c.id_length = d.id
-								left join masterwidth e on d.id_width = e.id
-								) mc on mi.id_gen = mc.id_gen	
-      		 INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bpbdate BETWEEN '$from' and '$to' and mattype = 'B'",37);
+      		tampil_data("select bpbno_int, bpbdate, 'NIRWANA ALABARE GARMENT' profit_center, invno, jenis_dok, nomor_aju no_aju, tanggal_aju, bcno, bcdate, ms.supplier, a.pono, '-' tipe_com, invno, a.id_item, mi.goods_code, mi.itemdesc, mi.color, mi.size, a.qty, a.qty qty_good, '0' qty_reject, a.unit, a.berat_bersih, a.remark, a.username, a.confirm_by, '-' ws, '-' styleno, a.curr, a.price, a.price price_act, jenis_trans, '-' reffno, '-' rak, '-' nama_panel, '-' color_gmt from bpb a INNER JOIN masteritem mi on mi.id_item = a.id_item INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bpbdate BETWEEN '$from' and '$to' and mattype = 'B'",36);
       	}else{
 
       	tampil_data("select if(bpbno_int!='',bpbno_int,bpbno) bpbno,bpbdate,'NIRWANA ALABARE GARMENT' profit_center, invno,jenis_dok,right(nomor_aju,6),tanggal_aju,
-      		lpad(bcno,6,'0') bcno,bcdate,supplier,a.pono,z.tipe_com,invno,a.id_item,id_contents,goods_code,$fld itemdesc,s.color,s.size,
+      		lpad(bcno,6,'0') bcno,bcdate,supplier,a.pono,z.tipe_com,invno,a.id_item,goods_code,$fld itemdesc,s.color,s.size,
       		a.qty,(a.qty-coalesce(a.qty_reject,0)) as qty_good,coalesce(a.qty_reject,0) as qty_reject,
       		a.unit,berat_bersih,remark,$flduser,a.confirm_by,tmpjo.kpno ws,tmpjo.styleno,a.curr,if(z.tipe_com !='Regular','0',a.price)price,a.price, a.jenis_trans,a.reffno,lr.rak,cp.nama_panel,cc.color_gmt 
       		from bpb a inner join $tbl s on a.id_item=s.id_item
-      		left join 
-									(
-									select a.id as id_gen ,e.id_contents from masterdesc a 
-									left join mastercolor b on a.id_color = b.id
-									left join masterweight c on b.id_weight = c.id
-									left join masterlength d on c.id_length = d.id
-									left join masterwidth e on d.id_width = e.id
-									) mc on s.id_gen = mc.id_gen
       		left join (select brh.bpbno as nomorbpb, id_jo, id_item, id_rak_loc, group_concat(distinct kode_rak , ' ', nama_rak) rak from bpb_roll_h brh 
       		inner join bpb_roll br on brh.id = br.id_h
       		inner join master_rak mr on br.id_rak_loc = mr.id
@@ -715,7 +603,7 @@ else
       		group by id_item, id_jo) cp on s.id_gen = cp.id_item and a.id_jo = cp.id_jo
       		left join (select id_item, id_jo, group_concat(distinct(color)) color_gmt from bom_jo_item k inner join so_det sd on k.id_so_det = sd.id where status = 'M' and k.cancel = 'N' group by id_item, id_jo) cc on s.id_gen = cc.id_item and a.id_jo = cc.id_jo    
       		where $where and bpbdate between '$from' and '$to'
-      		$que_cl $que_supp order by bpbdate",37);
+      		$que_cl $que_supp order by bpbdate",36);
       }
       	// echo $classnya;
 
