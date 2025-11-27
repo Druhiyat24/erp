@@ -113,7 +113,7 @@ echo "<th>Type #</th>";
 echo "<th>Inv/SJ #</th>";
 }
 echo "<th>Id Item</th>";
-if ($tipenya=="Bahan Baku")
+if ($tipenya=="Bahan Baku" || $tipenya=="Barang Dalam Proses")
 {
 	echo "<th>Id Contents</th>";
 }	
