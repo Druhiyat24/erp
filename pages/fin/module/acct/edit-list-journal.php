@@ -668,7 +668,7 @@ $date = ($r['reff_date']=='' || $r['reff_date']=='1970-01-01') ? '' : date('d-m-
            <div class="form-row col">
             <div class="col-md-3 mb-3">                              
             <button type="button" style="border-radius: 6px" class="btn-outline-primary btn-sm" name="simpan" id="simpan"><span class="fa fa-floppy-o"></span> Save</button>                
-            <button type="button" style="border-radius: 6px" class="btn-outline-danger btn-sm" name="batal" id="batal" onclick="location.href='memorial-journal.php'"><span class="fa fa-angle-double-left"></span> Back</button>           
+            <button type="button" style="border-radius: 6px" class="btn-outline-danger btn-sm" name="batal" id="batal" onclick="location.href='edit-journal.php'"><span class="fa fa-angle-double-left"></span> Back</button>           
             </div>
             </div>                                    
         </form>
