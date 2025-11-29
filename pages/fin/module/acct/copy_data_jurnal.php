@@ -31,7 +31,7 @@ $execute4 = mysqli_query($conn2,$sql4);
 echo $status;
 
 
-if(!$executes){	
+if(!$execute){	
    // die('Error: ' . mysqli_error());	
 }else{
 	$sql2 = "delete from sb_memorial_journal where no_mj = '$no_mj'";
