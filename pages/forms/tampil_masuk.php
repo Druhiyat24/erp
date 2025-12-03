@@ -1202,7 +1202,7 @@ else
 			$jenis_dok = $data['JENIS_DOKUMEN'];
 			$no_dok = $data['BCNO'];
 			if ($no>1)
-			{	$cri_next=$data['JENIS_BARANG']; }
+			{	$cri_next=$data['BCNO']; }
 
 			$tgl_dok = fd_view($data['BCDATE']);
 			$matclass = isset($data['matclass']) ? $data['matclass'] : '-';
