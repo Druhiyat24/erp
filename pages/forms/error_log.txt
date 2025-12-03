@@ -4423,3 +4423,6 @@
 [09-Oct-2025 11:13:29 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 4718592) (tried to allocate 458752 bytes) in C:\xampp\htdocs\erp\mpdf57\mpdf.php on line 21564
 [09-Oct-2025 11:13:29 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 5242880) (tried to allocate 458752 bytes) in C:\xampp\htdocs\erp\mpdf57\mpdf.php on line 26741
 [09-Oct-2025 11:13:30 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 5242880) (tried to allocate 458752 bytes) in C:\xampp\htdocs\erp\mpdf57\mpdf.php on line 26741
+[27-Nov-2025 10:25:53 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in C:\xampp\htdocs\erp\pages\forms\ajax_bpb_gen_new_1.php on line 150
+[27-Nov-2025 10:26:16 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in C:\xampp\htdocs\erp\pages\forms\ajax_bpb_gen_new_1.php on line 150
+[28-Nov-2025 04:57:41 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\cetaksj.php on line 3

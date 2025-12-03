@@ -175,6 +175,8 @@ UNION
 select mi.id_item, mi.goods_code, mi.itemdesc, '0' qty_sa,'0' qty_in,sum(bppb.qty) qty_out, bppb.unit from bppb 
 inner join masteritem mi on bppb.id_item = mi.id_item
 where bppbdate >= '$fromcri' and bppbdate <= '$tocri' and mi.mattype = 'N' and non_aktif = 'N' and bppb.bppbno like 'SJ-M%'
+or 
+bppbdate >= '$fromcri' and bppbdate <= '$tocri' and mi.mattype = 'M' and non_aktif = 'N' and bppb.bppbno like 'SJ-M%'
 group by mi.id_item, bppb.unit
 ) mutasi
 group by id_item

@@ -100,7 +100,7 @@ else if ($mode=="Scrap")
 
 { $titlenya="Scrap"; 
 
-  $filternya="a.mattype in ('S','L') and bppbno_int not like '%SMP%'";
+  $filternya="a.mattype in ('S','L')";
 
 }
 

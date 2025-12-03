@@ -93,6 +93,8 @@ else if ($mod=="lap_bc")
 {	include "lap_bc.php";	}
 else if ($mod=="lap_mutasi_wip")
 {	include "lap_data_mutasi_wip.php";	}
+else if ($mod=="lap_data_mutasi_scrap_knitting")
+{	include "lap_data_mutasi_scrap_knitting.php";	}
 //==adyz=====================================================
 else if ($mod==77)
 {	include "lap_in_ig.php";	}

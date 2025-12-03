@@ -12,21 +12,7 @@ $img_err = "'../../images/error.jpg'";
 
 # START CEK HAK AKSES KEMBALI
 
-if($mode=="WIP")
-
-{
-
-  $akses = flookup("mnuBPPBWIP_JO","userpassword","username='$user'");
-
-}
-
-else
-
-{
-
-  $akses = flookup("mnuBPPBScrap_JO","userpassword","username='$user'");
-
-}
+$akses = flookup("mnuBPBScrap_SJ","userpassword","username='$user'");
 
 $akses_date = flookup("original_date","userpassword","username='$user'");
 
@@ -42,15 +28,9 @@ $mod = $_GET['mod'];
 
 $nm_tbl="bppb";
 
-$rscomp=mysqli_fetch_array(mysqli_query($con_new,"select * from mastercompany"));
+$nm_company = flookup("company","mastercompany","company!=''");
 
-  $nm_company = $rscomp["company"];
-
-  $st_company = $rscomp["status_company"];
-
-  $jenis_company = $rscomp["jenis_company"];
-
-  $logo_company = $rscomp["logo_company"];
+$st_company = flookup("status_company","mastercompany","company!=''");
 
 $c_nom_order=$capt_no_ord;
 
@@ -72,7 +52,11 @@ if (isset($_GET['kp'])) {$kpno = $_GET['kp']; } else {$kpno = "";}
 
 
 
-if (($bppbno!="" AND $id_item=="") or $bppbno=="")
+if ($bppbno=="")
+
+{ $st_txt_tgl_h = "id='datepicker2'"; $st_txt_tgl_h1 = "id='datepicker1'"; $st_txt_h = ""; }
+
+else if ($bppbno!="" AND $id_item=="")
 
 { $st_txt_tgl_h = "readonly"; $st_txt_tgl_h1 = "readonly"; $st_txt_h = "readonly"; }
 
@@ -100,7 +84,7 @@ else if ($mode=="Scrap")
 
 { $titlenya="Scrap"; 
 
-  $filternya="a.mattype in ('S','L') and bppbno_int not like '%SMP%'";
+  $filternya="a.mattype in ('S','L')";
 
 }
 
@@ -194,8 +178,6 @@ if ($bppbno=="" AND $id_item=="")
 
   $txtsubtujuan = "";
 
-  $last_date_bppb = date('d M Y');
-
 }
 
 else if ($bppbno<>"" AND $id_item=="")
@@ -220,9 +202,9 @@ else if ($bppbno<>"" AND $id_item=="")
 
   $berat_kotor = "";
 
-  $query = mysqli_query($con_new,"SELECT * FROM $nm_tbl where bppbno='$bppbno' ORDER BY id_item ASC");
+  $query = mysql_query("SELECT * FROM $nm_tbl where bppbno='$bppbno' ORDER BY id_item ASC");
 
-  $data = mysqli_fetch_array($query);
+  $data = mysql_fetch_array($query);
 
   $nomor_mobil = $data['nomor_mobil'];
 
@@ -248,17 +230,15 @@ else if ($bppbno<>"" AND $id_item=="")
 
   $txtsubtujuan = $data['subtujuan'];
 
-  $last_date_bppb = date('d M Y',strtotime($data['last_date_bppb']));
-
 }
 
 else
 
-{ $query = mysqli_query($con_new,"SELECT * FROM $nm_tbl where bppbno='$bppbno' 
+{ $query = mysql_query("SELECT * FROM $nm_tbl where bppbno='$bppbno' 
 
     and id='$id_item' ORDER BY id_item ASC");
 
-  $data = mysqli_fetch_array($query);
+  $data = mysql_fetch_array($query);
 
   $id_item = $data['id_item'];
 
@@ -304,8 +284,6 @@ else
 
   $txtsubtujuan = $data['subtujuan'];
 
-  $last_date_bppb = date('d M Y',strtotime($data['last_date_bppb']));
-
 }
 
 $frdate=date("d M Y");
@@ -331,6 +309,13 @@ if (isset($_POST['submit']))
 
 }
 
+
+
+$rsTGPER=mysql_fetch_array(mysql_query("select tgl1,tgl2 from tptglperiode where gudang='FABRIC' and stat<>'Z'"));
+
+$dtper1 = date('Y-m-d',strtotime($rsTGPER["tgl1"]));
+$dtper2 = date('Y-m-d',strtotime($rsTGPER["tgl2"]));
+
 # END COPAS EDIT
 
 # COPAS VALIDASI BUANG ELSE di IF pertama
@@ -342,6 +327,10 @@ echo "<script type='text/javascript'>";
   echo "{";
 
     echo "
+
+
+    var dtperiode1 = '$dtper1';
+    var dtperiode2 = '$dtper2';    
 
     var reqno = document.form.txtreqno.value;
 
@@ -359,11 +348,15 @@ echo "<script type='text/javascript'>";
 
     var qtykos = 0;
 
-    var qtyover = 0;
+    var uomkos = 0;
 
-    var qtys = document.form.getElementsByClassName('qtyoutclass');
+    var itmkos = 0;
 
-    var qtybts = document.form.getElementsByClassName('qtysisaclass');
+    var qtys = document.form.getElementsByClassName('qtysc');
+
+    var uoms = document.form.getElementsByClassName('unitsc');
+
+    var itms = document.form.getElementsByClassName('itemsc');
 
 
 
@@ -373,37 +366,39 @@ echo "<script type='text/javascript'>";
 
       { qtykos = qtykos + 1; }
 
+      if (qtys[i].value !== '' && uoms[i].value !== '')
+
+      { uomkos = uomkos + 1; }
+
+      if (qtys[i].value !== '' && itms[i].value !== '')
+
+      { itmkos = itmkos + 1; }
+
     }
 
-    for (var i = 0; i < qtys.length; i++) 
-
-    { if (qtys[i].value != '')
-
-      {
-
-        if (Number(qtys[i].value) > Number(qtybts[i].value))
-
-        { qtyover = Number(qtyover) + 1; }
-
-      }
-
-    }";
+    ";
 
     
 
     $img_alert = "imageUrl: '../../images/error.jpg'";    
 
-    echo "if (reqno == '') { swal({ title: 'JO # Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
+    echo "if (reqno == '') { swal({ title: 'SJ # Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
 
     echo "else if (qtykos == 0) { swal({ title: 'Tidak Ada Data', $img_alert }); valid = false; }";
 
-    echo "else if (qtyover > 0) { swal({ title: 'Stock Tidak Cukup', $img_alert }); valid = false; }";
+    echo "else if (itmkos == 0) { swal({ title: 'Item Scrap Kosong', $img_alert }); valid = false; }";
 
-    echo "else if (id_supplier == '') { swal({ title: 'Dikirim Ke Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
+    echo "else if (uomkos == 0) { swal({ title: 'Unit Kosong', $img_alert }); valid = false; }";
 
     echo "else if (invno == '') { document.form.txtinvno.focus();swal({ title: 'Nomor Inv/SJ Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
 
+    echo "else if (id_supplier == '') { swal({ title: 'Diterima Dari Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
+
     echo "else if (status_kb == '') { swal({ title: 'Jenis Dokumen Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
+
+    echo "else if (status_kb !== 'INHOUSE' && bcno == '') { document.form.txtbcno.focus();swal({ title: 'Nomor Daftar Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
+
+    echo "else if (bcdate == '') { document.form.txtbcdate.focus();swal({ title: 'Tgl. Daftar Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
 
     echo "else if (bppbdate == '') { document.form.txtbppbdate.focus();swal({ title: 'Tgl. BKB Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
 
@@ -431,53 +426,17 @@ echo "</script>";
 
 <script type="text/javascript">
 
-  <?php if ($nm_company!="PT. Sinar Gaya Busana") { ?>
-
-    function getTujuan(cri_item)
-
-    {   var html = $.ajax
-
-        ({  type: "POST",
-
-            url: 'ajax.php?modeajax=cari_tujuan',
-
-            data: "cri_item=" +cri_item,
-
-            async: false
-
-        }).responseText;
-
-        if(html)
-
-          { $("#cbotujuan").html(html); }
-
-    }
-
-  <?php } ?>
-
   function getJO()
 
   { var id_jo = $('#cboReq').val();
-
-    <?php
-
-    if($mode=="WIP")
-
-    { echo "var jenismat = 'WIP';"; }
-
-    else
-
-    { echo "var jenismat = 'Scrap';"; }
-
-    ?>
 
     var html = $.ajax
 
     ({  type: "POST",
 
-        url: 'ajax5.php?modeajax=view_list_stock_sc_jo',
+        url: 'ajax4.php?modeajax=view_list_sc',
 
-        data: {id_jo: id_jo, jenismat: jenismat},
+        data: {id_jo: id_jo},
 
         async: false
 
@@ -491,29 +450,9 @@ echo "</script>";
 
     }
 
-    $(document).ready(function() {
-
-      var table = $('#examplefix2').DataTable
-
-      ({  scrollCollapse: true,
-
-          paging: false,
-
-          fixedColumns:   
-
-          { leftColumns: 1,
-
-            rightColumns: 1
-
-          }
-
-      });
-
-    });
-
     jQuery.ajax({
 
-        url: 'ajax.php?modeajax=cari_supp_req',
+        url: 'ajax.php?modeajax=cari_supp_sc',
 
         method: 'POST',
 
@@ -541,7 +480,7 @@ echo "</script>";
 
 # COPAS ADD
 
-if ($mod=="37")
+if ($mod=="36")
 
 {
 
@@ -551,37 +490,35 @@ echo "<div class='box'>";
 
     echo "<div class='row'>";
 
-      echo "<form method='post' name='form' action='save_sc_jo.php?mod=$mod&mode=$mode&noid=$bppbno&id=$id_line' onsubmit='return validasi()'>";
+      echo "<form method='post' name='form' action='save_data_bpb_sc_sj.php?mod=$mod&mode=$mode&noid=$bppbno&id=$id_line' onsubmit='return validasi()'>";
 
         echo "<div class='col-md-3'>";
 
           echo "<div class='form-group'>";
 
-            echo "<label>JO # *</label>";
+            echo "<label>SJ # *</label>";
 
-            echo "<select class='form-control select2' multiple='multiple' style='width: 100%;' 
+            echo "<select class='form-control select2' style='width: 100%;' 
 
               name='txtreqno' id='cboReq' onchange='getJO()'>";
 
-            if($mode=="Scrap")
+            $sql="select a.bppbno isi,group_concat(distinct concat(a.bppbno_int,' ',a.bppbno,' ',jo_no,' ',ac.styleno,' ',msup.supplier)) tampil from 
 
-            { $crimat="left(bpbno,1) in ('S','L')"; }
+              bppb a inner join jo_det jod on a.id_jo=jod.id_jo 
 
-            else
+              inner join jo on jod.id_jo=jo.id 
 
-            { $crimat="left(bpbno,1) in ('C')"; }
+              inner join so on jod.id_so=so.id 
 
-            $sql="select s.id isi,concat(s.jo_no,'|',ac.styleno,'|',ac.kpno) tampil 
+              inner join act_costing ac on ac.id=so.id_cost 
 
-              from bpb a inner join jo s on a.id_jo=s.id inner join jo_det jod on s.id=jod.id_jo 
+              left join mastersupplier msup on ac.id_buyer=msup.id_supplier where 
 
-              inner join  so on jod.id_so=so.id inner join act_costing ac on so.id_cost=ac.id 
+              mid(bppbno,4,2)!='FG' and mid(bppbno,4,1) in ('A','F') 
 
-              where $crimat group by s.id";
+              and right(bppbno,1)!='R' and a.id_jo!='' and bppbdate >= '2021-01-01' group by bppbno";
 
-            #echo $sql;
-
-            IsiCombo($sql,'','');
+            IsiCombo($sql,'','Pilih SJ #');
 
             echo "</select>";
 
@@ -605,18 +542,9 @@ echo "<div class='box'>";
 
           echo "<div class='form-group'>";
 
-            echo "<label>$c51 *</label>";
-if($mode = "Scrap"){
-	//echo "123";
-	$sql = "select id_supplier isi,supplier tampil from mastersupplier WHERE Id_Supplier NOT IN('435') order by Supplier";
-}else{
-	$sql = "select id_supplier isi,supplier tampil from mastersupplier WHERE Id_Supplier IN('435') order by supplier";
-}
-            echo "<select class='form-control select2' style='width: 100%;' name='txtid_supplier'>";
+            echo "<label>Diterima Dari *</label>";
 
-            IsiCombo($sql,'',$cpil.' Dikirim Ke');
-
-            echo "</select>";
+            echo "<input type='text' class='form-control' name='txtid_supplier' id='cbosupp' readonly >";
 
           echo "</div>";
 
@@ -624,9 +552,7 @@ if($mode = "Scrap"){
 
             <button type='submit' name='submit' class='btn btn-primary'>$csim</button>
 
-            <a href='?mod=$mod&mode=$mode'>Baru</a>";
-
-        echo "</div>";
+        </div>";
 
         echo "<div class='col-md-3'>";
 
@@ -634,7 +560,7 @@ if($mode = "Scrap"){
 
             echo "<label>$c41 *</label>";
 
-            echo "<input type='text' class='form-control' name='txtinvno' placeholder='$cmas $c41' value='$invno'>";
+            echo "<input type='text' class='form-control' name='txtinvno' $st_txt_h placeholder='$cmas $c41' value='$invno'>";
 
           echo "</div>";
 
@@ -644,15 +570,15 @@ if($mode = "Scrap"){
 
             if ($st_company=="KITE") 
 
-            { $status_kb_cri="Status KITE Out"; }
+            { $status_kb_cri="Status KITE In"; }
 
             else if ($st_company=="PLB") 
 
-            { $status_kb_cri="Status PLB Out"; }
+            { $status_kb_cri="Status PLB In"; }
 
             else
 
-            { $status_kb_cri="Status KB Out"; }
+            { $status_kb_cri="Status KB In"; }
 
             $sql = "select nama_pilihan isi,nama_pilihan tampil from masterpilihan where 
 
@@ -660,18 +586,9 @@ if($mode = "Scrap"){
 
             if ($nm_company=="PT. Sinar Gaya Busana") { $callajax=""; } else { $callajax="onchange='getTujuan(this.value)'"; }
 
-            echo "<select class='form-control select2' style='width: 100%;' $callajax name='txtstatus_kb'>";
+            echo "<select class='form-control select2' style='width: 100%;' name='txtstatus_kb'>";
 
-if($mode = "Scrap"){
-	//echo "123";
-	IsiCombo($sql,$status_kb,$cpil.' '.$c46);
-}else{
-	 echo '<option value="INHOUSE">INHOUSE</option>';
-}
-
-           // IsiCombo($sql,$status_kb,$cpil.' '.$c46);
-
-		  
+            IsiCombo($sql,$status_kb,$cpil.' '.$c46);
 
             echo "</select>";
 
@@ -679,55 +596,19 @@ if($mode = "Scrap"){
 
           echo "<div class='form-group'>";
 
-            echo "<label>Tujuan Pengeluaran</label>";
+            echo "<label>Nomor Aju</label>";
 
-            echo "<select class='form-control select2' style='width: 100%;' id='cbotujuan' $st_txt_h name='txttujuan' disabled>";
-
-            if ($bpbno!="")
-
-            { $sql = "select nama_pilihan isi,nama_pilihan tampil 
-
-            from masterpilihan where kode_pilihan='$status_kb'";
-
-            IsiCombo($sql,trim($txttujuan),$cpil.' '.$c47);
-
-            }
-
-            echo "</select>";
+            echo "<input type='text' class='form-control' name='txtbcaju' placeholder='Masukan Nomor Aju' value='$bcaju'>";
 
           echo "</div>";
 
-          echo "
+          echo "<div class='form-group'>";
 
-          <div class='row'>
+            echo "<label>Tanggal Aju</label>";
 
-            <div class='col-md-6'>
+            echo "<input type='text' class='form-control' name='txttglaju' id='datepicker3' placeholder='Masukkan Tgl. Aju' value='$tglaju'>";
 
-              <div class='form-group'>
-
-                <label>Nomor Aju</label>
-
-                <input type='text' class='form-control' name='txtbcaju' $st_txt_h placeholder='Masukan Nomor Aju' value='$bcaju'>
-
-              </div>
-
-            </div>
-
-            <div class='col-md-6'>
-
-              <div class='form-group'>
-
-                <label>Tanggal Aju</label>
-
-                <input type='text' class='form-control' name='txttglaju' $st_txt_tgl_h placeholder='Masukkan Tgl. Aju' 
-
-                  value='$tglaju'>
-
-              </div>
-
-            </div>
-
-          </div>";
+          echo "</div>";
 
         echo "</div>";
 
@@ -741,17 +622,17 @@ if($mode = "Scrap"){
 
             else
 
-            { echo "<label>Nomor BPPB *</label>"; }
+            { echo "<label>$c52 *</label>"; }
 
-            echo "<input type='text' class='form-control' name='txtbppbno' readonly placeholder='$cmas Nomor BPPB' value='$bppbno'>";
+            echo "<input type='text' class='form-control' name='txtbppbno' readonly placeholder='$cmas $c52' value='$bppbno'>";
 
           echo "</div>";
 
           echo "<div class='form-group'>";
 
-            echo "<label>Tanggal BPPB *</label>";
+            echo "<label>$c53 *</label>";
 
-            echo "<input type='text' class='form-control' name='txtbppbdate' onchange='getSat(this.value)' placeholder='$cmas Tanggal BPPB' value='$bppbdate'>";
+            echo "<input type='text' class='form-control' name='txtbppbdate' onchange='getSat(this.value)' $st_txt_tgl_h placeholder='$cmas $c53' value='$bppbdate'>";
 
           echo "</div>";
 
@@ -769,9 +650,46 @@ if($mode = "Scrap"){
 
             echo "<input type='text' class='form-control' name='txtbcdate' $st_txt_tgl_h1 placeholder='Masukkan Tgl. Daftar' value='$bcdate'>";
 
-          echo "</div>";
+          echo "</div>";          
 
         echo "</div>";
+
+        echo "<div class='col-md-3'>";
+
+          echo "<div class='form-group'>";
+
+            echo "<label>Jenis Pemasukan *</label>";
+
+  echo "                <select class='form-control select2' style='width: 100%;' name='txtjns_in' required>";
+
+
+                  if ($mode=="Scrap")
+                  {
+
+                    $sqljns_in = "select nama_trans isi,nama_trans tampil from mastertransaksi where 
+
+                          jenis_trans='IN' and jns_gudang = 'SCRAP' order by id";
+
+                    IsiCombo($sqljns_in,'','Pilih Jenis Pemasukan');    
+
+                  } 
+                  else
+                  {
+
+                    $sqljns_in = "select nama_trans isi,nama_trans tampil from mastertransaksi where 
+
+                          jenis_trans='IN' and jns_gudang = 'FACC' order by id";
+
+                    IsiCombo($sqljns_in,'','Pilih Jenis Pemasukan');    
+
+                  } 
+
+  
+  echo  "                </select>"; 
+
+          echo "</div>";          
+
+        echo "</div>";        
 
         ?>
 
@@ -807,7 +725,7 @@ echo "</div>";
 
 # END COPAS ADD
 
-if ($mod=="37v")
+if ($mod=="36v")
 
 {
 
@@ -817,40 +735,19 @@ if ($mod=="37v")
 
   <?php 
 
-$area = "AND ms.area IN('F','LINE')";
+  if ($mode=="Scrap")
 
-  if ($mode=="FG")
-
-  { $fldnyacri=" mid(bppbno,4,2)='FG' "; $mod2=65; }
-
-  else if ($mode=="Mesin")
-
-  { $fldnyacri=" mid(bppbno,4,1)='M' "; $mod2=63; }
-
-  else if ($mode=="General")
-
-  { $fldnyacri=" mid(bppbno,4,1)='N' "; $mod2=63; }
-
-  else if ($mode=="Scrap")
-
-  { $fldnyacri=" mid(bppbno,4,1) in ('S','L') "; $mod2=37;
-		$area = "AND ms.area NOT IN('F','LINE')";
-
-  }
-
-  else if ($mode=="WIP")
-
-  { $fldnyacri=" mid(bppbno,4,1)='C' "; $mod2=37; }
+  { $fldnyacri=" left(bpbno,1) in ('S','L') "; $mod2=36; }
 
   else 
 
-  { $fldnyacri=" mid(bppbno,4,1) in ('A','F','B') and mid(bppbno,4,2)!='FG' "; $mod2=37; }
+  { $fldnyacri=" mid(bppbno,4,1) in ('A','F','B') and mid(bppbno,4,2)!='FG' "; $mod2=36; }
 
   ?>
 
   <div class="box-header">
 
-    <h3 class="box-title">List Pengeluaran <?PHP echo $titlenya; ?></h3>
+    <h3 class="box-title">List Pemasukan <?php echo $titlenya; ?></h3>
 
     <a href='../forms/?mod=<?php echo $mod2; ?>&mode=<?php echo $mode; ?>' class='btn btn-primary btn-s'>
 
@@ -860,18 +757,17 @@ $area = "AND ms.area IN('F','LINE')";
 
   </div>
 
-
   <div class='row'>
     <form action="" method="post">
 
     <div class="box-header">
       <div class='col-md-2'>                            
-        <label>From Date (BPPB Scrap) : </label>
+        <label>From Date (BPB) : </label>
         <input type='text' class='form-control' id='datepicker1' name='frdate' placeholder='Masukkan From Date' value='<?php echo $perf;?>' >
              
       </div>
       <div class='col-md-2'>
-        <label>To Date (BPPB Scrap) : </label>
+        <label>To Date (BPB) : </label>
         <input type='text' class='form-control' id='datepicker2' name='kedate' placeholder='Masukkan To Date' value='<?php echo $pert;?>' >
       </div> 
       <div class='col-md-3'>
@@ -883,44 +779,27 @@ $area = "AND ms.area IN('F','LINE')";
 
    </div>
     </form>
-  </div>  
+  </div> 
 
   <div class="box-body">
 
-    <table id="examplefix3" class="display responsive" style="width:100%;font-size:10px;">
+    <table id="examplefix3" class="display responsive" style="width:100%">
 
       <thead>
 
         <tr>
 
-          <th>Nomor BPPB</th>
+          <th>Nomor BPB</th>
 
-          <th>Tanggal BPPB</th>
-          
-          <!-- <th>Nomor Req</th> -->
+          <th>Nomor SJ</th>
+
+          <th>Tanggal BPB</th>
 
           <?php if($akses_date=="1") { ?>
+          <th>Original BPB Date</th>
+          <?php } ?>  
 
-          <th>Original BPPB Date</th>
-
-          <?php } ?>
-
-
-          <th>Buyer</th>
-
-          <th>Style #</th>
-
-          <?php if($jenis_company=="VENDOR LG") { ?>
-
-          <th>JO #</th>
-
-          <?php } else { ?>
-
-          <th>WS #</th>
-
-          <?php } ?>
-
-          <th>Penerima</th>
+          <th>Dari</th>
 
           <th>No. Invoice</th>
 
@@ -928,8 +807,10 @@ $area = "AND ms.area IN('F','LINE')";
 
           <th>Jenis BC</th>
 
-          <th>Created By</th>
+          <th>Jenis Trans</th>
 
+          <th>Created By</th>
+		  
           <th>Status</th>
 
           <th></th>
@@ -948,73 +829,43 @@ $area = "AND ms.area IN('F','LINE')";
 
         if ($mode=="FG") { $tbl_mst="masterstyle"; $fld_desc="s.itemname"; } else { $tbl_mst="masteritem"; $fld_desc="s.itemdesc"; }
 
-        $sql="SELECT a.*,s.goods_code,$fld_desc itemdesc,ms.supplier,mb.supplier buyer, a.last_date_bppb,
-          ac.styleno,ac.kpno,a.username,group_concat(distinct concat(' ',jo.jo_no)) jo_nya, 
-          if(ms.area='F' or ms.area='LINE','INTERNAL','EXTERNAL') out_to,a.confirm    
-          FROM bppb a inner join $tbl_mst s on a.id_item=s.id_item
+        $sql="SELECT a.*,s.goods_code,$fld_desc itemdesc,supplier, a.last_date_bpb, a.confirm_by, a.confirm_date 
+
+          FROM bpb a inner join $tbl_mst s on a.id_item=s.id_item
+
           inner join mastersupplier ms on a.id_supplier=ms.id_supplier 
-          inner join jo_det jod on a.id_jo=jod.id_jo 
-          inner join jo on jod.id_jo=jo.id  
-          inner join so on jod.id_so=so.id 
-          inner join act_costing ac on so.id_cost=ac.id 
-          inner join mastersupplier mb on ac.id_buyer=mb.id_supplier  
-          where $fldnyacri and a.id_jo!='' $area and a.bppbdate >='$tglf' and a.bppbdate <='$tglt'  
-          GROUP BY a.bppbno ASC order by bppbdate desc";
-        // echo $sql;
-        $query = mysqli_query($con_new,$sql);
-        while($data = mysqli_fetch_array($query))
-        { 
 
-          if($logo_company=="Z")
+          where $fldnyacri and a.bpbdate >= '$tglf' and a.bpbdate <= '$tglt'
 
-          {
+          GROUP BY a.bpbno ASC order by bpbdate desc limit 1000";
 
-            $createby=$data['username'];
+        $query = mysql_query($sql);
 
-          }
+        #echo $sql;
+
+        while($data = mysql_fetch_array($query))
+
+        { echo "<tr>";
+
+          if($data['bpbno_int']!="")
+
+          { echo "<td>$data[bpbno_int]</td>"; }
 
           else
 
-          {
+          { echo "<td>$data[bpbno]</td>"; }
 
-            $createby=$data['username']." ".fd_view_dt($data['dateinput']);
+          echo "
 
-          }
+            <td>$data[bppbno]</td>
 
-          echo "<tr>";
-
-            if($data['bppbno_int']!="")
-
-            { echo "<td>$data[bppbno_int]</td>"; }
-
-            else
-
-            { echo "<td>$data[bppbno]</td>"; }
-
-            echo "<td>".fd_view($data['bppbdate'])."</td>";
-            #echo "
-
-            #<td>$data[bppbno_req]</td>";
+            <td>$data[bpbdate]</td>";
 
             if($akses_date=="1") {
+            echo "<td>".fd_view($data['last_date_bpb'])."</td>";
+            } 
 
-            echo "<td>".fd_view($data['last_date_bppb'])."</td>";
-
-            }
-            echo "<td>$data[buyer]</td>";
-            echo "<td>$data[styleno]</td>";
-
-            if($jenis_company=="VENDOR LG")
-
-            { echo "<td>$data[jo_nya]</td>"; }
-
-            else
-
-            { echo "<td>$data[kpno]</td>"; }
-
-            echo "
-
-            <td>$data[supplier]</td>
+            echo "<td>$data[supplier]</td>
 
             <td>$data[invno]</td>
 
@@ -1022,54 +873,41 @@ $area = "AND ms.area IN('F','LINE')";
 
             <td>$data[jenis_dok]</td>
 
-            <td>$createby</td>";
+            <td>$data[jenis_trans]</td>
 
-            if($data['confirm']=='Y')
+            <td>$data[username] $data[dateinput]</td>
+			
+            <td>$data[confirm_by] $data[confirm_date]</td>
 
-            { if($logo_company=="S") { $captses="Confirmed By"; } else { $captses="Sesuai"; }
+            <td>
 
-              echo "
+              <a href='?mod=36e&mode=$mode&noid=$data[bpbno]'
 
-              <td>$captses ".$data['confirm_by']." (".fd_view_dt($data['confirm_date']).")</td>
+                data-toggle='tooltip' title='$cub'><i class='fa fa-pencil'></i>
 
-              <td></td>"; 
+              </a>
 
-            }
+            </td>"; 
 
-            else
+            if ($print_sj=="1")
 
             { echo "
 
-              <td></td>
-
               <td>
 
-                <a href='?mod=37e&mode=$mode&noid=$data[bppbno]'
+                <a href='cetaksj.php?mode=In&noid=$data[bpbno]' 
 
-                  data-toggle='tooltip' title='$cub'><i class='fa fa-pencil'></i>
-
-                </a>
-
-              </td>"; 
-
-            } 
-
-            if(
-                ($print_sj=="1" and $data['out_to']=="INTERNAL") or 
-                ($print_sj=="1" and $data['out_to']=="EXTERNAL" and $data['confirm']=="Y")
-              )
-            { 
-              echo "
-              <td>
-                <a href='cetaksj.php?mode=Out&noid=$data[bppbno]' 
                   data-toggle='tooltip' title='Cetak'><i class='fa fa-print'></i>
+
                 </a>
+
               </td>"; 
+
             }
+
             else
-            { 
-              echo "<td></td>"; 
-            }
+
+            { echo "<td></td>"; }
 
           echo "</tr>";
 

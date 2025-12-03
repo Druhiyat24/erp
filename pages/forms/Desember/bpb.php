@@ -1847,7 +1847,7 @@ if ($mod=="51v" or $mod=="52v" or $mod=="53v"
 
   else if ($mode=="Scrap")
 
-  { $fldnyacri=" left(bpbno,1) in ('S','L') and bpbno_int  not like '%SMP%'"; $mod2=52; }
+  { $fldnyacri=" left(bpbno,1) in ('S','L') "; $mod2=52; }
 
   else if ($mode=="WIP")
 
