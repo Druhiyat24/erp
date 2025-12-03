@@ -426,7 +426,7 @@ $id_contents ="id_contents";
 								left join masterlength d on c.id_length = d.id
 								left join masterwidth e on d.id_width = e.id
 								) mc on mi.id_gen = mc.id_gen
-      			INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bPpbdate BETWEEN '$from' and '$to' and mattype = 'KM'",33);
+      			INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bPpbdate BETWEEN '$from' and '$to' and a.bppbno_int like '%GM/%'",33);
       	}elseif ($classnya == 'FABRIC GREIGE') {
       		tampil_data("select if(a.bppbno_int!='',a.bppbno_int,a.bppbno) bppbno, IF(a.bppbno_req != '', a.bppbno_req, '-') bppbno_req, a.bppbdate, 'NIRWANA ALABARE GARMENT' profit_center, a.invno, a.jenis_dok, a.nomor_aju no_aju, a.tanggal_aju, a.bcno, a.bcdate, ms.supplier, a.id_item, id_contents,mi.goods_code, mi.itemdesc, mi.color, mi.size, a.qty, a.qty qty_good, 0 qty_reject, a.unit, a.berat_bersih, a.remark, a.username, a.confirm_by, '-' ws, '-' styleno, a.curr, a.price, '-' idws_act, a.jenis_trans, '-' nama_panel, '-' color_gmt, a.jenis_trans jenis_pengeluaran, a.id_jo, '-' style_aktual from bppb a INNER JOIN masteritem mi 
                 				left join 
@@ -437,7 +437,7 @@ $id_contents ="id_contents";
 								left join masterlength d on c.id_length = d.id
 								left join masterwidth e on d.id_width = e.id
 								) mc on mi.id_gen = mc.id_gen
-      			on mi.id_item = a.id_item INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bPpbdate BETWEEN '$from' and '$to' and mattype = 'G'",33);
+      			on mi.id_item = a.id_item INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bppbdate BETWEEN '$from' and (a.bppbno_int like '%GG/%' OR a.bppbno_int like '%SGG/%')",33);
       	}elseif ($classnya == 'BENANG') {
       		tampil_data("select if(a.bppbno_int!='',a.bppbno_int,a.bppbno) bppbno, IF(a.bppbno_req != '', a.bppbno_req, '-') bppbno_req, a.bppbdate, 'NIRWANA ALABARE GARMENT' profit_center, a.invno, a.jenis_dok, a.nomor_aju no_aju, a.tanggal_aju, a.bcno, a.bcdate, ms.supplier, a.id_item,id_contents, mi.goods_code, mi.itemdesc, mi.color, mi.size, a.qty, a.qty qty_good, 0 qty_reject, a.unit, a.berat_bersih, a.remark, a.username, a.confirm_by, '-' ws, '-' styleno, a.curr, a.price, '-' idws_act, a.jenis_trans, '-' nama_panel, '-' color_gmt, a.jenis_trans jenis_pengeluaran, a.id_jo, '-' style_aktual from bppb a INNER JOIN masteritem mi on mi.id_item = a.id_item 
                 				left join 
@@ -448,7 +448,7 @@ $id_contents ="id_contents";
 								left join masterlength d on c.id_length = d.id
 								left join masterwidth e on d.id_width = e.id
 								) mc on mi.id_gen = mc.id_gen
-      			INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bPpbdate BETWEEN '$from' and '$to' and mattype = 'B'",33);
+      			INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bPpbdate BETWEEN '$from' and '$to' and a.bppbno_int like '%GB/%'",33);
       	}elseif ($classnya == 'FABRIC' && $from < '2025-01-01') {
       		tampil_data("select if(bppbno_int!='',bppbno_int,bppbno) bppbno,a.bppbno_req,bppbdate,'NIRWANA ALABARE GARMENT' profit_center, invno,jenis_dok,right(nomor_aju,6),tanggal_aju,
       			lpad(bcno,6,'0') bcno,bcdate,supplier,a.id_item,$id_contents,goods_code,$fld itemdesc,s.color,s.size,
@@ -707,7 +707,7 @@ else
 								left join masterlength d on c.id_length = d.id
 								left join masterwidth e on d.id_width = e.id
 								) mc on mi.id_gen = mc.id_gen	
-      			INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bpbdate BETWEEN '$from' and '$to' and mattype = 'KM'",37);
+      			INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bpbdate BETWEEN '$from' and '$to' and a.bpbno_int like '%GM/%'",37);
       	}elseif ($classnya == 'FABRIC GREIGE') {
       		tampil_data("select bpbno_int, bpbdate, 'NIRWANA ALABARE GARMENT' profit_center, invno, jenis_dok, nomor_aju no_aju, tanggal_aju, bcno, bcdate, ms.supplier, a.pono, '-' tipe_com, invno, a.id_item,id_contents, mi.goods_code, mi.itemdesc, mi.color, mi.size, a.qty, a.qty qty_good, '0' qty_reject, a.unit, a.berat_bersih, a.remark, a.username, a.confirm_by, '-' ws, '-' styleno, a.curr, a.price, a.price price_act, jenis_trans, '-' reffno, '-' rak, '-' nama_panel, '-' color_gmt from bpb a INNER JOIN masteritem mi on mi.id_item = a.id_item 
         left join 
@@ -718,7 +718,7 @@ else
 								left join masterlength d on c.id_length = d.id
 								left join masterwidth e on d.id_width = e.id
 								) mc on mi.id_gen = mc.id_gen	
-      			INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bpbdate BETWEEN '$from' and '$to' and mattype = 'G'",37);
+      			INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bpbdate BETWEEN '$from' and '$to' and (a.bpbno_int like '%GG/%' OR a.bpbno_int like '%SGG/%')",37);
       	}elseif ($classnya == 'BENANG') {
       		tampil_data("select bpbno_int, bpbdate, 'NIRWANA ALABARE GARMENT' profit_center, invno, jenis_dok, nomor_aju no_aju, tanggal_aju, bcno, bcdate, ms.supplier, a.pono, '-' tipe_com, invno, a.id_item, id_contents, mi.goods_code, mi.itemdesc, mi.color, mi.size, a.qty, a.qty qty_good, '0' qty_reject, a.unit, a.berat_bersih, a.remark, a.username, a.confirm_by, '-' ws, '-' styleno, a.curr, a.price, a.price price_act, jenis_trans, '-' reffno, '-' rak, '-' nama_panel, '-' color_gmt from bpb a INNER JOIN masteritem mi on mi.id_item = a.id_item
         left join 
@@ -729,7 +729,7 @@ else
 								left join masterlength d on c.id_length = d.id
 								left join masterwidth e on d.id_width = e.id
 								) mc on mi.id_gen = mc.id_gen	
-      		 INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bpbdate BETWEEN '$from' and '$to' and mattype = 'B'",37);
+      		 INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bpbdate BETWEEN '$from' and '$to' and (a.bpbno_int like '%GB/%' OR a.bpbno_int like '%BPB/NAK%') ",37);
       	}elseif ($classnya == 'FABRIC' && $from < '2025-01-01') {
       		tampil_data("select if(bpbno_int!='',bpbno_int,bpbno) bpbno,bpbdate,'NIRWANA ALABARE GARMENT' profit_center, invno,jenis_dok,right(nomor_aju,6),tanggal_aju,
       		lpad(bcno,6,'0') bcno,bcdate,supplier,a.pono,z.tipe_com,invno,a.id_item,id_contents,goods_code,$fld itemdesc,s.color,s.size,
