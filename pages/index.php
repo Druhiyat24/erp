@@ -179,6 +179,8 @@ if ($dalam_perbaikan == "Y") {
                     </div>
                   </div>
                 <?php } ?>
+
+                <?php if ($user != 'guest') { ?>
                 <?php if ($finance == "1") { ?>
                   <div class='col-md-2' style="width: auto !important;">
                     <div class='form-group'>
@@ -187,7 +189,7 @@ if ($dalam_perbaikan == "Y") {
                           <img src='../images/finance.jpg' class='img-responsive' alt='-' style='width:150px; height:150px'>
                           <center><b>Finance & Accounting SB</b></center>
                         </a> -->
-
+                        
                          <a href='fin/module/dsb/dashboard.php' data-toggle='tooltip' title='<?php echo $cm_fin; ?>'>
                           <img src='../images/finance.jpg' class='img-responsive' alt='-' style='width:150px; height:150px'>
                           <center><b><?php echo $cm_fin; ?></b></center>
@@ -200,6 +202,7 @@ if ($dalam_perbaikan == "Y") {
                       <?php } ?>
                     </div>
                   </div>
+                   <?php } ?>
                    <?php } ?>
 
                  <!--  <?php if ($finance == "1") { ?>

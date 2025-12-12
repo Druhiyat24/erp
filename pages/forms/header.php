@@ -181,6 +181,9 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
                 if ($akses == "1") {
                   echo "<li><a href='?mod=91v&mode=Bahan_Baku'>Barang Sample</a></li>";
                 }
+                if ($user == "guest") {
+                  echo "<li><a href='?mod=91v&mode=Bahan_Baku'>Barang Sample</a></li>";
+                }
                 $akses = $rsUser["mnuBPB"];
                 if ($akses == "1") {
                   echo "<li><a href='?mod=bpb_global&mode=Bahan_Baku'>Bahan Baku Global</a></li>";

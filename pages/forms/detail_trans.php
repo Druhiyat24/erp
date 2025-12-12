@@ -516,7 +516,7 @@ $id_contents ="id_contents";
 								left join masterlength d on c.id_length = d.id
 								left join masterwidth e on d.id_width = e.id
 								) mc on mi.id_gen = mc.id_gen
-      			INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bPpbdate BETWEEN '$from' and '$to' and a.bppbno_int like '%GM/%'",33);
+      			INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bPpbdate BETWEEN '$from' and '$to' and a.bppbno_int like '%OFC%'",33);
       	}elseif ($classnya == 'FABRIC GREIGE') {
       		tampil_data("select if(a.bppbno_int!='',a.bppbno_int,a.bppbno) bppbno, IF(a.bppbno_req != '', a.bppbno_req, '-') bppbno_req, a.bppbdate, 'NIRWANA ALABARE GARMENT' profit_center, a.invno, a.jenis_dok, a.nomor_aju no_aju, a.tanggal_aju, a.bcno, a.bcdate, ms.supplier, a.id_item, id_contents,mi.goods_code, mi.itemdesc, mi.color, mi.size, a.qty, a.qty qty_good, 0 qty_reject, a.unit, a.berat_bersih, a.remark, a.username, a.confirm_by, '-' ws, '-' styleno, a.curr, a.price, '-' idws_act, a.jenis_trans, '-' nama_panel, '-' color_gmt, a.jenis_trans jenis_pengeluaran, a.id_jo, '-' style_aktual from bppb a INNER JOIN masteritem mi 
                 				left join 
@@ -527,7 +527,7 @@ $id_contents ="id_contents";
 								left join masterlength d on c.id_length = d.id
 								left join masterwidth e on d.id_width = e.id
 								) mc on mi.id_gen = mc.id_gen
-      			on mi.id_item = a.id_item INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bppbdate BETWEEN '$from' and (a.bppbno_int like '%GG/%' OR a.bppbno_int like '%SGG/%')",33);
+      			on mi.id_item = a.id_item INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bppbdate BETWEEN '$from' and '$to' and (a.bppbno_int like '%GG/%' OR a.bppbno_int like '%SGG/%')",33);
       	}elseif ($classnya == 'BENANG') {
       		tampil_data("select if(a.bppbno_int!='',a.bppbno_int,a.bppbno) bppbno, IF(a.bppbno_req != '', a.bppbno_req, '-') bppbno_req, a.bppbdate, 'NIRWANA ALABARE GARMENT' profit_center, a.invno, a.jenis_dok, a.nomor_aju no_aju, a.tanggal_aju, a.bcno, a.bcdate, ms.supplier, a.id_item,id_contents, mi.goods_code, mi.itemdesc, mi.color, mi.size, a.qty, a.qty qty_good, 0 qty_reject, a.unit, a.berat_bersih, a.remark, a.username, a.confirm_by, '-' ws, '-' styleno, a.curr, a.price, '-' idws_act, a.jenis_trans, '-' nama_panel, '-' color_gmt, a.jenis_trans jenis_pengeluaran, a.id_jo, '-' style_aktual from bppb a INNER JOIN masteritem mi on mi.id_item = a.id_item 
                 				left join 

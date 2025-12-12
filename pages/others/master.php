@@ -210,7 +210,7 @@ else
       <tbody>
         <?php
         # QUERY TABLE
-        $sql="select ITEM.*,MAPP.description from masteritem ITEM LEFT JOIN mapping_category MAPP ON MAPP.n_id = ITEM.n_code_category where ITEM.mattype='N' $queryfilter  order by ITEM.id_item desc";
+        $sql="select ITEM.*,MAPP.description from masteritem ITEM LEFT JOIN mapping_category MAPP ON MAPP.n_id = ITEM.n_code_category where ITEM.mattype IN ('N','M') $queryfilter  order by ITEM.id_item desc";
         $result=mysql_query($sql);
         #echo $sql;
         while($data = mysql_fetch_array($result))
