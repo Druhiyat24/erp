@@ -83,6 +83,17 @@ echo "<div class='box'>";
 
         //==adyz========================================================================================
         
+if ($rpt == "bc23") {
+    echo "<div class='form-group'>";
+    echo "<label>Jenis Tanggal *</label>";
+    echo "<select class='form-control select2' name='jenis_tanggal' id='jenis_tanggal' style='width:100%'>";
+    echo "   <option value='tanggal_terima'>Tanggal Terima</option>";
+    echo "   <option value='tanggal_pabean'>Tanggal Pabean</option>";
+    echo "</select>";
+    echo "</div>";
+}
+
+
         echo "<div class='form-group'>";
       		echo "<label>Dari Tanggal *</label>";
       		echo "<input type='text' class='form-control' id='datepicker1' name='txtfrom' placeholder='Masukkan Dari Tanggal' value='$from'>";

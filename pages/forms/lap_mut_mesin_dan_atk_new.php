@@ -119,16 +119,22 @@ echo "</script>";
         else
         {            
          $sql="
-SELECT 
-id_item,
-goods_code kode_brg,
-itemdesc nama_brg,
-sum(qty_sa)  saldo_awal,
-sum(qty_in) qtyrcv,
-sum(qty_out) qtyout,
-sum(qty_sa) + sum(qty_in) - sum(qty_out) qty_akhir,
-unit 
-FROM (
+WITH cek_dok as (
+    select 
+    id_item, 
+    jenis_dok
+    from bpb where bpbdate >= '2023-12-31' and bpbno not like '%FG%' 
+    AND jenis_dok IS NOT NULL
+    AND jenis_dok NOT IN ('INHOUSE', '')
+    group by id_item, jenis_dok
+union all
+    select
+    id_item,
+    'saldo_awal' AS jenis_dok 
+    from whs_sa_asset
+    where tgl_periode = '2023-12-31'
+), 
+saldo_awal as (
 select 
 id_item,
 goods_code,
@@ -137,87 +143,79 @@ sum(qty_sa) + sum(qty_in) - sum(qty_out) qty_sa,
 '0' qty_in,
 '0' qty_out,
 unit 
-from 
-(
-select mi.id_item, mi.goods_code, mi.itemdesc, '0' qty_sa,sum(bpb.qty) qty_in,'0' qty_out, bpb.unit from bpb 
-inner join masteritem mi on bpb.id_item = mi.id_item
-inner join mapping_category mc on mi.n_code_category = mc.n_id
-where bpbdate < '$fromcri' and mi.mattype = 'N' and tipe_item = 'ASSET' and non_aktif = 'N' and bpb.bpbno like 'N%'
-group by mi.id_item
-union 
-select mi.id_item, mi.goods_code, mi.itemdesc, '0' qty_sa,'0' qty_in,sum(bppb.qty) qty_out, bppb.unit from bppb 
-inner join masteritem mi on bppb.id_item = mi.id_item
-inner join mapping_category mc on mi.n_code_category = mc.n_id
-where bppbdate < '$fromcri' and mi.mattype = 'N' and tipe_item = 'ASSET' and non_aktif = 'N' and bppb.bppbno like 'SJ-N%'
-group by mi.id_item
-) trx
-group by id_item
-UNION
-select mi.id_item, mi.goods_code, mi.itemdesc, '0' qty_sa,sum(bpb.qty) qty_in,'0' qty_out, bpb.unit from bpb 
-inner join masteritem mi on bpb.id_item = mi.id_item
-inner join mapping_category mc on mi.n_code_category = mc.n_id
-where bpbdate >= '$fromcri' and bpbdate <= '$tocri' and mi.mattype = 'N' and tipe_item = 'ASSET' and non_aktif = 'N' and bpb.bpbno like 'N%'
-group by mi.id_item
-UNION
-select mi.id_item, mi.goods_code, mi.itemdesc, '0' qty_sa,'0' qty_in,sum(bppb.qty) qty_out, bppb.unit from bppb 
-inner join masteritem mi on bppb.id_item = mi.id_item
-inner join mapping_category mc on mi.n_code_category = mc.n_id
-where bppbdate >= '$fromcri' and bppbdate <= '$tocri' and mi.mattype = 'N' and tipe_item = 'ASSET' and non_aktif = 'N' and bppb.bppbno like 'SJ-N%'
-group by mi.id_item
-) mutasi
-group by id_item
-having sum(qty_sa) != '0' or sum(qty_in) != '0' or sum(qty_out) != '0' or sum(qty_sa) + sum(qty_in) - sum(qty_out) != '0'
-UNION
-SELECT 
-id_item,
-goods_code kode_brg,
-itemdesc nama_brg,
-sum(qty_sa)  saldo_awal,
-sum(qty_in) qtyrcv,
-sum(qty_out) qtyout,
-sum(qty_sa) + sum(qty_in) - sum(qty_out) qty_akhir,
-unit 
-FROM (
-select 
+from
+  (
+  select a.id_item,mi.goods_code,mi.itemdesc, qty as qty_sa, '0' qty_in, '0' qty_out, unit from whs_sa_asset a 
+  inner join masteritem mi on a.id_item = mi.id_item
+  left join mapping_category mc on mi.n_code_category = mc.n_id
+  where tgl_periode = '2023-12-31'  and tipe_item = 'ASSET'
+  union all
+  select mi.id_item, mi.goods_code, mi.itemdesc, '0' qty_sa,sum(bpb.qty) qty_in,'0' qty_out, bpb.unit from bpb 
+  inner join masteritem mi on bpb.id_item = mi.id_item
+  inner join mapping_category mc on mi.n_code_category = mc.n_id
+  where bpbdate > '2023-12-31' and bpbdate < '$fromcri' and tipe_item = 'ASSET' and non_aktif = 'N' and bpb.bpbno  not like '%FG%' and jenis_dok <> 'INHOUSE'
+  group by mi.id_item, unit
+  union all
+  select mi.id_item, mi.goods_code, mi.itemdesc, '0' qty_sa,'0' qty_in,sum(bppb.qty) qty_out, bppb.unit from bppb 
+  inner join masteritem mi on bppb.id_item = mi.id_item
+  inner join mapping_category mc on mi.n_code_category = mc.n_id
+  where bppbdate > '2023-12-31' and bppbdate < '$fromcri' and tipe_item = 'ASSET' and non_aktif = 'N' and bppb.bppbno  not like '%FG%' and jenis_dok <> 'INHOUSE'
+  group by mi.id_item, unit
+  ) sa
+group by id_item, unit
+),
+trx as (
+select
 id_item,
 goods_code,
 itemdesc,
-sum(qty_sa) + sum(qty_in) - sum(qty_out) qty_sa,
-'0' qty_in,
-'0' qty_out,
-unit 
-from 
+'0' qty_sa,
+sum(qty_in) qty_in,
+sum(qty_out) qty_out,
+unit
+from
 (
-select mi.id_item, mi.goods_code, mi.itemdesc, '0' qty_sa,sum(bpb.qty) qty_in,'0' qty_out, bpb.unit from bpb 
-inner join masteritem mi on bpb.id_item = mi.id_item
-where bpbdate < '$fromcri' and mi.mattype = 'M' and non_aktif = 'N' and bpb.bpbno like 'M%' 
-or bpbdate < '$fromcri' and mi.mattype = 'M' and non_aktif = 'N' and bpb.bpbno like 'N%'
-group by mi.id_item, bpb.unit
-union 
-select mi.id_item, mi.goods_code, mi.itemdesc, '0' qty_sa,'0' qty_in,sum(bppb.qty) qty_out, bppb.unit from bppb 
-inner join masteritem mi on bppb.id_item = mi.id_item
-where bppbdate < '$fromcri' and mi.mattype = 'M' and non_aktif = 'N' and bppb.bppbno like 'SJ-M%'
-group by mi.id_item, bppb.unit
-) trx
-group by id_item
-UNION
-select mi.id_item, mi.goods_code, mi.itemdesc, '0' qty_sa,sum(bpb.qty) qty_in,'0' qty_out, bpb.unit from bpb 
-inner join masteritem mi on bpb.id_item = mi.id_item
-where bpbdate >= '$fromcri' and bpbdate <= '$tocri' and mi.mattype = 'M' and non_aktif = 'N' and bpb.bpbno like 'M%'
-or 
-bpbdate >= '$fromcri' and bpbdate <= '$tocri' and mi.mattype = 'M' and non_aktif = 'N' and bpb.bpbno like 'N%'
-group by mi.id_item, bpb.unit
-UNION
-select mi.id_item, mi.goods_code, mi.itemdesc, '0' qty_sa,'0' qty_in,sum(bppb.qty) qty_out, bppb.unit from bppb 
-inner join masteritem mi on bppb.id_item = mi.id_item
-where bppbdate >= '$fromcri' and bppbdate <= '$tocri' and mi.mattype = 'N' and non_aktif = 'N' and bppb.bppbno like 'SJ-M%'
-group by mi.id_item, bppb.unit
-) mutasi
-group by id_item
-having sum(qty_sa) != '0' or sum(qty_in) != '0' or sum(qty_out) != '0' or sum(qty_sa) + sum(qty_in) - sum(qty_out) != '0'
+  select mi.id_item, mi.goods_code, mi.itemdesc, '0' qty_sa,sum(bpb.qty) qty_in,'0' qty_out, bpb.unit from bpb 
+  inner join masteritem mi on bpb.id_item = mi.id_item
+  inner join mapping_category mc on mi.n_code_category = mc.n_id
+  where bpbdate >= '$fromcri' and bpbdate <= '$tocri' and tipe_item = 'ASSET' and non_aktif = 'N' and bpb.bpbno  not like '%FG%' and jenis_dok <> 'INHOUSE'
+  group by mi.id_item, unit
+union all
+  select mi.id_item, mi.goods_code, mi.itemdesc, '0' qty_sa,'0' qty_in,sum(bppb.qty) qty_out, bppb.unit from bppb 
+  inner join masteritem mi on bppb.id_item = mi.id_item
+  inner join mapping_category mc on mi.n_code_category = mc.n_id
+  where bppbdate >= '$fromcri' and bppbdate <= '$tocri' and tipe_item = 'ASSET' and non_aktif = 'N' and bppb.bppbno  not like '%FG%' and jenis_dok <> 'INHOUSE'
+  group by mi.id_item, unit 
+) a
+group by id_item, unit
+  ),
+mutasi as ( 
+select
+id_item,
+goods_code as kode_brg,
+itemdesc as nama_brg,
+sum(qty_sa) saldo_awal,
+sum(qty_in) qtyrcv,
+sum(qty_out) qtyout,
+sum(qty_sa) + sum(qty_in) - sum(qty_out) as qty_akhir,
+unit
+from 
+    ( 
+    select * from saldo_awal
+    union all
+    select * from trx
+    ) a
+group by id_item, unit
+)
+
+select m.*, jenis_dok_list from mutasi m
+left join 
+(select id_item, GROUP_CONCAT(DISTINCT jenis_dok ORDER BY jenis_dok SEPARATOR ', ') as jenis_dok_list from cek_dok group by id_item) c on m.id_item = c.id_item
+having jenis_dok_list is not null
 order by kode_brg asc
 ";
  }
+ #echo $sql;
 
 // SELECT 
 // id_item,

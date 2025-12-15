@@ -161,9 +161,19 @@ if ($mode!="Out_Prob")
             <select class='form-control select2' style='width: 100%;' name='txtparitem'>
             <?php 
               if ($nm_company=="PT. Sandrafine Garment") {$fldclass="mattype";} else {$fldclass="matclass";}
-              $sql = "select IF(mattype = 'KM','FABRIC FINISHED',matclass) isi,if (matclass = '-','ACCESORIES PACKING DAN SEWING',IF(mattype = 'KM','FABRIC FINISHED',matclass)) tampil from masteritem 
-              where mattype in ('A','F','B','G','KM') 
-              group by IF(mattype = 'KM','FABRIC FINISHED',matclass) order by IF(mattype = 'KM','FABRIC FINISHED',matclass)"; 
+              $sql = "SELECT 
+                      IF(mattype = 'KM','FABRIC FINISHED', matclass) AS isi,
+                      IF(matclass = '-', 'ACCESORIES PACKING DAN SEWING', 
+                          IF(mattype = 'KM','FABRIC FINISHED', matclass)
+                      ) AS tampil
+                      FROM masteritem
+                      WHERE mattype IN ('A','F','B','G','KM')
+                      GROUP BY IF(mattype = 'KM','FABRIC FINISHED', matclass)
+                      UNION ALL
+                      SELECT 
+                          'BARANG JADI STOK' AS isi,
+                          'BARANG JADI STOK' AS tampil
+                      ORDER BY isi"; 
               IsiCombo($sql,'',$cpil.' '.$c14.' '.$rpt);
             ?>
             </select>

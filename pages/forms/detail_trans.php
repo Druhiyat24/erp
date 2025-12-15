@@ -289,7 +289,7 @@ $id_contents ="id_contents";
 			where $whereout and a.bppbdate between '$from' and '$to' 
 			$que_cl $que_supp order by a.bppbdate",27);
 	}
-	else if ($tipenya == "Barang Jadi")
+	else if ($tipenya == "Barang Jadi" && $classnya != "BARANG JADI STOK")
 	{
 						// tampil_data("select if(bppbno_int!='',bppbno_int,bppbno) bppbno,bppbdate,invno,jenis_dok,right(nomor_aju,6),tanggal_aju,
 						// lpad(bcno,6,'0') bcno,bcdate,supplier,a.id_item,goods_code,$fld itemdesc,s.color,s.size,s.country,
@@ -322,7 +322,7 @@ $id_contents ="id_contents";
 		inner join invoice_commercial c on a.id_inv = c.n_idinvoiceheader where c.v_userpost != 'null'
 		group by a.id_inv) inv on a.bppbno_int = inv.bppbout						 
 		where $whereout and bppbdate between '$from' and '$to'
-		$que_cl $que_supp order by bppbdate";
+		$que_cl $que_supp order by bppbdate ";
 						#echo $sql;
 		$query = mysql_query($sql);
 		$no = 1;
@@ -367,6 +367,96 @@ $id_contents ="id_contents";
 			echo "</tr>";
           $no++; // menambah nilai nomor urut
         }														
+
+
+      } else if ($tipenya == "Barang Jadi" && $classnya = "BARANG JADI STOK"){
+		$sql = "select
+				no_trans_out as bppbno,
+				tgl_pengeluaran as bppbdate,
+				'NIRWANA ALABARE GARMENT' as profit_center,
+				'' as invno,
+				no_dok as jenis_dok,
+				'-' as aju,
+				'' as tanggal_aju, 
+				'' bcno,
+				'' bcdate,
+				tujuan as supplier,
+				s.id_item,
+				goods_code,
+				itemname itemdesc,
+				s.color,
+				s.size,
+				s.country, 
+				sum(a.qty_out) as qty,
+				0 as qty_good,
+				0 as qty_reject,
+				'PCS' unit,
+				'' berat_bersih,
+				'' remark,
+				a.created_by as username,
+				'' confirm_by,
+				ac.kpno ws,
+				ac.styleno,
+				so.curr,
+				sd.price,
+				'' as v_noinvoicecommercial,
+				'' switch_out,
+				so.so_no
+        from laravel_nds.fg_stok_bppb a
+        inner join so_det sd on a.id_so_det = sd.id
+				inner join so on sd.id_so = so.id
+				inner join act_costing ac on so.id_cost = ac.id
+				inner join mastersupplier ms on ac.id_buyer = ms.Id_Supplier
+				inner join masterproduct mp on ac.id_product = mp.id
+				left join masterstyle s on a.id_so_det = s.id_so_det
+        where sd.cancel = 'N' and so.cancel_h = 'N' and ac.aktif = 'Y' and a.cancel = 'N'
+        and tgl_pengeluaran >= '$from' and tgl_pengeluaran <= '$to'
+        group by no_trans_out, s.id_item, price
+        order by tgl_pengeluaran desc,substr(no_trans_out,14) desc ";
+						#echo $sql;
+		$query = mysql_query($sql);
+		$no = 1;
+		while ($data = mysql_fetch_array($query)) {
+
+			echo "<tr";
+			echo "
+			<td>$no</td>
+			<td>$data[bppbno]</td>
+			<td>$data[bppbdate]</td>
+			<td>$data[profit_center]</td>
+			<td>$data[invno]</td>
+			<td>$data[jenis_dok]</td>
+			<td>$data[aju]</td>
+			<td>$data[tanggal_aju]</td>
+			<td>$data[bcno]</td>
+			<td>$data[bcdate]</td>
+			<td>$data[supplier]</td>
+			<td>$data[id_item]</td>
+			<td>$data[goods_code]</td>
+			<td>$data[itemdesc]</td>
+			<td>$data[color]</td>
+			<td class='text'>$data[size]</td>
+			<td>$data[country]</td>
+			<td>$data[qty]</td>
+			<td>$data[qty_good]</td>
+			<td>$data[qty_reject]</td>
+			<td>$data[unit]</td>
+			<td>$data[berat_bersih]</td>
+			<td>$data[remark]</td>
+			<td>$data[username]</td>
+			<td>$data[confirm_by]</td>
+			<td>$data[ws]</td>
+			<td class='text'>$data[styleno]</td>
+			<td>$data[curr]</td>
+			<td>$data[price]</td>
+			<td>$data[v_noinvoicecommercial]</td>
+			<td>$data[switch_out]</td>
+			<td>$data[so_no]</td>
+
+			";
+			echo "</tr>";
+          $no++; // menambah nilai nomor urut
+        }	
 
 
       }
@@ -426,7 +516,7 @@ $id_contents ="id_contents";
 								left join masterlength d on c.id_length = d.id
 								left join masterwidth e on d.id_width = e.id
 								) mc on mi.id_gen = mc.id_gen
-      			INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bPpbdate BETWEEN '$from' and '$to' and a.bppbno_int like '%GM/%'",33);
+      			INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bPpbdate BETWEEN '$from' and '$to' and a.bppbno_int like '%OFC%'",33);
       	}elseif ($classnya == 'FABRIC GREIGE') {
       		tampil_data("select if(a.bppbno_int!='',a.bppbno_int,a.bppbno) bppbno, IF(a.bppbno_req != '', a.bppbno_req, '-') bppbno_req, a.bppbdate, 'NIRWANA ALABARE GARMENT' profit_center, a.invno, a.jenis_dok, a.nomor_aju no_aju, a.tanggal_aju, a.bcno, a.bcdate, ms.supplier, a.id_item, id_contents,mi.goods_code, mi.itemdesc, mi.color, mi.size, a.qty, a.qty qty_good, 0 qty_reject, a.unit, a.berat_bersih, a.remark, a.username, a.confirm_by, '-' ws, '-' styleno, a.curr, a.price, '-' idws_act, a.jenis_trans, '-' nama_panel, '-' color_gmt, a.jenis_trans jenis_pengeluaran, a.id_jo, '-' style_aktual from bppb a INNER JOIN masteritem mi 
                 				left join 
@@ -437,7 +527,7 @@ $id_contents ="id_contents";
 								left join masterlength d on c.id_length = d.id
 								left join masterwidth e on d.id_width = e.id
 								) mc on mi.id_gen = mc.id_gen
-      			on mi.id_item = a.id_item INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bppbdate BETWEEN '$from' and (a.bppbno_int like '%GG/%' OR a.bppbno_int like '%SGG/%')",33);
+      			on mi.id_item = a.id_item INNER JOIN mastersupplier ms on ms.id_supplier = a.id_supplier where bppbdate BETWEEN '$from' and '$to' and (a.bppbno_int like '%GG/%' OR a.bppbno_int like '%SGG/%')",33);
       	}elseif ($classnya == 'BENANG') {
       		tampil_data("select if(a.bppbno_int!='',a.bppbno_int,a.bppbno) bppbno, IF(a.bppbno_req != '', a.bppbno_req, '-') bppbno_req, a.bppbdate, 'NIRWANA ALABARE GARMENT' profit_center, a.invno, a.jenis_dok, a.nomor_aju no_aju, a.tanggal_aju, a.bcno, a.bcdate, ms.supplier, a.id_item,id_contents, mi.goods_code, mi.itemdesc, mi.color, mi.size, a.qty, a.qty qty_good, 0 qty_reject, a.unit, a.berat_bersih, a.remark, a.username, a.confirm_by, '-' ws, '-' styleno, a.curr, a.price, '-' idws_act, a.jenis_trans, '-' nama_panel, '-' color_gmt, a.jenis_trans jenis_pengeluaran, a.id_jo, '-' style_aktual from bppb a INNER JOIN masteritem mi on mi.id_item = a.id_item 
                 				left join 
@@ -568,9 +658,8 @@ else
 	{
 		if ($tbl=="masterstyle") {$fldsty="s.styleno"; $fldsc="buyerno,'' stock_card,whs_code";} else {$fldsty="tmpjo.styleno"; $fldsc="'' buyerno,stock_card,'' whs_code";}
 
-		if($tipenya_2 == "Barang Jadi")
+		if($tipenya_2 == "Barang Jadi" && $classnya != "BARANG JADI STOK")
 		{
-
 
 									// tampil_data("select if(a.bpbno_int!='',a.bpbno_int,a.bpbno)  bpbno,a.bpbdate,a.invno,a.jenis_dok,right(a.nomor_aju,6),a.tanggal_aju,
 									// 					lpad(a.bcno,6,'0') bcno,a.bcdate,d.supplier,a.pono,z.tipe_com,
@@ -587,8 +676,6 @@ else
 									// 					(select distinct bppbno,bppbno_int from bppb) as tmpout on a.bppbno_ri=tmpout.bppbno  
 									// 					where $where and bpbdate between '$from' and '$to' 
 									// 					$que_cl $que_supp order by bpbdate",33);
-
-
 			$sql = "select if(a.bpbno_int!='',a.bpbno_int,a.bpbno)  bpbno,a.bpbdate,'NIRWANA ALABARE GARMENT' profit_center, a.invno,a.jenis_dok,right(a.nomor_aju,6) aju,a.tanggal_aju,
 			lpad(a.bcno,6,'0') bcno,a.bcdate,d.supplier,a.pono,z.tipe_com,
 			if(a.invno !='--',a.invno,tmpout.bppbno_int) as invno,a.id_item,
@@ -651,10 +738,102 @@ else
 				echo "</tr>";
           $no++; // menambah nilai nomor urut
         }
+      } else if($tipenya_2 == "Barang Jadi" && $classnya == "BARANG JADI STOK"){
 
+			$sql = " select
+				no_trans as bpbno,
+				tgl_terima as bpbdate,
+				'NIRWANA ALABARE GARMENT' profit_center, 
+				'-' as invno,
+				'INHOUSE' as jenis_dok,
+				'-' aju,
+				tgl_terima as tanggal_aju,
+				'' as bcno,
+				'' as bcdate,
+				sumber_pemasukan as supplier,
+				'' as pono,
+				'' as tipe_com,
+				s.id_item,
+				s.goods_code,
+				itemname itemdesc,
+				s.color,
+				s.size,
+				s.country,
+				a.grade,
+				sum(a.qty) as qty,
+				sum(a.qty) as qty_good,
+				'0' as qty_reject,
+				'PCS' unit,
+				'' berat_bersih,
+				'' remark,
+				a.created_by as username,
+				'' confirm_by,
+				ac.kpno ws,
+				ac.styleno styleno,
+				so.curr,
+				sd.price,
+				'' switch_in,
+				sd.reff_no 
+        from laravel_nds.fg_stok_bpb a
+				inner join so_det sd on a.id_so_det = sd.id
+				inner join so on sd.id_so = so.id
+				inner join act_costing ac on so.id_cost = ac.id
+				inner join mastersupplier ms on ac.id_buyer = ms.Id_Supplier
+				inner join masterproduct mp on ac.id_product = mp.id
+				left join masterstyle s on a.id_so_det = s.id_so_det
+        where sd.cancel = 'N' and so.cancel_h = 'N' and ac.aktif = 'Y' and a.cancel = 'N'
+				and tgl_terima >= '$from' and tgl_terima <= '$to'
+				group by no_trans, s.id_item, price
+        order by tgl_terima desc,substr(no_trans,13) desc";
+			$query = mysql_query($sql);
+			$no = 1;
+														#echo $sql;
+			while ($data = mysql_fetch_array($query)) {
 
+				echo "<tr";
+				echo "
+				<td>$no</td>
+				<td>$data[bpbno]</td>
+				<td>$data[bpbdate]</td>
+				<td>$data[profit_center]</td>
+				<td>$data[invno]</td>
+				<td>$data[jenis_dok]</td>
+				<td>$data[aju]</td>
+				<td>$data[tanggal_aju]</td>
+				<td>$data[bcno]</td>
+				<td>$data[bcdate]</td>
+				<td>$data[supplier]</td>
+				<td>$data[pono]</td>
+				<td>$data[tipe_com]</td>
+				<td>$data[invno]</td>
+				<td>$data[id_item]</td>
+				<td>$data[goods_code]</td>
+				<td>$data[itemdesc]</td>
+				<td>$data[color]</td>
+				<td class='text'>$data[size]</td>
+				<td>$data[country]</td>
+				<td>$data[grade]</td>
+				<td>$data[qty]</td>
+				<td>$data[qty_good]</td>
+				<td>$data[qty_reject]</td>
+				<td>$data[unit]</td>
+				<td>$data[berat_bersih]</td>
+				<td>$data[remark]</td>
+				<td>$data[username]</td>
+				<td>$data[confirm_by]</td>
+				<td>$data[ws]</td>
+				<td class='text'>$data[styleno]</td>
+				<td>$data[curr]</td>
+				<td>$data[price]</td>
+				<td>$data[switch_in]</td>
+				<td>$data[reffno]</td>
 
-      }
+				";
+				echo "</tr>";
+          $no++; // menambah nilai nomor urut
+        }
+
+      } 
       else
       {
       	if ($classnya == 'FABRIC' && $from >= '2025-01-01') {

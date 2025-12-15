@@ -737,7 +737,7 @@ if ($mod=="36v")
 
   if ($mode=="Scrap")
 
-  { $fldnyacri=" left(bpbno,1) in ('S','L') "; $mod2=36; }
+  { $fldnyacri=" left(bpbno,1) in ('S','L') and bpbno_int not like '%SMP%' "; $mod2=36; }
 
   else 
 

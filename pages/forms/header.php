@@ -181,6 +181,9 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
                 if ($akses == "1") {
                   echo "<li><a href='?mod=91v&mode=Bahan_Baku'>Barang Sample</a></li>";
                 }
+                if ($user == "guest") {
+                  echo "<li><a href='?mod=91v&mode=Bahan_Baku'>Barang Sample</a></li>";
+                }
                 $akses = $rsUser["mnuBPB"];
                 if ($akses == "1") {
                   echo "<li><a href='?mod=bpb_global&mode=Bahan_Baku'>Bahan Baku Global</a></li>";
@@ -192,8 +195,8 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
 
                 if ($user == "guest") {
                   echo "<li><a href='?mod=bpb_global&mode=Bahan_Baku'>Bahan Baku Global</a></li>";
-                   echo "<li><a href='?mod=bpb_po&mode=Bahan_Baku'>Bahan Baku PO (New)</a></li>";
-                   echo "<li><a href='?mod=26z&mode=General'>Item General (PO) (New)</a></li>";
+                  echo "<li><a href='?mod=bpb_po&mode=Bahan_Baku'>Bahan Baku PO (New)</a></li>";
+                  echo "<li><a href='?mod=26z&mode=General'>Item General (PO) (New)</a></li>";
                 }
 
 
@@ -275,7 +278,7 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
                 echo "<li><a href='?mod=31v'>$c8 (SO)</a></li>";
               }
               $akses = $rsUser["mnuBPBFG_so"];
-              if ($akses == "1" and $user!="guest") {
+              if ($akses == "1" and $user != "guest") {
                 echo "<li><a href='?mod=31z'>$c8 (Switch In)</a></li>";
               }
               $akses = $rsUser["konfirmasi_sj"];
@@ -454,8 +457,8 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
               }
               if ($user == "guest") {
                 echo "<li><a href='?mod=32z&mode=FG'>$c8 (SO) (New)</a></li>";
-                  echo "<li><a href='?mod=17O'>Konfirmasi Pengeluaran</a></li>";
-                }
+                echo "<li><a href='?mod=17O'>Konfirmasi Pengeluaran</a></li>";
+              }
               ?>
             </ul>
           </li>
@@ -488,7 +491,7 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
               echo "<li><a href='?mod=71&mode=Detail_In'>Detail $c3</a></li>";
               echo "<li><a href='?mod=711&mode=Detail_In'>Detail Pemasukan Excel</a></li>";
             }
-            if($user == 'guest'){
+            if ($user == 'guest') {
               echo "<li><a href='?mod=71&mode=In'>List $c3</a></li>";
               echo "<li><a href='?mod=71&mode=Detail_In'>Detail $c3</a></li>";
               echo "<li><a href='?mod=711&mode=Detail_In'>Detail Pemasukan Excel</a></li>";
@@ -548,7 +551,7 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
               echo "<li><a href='?mod=722&mode=Detail_Out'>Detail Pengeluaran Excel</a></li>";
               echo "<li><a href='?mod=789&mode=mut&rptid=fg_out_invoice'>Detail Pengeluaran Brg Jadi Invoice</a></li>";
             }
-            if($user == 'guest'){
+            if ($user == 'guest') {
               echo "<li><a href='?mod=72&mode=Out'>List $c4</a></li>";
               echo "<li><a href='?mod=72&mode=Detail_Out'>Detail $c4</a></li>";
               echo "<li><a href='?mod=722&mode=Detail_Out'>Detail Pengeluaran Excel</a></li>";
@@ -626,14 +629,14 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
               if ($nm_company == "PT. Buntara Multi Industry") {
                 echo "<li><a href='?mod=7&mode=mut&rptid=bahanbakupoitem'>Bahan Baku & Bahan Penolong</a></li>";
               } else {
-echo "<li><a href='?mod=79&mode=mut&rptid=bahanbaku2'>Laporan Pertanggungjawaban Mutasi Bahan Baku & Bahan Penolong</a></li>";
-              // echo "<li><a href='?mod=77&mode=mut_new&rptid=itemgen2'>Laporan Mutasi Sparepart</a></li>";
-               //echo "<li><a href='?mod=7&mode=mut&rptid=bahanbaku'>$c20</a></li>"; rmn
+                echo "<li><a href='?mod=79&mode=mut&rptid=bahanbaku2'>Laporan Pertanggungjawaban Mutasi Bahan Baku & Bahan Penolong</a></li>";
+                // echo "<li><a href='?mod=77&mode=mut_new&rptid=itemgen2'>Laporan Mutasi Sparepart</a></li>";
+                //echo "<li><a href='?mod=7&mode=mut&rptid=bahanbaku'>$c20</a></li>"; rmn
                 //==================================ADYZ=================================================================
                 // echo "<li><a href='?mod=79&mode=mut&rptid=bahanbaku2'>Mutasi Bahan Baku & Bahan Penolong 2</a></li>";
-if ($user != 'bc'){
-                echo "<li><a href='?mod=794&mode=mut&rptid=bahanbaku2det'>Mutasi Bahan Baku & Bahan Penolong 2 Detail</a></li>";
-}
+                if ($user != 'bc') {
+                  echo "<li><a href='?mod=794&mode=mut&rptid=bahanbaku2det'>Mutasi Bahan Baku & Bahan Penolong 2 Detail</a></li>";
+                }
                 //-------------------------------------------------------------------------------------------------------
               }
               // echo "<li><a href='?mod=7&mode=mut&rptid=barangjadi'>$c8</a></li>"; rmn
@@ -650,8 +653,10 @@ if ($user != 'bc'){
               // echo "<li><a href='?mod=792&mode=mut&rptid=wip_subkon'>WIP Subkon</a></li>";
               // echo "<li><a href='?mod=793&mode=mut&rptid=wip_sewing'>WIP Sewing</a></li>";
               echo "<li><a href='?mod=7&mode=mut&rptid=barangsisa'>Laporan Mutasi Barang Sisa & Scrap</a></li>";
-               echo "<li><a href='?mod=7778'>Laporan Mutasi Spareparts</a></li>";
-             // echo "<li><a href='?mod=77&mode=mut_new&rptid=itemgen2'>Laporan Mutasi Sparepart</a></li>";
+
+              echo "<li><a href='?mod=lap_data_mutasi_scrap_knitting'>Laporan Knitting</a></li>";
+              echo "<li><a href='?mod=7778'>Laporan Mutasi Spareparts</a></li>";
+              // echo "<li><a href='?mod=77&mode=mut_new&rptid=itemgen2'>Laporan Mutasi Sparepart</a></li>";
               // echo "<li><a href='?mod=7&mode=mut&rptid=mesin'>Laporan Mutasi Mesin & Peralatan Kantor</a></li>";
               echo "<li><a href='?mod=7779'>Laporan Mutasi Mesin & Peralatan Kantor</a></li>";
               $akses = $rsUser["mutasi_wip"];
@@ -660,7 +665,7 @@ if ($user != 'bc'){
                 echo "<li><a href='?mod=7&mode=mut&rptid=mwiptot'>Laporan Mutasi Barang Dalam Proses</a></li>";
                 echo "<li><a href='?mod=7&mode=mut&rptid=mwipdet'>Detail Laporan Mutasi Barang Dalam Proses</a></li>";
                 echo "<li><a href='?mod=lap_mutasi_wip'>Laporan Mutasi WIP</a></li>";
-				echo "<li><a href='?mod=7780'>Laporan Mapping Persediaan</a></li>";
+                echo "<li><a href='?mod=7780'>Laporan Mapping Persediaan</a></li>";
               } else {
                 if ($cekmutwip == "") {
                   echo "<li><a href='?mod=7&rptid=wip'>Laporan Mutasi Barang Dalam Proses</a></li>";
@@ -681,9 +686,9 @@ if ($user != 'bc'){
                 echo "<li><a href='?mod=8&mode=Bahan_Baku'><span>Stock Non FG</span></a></li>";
                 echo "<li><a href='?mod=8&mode=FG'><span>Stock FG</span></a></li>";
               }
-if ($user != "bc"){
-               echo "<li><a href='?mod=mr_acc'><span>Mutasi Rak</span></a></li>";
-            }
+              if ($user != "bc") {
+                echo "<li><a href='?mod=mr_acc'><span>Mutasi Rak</span></a></li>";
+              }
             }
             ?>
           </ul>
@@ -691,87 +696,87 @@ if ($user != "bc"){
         <li class="dropdown">
           <a href="" class="dropdown-toggle" data-toggle="dropdown"><?php echo $c12; ?><span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <?php if($user != 'guest'){ ?>
-            <?PHP
-            echo "<li><a href='?mod=777'>Laporan History Log</a></li>";
-            $akses = $rsUser["konfirmasi_sj"];
-            if ($akses == "1") {
-              echo "<li><a href='?mod=konfirmasi_new'>Konfirmasi</a></li>";
-            }
-            $akses = $rsUser["cancel_all_in"];
-            if ($akses == "1") {
-              echo "<li><a href='?mod=cai'>Cancel Pemasukan</a></li>";
-            }
-            $akses = $rsUser["mut_rak"];
-            if ($akses == "1") {
-              echo "<li><a href='?mod=mr'>Mutasi Rak</a></li>";
-            }
-            $akses = $rsUser["mut_rak"];
-            if ($akses == "1") {
-              echo "<li><a href='?mod=mr_hist'>History Mutasi Rak</a></li>";
-            }
-            $akses = $rsUser["mut_rak"];
-            if ($akses == "1") {
-              echo "<li><a href='?mod=adj_rak'>Adjustment Qty Rak</a></li>";
-            }
-            $akses = $rsUser["mut_rak"];
-            if ($akses == "1") {
-              echo "<li><a href='?mod=adj_rak_hist'>History Adjustment Qty Rak</a></li>";
-            }
-            $akses = $rsUser["cancel_req"];
-            if ($akses == "1") {
-              echo "<li><a href='?mod=car'>Cancel Perimintaan</a></li>";
-            }
-            $akses = $rsUser["cancel_all_out"];
-            if ($akses == "1") {
-              echo "<li><a href='?mod=cao'>Cancel Pengeluaran</a></li>";
-            }
-            $akses = $rsUser["bom"];
-            if ($akses == "1") {
-              echo "<li><a href='?mod=15'>Upload BOM</a></li>";
-            }
-            $akses = $rsUser["calc_stock"];
-            if ($akses == "1") {
-              echo "<li><a href='calc_stock.php?mode=0'>Kalkulasi Stock</a></li>";
-            }
-            if ($akses == "1") {
-              echo "<li><a href='calc_stock.php?mode=1'>Kalkulasi Stock Minus</a></li>";
-            }
-            if ($akses == "1") {
-              echo "<li><a href='calc_stock_nol.php'>Kalkulasi Stock Nol</a></li>";
-            }
-            $akses = $rsUser["bppb_prob"];
-            if ($akses == "1") {
-              echo "<li><a href='?mod=73&mode=Out_Prob'>Pengeluaran Problem</a></li>";
-            }
-            $akses = $rsUser["rubah_type"];
-            if ($akses == "1") {
-              echo "<li><a href='?mod=11'>Rubah Type Transaksi</a></li>";
-            }
-            $akses = $rsUser["update_tgl_trans"];
-            if ($akses == "1") {
-              echo "<li><a href='?mod=111'>Rubah Tanggal Transaksi</a></li>";
-            }
-            // $akses = $rsUser["rubah_type"];
-            // if ($akses=="1") {echo "<li><a href='?mod=12'>Rubah Type Barang</a></li>";}
-            $akses = $rsUser["rubah_seri"];
-            if ($akses == "1") {
-              echo "<li><a href='?mod=13'>Rubah Seri Barang</a></li>";
-            }
-            $akses = $rsUser["link_to_bom"];
-            if ($akses == "1") {
-              echo "<li><a href='?mod=28'>Link Pemasukan BOM</a></li>";
-            }
-            $akses = $rsUser["input_stock_opname"];
-            if ($akses == "1") {
-              echo "
+            <?php if ($user != 'guest') { ?>
+              <?PHP
+              echo "<li><a href='?mod=777'>Laporan History Log</a></li>";
+              $akses = $rsUser["konfirmasi_sj"];
+              if ($akses == "1") {
+                echo "<li><a href='?mod=konfirmasi_new'>Konfirmasi</a></li>";
+              }
+              $akses = $rsUser["cancel_all_in"];
+              if ($akses == "1") {
+                echo "<li><a href='?mod=cai'>Cancel Pemasukan</a></li>";
+              }
+              $akses = $rsUser["mut_rak"];
+              if ($akses == "1") {
+                echo "<li><a href='?mod=mr'>Mutasi Rak</a></li>";
+              }
+              $akses = $rsUser["mut_rak"];
+              if ($akses == "1") {
+                echo "<li><a href='?mod=mr_hist'>History Mutasi Rak</a></li>";
+              }
+              $akses = $rsUser["mut_rak"];
+              if ($akses == "1") {
+                echo "<li><a href='?mod=adj_rak'>Adjustment Qty Rak</a></li>";
+              }
+              $akses = $rsUser["mut_rak"];
+              if ($akses == "1") {
+                echo "<li><a href='?mod=adj_rak_hist'>History Adjustment Qty Rak</a></li>";
+              }
+              $akses = $rsUser["cancel_req"];
+              if ($akses == "1") {
+                echo "<li><a href='?mod=car'>Cancel Perimintaan</a></li>";
+              }
+              $akses = $rsUser["cancel_all_out"];
+              if ($akses == "1") {
+                echo "<li><a href='?mod=cao'>Cancel Pengeluaran</a></li>";
+              }
+              $akses = $rsUser["bom"];
+              if ($akses == "1") {
+                echo "<li><a href='?mod=15'>Upload BOM</a></li>";
+              }
+              $akses = $rsUser["calc_stock"];
+              if ($akses == "1") {
+                echo "<li><a href='calc_stock.php?mode=0'>Kalkulasi Stock</a></li>";
+              }
+              if ($akses == "1") {
+                echo "<li><a href='calc_stock.php?mode=1'>Kalkulasi Stock Minus</a></li>";
+              }
+              if ($akses == "1") {
+                echo "<li><a href='calc_stock_nol.php'>Kalkulasi Stock Nol</a></li>";
+              }
+              $akses = $rsUser["bppb_prob"];
+              if ($akses == "1") {
+                echo "<li><a href='?mod=73&mode=Out_Prob'>Pengeluaran Problem</a></li>";
+              }
+              $akses = $rsUser["rubah_type"];
+              if ($akses == "1") {
+                echo "<li><a href='?mod=11'>Rubah Type Transaksi</a></li>";
+              }
+              $akses = $rsUser["update_tgl_trans"];
+              if ($akses == "1") {
+                echo "<li><a href='?mod=111'>Rubah Tanggal Transaksi</a></li>";
+              }
+              // $akses = $rsUser["rubah_type"];
+              // if ($akses=="1") {echo "<li><a href='?mod=12'>Rubah Type Barang</a></li>";}
+              $akses = $rsUser["rubah_seri"];
+              if ($akses == "1") {
+                echo "<li><a href='?mod=13'>Rubah Seri Barang</a></li>";
+              }
+              $akses = $rsUser["link_to_bom"];
+              if ($akses == "1") {
+                echo "<li><a href='?mod=28'>Link Pemasukan BOM</a></li>";
+              }
+              $akses = $rsUser["input_stock_opname"];
+              if ($akses == "1") {
+                echo "
               <li><a href='?mod=7&mode=hasil&rptid=hasil'>Adjustment Bahan Baku</a></li>
               <li><a href='?mod=7&mode=hasilsl&rptid=hasilsl'>Adjustment Scrap / Limbah</a></li>
               <li><a href='?mod=7&mode=hasilmes&rptid=hasilmes'>Adjustment $caption[1]</a></li>
               <li><a href='?mod=7&mode=hasilfg&rptid=hasilfg'>Adjustment FG</a></li>";
-            }
-            if ($nm_company == "Training Zast Systems") {
-              echo "
+              }
+              if ($nm_company == "Training Zast Systems") {
+                echo "
               <li><a href='logout.php?mode=PLB'>Rubah ke PLB</a></li>
               <li><a href='logout.php?mode=GB'>Rubah ke GB</a></li>
               <li><a href='logout.php?mode=KB'>Rubah ke KB</a></li>
@@ -779,11 +784,11 @@ if ($user != "bc"){
               <li><a href='logout.php?mode=MW'>Rubah ke Multi Warehouse</a></li>
               <li><a href='logout.php?mode=ELG'>Rubah ke ERP Elekronik Part</a></li>
               <li><a href='logout.php?mode=EGM'>Rubah ke ERP Garment</a></li>";
-            }
-            #echo "<li><a href='logout.php'>Logout</a></li>";
-            ?>
-          <?php }else{ ?>
-            <li><a href='?mod=777'>Laporan History Log</a></li>
+              }
+              #echo "<li><a href='logout.php'>Logout</a></li>";
+              ?>
+            <?php } else { ?>
+              <li><a href='?mod=777'>Laporan History Log</a></li>
             <?php } ?>
           </ul>
         </li>

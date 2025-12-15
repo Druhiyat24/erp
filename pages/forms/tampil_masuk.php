@@ -63,13 +63,16 @@ if (isset($_GET['parfromv']))
 	$perf = date('d F Y', strtotime($tglf));
 	$tglt = $_GET['parto'];
 	$pert = date('d F Y', strtotime($tglt));
+	$jns_tgl = $_GET['jns_tgl'];
 }
 else
 {	$tglf = fd($_POST['txtfrom']);
 	$perf = date('d F Y', strtotime($tglf));
 	$tglt = fd($_POST['txtto']);
 	$pert = date('d F Y', strtotime($tglt));
+	$jns_tgl = $_POST['jenis_tanggal'];
 }
+
 $sql="X".$header_cap."-".$rpt." Dari ".$perf." s/d ".$pert;
 insert_log($sql,$user);
 ?>
@@ -91,13 +94,13 @@ insert_log($sql,$user);
 		echo strtoupper($nm_company);echo "<br>";
 		echo $header_cap;echo "<br>";
 	}
-	echo "PERIODE "; echo strtoupper($perf); echo " S/D "; echo strtoupper($pert); echo "<br>";
+	echo "PERIODE "; echo strtoupper($perf); echo " S/D "; echo strtoupper($pert); echo " - ";	echo $jns_tgl; echo "<br>";
 
 	if ($toexcel!="Y")
 	{	
 		echo "
 		<a class='btn btn-primary btn-s' href='?mod=view_in&uid=$user&sesi=$sesi&parfrom=$tglf&parto=$tglt&parfromv=$perf
-			&partov=$pert&rptid=$rpt&dest=xls'><i class='fa fa-file-excel-o'></i> Save Excel
+			&partov=$pert&rptid=$rpt&jns_tgl=$jns_tgl&dest=xls'><i class='fa fa-file-excel-o'></i> Save Excel
 		</a>"; 
 	}
 	?>
@@ -727,11 +730,18 @@ insert_log($sql,$user);
 			{	$trans_no="if(a.bpbno_int!='',a.bpbno_int,a.bpbno)"; }
 			$kode_brg = "if(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0',s.goods_code,
 				concat(s.mattype,' ',s.id_item))";
+// Tentukan column sesuai jenis tanggal
+if ($jns_tgl == 'tanggal_terima') {
+    $column = 'bpbdate';
+} else if ($jns_tgl == 'tanggal_pabean') {
+    $column = 'bcdate';
+}
+
 			$sqlk = "SELECT 'BC 2.3 IMPOR' jenis_dokumen,lpad(a.bcno,6,'0') bcno,
 				a.bcdate,$trans_no trans_no,a.bpbdate trans_date,d.supplier,$kode_brg kode_brg,s.itemdesc,
 				a.unit,sum(a.qty) qty,IFNULL(a.curr_bc,a.curr) curr,round(sum(ifnull(a.price_bc,a.price)*a.qty),2) nilai_barang,a.id_item, satuan_bc, qty_bc
 				from bpb a inner join masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
-				where a.cancel='N' and bpbdate between '$tglf' and '$tglt' and left(bpbno,2)<>'FG'  and 
+				where a.cancel='N' and $column between '$tglf' and '$tglt' and left(bpbno,2)<>'FG'  and 
 				jenis_dok='BC 2.3' and a.invno not like '%PJT%' and a.invno not like '%PIB%' 
 				and a.invno not like '%PIBK%' group by bcno,bpbno,a.id_item,price order by bcdate,bcno,bpbno";
 			insert_temp_perdok_bc23($sqlk,$user,$sesi,"Y");
@@ -750,7 +760,7 @@ insert_log($sql,$user);
 		{	if ($nm_company=='PT. Geum Cheon Indo')
 			{ 	$sqlk = "SELECT 'BC 2.6.2 MASUK' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,a.bpbdate trans_date,d.supplier,
 					if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item)) kode_brg,
-					s.itemdesc,if(ifnull(a.satuan_bc,a.unit) = '', a.unit, ifnull(a.satuan_bc,a.unit)) unit, IFNULL(a.qty_bc,a.qty) qty, a.curr, ROUND(IFNULL(a.price_bc,a.price) * IFNULL(a.qty_bc,a.qty),2) AS nilai_barang,a.id_item  
+					s.itemdesc,IFNULL(a.satuan_bc,a.unit) unit, IFNULL(a.qty_bc,a.qty) qty, a.curr, ROUND(IFNULL(a.price_bc,a.price) * IFNULL(a.qty_bc,a.qty),2) AS nilai_barang,a.id_item  
 					from bpb a inner join 
 					masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
 					where a.cancel='N' and bpbdate between '$tglf' and '$tglt'   
@@ -759,7 +769,7 @@ insert_log($sql,$user);
 			} else
 			{ 	$kode_brg = "if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item)) ";
 				$sqlk = "SELECT 'BC 2.6.2 MASUK' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,a.bpbdate trans_date,d.supplier,
-					$kode_brg kode_brg,s.itemdesc,if(ifnull(a.satuan_bc,a.unit) = '', a.unit, ifnull(a.satuan_bc,a.unit)) unit, IFNULL(a.qty_bc,a.qty) qty, a.curr, ROUND(IFNULL(a.price_bc,a.price) * IFNULL(a.qty_bc,a.qty),2) AS nilai_barang,a.id_item  
+					$kode_brg kode_brg,s.itemdesc,IFNULL(a.satuan_bc,a.unit) unit, IFNULL(a.qty_bc,a.qty) qty, a.curr, ROUND(IFNULL(a.price_bc,a.price) * IFNULL(a.qty_bc,a.qty),2) AS nilai_barang,a.id_item  
 					from bpb a inner join 
 					masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
 					where bcno!='-' and  a.cancel='N' and bpbdate between '$tglf' and '$tglt' and bpbno not like 'FG%'  
@@ -907,14 +917,14 @@ insert_log($sql,$user);
 
 			$kodenya = "if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item))";
 			$sqlk = "SELECT 'BC 2.6.1 KELUAR' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,
-				$kodenya kode_brg,s.itemdesc,if(ifnull(a.satuan_bc,a.unit) = '', a.unit, ifnull(a.satuan_bc,a.unit)) unit,IFNULL(a.qty_bc,a.qty) qty,ROUND(IFNULL(a.price_bc,a.price) * IFNULL(a.qty_bc,a.qty),2) AS nilai_barang,a.id_item ,IFNULL(a.curr_bc,a.curr) curr,a.price ,s.mattype,
+				$kodenya kode_brg,s.itemdesc,IFNULL(a.satuan_bc,a.unit) unit,IFNULL(a.qty_bc,a.qty) qty,ROUND(IFNULL(a.price_bc,a.price) * IFNULL(a.qty_bc,a.qty),2) AS nilai_barang,a.id_item ,IFNULL(a.curr_bc,a.curr) curr,a.price ,s.mattype,
 				s.id_item from bppb a inner join masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
 				where bcno!='-' and bppbdate between '$tglf' and '$tglt'   and jenis_dok='BC 2.6.1' and mid(a.bppbno,4,2) not in ('FG') 
 				order by bcdate,bcno";
 			insert_temp_perdok($sqlk,$user,$sesi,"Y");
 			$kodenya = "if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat('FG ',s.id_item))";
 			$sqlk2 = "SELECT 'BC 2.6.1 KELUAR' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,
-				$kodenya kode_brg,s.itemname itemdesc,if(ifnull(a.satuan_bc,a.unit) = '', a.unit, ifnull(a.satuan_bc,a.unit)) unit,IFNULL(a.qty_bc,a.qty) qty,ROUND(IFNULL(a.price_bc,a.price) * IFNULL(a.qty_bc,a.qty),2) AS nilai_barang,s.id_so_det id_item ,IFNULL(a.curr_bc,a.curr) curr,a.price ,'FG' mattype,
+				$kodenya kode_brg,s.itemname itemdesc,IFNULL(a.satuan_bc,a.unit) unit,IFNULL(a.qty_bc,a.qty) qty,ROUND(IFNULL(a.price_bc,a.price) * IFNULL(a.qty_bc,a.qty),2) AS nilai_barang,s.id_so_det id_item ,IFNULL(a.curr_bc,a.curr) curr,a.price ,'FG' mattype,
 				s.id_item from bppb a inner join masterstyle s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
 				where bcno!='-' and bppbdate between '$tglf' and '$tglt'   and jenis_dok='BC 2.6.1' and mid(a.bppbno,4,2) in ('FG') and 
 				mid(a.bppbno,4,1) not in ('P') order by bcdate,bcno";
@@ -954,7 +964,7 @@ insert_log($sql,$user);
 		} elseif ($rpt=='bc41lkl')
 		{	$kodenya = "if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item))";
 			$sqlk = "SELECT * from (SELECT 'BC 4.1 LOKAL' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,
-				$kodenya kode_brg,s.itemdesc,if(ifnull(a.satuan_bc,a.unit) = '', a.unit, ifnull(a.satuan_bc,a.unit)) unit,sum(a.qty) qty,
+				$kodenya kode_brg,s.itemdesc,a.unit,sum(a.qty) qty,
 				round(sum(a.qty*ifnull(a.price_bc,a.price)),2) nilai_barang,a.id_item ,a.curr,a.price ,
 				s.mattype from bppb a inner join masteritem s on a.id_item=s.id_item inner join 
 				mastersupplier d on a.id_supplier=d.id_supplier 
@@ -966,7 +976,7 @@ insert_log($sql,$user);
 				order by bcdate,bcno) a
 				UNION
 				(SELECT 'BC 4.1 LOKAL' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bppbno_int!='',a.bppbno_int,a.bppbno) trans_no,a.bppbdate trans_date,d.supplier,
-				if(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0',s.goods_code,concat('FG ',s.id_item)) kode_brg,s.itemdesc itemdesc,if(ifnull(a.satuan_bc,a.unit) = '', a.unit, ifnull(a.satuan_bc,a.unit)) unit,
+				if(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0',s.goods_code,concat('FG ',s.id_item)) kode_brg,s.itemdesc itemdesc,a.unit,
 				sum(a.qty) qty,round(sum(a.qty*ifnull(a.price_bc,a.price)),2) nilai_barang,s.id_item id_item ,a.curr,a.price ,
 				'F' mattype from bppb a inner join masteritem s on a.id_item=s.id_item inner join 
 				mastersupplier d on a.id_supplier=d.id_supplier where bppbdate between '$tglf' and '$tglt' and left(bppbno_int,2)='GK' and jenis_dok='BC 4.1'
@@ -974,7 +984,7 @@ insert_log($sql,$user);
 				order by bcdate,bcno)
 				UNION
 				SELECT 'BC 4.1 LOKAL' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bppbno_int!='',a.bppbno_int,a.bppbno) trans_no,a.bppbdate trans_date,d.supplier,
-				if(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0',s.goods_code,concat('FG ',s.id_item)) kode_brg,s.itemdesc itemdesc,if(ifnull(a.satuan_bc,a.unit) = '', a.unit, ifnull(a.satuan_bc,a.unit)) unit,
+				if(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0',s.goods_code,concat('FG ',s.id_item)) kode_brg,s.itemdesc itemdesc,a.unit,
 				sum(a.qty) qty,round(sum(a.qty*ifnull(a.price_bc,a.price)),2) nilai_barang,s.id_item id_item ,a.curr,a.price ,
 				s.mattype from bppb a inner join masteritem s on a.id_item=s.id_item inner join 
 				mastersupplier d on a.id_supplier=d.id_supplier where bppbdate between '$tglf' and '$tglt' and left(bppbno_int,3)='GEN' and jenis_dok='BC 4.1'
@@ -983,7 +993,7 @@ insert_log($sql,$user);
 				// echo $sqlk;
 			insert_temp_perdok($sqlk,$user,$sesi,"Y");
 			$sqlk2 = "SELECT 'BC 4.1 LOKAL' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,
-				if(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0',s.goods_code,concat('FG ',s.id_item)) kode_brg,s.itemname itemdesc,if(ifnull(a.satuan_bc,a.unit) = '', a.unit, ifnull(a.satuan_bc,a.unit)) unit,
+				if(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0',s.goods_code,concat('FG ',s.id_item)) kode_brg,s.itemname itemdesc,a.unit,
 				sum(a.qty) qty,round(sum(a.qty*ifnull(a.price_bc,a.price)),2) nilai_barang,s.id_so_det id_item ,a.curr,a.price ,
 				'FG' mattype,s.id_item from bppb a inner join masterstyle s on a.id_item=s.id_item inner join 
 				mastersupplier d on a.id_supplier=d.id_supplier where bppbdate between '$tglf' and '$tglt' and 
@@ -1003,7 +1013,7 @@ insert_log($sql,$user);
 		} elseif ($rpt=='bc41sewa')
 		{	$sqlk = "SELECT 'BC 4.1 LOKAL MESIN (SEWA)' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,
 				a.bppbdate trans_date,d.supplier,if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item)) kode_brg,
-				s.itemdesc,if(ifnull(a.satuan_bc,a.unit) = '', a.unit, ifnull(a.satuan_bc,a.unit)) unit,a.qty,
+				s.itemdesc,a.unit,a.qty,
 				round(a.qty*ifnull(a.price_bc,a.price),2) nilai_barang,a.id_item ,a.curr,a.price ,s.mattype,s.id_item 
 				from bppb a inner join masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
 				where bppbdate between '$tglf' and '$tglt' and mid(a.bppbno,4,2)<>'FG'  and jenis_dok='BC 4.1' and ucase(remark) like '%SEWA%' and mid(bppbno,4,1)<>'S' order by bcdate,bcno";
@@ -1011,14 +1021,14 @@ insert_log($sql,$user);
 			
 		} elseif ($rpt=='bc41subkon')
 		{	$sqlk = "SELECT 'BC 4.1 SUBKON' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,
-				if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item)) kode_brg,s.itemdesc,if(ifnull(a.satuan_bc,a.unit) = '', a.unit, ifnull(a.satuan_bc,a.unit)) unit,a.qty,round(a.qty*ifnull(a.price_bc,a.price),2) nilai_barang,a.id_item ,a.curr,a.price ,s.mattype,
+				if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item)) kode_brg,s.itemdesc,a.unit,a.qty,round(a.qty*ifnull(a.price_bc,a.price),2) nilai_barang,a.id_item ,a.curr,a.price ,s.mattype,
 				s.id_item from bppb a inner join masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
 				where bppbdate between '$tglf' and '$tglt' and mid(a.bppbno,4,2)<>'FG'  and jenis_dok='BC 4.1'  
 				and mid(a.bppbno,4,2)<>'FG'  and 
 				ucase(remark) not like '%SEWA%'  and a.tujuan like '%SUBKON%' order by bcdate,bcno";
 			insert_temp_perdok($sqlk,$user,$sesi,"Y");
 			$sqlk2 = "SELECT 'BC 4.1 SUBKON' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,
-				if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat('FG ',s.id_item)) kode_brg,itemname itemdesc,if(ifnull(a.satuan_bc,a.unit) = '', a.unit, ifnull(a.satuan_bc,a.unit)) unit,a.qty,round(a.qty*ifnull(a.price_bc,a.price),2) nilai_barang,s.id_so_det id_item ,a.curr,a.price ,'FG' mattype,
+				if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat('FG ',s.id_item)) kode_brg,itemname itemdesc,a.unit,a.qty,round(a.qty*ifnull(a.price_bc,a.price),2) nilai_barang,s.id_so_det id_item ,a.curr,a.price ,'FG' mattype,
 				s.id_item from bppb a inner join masterstyle s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
 				where bppbdate between '$tglf' and '$tglt' and jenis_dok='BC 4.1' and mid(a.bppbno,4,2)='FG'  and  
 				ucase(remark) not like '%SEWA%' and a.tujuan like '%SUBKON%' order by bcdate,bcno";
@@ -1202,7 +1212,7 @@ else
 			$jenis_dok = $data['JENIS_DOKUMEN'];
 			$no_dok = $data['BCNO'];
 			if ($no>1)
-			{	$cri_next=$data['BCNO']; }
+			{	$cri_next=$data['JENIS_BARANG']; }
 
 			$tgl_dok = fd_view($data['BCDATE']);
 			$matclass = isset($data['matclass']) ? $data['matclass'] : '-';

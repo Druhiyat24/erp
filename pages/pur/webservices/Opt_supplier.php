@@ -13,7 +13,7 @@ print_r($List);
 class getListData {
 	public function get(){
 		include __DIR__ .'/../../../include/conn.php';
-		$q = "SELECT Id_Supplier id,Supplier tampil FROM mastersupplier WHERE tipe_sup='S'";
+		$q = "SELECT Id_Supplier id,Supplier tampil FROM mastersupplier WHERE tipe_sup='S' and non_aktif = '0'";
 			//echo $q;
 		$outp = "";
 		$stmt = mysql_query($q);

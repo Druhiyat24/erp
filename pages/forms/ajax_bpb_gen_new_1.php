@@ -144,7 +144,10 @@ group by id_item, unit
       $query = mysql_query($sql); 
       $no = 1; 
       while($data = mysql_fetch_array($query))
-      { echo "<tr>";
+      { 
+
+$disabled = ($data['qty_sa'] < 1) ? "readonly style='background:#eee;'" : "";
+        echo "<tr>";
           $id=$data['kode'];
           echo "
           <td>$data[id_item]</td>
@@ -153,7 +156,7 @@ group by id_item, unit
           <td>$data[color]</td>
           <td>$data[size]</td>
           <td>$data[qty_sa]</td>"; 
-          echo "<td><input type ='text' style='width:70px;' name ='qty_out[$id]' id ='qty_out[$id]' class='form-control qtyclass' ></td>"; 
+          echo "<td><input type ='number' step='0.01' style='width:70px;' name ='qty_out[$id]' id ='qty_out[$id]'  min='0.01'  class='form-control qtyclass' $disabled ></td>"; 
 
           echo "
           <td><input type ='text' style='width:70px;' name ='itemunit[$id]' id ='itemunit[$id]' class='form-control  unitclass' value='$data[unit]' readonly></td>
