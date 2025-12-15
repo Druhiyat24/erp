@@ -2812,3 +2812,5 @@
 [27-Nov-2025 02:51:45 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 109
 [27-Nov-2025 04:36:09 Europe/Berlin] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 108
 [27-Nov-2025 04:36:09 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 109
+[28-Nov-2025 04:22:57 Europe/Berlin] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in D:\xampp\htdocs\signalbit_erp\pages\fin\module\dsb\dashboard.php on line 108
+[28-Nov-2025 04:22:57 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in D:\xampp\htdocs\signalbit_erp\pages\fin\module\dsb\dashboard.php on line 109
