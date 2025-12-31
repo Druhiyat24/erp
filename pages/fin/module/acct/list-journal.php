@@ -82,6 +82,16 @@
     border-radius: 6px;
     background-color:rgb(250, 69, 1)"><i class="fa fa-repeat" aria-hidden="true"></i> Reset </button>
 
+    <button type="button" id="sinkron" value=" Sync " style="height: 35px; margin-top: 30px; margin-bottom: 5px;margin-right: 15px;border: 0;
+    line-height: 1;
+    padding: -2px 8px;
+    font-size: 1rem;
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    border-radius: 6px;
+    background-color:rgb(250, 69, 60)"><i class="fa fa-refresh" aria-hidden="true"></i> Sync </button>
+
 <?php
         // $status = isset($_POST['status']) ? $_POST['status']: null;
         $start_date = isset($_POST['start_date']) ? $_POST['start_date'] : null;
@@ -345,6 +355,50 @@ function SidebarCollapse () {
 $(function() {
     $('.selectpicker').selectpicker();
 });
+</script>
+
+
+<script>
+$("#sinkron").on("click", function () {
+
+    var start = $("#start_date").val();
+    var end   = $("#end_date").val();
+
+    $.ajax({
+        url: "sync_process.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+            start_date: start,
+            end_date: end
+        },
+        beforeSend: function(){
+            $("#sinkron")
+                .prop("disabled", true)
+                .html('<i class="fa fa-refresh"></i> Syncing...');
+        },
+        success: function(res){
+
+            alert(res.message);
+
+            $("#sinkron")
+                .prop("disabled", false)
+                .html('<i class="fa fa-refresh"></i> Sync');
+        },
+        error: function(xhr){
+
+            console.log(xhr.responseText);
+
+            alert("Terjadi error AJAX!\n\n" + xhr.responseText);
+
+            $("#sinkron")
+                .prop("disabled", false)
+                .html('<i class="fa fa-refresh"></i> Sync');
+        }
+    });
+
+});
+
 </script>
 
 <script type="text/javascript">
