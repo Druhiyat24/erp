@@ -3078,3 +3078,27 @@
 
 [28-Nov-2025 04:22:57 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in D:\xampp\htdocs\signalbit_erp\pages\fin\module\dsb\dashboard.php on line 109
 
+[17-Dec-2025 06:59:11 Europe/Berlin] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 108
+[17-Dec-2025 06:59:11 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 109
+[22-Dec-2025 08:51:47 Europe/Berlin] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 108
+[22-Dec-2025 08:51:47 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 109
+[22-Dec-2025 10:14:54 Europe/Berlin] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 108
+[22-Dec-2025 10:14:54 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 109
+[26-Dec-2025 06:43:28 Europe/Berlin] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 108
+[26-Dec-2025 06:43:28 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 109
+[26-Dec-2025 10:01:29 Europe/Berlin] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 108
+[26-Dec-2025 10:01:29 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 109
+[29-Dec-2025 07:19:11 Europe/Berlin] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 108
+[29-Dec-2025 07:19:11 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 109
+[29-Dec-2025 07:20:03 Europe/Berlin] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 108
+[29-Dec-2025 07:20:03 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 109
+[30-Dec-2025 01:43:57 Europe/Berlin] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 108
+[30-Dec-2025 01:43:57 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 109
+[30-Dec-2025 10:37:30 Europe/Berlin] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 108
+[30-Dec-2025 10:37:30 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 109
+[31-Dec-2025 01:33:38 Europe/Berlin] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 108
+[31-Dec-2025 01:33:38 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 109
+[31-Dec-2025 04:16:18 Europe/Berlin] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 108
+[31-Dec-2025 04:16:18 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 109
+[31-Dec-2025 05:18:06 Europe/Berlin] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 108
+[31-Dec-2025 05:18:06 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 109

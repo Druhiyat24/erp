@@ -2485,3 +2485,14 @@
 [12-Dec-2025 03:37:34 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
 [15-Dec-2025 01:43:28 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
 [15-Dec-2025 01:43:28 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
+[16-Dec-2025 02:49:11 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
+[16-Dec-2025 05:49:43 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
+[16-Dec-2025 05:49:43 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
+[16-Dec-2025 05:49:43 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
+[16-Dec-2025 05:49:43 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
+[18-Dec-2025 03:18:32 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
+[24-Dec-2025 01:31:54 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
+[24-Dec-2025 01:31:57 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
+[26-Dec-2025 05:05:46 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
+[30-Dec-2025 01:45:28 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
+[30-Dec-2025 07:38:31 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
