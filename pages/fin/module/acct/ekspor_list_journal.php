@@ -78,7 +78,7 @@
   
 
         $sql = mysqli_query($conn2,"
-select *,coalesce(c.no_mj,'-') no_jounal_sb from (select id,no_journal, tgl_journal, type_journal, no_coa, nama_coa, CONCAT(no_coa,' ',nama_coa) coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, Round(debit,2) debit, Round(credit,2) credit, ROUND(debit * rate,2) debit_idr, ROUND(credit * rate,2) credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date,case when no_journal like '%/ALK/%' then 'AR'
+select *,ifnull(c.no_mj,no_journal) no_jounal_sb from (select id,no_journal, tgl_journal, type_journal, no_coa, nama_coa, CONCAT(no_coa,' ',nama_coa) coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, Round(debit,2) debit, Round(credit,2) credit, ROUND(debit * rate,2) debit_idr, ROUND(credit * rate,2) credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date,case when no_journal like '%/ALK/%' then 'AR'
                         when no_journal like '%L/NAG%' then 'AR'
                                                 when no_journal like '%E/NAG%' then 'AR'
                                                 when no_journal like '%/INM/%' then 'AR'
