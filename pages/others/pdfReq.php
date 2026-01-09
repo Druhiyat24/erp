@@ -9,7 +9,7 @@ ob_start();
 $quenya = "Select * from mastercompany Where company!='' ";
 $strsql = mysql_query($quenya);
 $rs = mysql_fetch_array($strsql);
-  $nm_company = "SAGARIS";
+  $nm_company = "PT. SOLJER ABADI";
   $add_company = $rs['alamat1'];
   $add2_company = $rs['alamat2'];
   $kota_comp = $rs['kota'];
