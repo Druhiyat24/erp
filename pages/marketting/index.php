@@ -52,12 +52,12 @@
     include "content_title.php"; ?> - <?php if ($st_company=="MULTI_WHS") 
           { echo "Inventory Multi Warehouse"; } 
           else if ($logo_erp=="S") 
-          { echo "SIGNAL BIT"; } 
+          { echo "SAGARIS"; } 
           else if ($logo_erp=="Z") 
           { echo "ZAST ERP"; } 
           else 
           { echo "IT Inventory"; } ?></title>
-  <link rel="icon" type="image/jpeg" href="../../include/icon2.jpg">
+  <link rel="icon" href="../../images/sagaris_icon.png">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <?php 
   if ($excel=="N")

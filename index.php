@@ -3,117 +3,129 @@ session_start();
 session_destroy();
 include('include/conn.php');
 include('pages/forms/fungsi.php');
-$que=mysql_query("select * from mastercompany");
-$rs=mysql_fetch_array($que);
-$nm_company=$rs['company'];
-$ad1_company=$rs['alamat1'];
-$ad2_company=$rs['alamat2'];
-if ($rs['kec']!="") {$kec_company=" Kec. ".$rs['kec'];} else {$kec_company="";}
-$kota_company=$rs['kota'];
-$prop_company=$rs['propinsi'];
-$dalam_perbaikan=$rs['dalam_perbaikan'];
-$st_company=$rs['status_company'];
-$logo_ada_nama=$rs['logo_ada_nama'];
-$logo_erp=$rs['logo_company'];
-if ($dalam_perbaikan=="Y")
-{ echo "<script>window.location.href='maaf';</script>";
-	exit;
+$que = mysql_query("SELECT * FROM mastercompany");
+$rs = mysql_fetch_array($que);
+$nm_company = $rs['company'];
+$ad1_company = $rs['alamat1'];
+$ad2_company = $rs['alamat2'];
+$kec_company = ($rs['kec'] != "") ? " Kec. " . $rs['kec'] : "";
+$kota_company = $rs['kota'];
+$prop_company = $rs['propinsi'];
+$dalam_perbaikan = $rs['dalam_perbaikan'];
+$st_company = $rs['status_company'];
+$logo_ada_nama = $rs['logo_ada_nama'];
+$logo_erp = $rs['logo_company'];
+
+if ($dalam_perbaikan == "Y") {
+  echo "<script>window.location.href='maaf';</script>";
+  exit;
 }
 error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>
-		<?php if ($st_company=="MULTI_WHS") 
-					{ echo "Inventory Multi Warehouse"; } 
-					else if ($logo_erp=="S") 
-					{ echo "SIGNAL BIT"; } 
-					else if ($logo_erp=="Z") 
-					{ echo "ZAST ERP"; } 
-					else 
-					{ echo "IT Inventory"; } ?> | Log in</title>
-  <link rel="icon" type="image/jpeg" href="include/icon2.jpg">
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="bootstrap/css/util.css">
-	<link rel="stylesheet" type="text/css" href="bootstrap/css/main.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <?php 
+      if ($st_company=="MULTI_WHS") echo "Inventory Multi Warehouse";
+      else if ($logo_erp=="S") echo "SAGARIS";
+      else if ($logo_erp=="Z") echo "ZAST ERP";
+      else echo "IT Inventory";
+    ?> | Log in
+  </title>
+  <link rel="icon" href="images/sagaris_icon.png">
+
+  <!-- Bootstrap 5 -->
+  <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="fontawesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      background: url("images/garment2.jpg");
+	  background-size: cover;
+	  background-position: center;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+    }
+    .login-card {
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 0 25px rgba(0,0,0,0.1);
+      overflow: hidden;
+      max-width: 850px;
+      width: 100%;
+    }
+    .login-left {
+      background: white;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .login-right {
+      padding: 3rem;
+    }
+    .login-logo img {
+      width: 90%;
+      margin-bottom: 1rem;
+    }
+    .form-control {
+      border-radius: 0.5rem;
+    }
+    .btn-primary {
+      width: 100%;
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+    }
+  </style>
 </head>
 <body>
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100">
-				<div class="login100-pic js-tilt" data-tilt>
-					<img src="include/img-01.png" alt="-">
-					<br>
-					<h5>
-					<?php 
-            if ($logo_ada_nama=="N") {echo $nm_company."<br>";}
-              echo $ad1_company
-              ."<br>".
-              $ad2_company.$kec_company
-              ."<br>".
-              $kota_company." - ".$prop_company;
-          ?>
-					</h5>
-				</div>
 
-				<form class="login100-form validate-form" method="post" action="auth.php">
-					<span class="login100-form-title">
-						<?php
-						if ($st_company=="MULTI_WHS")
-						{	echo "Inventory Multi Warehouse";	}
-						else if ($logo_erp=="S")
-						{	echo '<img src="images/logo_s.jpg" width="100%" alt="-">'; }
-						else if ($logo_erp=="Z")
-						{	echo '<img src="images/logo_z.jpg" width="100%" alt="-">'; }
-						else
-						{	echo "IT Inventory (".$st_company.")";	}
-						?>
-					</span>
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="user" placeholder="User Name">
-						<span class="symbol-input100">
-							<i class="fa fa-address-book" aria-hidden="true"></i>
-						</span>
-					</div>
+<div class="login-card d-flex flex-column flex-md-row">
+  <!-- Left side -->
+  <div class="login-left col-md-5">
+    <div class="login-logo mb-3">
+      <img src="images/logo_s.jpg" alt="Logo">
+    </div>
+  </div>
 
-					<div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<input class="input100" type="password" name="pass" placeholder="Password">
-						<span class="symbol-input100">
-							<i class="fa fa-lock" aria-hidden="true"></i>
-						</span>
-					</div>
+  <!-- Right side -->
+  <div class="login-right col-md-7">
+    <form method="post" action="auth.php">
 
-					<div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<select class="input100" style='width: 100%;' name='txtbahasa'>
-				          <option>Indonesia</option>
-				          <option>English</option>
-				          <option>Korean</option>
-				        </select>
-				        <span class="symbol-input100">
-							<i class="fa fa-sign-language" aria-hidden="true"></i>
-						</span>
-					</div>
-					
-					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">Login</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	
-	<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
-	<script src="bootstrap/js/popper.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
-	<script src="bootstrap/tilt/tilt.jquery.min.js"></script>
-	<script >
-		$('.js-tilt').tilt({
-			scale: 1.1
-		})
-	</script>
-	<script src="bootstrap/js/main.js"></script>
+      <div class="mb-3">
+        <label class="form-label"><i class="fa fa-address-book me-2"></i>User Name</label>
+        <input type="text" name="user" class="form-control" placeholder="Enter username" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label"><i class="fa fa-lock me-2"></i>Password</label>
+        <input type="password" name="pass" class="form-control" placeholder="Enter password" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label"><i class="fa fa-language me-2"></i>Language</label>
+        <select name="txtbahasa" class="form-select">
+          <option>Indonesia</option>
+          <option>English</option>
+          <option>Korean</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary mt-3">Login</button>
+    </form>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

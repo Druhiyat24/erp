@@ -9,7 +9,7 @@ ob_start();
 $quenya = "Select * from mastercompany Where company!='' ";
 $strsql = mysql_query($quenya);
 $rs = mysql_fetch_array($strsql);
-  $nm_company = $rs['company'];
+  $nm_company = "SAGARIS";
   $add_company = $rs['alamat1'];
   $add2_company = $rs['alamat2'];
   $kota_comp = $rs['kota'];
@@ -167,40 +167,48 @@ Notes : <?php echo $remark; ?>
 	?>
 </table>
 <?php
-$header = '<table cellpadding=0 cellspacing=0 style="border:none;">
-            <tr>
-              <td style="border:none;" align="left">'.$logo.'</td>
-              <td width="100%" style="border:none;"><h4>'.$nm_company.'</h4></td>
-              <td width="100%" style="border:none; font-size:7pt;">'.$kota.'</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td width="100%" style="border:none; font-size:7pt;">'.$add_company.'</td>
-              <td width="100%" style="border:none; font-size:7pt;">'.$sentto.'</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td width="100%" style="border:none; font-size:7pt;">'.$add2_company.'</td>
-              <td width="100%" style="border:none; font-size:7pt;">'.$add_sentto.'</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td width="100%" style="border:none; font-size:7pt;">'.$add3_company.'</td>
-              <td width="100%" style="border:none; font-size:7pt;">'.$add2_sentto.'</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td width="100%" style="border:none; font-size:7pt;">'.$add4_company.'</td>
-            </tr>
-          </table>
-          <table width="100%" style="border:none;">
-            <tr>
-              <td align="center" style="border:none;"><h2>'.$head_cap.'</h2></td>
-            </tr>
-            <tr>
-              <td align="center" style="border:none; font-size:14pt;">'.$transno.'</td>
-            </tr>
-          </table>';
+$header = '
+<table width="100%" cellpadding="0" cellspacing="0" style="border:none;">
+  <tr>
+    <!-- LOGO -->
+    <td width="80" align="left" style="border:none; vertical-align:top;">
+      <div style="height:60px;">'.$logo.'</div>
+    </td>
+
+    <!-- COMPANY INFO -->
+    <td style="border:none; vertical-align:top; font-size:9pt; line-height:14px;">
+      <strong style="font-size:12pt;">'.$nm_company.'</strong><br>
+      '.$add_company.'<br>
+      '.$add2_company.'<br>
+      '.$add3_company.'<br>
+      '.$add4_company.'
+    </td>
+
+    <!-- KOTA / TANGGAL -->
+    <td width="150" align="right" style="border:none; vertical-align:top; font-size:9pt; line-height:14px;">
+      '.$kota.'<br>
+      '.$sentto.'<br>
+      '.$add_sentto.'<br>
+      '.$add2_sentto.'
+    </td>
+  </tr>
+</table>
+
+<!-- TITLE -->
+<table width="100%" style="border:none; margin-top:10px;">
+  <tr>
+    <td align="center" style="border:none;">
+      <h2 style="margin:0;">'.$head_cap.'</h2>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="border:none; font-size:14pt; padding-top:3px;">
+      '.$transno.'
+    </td>
+  </tr>
+</table>
+';
+
 $content = ob_get_clean();
 $footer =  $footernya;           
 try {

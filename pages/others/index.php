@@ -51,10 +51,10 @@
     else { include "content_header.php"; } ?> - <?php if ($st_company=="MULTI_WHS") 
           { echo "Inventory Multi Warehouse"; } 
           else if ($logo_erp=="S") 
-          { echo "SIGNAL BIT"; } 
+          { echo "SAGARIS"; } 
           else 
           { echo "IT Inventory"; } ?></title>
-  <link rel="icon" type="image/jpeg" href="../../include/icon2.jpg">
+  <link rel="icon" href="../../images/sagaris_icon.png">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <?PHP 
   if ($excel=="N")
@@ -62,7 +62,7 @@
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../plugins/datepicker/datepicker3.css">
     <link rel="stylesheet" href="../../plugins/select2/select2.min.css">
-    <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
     <link rel="stylesheet" href="../../plugins/datatables_responsive/responsive.dataTables.min.css">
     <link rel="stylesheet" href="../../plugins/datatables_responsive/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">

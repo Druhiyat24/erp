@@ -187,7 +187,8 @@ input::-webkit-inner-spin-button {
     <a class="navbar-brand" href="#">
         <img src="img/NAG logo SIGN.png" alt="">
     </a>
-    <a class="navbar-brand text-white"><b style="font-size:15px;">PT.NIRWANA ALABARE GARMENT</b></a>
+    <a class="navbar-brand text-white"><img src='../../../../images/sagaris_white.png' class='img-responsive '
+                    alt='-' width='120' style='margin-top: -5px;'></a>
 
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav mr-auto">
@@ -430,7 +431,7 @@ input::-webkit-inner-spin-button {
 <!-- end -->
 
 <li class="nav-item active">
-    <a class="nav-link" href="/erp/pages/"><i class="fa fa-home" aria-hidden="true"></i></a>
+    <a class="nav-link" href="/sagaris/pages/"><i class="fa fa-home" aria-hidden="true"></i></a>
 </li>
 
 </ul>

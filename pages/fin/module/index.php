@@ -38,7 +38,8 @@ img {
     <a class="navbar-brand" href="#">
         <img src="img/NAG logo SIGN.png" alt="">
     </a>
-    <a class="navbar-brand text-white"><b>PT.NIRWANA ALABARE GARMENT</b></a>
+    <a class="navbar-brand text-white"><img src='../../../../images/sagaris_white.png' class='img-responsive '
+                    alt='-' width='120' style='margin-top: -5px;'></a>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">

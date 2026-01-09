@@ -98,7 +98,8 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
 <nav class="navbar navbar-static-top bg-warning">
   <div class="container">
     <div class="navbar-header">
-      <a href="?mod=1" class="navbar-brand"><b><?PHP echo $nm_company; ?></b></a>
+      <a href="?mod=1" class="navbar-brand"><img src='../../images/sagaris_white.png' class='img-responsive '
+                    alt='-' width='120' style='margin-top: -5px;'></a>
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
         <i class="fa fa-bars"></i>
       </button>

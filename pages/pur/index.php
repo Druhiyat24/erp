@@ -68,13 +68,13 @@ $tt_attach = "data-toggle='tooltip' title='Attachment'><i class='fa fa-paperclip
     } ?> - <?php if ($st_company == "MULTI_WHS") {
               echo "Inventory Multi Warehouse";
             } else if ($logo_erp == "S") {
-              echo "SIGNAL BIT";
+              echo "SAGARIS";
             } else if ($logo_erp == "Z") {
               echo "ZAST ERP";
             } else {
               echo "IT Inventory";
             } ?></title>
-  <link rel="icon" type="image/jpeg" href="../../include/icon2.jpg">
+  <link rel="icon" href="../../images/sagaris_icon.png">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <?PHP
   if ($excel == "N") { ?>
@@ -87,7 +87,6 @@ $tt_attach = "data-toggle='tooltip' title='Attachment'><i class='fa fa-paperclip
     <link rel="stylesheet" href="../../plugins/datatables_responsive/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="../../fontawesome/css/font-awesome.css">
-    <script src="../../dist/sweetalert.js"></script>
     <script src="../../dist/sweetalert.js"></script>
     <link rel="stylesheet" href="../../dist/sweetalert.css">
     <link rel="stylesheet" href="./css/style_po.css">

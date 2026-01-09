@@ -71,7 +71,7 @@ $tt_attach = "data-toggle='tooltip' title='Attachment'><i class='fa fa-paperclip
     } else {
       include "content_header.php";
     } ?> - Nirwana Digital Solution</title>
-  <link rel="icon" type="image/jpeg" href="../../include/icon2.jpg">
+  <link rel="icon" href="../../images/sagaris_icon.png">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <?PHP
   if ($excel == "N") { ?>
