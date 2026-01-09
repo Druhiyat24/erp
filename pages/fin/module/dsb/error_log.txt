@@ -2886,3 +2886,5 @@
 [12-Dec-2025 10:05:58 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in D:\xampp\htdocs\sagaris\pages\fin\module\dsb\dashboard.php on line 109
 [12-Dec-2025 10:06:38 Europe/Berlin] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in D:\xampp\htdocs\sagaris\pages\fin\module\dsb\dashboard.php on line 108
 [12-Dec-2025 10:06:38 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in D:\xampp\htdocs\sagaris\pages\fin\module\dsb\dashboard.php on line 109
+[09-Jan-2026 08:24:52 Europe/Berlin] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in D:\xampp\htdocs\sagaris_erp\pages\fin\module\dsb\dashboard.php on line 108
+[09-Jan-2026 08:24:52 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in D:\xampp\htdocs\sagaris_erp\pages\fin\module\dsb\dashboard.php on line 109

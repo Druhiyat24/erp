@@ -64,6 +64,9 @@
         -moz-border-radius: 6px 0 6px 6px;
         border-radius: 6px 0 6px 6px;
     }
+.skin-purple .main-header .navbar {
+    background: linear-gradient(90deg, #0F172A, #1E40AF);
+}	
 </style>
 
 

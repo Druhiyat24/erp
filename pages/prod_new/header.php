@@ -24,75 +24,58 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
 
 ?>
 
-<style type="text/css">
-  .dropdown-submenu {
-    position: relative;
+<style>
+/* Modern SAGARIS Navbar Style */
+.navbar {
+  background-color: #1E293B; /* slate navy modern */
+  border: none;
+  border-radius: 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.navbar-brand img {
+  max-height: 40px;
+  margin-top: -5px;
+}
+
+.skin-green .main-header .navbar {
+    background: linear-gradient(90deg, #0F172A, #1E40AF);
+}
+
+.navbar-nav > li > a {
+  color: #E5E7EB !important; /* light gray text */
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: all 0.2s ease;
+  padding: 15px 18px;
+}
+
+.navbar-nav > li > a:hover,
+.navbar-nav > li.active > a {
+  color: #38BDF8 !important; /* bright cyan hover */
+  background-color: transparent !important;
+  text-decoration: none;
+}
+
+.navbar-toggle {
+  border: none;
+  background: transparent !important;
+}
+
+.navbar-toggle .fa {
+  color: #E5E7EB;
+  font-size: 20px;
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+  .navbar {
+    background-color: #1E293B;
   }
-
-  .dropdown-submenu>.dropdown-menu {
-    top: 0;
-    left: 100%;
-    margin-top: -6px;
-    margin-left: -1px;
-    -webkit-border-radius: 0 6px 6px 6px;
-    -moz-border-radius: 0 6px 6px;
-    border-radius: 0 6px 6px 6px;
+  .navbar-nav > li > a {
+    padding: 10px 15px;
   }
-
-  .dropdown-submenu:hover>.dropdown-menu {
-    display: block;
-  }
-
-  .dropdown-submenu>a:after {
-    display: block;
-    content: " ";
-    float: right;
-    width: 0;
-    height: 0;
-    border-color: transparent;
-    border-style: solid;
-    border-width: 5px 0 5px 5px;
-    border-left-color: #ccc;
-    margin-top: 5px;
-    margin-right: -10px;
-  }
-
-  .dropdown-submenu:hover>a:after {
-    border-left-color: #fff;
-  }
-
-  .dropdown-submenu.pull-left {
-    float: none;
-  }
-
-  .dropdown-submenu.pull-left>.dropdown-menu {
-    left: -100%;
-    margin-left: 10px;
-    -webkit-border-radius: 6px 0 6px 6px;
-    -moz-border-radius: 6px 0 6px 6px;
-    border-radius: 6px 0 6px 6px;
-  }
-
-
-  /* Modify the background color */
-  .skin-green .main-header .navbar {
-    background-color: black;
-  }
-
-  .nav>li>a:focus {
-    background: none
-  }
-
-  @media (min-width: 768px) {
-    #nav .navbar li:hover ul.dropdown-menu {
-      visibility: visible;
-      display: block !important
-    }
-
-    #nav .navbar li span {
-      display: none
-    }
-  }
+}
 </style>
 
 <nav class="navbar navbar-static-top bg-warning">
