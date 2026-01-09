@@ -137,10 +137,10 @@
         </li>
         <li class="dropdown">
           <a href="../">Main Menu</a>
-        </li>
+        <!-- </li>
          <li class="dropdown">
           <a href='../pur/?mod=1000'>Back</a>
-        </li>
+        </li> -->
     </div>
   </div>
 </nav>
