@@ -69,7 +69,7 @@ $result = $con_new->query($sqldatatable);
 $supps = $con_new->query($sqldataAlamatSP);
 
 $alamat ='';
-$company='';
+$company='PT. SOLJER ABADI';
 $kec='';
 $kota='';
 
@@ -88,7 +88,6 @@ $currency='';
 $tanggal = '';
 $valby = '';
 while($row = $shipper->fetch_assoc()) {
-    $company = $row["company"];
     $alamat= $row["alamat1"];
     $kec = $row["kec"];
     $kota = $row["kota"];
@@ -165,7 +164,7 @@ $html= '
 <body >
     <table style="width:100%;  border-collapse: collapse;" >
         <tr style="">
-        <td style="border-bottom:2px solid black; width:50% border-collapse: collapse;"> <img src="'.$images.'" width="100px" height="70px"> </td>
+        <td style="border-bottom:2px solid black; width:50% border-collapse: collapse;"> <img src="'.$images.'" width="70px" height="70px"> </td>
         <td style="border-bottom:2px solid black; width:50%; border-collapse: collapse; vertical-align:bottom;" ><p style="color:black; font-weight:bold; font-size:18px; text-align:right; text-transform:uppercase;">
                  '.$company.'
             </p>
