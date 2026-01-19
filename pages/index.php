@@ -209,7 +209,7 @@ $transfer_bpb = $rs['transfer_bpb'];
             <div class='card menu-card text-center'>
               <a href='doc_handover/?mod=1' class='text-decoration-none text-dark'>
                 <img src='../images/document-handover.jpg' class='menu-icon'>
-                <div class='menu-title'>$cm_fin</div>
+                <div class='menu-title'>Document Handover</div>
               </a>
             </div>
           </div>";
