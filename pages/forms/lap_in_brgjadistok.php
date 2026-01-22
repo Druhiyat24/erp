@@ -47,7 +47,9 @@ echo "<div class='box'>";
       		echo "<label>Sampai Tanggal *</label>";
       		echo "<input type='text' class='form-control' id='datepicker2' name='txtto' placeholder='Masukkan Sampai Tanggal' value='$to' autocomplete='off'>";
       	echo "</div>";
-        echo "<button type='submit' name='submit' class='btn btn-primary'>Tampilkan</button>";
+        echo "<button type='submit' name='submit' class='btn btn-primary' style='margin-right: 10px;'>Tampilkan</button>";
+        echo "<button class='btn btn-info' type='button' onclick='exportExcelMutBarangJadiStok(event)'>Save To Excel</button>";	
+			echo "<br>";
       echo "</div>";
       echo "</form>";
     echo "</div>";
@@ -55,3 +57,11 @@ echo "<div class='box'>";
 echo "</div>";
 # END COPAS ADD
 ?>
+
+<script>
+	function exportExcelMutBarangJadiStok(event) {
+    event.preventDefault();
+
+    window.location.href = `http://10.10.5.62:8123/api/laporan-fg-stock/export_excel_mutasi_fg_stok_sb?from=`+$("#datepickerfg_stok").val()+`&to=`+$("#datepicker2").val()+``;
+	}
+</script>

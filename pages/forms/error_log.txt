@@ -4426,3 +4426,17 @@
 [27-Nov-2025 10:25:53 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in C:\xampp\htdocs\erp\pages\forms\ajax_bpb_gen_new_1.php on line 150
 [27-Nov-2025 10:26:16 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in C:\xampp\htdocs\erp\pages\forms\ajax_bpb_gen_new_1.php on line 150
 [28-Nov-2025 04:57:41 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\cetaksj.php on line 3
+[07-Jan-2026 08:47:44 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\pdfBarcode_whs.php on line 3
+[14-Jan-2026 11:15:23 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\cetaksj.php on line 3
+[14-Jan-2026 11:15:31 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\cetaksj.php on line 3
+[14-Jan-2026 11:15:50 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\pdfBarcode_whs.php on line 3
+[14-Jan-2026 11:15:59 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\pdfBarcode_whs.php on line 3
+[14-Jan-2026 11:16:08 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\cetaksj.php on line 3
+[14-Jan-2026 11:16:13 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\cetaksj.php on line 3
+[14-Jan-2026 11:16:23 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\pdfBarcode_whs.php on line 3
+[14-Jan-2026 11:16:48 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\cetaksj.php on line 3
+[14-Jan-2026 11:17:04 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\cetaksj.php on line 3
+[14-Jan-2026 11:17:07 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\cetaksj.php on line 3
+[14-Jan-2026 11:17:11 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\cetaksj.php on line 3
+[14-Jan-2026 11:17:22 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\pdfBarcode_whs.php on line 3
+[14-Jan-2026 11:17:33 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\pdfBarcode_whs.php on line 3
