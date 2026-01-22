@@ -97,7 +97,6 @@ insert_log($sql,$user);
 	{	
 			echo "<a class='btn btn-info btn-sm' href='?mod=view_mut_brgjadistok&parfrom=$tglf&parto=$tglt&parfromv=$perf&partov=$pert&rptid=$rpt&dest=xls'>Save To Excel</a>";	
 			echo "<br>";
-
 	}
 	
 	if ($rpt=="hasil" OR $rpt=="hasilsl" OR $rpt=="hasilwip" OR $rpt=="hasilmes" OR $rpt=="hasilfg")

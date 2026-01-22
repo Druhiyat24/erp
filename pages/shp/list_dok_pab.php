@@ -753,7 +753,7 @@ if($mod=="2U") {
           <td>$data[tanggal_aju]</td>
           
           <td>";
-          if ($data['trx_date'] >= '2025-01-01') {
+          if ($data['trx_date'] >= '2025-01-01' && $data[supplier] != 'PT. MELADY GARMENT INTERNATIONAL') {
             echo "<a href='?mod=2U_new&trx=$jen_trx&dtrx=$tgl_trx&dtrx2=$tgl_trx2&noid=$data[trx_no_par]'
             data-toggle='tooltip' title='edit'><i class='fa fa-pencil-square-o text-success' aria-hidden='true'></i>
             </a>";

@@ -596,7 +596,7 @@ echo "<script type='text/javascript'>
   			<i class='fa fa-trash'></i>
   			Cancel Selected
   		</button>
-  	<?php } else if ($user_so==$user) { ?>
+  	<?php } ?>
 	  	<a href='../marketting/?mod=8&id=<?php echo $id_so; ?>' class='btn btn-primary btn-s'>
 	  		<i class='fa fa-plus'></i> Add Item
 	  	</a> <a href='../marketting/?mod=8d&id=<?php echo $id_so; ?>' class='btn btn-danger btn-s'>
@@ -604,7 +604,6 @@ echo "<script type='text/javascript'>
 	  	</a> <a href='../marketting/?mod=8mu&id=<?php echo $id_so; ?>' class='btn btn-primary btn-s'>
 	  		<i class='fa fa-pencil'></i> Multi Update
 	  	</a> 
-	<?php } ?>
   </div>
   <div class="box-body">
     <table id="examplefix" class="display responsive" style="width:100%">
