@@ -348,8 +348,9 @@ if (jenisDok !== null) {
 
     // Ketika nomor pengajuan dipilih, isi tanggal pengajuan, nomor daftar dan tanggal daftar
     $('#nomor_daftar').change(function() {
-      var nomorAju = $(this).val();
+      var nomorAju = $(this).find('option:selected').attr('data-nomor-aju');
       var jenisDok = document.getElementById('jenis_dok').value;
+      // alert(nomorAju);
       jenisDok = jenisDok.substring(3); // Menghilangkan 3 karakter pertama
       jenisDok = jenisDok.replace(/\./g, '');
       $.ajax({
