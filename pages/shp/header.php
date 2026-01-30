@@ -72,8 +72,8 @@
           <ul class="dropdown-menu" role="menu">
             <li><a href='?mod=lap_memo_summary'>Memo Pembayaran Summary</a></li>
             <li><a href='?mod=lap_memo_list'>Memo Pembayaran Detail</a></li>
-            <!-- <li><a href='?mod=lap_dok_pabean'>Report Dok Pabean</a></li>
-            <li><a href='?mod=lap_dok_pabean_det'>Report Dok Pabean Detail</a></li> -->
+            <li><a href='?mod=lap_dok_pabean'>Report Dok Pabean</a></li>
+            <li><a href='?mod=lap_dok_pabean_det'>Report Dok Pabean Detail</a></li>
           </ul>
         </li>
         <?php } ?>

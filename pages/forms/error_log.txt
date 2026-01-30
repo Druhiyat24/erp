@@ -4440,3 +4440,295 @@
 [14-Jan-2026 11:17:11 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\cetaksj.php on line 3
 [14-Jan-2026 11:17:22 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\pdfBarcode_whs.php on line 3
 [14-Jan-2026 11:17:33 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\pdfBarcode_whs.php on line 3
+[29-Jan-2026 09:32:59 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:32:59 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:32:59 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:32:59 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:32:59 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:32:59 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:32:59 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:32:59 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:00 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:00 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:00 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:00 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:00 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:00 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:00 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:00 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:00 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:00 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:00 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:00 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:01 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:01 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:01 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:01 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:01 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:01 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:01 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:01 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:01 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:01 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:01 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:01 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:02 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:02 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:02 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:02 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:02 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:02 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:02 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:02 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:03 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:03 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:03 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:03 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:03 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:03 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:03 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:03 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:03 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:03 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:03 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:03 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:04 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:04 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:04 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:04 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:04 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:04 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:04 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:04 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:04 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:04 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:04 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:04 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:05 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:05 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:05 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:05 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:05 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:05 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:05 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:05 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:06 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:06 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:06 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:06 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:06 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:06 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:06 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:06 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:06 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:06 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:06 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:06 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:07 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:07 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:07 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:07 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:07 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:07 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:07 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:07 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:07 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:07 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:07 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:07 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:08 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:08 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:08 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:08 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:08 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:08 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:08 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:08 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:08 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:08 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:08 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:08 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:09 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:09 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:09 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:09 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:09 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:09 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:09 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:09 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:10 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:10 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:10 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:10 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:10 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:10 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:10 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:10 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:10 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:10 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:10 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:10 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:11 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:11 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:11 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:11 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:11 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:11 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:11 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:11 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:11 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:11 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:12 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:12 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:12 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:12 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:12 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:12 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:12 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:12 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:12 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:12 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:13 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:13 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:13 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:13 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:13 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:13 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:13 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:13 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:13 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:13 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:13 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:13 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:14 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:14 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:14 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:14 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:14 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:14 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:14 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:14 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:15 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:15 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:15 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:15 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:15 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:15 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:15 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:15 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:15 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:15 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:15 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:15 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:16 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:16 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:16 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:16 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:16 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:16 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:16 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:16 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:16 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:16 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:17 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:17 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:17 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:17 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:17 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:17 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:17 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:17 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:17 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:17 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:18 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:18 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:18 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:18 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:18 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:18 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:18 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:18 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:18 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:18 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:18 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:18 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:19 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:19 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:19 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:19 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:19 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:19 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:19 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:19 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:19 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:19 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:19 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:19 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:20 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:20 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:20 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:20 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:20 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:20 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:20 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:20 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:21 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:21 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:21 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:21 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:21 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:21 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:21 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:21 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:21 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:21 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:21 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:21 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:22 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:22 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:22 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:22 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:22 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:22 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:22 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:22 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:22 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:22 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:22 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:22 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:23 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:23 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:23 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:23 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:23 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:23 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:23 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:23 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:24 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:24 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:24 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:24 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:24 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:24 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:24 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:24 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:24 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:24 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:24 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:24 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:25 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:25 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:25 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:25 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:25 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:25 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:25 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:25 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:26 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:26 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:26 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:26 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:26 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:26 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:26 Europe/Berlin] PHP Warning:  imagepng(): gd-png:  fatal libpng error: zlib failed to initialize compressor (IDAT) memory error in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
+[29-Jan-2026 09:33:26 Europe/Berlin] PHP Warning:  imagepng(): gd-png error: setjmp returns error condition in C:\xampp\htdocs\erp\pages\forms\barcode.php on line 145
