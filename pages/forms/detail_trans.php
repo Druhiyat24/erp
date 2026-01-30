@@ -644,7 +644,7 @@ else
 			if(a.bpbno_int!='',a.bpbno_int,a.bpbno) bpbno,a.bpbdate, ifnull(mp.nama_pc, 'NIRWANA ALABARE GARMENT') profit_center, a.invno,a.jenis_dok,right(a.nomor_aju,6),a.tanggal_aju,
 				lpad(a.bcno,6,'0') bcno,a.bcdate,d.supplier,a.pono,z.tipe_com,a.invno,a.id_item,s.goods_code,
 			CONCAT(s.itemdesc,' ',coalesce(s.add_info,'')) itemdesc,m.description,s.color,s.size,
-			a.qty,a.unit,a.berat_bersih,a.remark,a.username,CONCAT(a.confirm_by, ' (', a.confirm_date, ')') AS confirm_by,r.reqno,'' whs_code,a.curr,a.price,a.jenis_trans,a.reffno 
+			a.qty,a.unit,a.berat_bersih,a.remark,a.username,CONCAT(a.confirm_by, ' (', a.confirm_date, ')') AS confirm_by,r.reqno,'' whs_code,a.curr,if(z.tipe_com ='FOC','0',a.price) price,a.jenis_trans,a.reffno 
 			from bpb a inner join masteritem s on a.id_item=s.id_item
 			LEFT join (select pono,tipe_com from po_header_draft inner join po_header on po_header_draft.id = po_header.id_draft) z  on a.pono = z.pono											
 			LEFT join mastersupplier d on a.id_supplier=d.id_supplier
