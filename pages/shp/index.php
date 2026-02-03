@@ -349,14 +349,15 @@ if (jenisDok !== null) {
     // Ketika nomor pengajuan dipilih, isi tanggal pengajuan, nomor daftar dan tanggal daftar
     $('#nomor_daftar').change(function() {
       var nomorAju = $(this).find('option:selected').attr('data-nomor-aju');
+      var nomordaftar = $(this).find('option:selected').val();
       var jenisDok = document.getElementById('jenis_dok').value;
-      // alert(nomorAju);
+      // alert(nomorAju + '|' + nomordaftar);
       jenisDok = jenisDok.substring(3); // Menghilangkan 3 karakter pertama
       jenisDok = jenisDok.replace(/\./g, '');
       $.ajax({
         url: 'getDetailsPengajuan.php', // Script untuk mengambil data detail berdasarkan nomor pengajuan
         method: 'GET',
-        data: { nomor_aju: nomorAju, jenis_dok: jenisDok },
+        data: { nomor_aju: nomorAju, jenis_dok: jenisDok, nomordaftar: nomordaftar },
         success: function(response) {
           var data = JSON.parse(response);
           // Isi field dengan data yang diterima
