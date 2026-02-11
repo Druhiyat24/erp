@@ -351,7 +351,7 @@ if (isset($_POST['submit']))
 
               <?php 
 
-                $sql = "select id_supplier isi,supplier tampil from mastersupplier where tipe_sup in ('S','D') order by supplier";
+                $sql = "select id_supplier isi,supplier tampil from mastersupplier where tipe_sup in ('S','D') and non_aktif = '0' order by supplier";
 
                 IsiCombo($sql,$id_supplier,'Pilih Supplier');
 
