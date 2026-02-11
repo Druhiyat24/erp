@@ -701,7 +701,7 @@ else
 		// 	$cri_mat
 	 // 		GROUP BY VMAT, a.matclass, b.ID_ITEM,UNIT,a.goods_code,a.itemdesc";
 
-		if(strpos($_POST['txtparitem'], 'FABRIC') !== false && $tglf >= '2024-02-01') {
+		if(strpos($_POST['txtparitem'], 'FABRIC') !== false && $tglf >= '2024-02-01' && $tglf < '2026-01-01') {
 			$sqlk = "SELECT '' vmat,'F' matclass,id_item, goods_code kode_brg, itemdesc nama_brg, satuan unit, sum(sal_awal) saldo_awal, sum(qty_in) qtyrcv, sum(qty_out) qtyout, sum(sal_akhir) sal_akhir, GROUP_CONCAT(IF(sal_akhir > 0,CONCAT(kode_lok,'(',sal_akhir,') '),null)) keterangan from (select kode_lok,id_jo,no_ws,styleno,buyer,id_item,goods_code,itemdesc,satuan,round((sal_awal - qty_out_sbl),2) sal_awal,round(qty_in,2) qty_in,ROUND(qty_out_sbl,2) qty_out_sbl,ROUND(qty_out,2) qty_out, round((sal_awal + qty_in - qty_out_sbl - qty_out),2) sal_akhir from (select a.kode_lok kode_lok,a.id_jo,no_ws,styleno,buyer,a.id_item,goods_code,itemdesc,a.satuan,sal_awal,qty_in,coalesce(qty_out_sbl,'0') qty_out_sbl,coalesce(qty_out,'0') qty_out from (select b.kode_lok,b.id_jo,b.no_ws,b.styleno,b.buyer,b.id_item,b.goods_code,b.itemdesc,b.satuan, sal_awal, qty_in from (select id_item,unit from whs_sa_fabric  group by id_item,unit
 				UNION
 				select id_item,unit from whs_inmaterial_fabric_det group by id_item,unit) a left join
@@ -745,6 +745,48 @@ else
 				select no_barcode,kode_lok,id_item,id_jo,unit satuan FROM whs_sa_fabric GROUP BY no_barcode) b on a.idbpb_det = b.no_barcode where a.status = 'Y' and tgl_mut BETWEEN '$tglf' and '$tglt' group by b.kode_lok,b.id_item,b.id_jo,satuan
 			UNION
 			select 'OT' id,no_rak kode_lok,id_item,id_jo,satuan,round(sum(qty_out),2) qty_out from whs_bppb_det a inner join whs_bppb_h b on b.no_bppb = a.no_bppb where a.status = 'Y' and tgl_bppb BETWEEN '$tglf' and '$tglt' group by no_rak, id_item, id_jo, satuan) a) a group by kode_lok, id_item, id_jo, satuan) b on b.kode_lok = a.kode_lok and b.id_jo = a.id_jo and b.id_item = a.id_item and b.satuan = a.satuan) a) a GROUP BY id_item, satuan";
+
+}elseif(strpos($_POST['txtparitem'], 'FABRIC') !== false && $tglf >= '2026-01-01') {
+			$sqlk = "WITH 
+buyer as (select id_jo,kpno,styleno, supplier buyer from act_costing ac inner join so on ac.id=so.id_cost inner join jo_det jod on so.id=jod.id_so INNER JOIN mastersupplier ms on ms.id_supplier = ac.id_buyer group by id_jo),
+
+saldo_awal as (select no_barcode, no_dok, tgl_dok, supplier, buyer, kode_lok, a.id_jo, c.kpno, c.styleno, a.id_item, b.itemdesc, no_roll, '' no_roll_buyer, no_lot, satuan, qty, 0 qty_in  from whs_sa_fabric_copy a INNER JOIN masteritem b on b.id_item = a.id_item INNER JOIN  buyer c on c.id_jo=a.id_jo where tgl_periode = (SELECT MAX(tgl_periode) FROM whs_sa_fabric_copy WHERE tgl_periode <= '$tglf') GROUP BY no_barcode, kode_lok),
+
+in_before as (select b.no_barcode, a.no_dok, a.tgl_dok, supplier, d.buyer, b.kode_lok, b.id_jo, d.kpno, d.styleno, b.id_item, c.itemdesc, b.no_roll, b.no_roll_buyer, b.no_lot, b.satuan, sum(qty_sj) qty, 0 qty_in from whs_inmaterial_fabric a INNER JOIN whs_lokasi_inmaterial b on b.no_dok = a.no_dok INNER JOIN masteritem c on c.id_item = b.id_item INNER JOIN  buyer d on d.id_jo=b.id_jo where tgl_dok >= (SELECT MAX(tgl_periode) FROM whs_sa_fabric_copy WHERE tgl_periode <= '$tglf') and tgl_dok < '$tglf' and a.status != 'Cancel' and b.status = 'Y' GROUP BY b.no_barcode, b.kode_lok
+UNION ALL
+select b.no_barcode, a.no_mut, a.tgl_mut, 'Mutasi Lokasi' supplier, d.buyer, b.kode_lok, b.id_jo, d.kpno, d.styleno, b.id_item, c.itemdesc, b.no_roll, b.no_roll_buyer, b.no_lot, b.satuan, sum(qty_sj) qty, 0 qty_in from whs_mut_lokasi_h a INNER JOIN whs_lokasi_inmaterial b on b.no_dok = a.no_mut INNER JOIN masteritem c on c.id_item = b.id_item INNER JOIN buyer d on d.id_jo=b.id_jo where tgl_mut >= (SELECT MAX(tgl_periode) FROM whs_sa_fabric_copy WHERE tgl_periode <= '$tglf') and tgl_mut < '$tglf' and a.status != 'Cancel' and b.status = 'Y' GROUP BY b.no_barcode, b.kode_lok),
+
+in_act as (select b.no_barcode, a.no_dok, a.tgl_dok, supplier, d.buyer, b.kode_lok, b.id_jo, d.kpno, d.styleno, b.id_item, c.itemdesc, b.no_roll, b.no_roll_buyer, b.no_lot, b.satuan, 0 qty, sum(qty_sj) qty_in from whs_inmaterial_fabric a INNER JOIN whs_lokasi_inmaterial b on b.no_dok = a.no_dok INNER JOIN masteritem c on c.id_item = b.id_item INNER JOIN  buyer d on d.id_jo=b.id_jo where tgl_dok BETWEEN '$tglf' and '$tglt' and a.status != 'Cancel' and b.status = 'Y' GROUP BY b.no_barcode, b.kode_lok
+UNION ALL
+select b.no_barcode, a.no_mut, a.tgl_mut, 'Mutasi Lokasi' supplier, d.buyer, b.kode_lok, b.id_jo, d.kpno, d.styleno, b.id_item, c.itemdesc, b.no_roll, b.no_roll_buyer, b.no_lot, b.satuan, 0 qty, sum(qty_sj) qty_in from whs_mut_lokasi_h a INNER JOIN whs_lokasi_inmaterial b on b.no_dok = a.no_mut INNER JOIN masteritem c on c.id_item = b.id_item INNER JOIN buyer d on d.id_jo=b.id_jo where tgl_mut BETWEEN '$tglf' and '$tglt' and a.status != 'Cancel' and b.status = 'Y' GROUP BY b.no_barcode, b.kode_lok
+),
+
+out_before as (select id_roll, no_rak, id_jo, id_item, sum(COALESCE(qty_out,0)) qty_out_bfr, 0 qty_out from whs_bppb_h a INNER JOIN whs_bppb_det b on b.no_bppb = a.no_bppb where tgl_bppb >= (SELECT MAX(tgl_periode) FROM whs_sa_fabric_copy WHERE tgl_periode <= '$tglf') and tgl_bppb < '$tglf' and a.status != 'Cancel' and b.status = 'Y' GROUP BY id_roll, no_rak
+UNION ALL
+select id_roll, no_rak, id_jo, id_item, sum(COALESCE(qty_out,0)) qty_out_bfr, 0 qty_out from whs_mut_lokasi_h a INNER JOIN whs_bppb_det b on b.no_bppb = a.no_mut where tgl_mut >= (SELECT MAX(tgl_periode) FROM whs_sa_fabric_copy WHERE tgl_periode <= '$tglf') and tgl_mut < '$tglf' and a.status != 'Cancel' and b.status = 'Y' GROUP BY id_roll, no_rak
+),
+
+out_act as (select id_roll, no_rak, id_jo, id_item, 0 qty_out_bfr, sum(COALESCE(qty_out,0)) qty_out from whs_bppb_h a INNER JOIN whs_bppb_det b on b.no_bppb = a.no_bppb where tgl_bppb BETWEEN '$tglf' and '$tglt' and a.status != 'Cancel' and b.status = 'Y' GROUP BY id_roll, no_rak
+UNION ALL
+select id_roll, no_rak, id_jo, id_item, 0 qty_out_bfr, sum(COALESCE(qty_out,0)) qty_out from whs_mut_lokasi_h a INNER JOIN whs_bppb_det b on b.no_bppb = a.no_mut where tgl_mut BETWEEN '$tglf' and '$tglt' and a.status != 'Cancel' and b.status = 'Y' GROUP BY id_roll, no_rak
+),
+
+pemasukan as (select no_barcode, no_dok, tgl_dok, supplier, buyer, kode_lok, id_jo, kpno, styleno, id_item, itemdesc, no_roll, no_roll_buyer, no_lot, satuan, sum(COALESCE(qty,0)) qty_awal, sum(COALESCE(qty_in,0)) qty_in from (SELECT * FROM saldo_awal
+UNION ALL
+SELECT * FROM in_before
+UNION ALL
+SELECT * FROM in_act) a GROUP BY no_barcode, kode_lok),
+
+pengeluaran as (select id_roll, no_rak, id_jo, id_item, sum(COALESCE(qty_out_bfr,0)) qty_out_bfr, sum(COALESCE(qty_out,0)) qty_out from (SELECT * FROM out_before
+UNION ALL
+SELECT * FROM out_act) a GROUP BY id_roll, no_rak),
+
+mutasi as (select no_barcode, no_dok, tgl_dok, supplier, buyer, kode_lok, a.id_jo, kpno, styleno, a.id_item, itemdesc, no_roll, no_roll_buyer, no_lot, satuan, qty_awal sal_awal, qty_in, COALESCE(qty_out_bfr,0) qty_out_sbl, COALESCE(qty_out,0) qty_out, (qty_awal + qty_in - COALESCE(qty_out_bfr,0) - COALESCE(qty_out,0)) sal_akhir from pemasukan a left join pengeluaran b on b.id_roll = a.no_barcode and b.no_rak = a.kode_lok),
+
+mutasi_fix as (select no_barcode, no_dok, tgl_dok, supplier, buyer, kode_lok, id_jo, kpno, styleno, a.id_item, a.itemdesc, mi.color, mi.size, no_roll, no_roll_buyer, no_lot, satuan, sal_awal, qty_in, qty_out_sbl, qty_out, sal_akhir from mutasi a inner join masteritem mi on mi.id_item = a.id_item where (sal_awal + qty_in) > 0)
+
+
+select '' vmat,b. matclass, a.id_item, b.goods_code kode_brg, b.itemdesc nama_brg, satuan unit, ROUND(sum(sal_awal),2) saldo_awal, ROUND(sum(qty_in),2) qtyrcv, ROUND(sum(qty_out),2) qtyout, ROUND(sum(sal_akhir),2) sal_akhir, GROUP_CONCAT(IF(sal_akhir > 0,CONCAT(kode_lok,' (',ROUND(sal_akhir,2),') '),null)) keterangan from mutasi_fix a INNER JOIN masteritem b on b.id_item = a.id_item group by a.id_item, satuan";
 
 }else{
 	$sqlk = "SELECT vmat,matclass,id_item,kode_brg,nama_brg,saldo_awal,(qtyrcv + COALESCE(qty_in,0)) qtyrcv, (qtyout + COALESCE(qty_out,0)) qtyout,unit from (SELECT b.vmat,a.matclass,b.id_item,a.goods_code as kode_brg,a.itemdesc as nama_brg, round(SUM(b.SALDOAWAL),2) as saldo_awal , (SUM(b.INCURR) + SUM(b.RICURR)) as qtyrcv , (SUM(b.OUTCURR) + SUM(b.ROCURR)) as qtyout , CASE WHEN b.UNIT='PIECES' THEN 'PCS' WHEN b.UNIT='KILOGRAM' THEN 'KGM' WHEN b.UNIT='Cones' THEN 'CNS' ELSE b.UNIT END AS unit FROM (SELECT x.vmat,x.id_item,x.Saldo_AkHIR AS SALDOAWAL,0 AS INCURR, 0 AS OUTCURR, 0 AS RICURR,0 AS ROCURR, CASE WHEN x.UNIT='PIECES' THEN 'PCS' WHEN x.UNIT='KILOGRAM' THEN 'KGM' WHEN x.UNIT='Cones' THEN 'CNS' ELSE x.UNIT END AS UNIT FROM vmut_gab_before AS x UNION SELECT y.vMat,y.id_item,0 AS saldoawal, y.QtyBPB_curr AS INCURR, y.QtyBPPB_curr AS OUTCURR, y.QtyRI_curr AS RICURR, y.QtyRO_curr AS ROCURR, CASE WHEN y.UNIT='PIECES' THEN 'PCS' WHEN y.UNIT='KILOGRAM' THEN 'KGM' WHEN y.UNIT='Cones' THEN 'CNS' ELSE y.UNIT END AS UNIT FROM vmut_gab_curr AS y) AS b INNER JOIN masteritem AS a ON b.id_Item=a.id_item $cri_mat GROUP BY VMAT, a.matclass, b.ID_ITEM,UNIT,a.goods_code,a.itemdesc) a left join
