@@ -1227,7 +1227,7 @@ else
 			$remark = $data['remark'];
 			$nilai = number_format($data['PRICE'],2);
 			$satuan_bc = $data['satuan_bc']; 
-			$qty_bc = number_format($data['qty_bc'],2);
+			$qty_bc = number_format($data['qty_bc'],3);
 }			
 			if ($rpt=="inrekap" or $rpt=="outrekap") 
 			{ $berat_bersih=$data['BERAT_BERSIH']; 
