@@ -120,6 +120,12 @@ else if ($mode=="Supplier" OR $mode=="Customer" OR $mode=="Gudang")
 	$txtlead_time = nb($_POST['txtlead_time']);
 	$txtmoq_lead_time = nb($_POST['txtmoq_lead_time']);
 	$txtterms_of_pay = nb($_POST['txtterms_of_pay']);
+	// $txt_bank = nb($_POST['txt_bank']);
+	// $txt_account = nb($_POST['txt_account']);
+	// $txt_beneficiary = nb($_POST['txt_beneficiary']);
+	if(isset($_POST['txt_bank'])) { $txt_bank = nb($_POST['txt_bank']); } else { $txt_bank=""; }
+	if(isset($_POST['txt_account'])) { $txt_account = nb($_POST['txt_account']); } else { $txt_account=""; }
+	if(isset($_POST['txt_beneficiary'])) { $txt_beneficiary = nb($_POST['txt_beneficiary']); } else { $txt_beneficiary=""; }
 	if(isset($_POST['tipe_buyer'])) { $tipe_buyer='Y'; } else { $tipe_buyer=""; }
 	if(isset($_POST['tipe_agent'])) { $tipe_agent='Y'; } else { $tipe_agent=""; }
 	if($auto_coa_supp=="Y")
@@ -132,12 +138,12 @@ else if ($mode=="Supplier" OR $mode=="Customer" OR $mode=="Gudang")
 		if ($cek=="0")
 		{	$sql = "insert into mastersupplier (Supplier,Attn,Phone,Fax,Email,area,vendor_cat,jenis_fasilitas,alamat,alamat2,npwp,status_kb,country,tipe_sup
 				,supplier_code,short_name,zip_code,group_name,product_name,moq,lead_time,moq_lead_time,terms_of_pay,pkp,id_coa
-				,Attn2,Attn3,Attn4,tipe_buyer,tipe_agent)
+				,Attn2,Attn3,Attn4,tipe_buyer,tipe_agent,bank_name, bank_account, beneficiary_name)
 				values ('$txtSupplier','$txtAttn','$txtPhone','$txtFax','$txtEmail'
 				,'$txtarea','$txtvencat','$txtfas','$txtalamat','$txtalamat2','$txtnpwp','$txtstatus_kb','$txtcountry','$txttipe_sup'
 				,'$txtsupplier_code','$txtshort_name','$txtzip_code','$txtgroup_name','$txtproduct_name','$txtmoq','$txtlead_time','$txtmoq_lead_time',
 				'$txtterms_of_pay','$txtpkp','$txtcoa'
-				,'$txtAttn2','$txtAttn3','$txtAttn4','$tipe_buyer','$tipe_agent')";
+				,'$txtAttn2','$txtAttn3','$txtAttn4','$tipe_buyer','$tipe_agent','$txt_bank','$txt_account','$txt_beneficiary')";
 			insert_log($sql,$user);
 			$_SESSION['msg'] = 1;
 		}
@@ -161,7 +167,7 @@ else if ($mode=="Supplier" OR $mode=="Customer" OR $mode=="Gudang")
 						,Supplier='$txtSupplier',id_coa='$txtcoa',Attn='$txtAttn',Phone='$txtPhone',Fax='$txtFax',Email='$txtEmail',
 					Attn2='$txtAttn2',Attn3='$txtAttn3',Attn4='$txtAttn4',
 					area='$txtarea',vendor_cat='$txtvencat',jenis_fasilitas='$txtfas',alamat='$txtalamat',alamat2='$txtalamat2',npwp='$txtnpwp',status_kb='$txtstatus_kb',
-					country='$txtcountry',pkp='$txtpkp',tipe_buyer='$tipe_buyer',tipe_agent='$tipe_agent' where id_supplier='$id_item'";
+					country='$txtcountry',pkp='$txtpkp',tipe_buyer='$tipe_buyer',tipe_agent='$tipe_agent',bank_name='$txt_bank',bank_account='$txt_account',beneficiary_name='$txt_beneficiary' where id_supplier='$id_item'";
 				insert_log($sql,$user);
 				$_SESSION['msg'] = 2;
 				#echo "<script>window.location.href='index.php?mod=4&mode=$mode';</script>";
@@ -174,7 +180,7 @@ else if ($mode=="Supplier" OR $mode=="Customer" OR $mode=="Gudang")
 					Attn='$txtAttn',Phone='$txtPhone',Fax='$txtFax',Email='$txtEmail',
 					Attn2='$txtAttn2',Attn3='$txtAttn3',Attn4='$txtAttn4',
 					area='$txtarea',vendor_cat='$txtvencat',jenis_fasilitas='$txtfas',alamat='$txtalamat',alamat2='$txtalamat2',npwp='$txtnpwp',
-					status_kb='$txtstatus_kb',country='$txtcountry',tipe_sup='$txttipe_sup',pkp='$txtpkp',tipe_buyer='$tipe_buyer',tipe_agent='$tipe_agent' 
+					status_kb='$txtstatus_kb',country='$txtcountry',tipe_sup='$txttipe_sup',pkp='$txtpkp',tipe_buyer='$tipe_buyer',tipe_agent='$tipe_agent',bank_name='$txt_bank',bank_account='$txt_account',beneficiary_name='$txt_beneficiary'
 					where id_supplier='$id_item'";
 				insert_log($sql,$user);
 				$_SESSION['msg'] = 2;
@@ -188,7 +194,7 @@ else if ($mode=="Supplier" OR $mode=="Customer" OR $mode=="Gudang")
 				Attn='$txtAttn',Phone='$txtPhone',Fax='$txtFax',Email='$txtEmail',
 				Attn2='$txtAttn2',Attn3='$txtAttn3',Attn4='$txtAttn4',
 				area='$txtarea',vendor_cat='$txtvencat',jenis_fasilitas='$txtfas',alamat='$txtalamat',alamat2='$txtalamat2',npwp='$txtnpwp',
-				status_kb='$txtstatus_kb',country='$txtcountry',tipe_sup='$txttipe_sup',pkp='$txtpkp',tipe_buyer='$tipe_buyer',tipe_agent='$tipe_agent' 
+				status_kb='$txtstatus_kb',country='$txtcountry',tipe_sup='$txttipe_sup',pkp='$txtpkp',tipe_buyer='$tipe_buyer',tipe_agent='$tipe_agent',bank_name='$txt_bank',bank_account='$txt_account',beneficiary_name='$txt_beneficiary'
 				where id_supplier='$id_item'";
 			insert_log($sql,$user);
 			$_SESSION['msg'] = 2;

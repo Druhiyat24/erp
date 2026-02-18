@@ -11,6 +11,9 @@
         <th>Lead Time</th>
         <th>MOQ LT</th>
         <th>PKP</th>
+        <th>Bank Name</th>
+        <th>Bank Account</th>
+        <th>Beneficiary Name</th>
         <th></th>
         <th></th>
         <th></th>
@@ -35,7 +38,10 @@
         <td>$data[moq]</td>
         <td>$data[lead_time]</td>
         <td>$data[moq_lead_time]</td>
-        <td>$data[pkp]</td>";
+        <td>$data[pkp]</td>
+        <td>$data[bank_name]</td>
+        <td>$data[bank_account]</td>
+        <td>$data[beneficiary_name]</td>";
         if($data['non_aktif']=="0")
         { echo "
           <td><a href='?mod=$mod&mode=$mode&id=$data[Id_Supplier]'

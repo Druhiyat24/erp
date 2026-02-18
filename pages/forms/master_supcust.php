@@ -91,6 +91,9 @@ else
   $Email = $data['Email'];
   $area_ori = $data['area'];
   $ven_cat = $data['vendor_cat'];
+  $bank_name = $data['bank_name'];
+  $bank_account = $data['bank_account'];
+  $beneficiary_name = $data['beneficiary_name'];
   if ($area_ori=="I") 
   { $area="Import/Export"; }
   else if ($area_ori=="L") 
@@ -165,12 +168,23 @@ echo "<div class='box'>";
         <div class='col-md-12'>
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
+              <?php $akses = flookup("edit_bank_supplier_only","userpassword","username='$user'");
+              if ($akses=="1") {?>
+                <li class="active"><a href="#tab_3" data-toggle="tab">Bank</a></li>
+              <?php }else{?>
               <li class="active"><a href="#tab_1" data-toggle="tab">Basic</a></li>
               <li><a href="#tab_2" data-toggle="tab">Kontak</a></li>
+              <li><a href="#tab_3" data-toggle="tab">Bank</a></li>
+            <?php }?>
             </ul>
           </div>
           <div class="tab-content">
-            <div class="tab-pane active" id="tab_1">
+            <?php $akses = flookup("edit_bank_supplier_only","userpassword","username='$user'");
+              if ($akses=="1") {?>
+            <div class="tab-pane" id="tab_1">
+              <?php }else{?>
+                <div class="tab-pane active" id="tab_1">
+                <?php }?>
               <?php 
               echo "<div class='col-md-3'>";
                 echo "<div class='form-group'>";
@@ -189,6 +203,7 @@ echo "<div class='box'>";
                   echo "<label>Nama Group</label>";
                   echo "<input type='text' class='form-control' name='txtgroup_name' placeholder='Masukkan Nama Group' value='$group_name'>";
                 echo "</div>";
+
 
               echo "</div>";
               echo "<div class='col-md-3'>";
@@ -243,6 +258,8 @@ echo "<div class='box'>";
                   </div>
                 </div>";
               echo "</div>";
+
+
               echo "<div class='col-md-3'>";
                 echo "<div class='form-group'>";
                   echo "<label>Fasilitas *</label>";
@@ -269,6 +286,8 @@ echo "<div class='box'>";
                   echo "<input type='text' class='form-control' name='txtcountry' placeholder='$cmas $c30' value='$country'>";
                 echo "</div>";
               echo "</div>";
+
+
               echo "<div class='col-md-3'>";
                 echo "<div class='form-group'>";
                   echo "<label>$c29</label>";
@@ -314,10 +333,11 @@ echo "<div class='box'>";
                   echo "</div>";
                 }
                 echo "<input type='hidden' class='form-control' name='txttipe_sup' placeholder='Masukkan Tipe' value='$tipe_sup' readonly>";
-                echo "<button type='submit' name='submit' class='btn btn-primary'>Simpan</button>";
+                // echo "<button type='submit' name='submit' class='btn btn-primary'>Simpan</button>";
               echo "</div>";
               ?>
             </div>
+
             <div class="tab-pane" id="tab_2">
               <?php 
               echo "<div class='col-md-3'>";
@@ -354,8 +374,36 @@ echo "<div class='box'>";
               echo "</div>";
               ?>
             </div>
+
+            <?php $akses = flookup("edit_bank_supplier_only","userpassword","username='$user'");
+              if ($akses=="1") {?>
+            <div class="tab-pane active" id="tab_3">
+              <?php }else{?>
+                <div class="tab-pane" id="tab_3">
+                <?php }?>
+              <?php 
+              echo "<div class='col-md-3'>";
+                echo "<div class='form-group'>";
+                  echo "<label>Bank Name</label>";
+                  echo "<input type='text' class='form-control' name='txt_bank' placeholder='Input Bank Name' value='$bank_name'>";
+                echo "</div>";
+
+                echo "<div class='form-group'>";
+                  echo "<label>Bank Account</label>";
+                  echo "<input type='text' class='form-control' name='txt_account' placeholder='Input Bank Account' value='$bank_account'>";
+                echo "</div>";
+
+                echo "<div class='form-group'>";
+                  echo "<label>Beneficiary Name</label>";
+                  echo "<input type='text' class='form-control' name='txt_beneficiary' placeholder='Input Beneficiary Name' value='$beneficiary_name'>";
+                echo "</div>";
+              echo "</div>";
+              ?>
+            </div>
+
           </div>
         </div>
+          <?php echo "<button type='submit' name='submit' class='btn btn-primary' style='margin-left: 30px;'>Simpan</button>"; ?>
       <?php
       echo "</form>";
     echo "</div>";

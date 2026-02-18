@@ -9,6 +9,9 @@
         <th>Negara</th>
         <th>Tipe Buyer</th>
         <th>Tipe Agent</th>
+        <th>Bank Name</th>
+        <th>Bank Account</th>
+        <th>Beneficiary Name</th>
         <th></th>
         <th></th>
     </tr>
@@ -27,7 +30,10 @@
       echo "<td>$data[Supplier]</td>"; 
       echo "<td>$data[alamat]</td>"; 
       echo "<td>$data[areanya]</td>";
-      echo "<td>$data[country]</td>";
+      echo "<td>$data[country]</td>
+            <td>$data[bank_name]</td>
+            <td>$data[bank_account]</td>
+            <td>$data[beneficiary_name]</td>";
       echo "<td style='text-align: center; vertical-align: middle;'>$data[tipe_buyer]</td>";
       echo "<td style='text-align: center; vertical-align: middle;'>$data[tipe_agent]</td>";
       echo "
