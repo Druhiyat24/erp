@@ -178,13 +178,13 @@ if ($mod == 'simpan') {
 
 						$queryss2 = "INSERT INTO tbl_list_journal (no_journal, tgl_journal, type_journal, no_coa, nama_coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date, profit_center) 
 						VALUES 
-						('$no_bpb', '$tgl_bpb', 'AP - BPB', '$no_coa_cre', '$nama_coa_cre', '-', '-', '-', '', '-', '-', '$curr', '$rate', '0', '$total', '0', '$idr_total', 'Approved', '$description', '$username', '$dateinput_', '$user', '$dateinput', '', '', 'NAG')";
+						('$no_bpb', '$tgl_bpb', 'AP - BPB', '$no_coa_cre', '$nama_coa_cre', '-', '-', '-', '', '-', '-', '$curr', '$rate', '0', '$dpp', '0', '$idr_dpp', 'Approved', '$description', '$username', '$dateinput_', '$user', '$dateinput', '', '', 'NAG')";
 						insert_log($queryss2, $user);
 
 
 						$queryss3 = "INSERT INTO tbl_list_journal (no_journal, tgl_journal, type_journal, no_coa, nama_coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date, profit_center) 
 						VALUES 
-						('$no_bpb', '$tgl_bpb', 'AP - BPB', '1.34.05', 'PIUTANG LAIN-LAIN PIHAK KETIGA - BAHAN BAKU / BAHAN PEMBANTU', '-', '-', '-', '', '-', '-', '$curr', '$rate', '$dpp', '0', '$idr_dpp', '0', 'Approved', '$description', '$username', '$dateinput_', '$user', '$dateinput', '', '', 'NAG')";
+						('$no_bpb', '$tgl_bpb', 'AP - BPB', '1.34.05', 'PIUTANG LAIN-LAIN PIHAK KETIGA - BAHAN BAKU / BAHAN PEMBANTU', '-', '-', '-', '', '-', '-', '$curr', '$rate', '$total', '0', '$total', '0', 'Approved', '$description', '$username', '$dateinput_', '$user', '$dateinput', '', '', 'NAG')";
 						insert_log($queryss3, $user);
 
 						if ($tax >= 1) {
@@ -196,7 +196,7 @@ if ($mod == 'simpan') {
 
 							$queryss4 = "INSERT INTO tbl_list_journal (no_journal, tgl_journal, type_journal, no_coa, nama_coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date, profit_center) 
 							VALUES 
-							('$no_bpb', '$tgl_bpb', 'AP - BPB', '$no_coa_ppn', '$nama_coa_ppn', '-', '-', '-', '', '-', '-', '$curr', '$rate', '$ppn', '0', '$idr_ppn', '0', 'Approved', '$description', '$username', '$dateinput_', '$user', '$dateinput', '', '', 'NAG')";
+							('$no_bpb', '$tgl_bpb', 'AP - BPB', '8.07.01', 'PENDAPATAN LAIN-LAIN', '-', '-', '-', '', '-', '-', '$curr', '$rate', '$ppn', '0', '$idr_ppn', '0', 'Approved', '$description', '$username', '$dateinput_', '$user', '$dateinput', '', '', 'NAG')";
 
 							insert_log($queryss4, $user);
 						}
