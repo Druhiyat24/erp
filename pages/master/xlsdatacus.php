@@ -16,11 +16,14 @@ header("Expires: 0");
     <th>Alamat</th>
     <th>Area</th>
     <th>Negara</th>
+    <th>Bank Name</th>
+    <th>Bank Account</th>
+    <th>Beneficiary Name</th>
   </thead>
   <tbody>
     <?php 
     $sql="SELECT supplier_code, supplier, alamat, if(area='I','Import/Export',
-      if(area='L','Lokal',if(area='F','Factory',area))) areanya , country
+      if(area='L','Lokal',if(area='F','Factory',area))) areanya , country, bank_name, bank_account, beneficiary_name
       FROM mastersupplier where tipe_sup='C' ORDER BY id_supplier desc";
     tampil_data_tanpa_nourut($sql,5);
     ?>
