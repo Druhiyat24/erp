@@ -385,7 +385,7 @@ echo "<div class='box'>";
               echo "<div class='col-md-3'>";
                echo "<div class='form-group'>";
                   echo "<label>$titlenya *</label>";
-                  echo "<input type='text' class='form-control' name='suppliernya' placeholder='$cmas $titlenya' value='$Supplier'>";
+                  echo "<input type='text' class='form-control' name='suppliernya' placeholder='$cmas $titlenya' value='$Supplier' readonly>";
                 echo "</div>";
 
                 echo "<div class='form-group'>";
