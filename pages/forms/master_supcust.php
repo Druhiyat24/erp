@@ -383,6 +383,11 @@ echo "<div class='box'>";
                 <?php }?>
               <?php 
               echo "<div class='col-md-3'>";
+               echo "<div class='form-group'>";
+                  echo "<label>$titlenya *</label>";
+                  echo "<input type='text' class='form-control' name='suppliernya' placeholder='$cmas $titlenya' value='$Supplier'>";
+                echo "</div>";
+
                 echo "<div class='form-group'>";
                   echo "<label>Bank Name</label>";
                   echo "<input type='text' class='form-control' name='txt_bank' placeholder='Input Bank Name' value='$bank_name'>";
