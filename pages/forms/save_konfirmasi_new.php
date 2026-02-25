@@ -196,7 +196,7 @@ if ($mod == 'simpan') {
 
 							$queryss4 = "INSERT INTO tbl_list_journal (no_journal, tgl_journal, type_journal, no_coa, nama_coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date, profit_center) 
 							VALUES 
-							('$no_bpb', '$tgl_bpb', 'AP - BPB', '8.07.01', 'PENDAPATAN LAIN-LAIN', '-', '-', '-', '', '-', '-', '$curr', '$rate', '$ppn', '0', '$idr_ppn', '0', 'Approved', '$description', '$username', '$dateinput_', '$user', '$dateinput', '', '', 'NAG')";
+							('$no_bpb', '$tgl_bpb', 'AP - BPB', '8.07.01', 'PENDAPATAN LAIN-LAIN', '-', '-', '-', '', '-', '-', '$curr', '$rate', '0', '$ppn', '0', '$idr_ppn', 'Approved', '$description', '$username', '$dateinput_', '$user', '$dateinput', '', '', 'NAG')";
 
 							insert_log($queryss4, $user);
 						}
