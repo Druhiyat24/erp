@@ -446,7 +446,7 @@ if ($mode=="Out")
     <tr>  
       <td style="text-align:center;font-size:11px"></td>
       <td style="text-align:center;font-size:11px">Kabag </td>
-      <td style="text-align:center;font-size:11px">Direktur </td>
+      <td style="text-align:center;font-size:11px"> </td>
     <td style="text-align:center;font-size:11px"></td>
   
     </tr>';
