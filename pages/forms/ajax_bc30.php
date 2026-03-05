@@ -74,7 +74,8 @@ SELECT * FROM (
     LEFT JOIN mastersupplier d ON a.id_supplier = d.id_supplier
     $where AND (
         LEFT(a.bppbno_int, 2) = 'GK' OR 
-        LEFT(a.bppbno_int, 3) = 'OFC'
+        LEFT(a.bppbno_int, 3) = 'OFC' OR
+        LEFT(a.bppbno_int, 4) = 'GACC'
     )
 
     UNION ALL

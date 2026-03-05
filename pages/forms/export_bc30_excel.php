@@ -94,7 +94,8 @@ SELECT * FROM (
     WHERE bppbdate BETWEEN '$tglf' AND '$tglt'
     AND (
         LEFT(a.bppbno_int, 2) = 'GK' OR 
-        LEFT(a.bppbno_int, 3) = 'OFC'
+        LEFT(a.bppbno_int, 3) = 'OFC' OR 
+        LEFT(a.bppbno_int, 4) = 'GACC'
     ) AND jenis_dok='BC 3.0' AND a.cancel = 'N'
 
     UNION
