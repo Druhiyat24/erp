@@ -50,6 +50,8 @@ echo "<thead>
 						<th rowspan='2'>SAT</th>
 						<th rowspan='2'>JUMLAH</th>
 						<th colspan='2'>NILAI BARANG</th>
+                        <th rowspan='2'>RATE</th>
+                        <th rowspan='2'>NILAI BARANG IDR</th>
 					</tr>
 					<tr>
 						<th>NOMOR</th>
@@ -63,7 +65,7 @@ echo "<thead>
 
 // Gabungan SQL 3 UNION
 $sql = "
-SELECT * FROM (
+SELECT a.*, COALESCE(mr.rate,1) rate, (nilai_barang * COALESCE(mr.rate,1)) nilai_barang_idr FROM (
     SELECT 'BC 3.0' jenis_dokumen, LPAD(a.bcno,6,'0') bcno, a.bcdate,
     IF(a.bppbno_int!='',a.bppbno_int,a.bppbno) trans_no,
     a.bppbno, a.bppbdate trans_date, d.supplier,
@@ -113,7 +115,7 @@ SELECT * FROM (
     LEFT JOIN mastersupplier d ON a.id_supplier=d.id_supplier
     WHERE bppbdate BETWEEN '$tglf' AND '$tglt'
     AND LEFT(bppbno_int,3)='GEN' AND jenis_dok='BC 3.0' AND a.cancel = 'N'
-) a
+) a LEFT JOIN (SELECT tanggal, curr, rate FROM ap_masterrate where v_codecurr = 'PAJAK' GROUP BY tanggal, curr) mr ON mr.tanggal = a.bcdate AND mr.curr = a.curr
 ORDER BY bcdate, bcno, trans_no
 ";
 
@@ -138,6 +140,8 @@ while ($row = mysql_fetch_assoc($query)) {
     echo "<td>{$row['qty']}</td>";
     echo "<td>{$row['curr']}</td>";
     echo "<td>{$row['nilai_barang']}</td>";
+    echo "<td>{$row['rate']}</td>";
+    echo "<td>{$row['nilai_barang_idr']}</td>";
     echo "</tr>";
     $no++;
 }

@@ -84,6 +84,8 @@ insert_log($sql, $user);
 						<th rowspan='2'>SAT</th>
 						<th rowspan='2'>JUMLAH</th>
 						<th colspan='2'>NILAI BARANG</th>
+						<th rowspan='2'>RATE</th>
+						<th rowspan='2'>NILAI BARANG IDR</th>
 					</tr>
 					<tr>
 						<th>NOMOR</th>
@@ -136,7 +138,9 @@ $(document).ready(function() {
             { "data": "unit" },
             { "data": "qty" },
             { "data": "curr" },
-            { "data": "nilai_barang" }
+            { "data": "nilai_barang" },
+            { "data": "rate" },
+            { "data": "nilai_barang_idr" }
         ]
     });
 });

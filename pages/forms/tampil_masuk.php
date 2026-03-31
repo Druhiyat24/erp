@@ -15,7 +15,8 @@ if (!isset($_SESSION['username'])) { header("location:../../index.php"); }
 if (!isset($_SESSION['sesi'])) { header("location:../../index.php"); }
 
 $user = $_SESSION['username'];
-$sesi = $_SESSION['sesi'];;
+$sesi = $_SESSION['sesi'];
+echo $sesi;
 $rpt = $_GET['rptid'];
 
 if ($rpt=='bc23pjt') {$in_out = "In";} elseif ($rpt=='bc23') {$in_out = "In";} elseif ($rpt=='bc262msk') {$in_out = "In";}  
@@ -929,6 +930,10 @@ if ($jns_tgl == 'tanggal_terima') {
 				where bcno!='-' and bppbdate between '$tglf' and '$tglt'   and jenis_dok='BC 2.6.1' and mid(a.bppbno,4,2) in ('FG') and 
 				mid(a.bppbno,4,1) not in ('P') order by bcdate,bcno";
 			insert_temp_perdok($sqlk2,$user,$sesi,"N");
+
+			echo $sqlk;
+			echo '=====================';
+			echo $sqlk2;
 
 		} elseif ($rpt=='bc27keluar' or $rpt=='bc27subkon')
 		{	$kdnya = "if(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0'
