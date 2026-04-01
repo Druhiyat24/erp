@@ -584,11 +584,11 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
               echo "
                 <li><a href='?mod=lap_bc&rptid=bc30'>BC 3.0 Export</a></li>
 				<li><a href='?mod=lap_bc&rptid=bc33'>BC 3.3</a></li>
-                <li><a href='?mod=7&rptid=bc261keluar'>BC 2.6.1</a></li>
-                <li><a href='?mod=7&rptid=bc27keluar'>BC 2.7</a></li>
-                <li><a href='?mod=7&rptid=bc27subkon'>BC 2.7 Subkon</a></li>
-                <li><a href='?mod=7&rptid=bc41lkl'>BC 4.1 Lokal</a></li>
-                <li><a href='?mod=7&rptid=bc41sewa'>BC 4.1 Sewa Mesin</a></li>
+                <li><a href='?mod=lap_bc&rptid=bc261keluar'>BC 2.6.1</a></li>
+                <li><a href='?mod=lap_bc&rptid=bc27keluar'>BC 2.7</a></li>
+                <li><a href='?mod=lap_bc&rptid=bc27subkon'>BC 2.7 Subkon</a></li>
+                <li><a href='?mod=lap_bc&rptid=bc41lkl'>BC 4.1 Lokal</a></li>
+                <li><a href='?mod=lap_bc&rptid=bc41sewa'>BC 4.1 Sewa Mesin</a></li>
                 <li><a href='?mod=7&rptid=bc41subkon'>BC 4.1 Subkon</a></li>
                 <li><a href='?mod=7&rptid=bc25scrap'>BC 2.5 Scrap</a></li>
                 <li><a href='?mod=7&rptid=bc25lkl'>BC 2.5 Jual Lokal</a></li>";

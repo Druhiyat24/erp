@@ -23,7 +23,7 @@ echo "<div class='box'>";
 echo "<div class='box-body'>";
 
 		if ($rpt == "bc30" or $st_company == "GB" or $rpt == "bc33") {
-			echo "GUDANG BERIKAT ";
+			echo "KAWASAN BERIKAT ";
 			echo strtoupper($nm_company);
 			echo "<br>";
 			echo "B. LAPORAN PENGELUARAN BARANG PER DOKUMEN PABEAN";

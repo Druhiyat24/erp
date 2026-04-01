@@ -36,13 +36,13 @@ insert_log($sql, $user);
 <div class='box'>
 	<div class='box-body'>
 		<?php
-		if ($rpt == "bc30" or $st_company == "GB" or $rpt == "bc33") {
-			echo "GUDANG BERIKAT ";
+		// if ($rpt == "bc30" or $st_company == "GB" or $rpt == "bc33") {
+			echo "KAWASAN BERIKAT ";
 			echo strtoupper($nm_company);
 			echo "<br>";
 			echo "B. LAPORAN PENGELUARAN BARANG PER DOKUMEN PABEAN";
 			echo "<br>";
-		}
+		// }
 		echo "PERIODE ";
 		echo strtoupper($perf);
 		echo " S/D ";
@@ -53,6 +53,16 @@ insert_log($sql, $user);
     // Tentukan file tujuan berdasarkan $rpt
     if ($rpt == "bc33") {
         $export_file = "export_bc33_excel.php";
+    } elseif ($rpt == "bc261keluar") {
+        $export_file = "export_bc261keluar.php";
+    } elseif ($rpt == "bc27keluar") {
+        $export_file = "export_bc27keluar.php";
+    } elseif ($rpt == "bc27subkon") {
+        $export_file = "export_bc27subkon.php";
+    } elseif ($rpt == "bc41lkl") {
+        $export_file = "export_bc41lkl.php";
+    } elseif ($rpt == "bc41sewa") {
+        $export_file = "export_bc41sewa.php";
     } else {
         $export_file = "export_bc30_excel.php";
     }			
@@ -70,7 +80,8 @@ insert_log($sql, $user);
 		<table id='data_bc30' width='100%' border='1' style='font-size:12px;' class='table table-bordered table-striped'>
 			<thead>
 				<tr>
-					<?php if ($rpt == "bc30" or $rpt == "bc33" ) {
+					<?php 
+					// if ($rpt == "bc30" or $rpt == "bc33" ) {
 						echo "
 					<tr>
 						<th rowspan='2'>NO</th>
@@ -96,7 +107,7 @@ insert_log($sql, $user);
 						<th>NILAI</th>					
 					</tr>
 					";
-					}
+					// }
 					?>
 				</tr>
 			</thead>
@@ -109,6 +120,16 @@ insert_log($sql, $user);
         ajaxUrl = "ajax_bc30.php";
     <?php elseif ($rpt == 'bc33'): ?>
         ajaxUrl = "ajax_bc33.php";
+    <?php elseif ($rpt == 'bc261keluar'): ?>
+        ajaxUrl = "ajax_bc261keluar.php";
+    <?php elseif ($rpt == 'bc27keluar'): ?>
+        ajaxUrl = "ajax_bc27keluar.php";
+    <?php elseif ($rpt == 'bc27subkon'): ?>
+        ajaxUrl = "ajax_bc27subkon.php";
+    <?php elseif ($rpt == 'bc41lkl'): ?>
+        ajaxUrl = "ajax_bc41lkl.php";
+    <?php elseif ($rpt == 'bc41sewa'): ?>
+        ajaxUrl = "ajax_bc41sewa.php";
     <?php else: ?>
         ajaxUrl = ""; // fallback kalau tidak cocok
     <?php endif; ?>

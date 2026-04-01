@@ -16,7 +16,7 @@ if (!isset($_SESSION['sesi'])) { header("location:../../index.php"); }
 
 $user = $_SESSION['username'];
 $sesi = $_SESSION['sesi'];
-echo $sesi;
+// echo $sesi;
 $rpt = $_GET['rptid'];
 
 if ($rpt=='bc23pjt') {$in_out = "In";} elseif ($rpt=='bc23') {$in_out = "In";} elseif ($rpt=='bc262msk') {$in_out = "In";}  
@@ -931,9 +931,6 @@ if ($jns_tgl == 'tanggal_terima') {
 				mid(a.bppbno,4,1) not in ('P') order by bcdate,bcno";
 			insert_temp_perdok($sqlk2,$user,$sesi,"N");
 
-			echo $sqlk;
-			echo '=====================';
-			echo $sqlk2;
 
 		} elseif ($rpt=='bc27keluar' or $rpt=='bc27subkon')
 		{	$kdnya = "if(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0'
@@ -966,6 +963,7 @@ if ($jns_tgl == 'tanggal_terima') {
 				and a.bppbno not like 'SJ-FG%' and jenis_dok='BC 2.7' $sql_tuj 
 				group by bcno,bppbno,a.id_item,price order by bcdate,bcno";
 			insert_temp_perdok($sqlk2,$user,$sesi,"N");
+
 		} elseif ($rpt=='bc41lkl')
 		{	$kodenya = "if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item))";
 			$sqlk = "SELECT * from (SELECT 'BC 4.1 LOKAL' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,
@@ -1015,6 +1013,7 @@ if ($jns_tgl == 'tanggal_terima') {
 			// 	group by a.bcno,a.bppbno,s.goods_code,s.id_item,a.price
 			// 	order by bcdate,bcno";
 			// insert_temp_perdok($sqlk3,$user,$sesi,"Y");
+
 		} elseif ($rpt=='bc41sewa')
 		{	$sqlk = "SELECT 'BC 4.1 LOKAL MESIN (SEWA)' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,
 				a.bppbdate trans_date,d.supplier,if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item)) kode_brg,
@@ -1023,6 +1022,8 @@ if ($jns_tgl == 'tanggal_terima') {
 				from bppb a inner join masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
 				where bppbdate between '$tglf' and '$tglt' and mid(a.bppbno,4,2)<>'FG'  and jenis_dok='BC 4.1' and ucase(remark) like '%SEWA%' and mid(bppbno,4,1)<>'S' order by bcdate,bcno";
 			insert_temp_perdok($sqlk,$user,$sesi,"Y");
+
+
 			
 		} elseif ($rpt=='bc41subkon')
 		{	$sqlk = "SELECT 'BC 4.1 SUBKON' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,
@@ -1038,6 +1039,10 @@ if ($jns_tgl == 'tanggal_terima') {
 				where bppbdate between '$tglf' and '$tglt' and jenis_dok='BC 4.1' and mid(a.bppbno,4,2)='FG'  and  
 				ucase(remark) not like '%SEWA%' and a.tujuan like '%SUBKON%' order by bcdate,bcno";
 			insert_temp_perdok($sqlk2,$user,$sesi,"N");
+
+			echo $sqlk;
+			echo '=====================';
+			echo $sqlk2;
 		} elseif ($rpt=='bc25scrap')
 		{	$kodenya = "if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item))";
 			$sqlk = "SELECT 'BC 2.5 SCRAP' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,

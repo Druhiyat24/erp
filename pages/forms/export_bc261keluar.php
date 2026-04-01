@@ -14,7 +14,7 @@ $tglt = $_GET['parto'];
 
 // Set header Excel
 header("Content-Type: application/octet-stream");
-header("Content-Disposition: attachment; filename=laporan_bc33.xls");
+header("Content-Disposition: attachment; filename=laporan_bc261keluar.xls");
 header("Pragma: no-cache");
 header("Expires: 0");
 
@@ -22,13 +22,13 @@ header("Expires: 0");
 echo "<div class='box'>";
 echo "<div class='box-body'>";
 
-		if ($rpt == "bc30" or $st_company == "GB" or $rpt == "bc33") {
+		// if ($rpt == "bc30" or $st_company == "GB" or $rpt == "bc33") {
 			echo "KAWASAN BERIKAT ";
 			echo strtoupper($nm_company);
 			echo "<br>";
 			echo "B. LAPORAN PENGELUARAN BARANG PER DOKUMEN PABEAN";
 			echo "<br>";
-		}
+		// }
 		echo "PERIODE ";
 		echo strtoupper(date('d F Y', strtotime($tglf)));
 		echo " S/D ";
@@ -64,56 +64,9 @@ echo "<thead>
 </thead><tbody>";
 
 // Gabungan SQL 3 UNION
-$sql = "
-SELECT a.*, COALESCE(mr.rate,1) rate, (nilai_barang * COALESCE(mr.rate,1)) nilai_barang_idr FROM (
-    SELECT 'BC 3.3' jenis_dokumen, LPAD(a.bcno,6,'0') bcno, a.bcdate,
-    IF(a.bppbno_int!='',a.bppbno_int,a.bppbno) trans_no,
-    a.bppbno, a.bppbdate trans_date, d.supplier,
-    IF(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0', s.goods_code, CONCAT('FG ',s.id_item)) kode_brg,
-    s.itemname itemdesc, a.unit, a.qty,
-    ROUND(a.qty*IFNULL(a.price_bc,a.price),2) nilai_barang,
-    a.curr, IF(a.price_bc IS NULL OR a.price_bc='0', a.price, a.price_bc) price,
-    'FG' mattype, s.id_item, 'BARANG JADI' matclass
-    FROM bppb a
-    INNER JOIN masterstyle s ON a.id_item=s.id_item
-    LEFT JOIN mastersupplier d ON a.id_supplier=d.id_supplier
-    WHERE bppbdate BETWEEN '$tglf' AND '$tglt'
-    AND MID(bppbno,4,2)='FG' AND jenis_dok='BC 3.3' AND a.cancel = 'N'
-
-    UNION
-
-    SELECT 'BC 3.3', LPAD(a.bcno,6,'0'), a.bcdate,
-    IF(a.bppbno_int!='',a.bppbno_int,a.bppbno), a.bppbno, a.bppbdate,
-    d.supplier,
-    IF(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0', s.goods_code, CONCAT('F ',s.id_item)),
-    s.itemdesc, a.unit, a.qty,
-    ROUND(a.qty*IFNULL(a.price_bc,a.price),2),
-    a.curr, IF(a.price_bc IS NULL OR a.price_bc='0', a.price, a.price_bc),
-    'F', s.id_item, 'FABRIC'
-    FROM bppb a
-    INNER JOIN masteritem s ON a.id_item=s.id_item
-    LEFT JOIN mastersupplier d ON a.id_supplier=d.id_supplier
-    WHERE bppbdate BETWEEN '$tglf' AND '$tglt'
-    AND LEFT(bppbno_int,2)='GK' AND jenis_dok='BC 3.3' AND a.cancel = 'N'
-
-    UNION
-
-    SELECT 'BC 3.3', LPAD(a.bcno,6,'0'), a.bcdate,
-    IF(a.bppbno_int!='',a.bppbno_int,a.bppbno), a.bppbno, a.bppbdate,
-    d.supplier,
-    IF(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0', s.goods_code, CONCAT('F ',s.id_item)),
-    s.itemdesc, a.unit, a.qty,
-    ROUND(a.qty*IFNULL(a.price_bc,a.price),2),
-    a.curr, IF(a.price_bc IS NULL OR a.price_bc='0', a.price, a.price_bc),
-    'F', s.id_item, s.matclass
-    FROM bppb a
-    INNER JOIN masteritem s ON a.id_item=s.id_item
-    LEFT JOIN mastersupplier d ON a.id_supplier=d.id_supplier
-    WHERE bppbdate BETWEEN '$tglf' AND '$tglt'
-    AND LEFT(bppbno_int,3)='GEN' AND jenis_dok='BC 3.3' AND a.cancel = 'N'
-) a LEFT JOIN (SELECT tanggal, curr, rate FROM ap_masterrate where v_codecurr = 'PAJAK' GROUP BY tanggal, curr) mr ON mr.tanggal = a.bcdate AND mr.curr = a.curr
-ORDER BY bcdate, bcno, trans_no
-";
+$sql = "SELECT jenis_dokumen, bcno, bcdate, trans_no, trans_date, supplier, kode_brg, itemdesc, unit, qty, nilai_barang, a.curr, price, id_item, matclass, COALESCE(mr.rate,1) rate, (nilai_barang * COALESCE(mr.rate,1)) nilai_barang_idr from (SELECT 'BC 2.6.1 KELUAR' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bppbno_int!='',a.bppbno_int,a.bppbno) trans_no,a.bppbdate trans_date,d.supplier, if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item)) kode_brg,s.itemdesc,IFNULL(a.satuan_bc,a.unit) unit,IFNULL(a.qty_bc,a.qty) qty,ROUND(IFNULL(a.price_bc,a.price) * IFNULL(a.qty_bc,a.qty),2) AS nilai_barang,a.id_item ,IFNULL(NULLIF(a.curr_bc, ''), a.curr) curr,a.price ,s.mattype, s.matclass from bppb a inner join masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier where bcno!='-' and bppbdate between '$tglf' AND '$tglt' and jenis_dok='BC 2.6.1' and mid(a.bppbno,4,2) not in ('FG')
+UNION ALL
+SELECT 'BC 2.6.1 KELUAR' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bppbno_int!='',a.bppbno_int,a.bppbno) trans_no,a.bppbdate trans_date,d.supplier, if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat('FG ',s.id_item)) kode_brg,s.itemname itemdesc,IFNULL(a.satuan_bc,a.unit) unit,IFNULL(a.qty_bc,a.qty) qty,ROUND(IFNULL(a.price_bc,a.price) * IFNULL(a.qty_bc,a.qty),2) AS nilai_barang,s.id_so_det id_item ,IFNULL(NULLIF(a.curr_bc, ''), a.curr) curr,a.price ,'FG' mattype, 'BARANG JADI' matclass from bppb a inner join masterstyle s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier where bcno!='-' and bppbdate between '$tglf' AND '$tglt' and jenis_dok='BC 2.6.1' and mid(a.bppbno,4,2) in ('FG') and mid(a.bppbno,4,1) not in ('P') order by bcdate,bcno) a LEFT JOIN (SELECT tanggal, curr, rate FROM ap_masterrate where v_codecurr = 'PAJAK' GROUP BY tanggal, curr) mr ON mr.tanggal = a.bcdate AND mr.curr = a.curr";
 
 $query = mysql_query($sql);
 $no = 1;
