@@ -714,7 +714,7 @@ insert_log($sql,$user);
 			insert_temp_perdok_bc23($sqlk,$user,$sesi,"Y");
 			$kode_brg = "if(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0',s.goods_code,
 				concat('FG ',s.id_item))";
-			$sqlk = "SELECT 'BC 2.3 IMPOR PJT' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,
+			$sqlk2 = "SELECT 'BC 2.3 IMPOR PJT' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,
 				a.bpbdate trans_date,d.supplier,
 				$kode_brg kode_brg,s.itemname itemdesc,a.unit,sum(a.qty) qty,IFNULL(a.curr_bc,a.curr) curr,
 				round(sum(ifnull(a.price_bc,a.price)*a.qty),2) nilai_barang,a.id_item, satuan_bc, qty_bc 
@@ -723,7 +723,8 @@ insert_log($sql,$user);
 				where a.cancel='N' and bpbdate between '$tglf' and '$tglt' and left(bpbno,2)='FG'  and d.area='I' and a.invno like '%PJT%' 
 				group by bcno,bpbno,a.id_item,price
 				order by bcdate,bcno,bpbno";
-			insert_temp_perdok_bc23($sqlk,$user,$sesi,"N");
+			insert_temp_perdok_bc23($sqlk2,$user,$sesi,"N");
+
 		} elseif ($rpt=='bc23') 
 		{	if ($nm_company=="PT. Jinwoo Engineering Indonesia") 
 			{	$trans_no="a.invno"; } 
@@ -731,12 +732,12 @@ insert_log($sql,$user);
 			{	$trans_no="if(a.bpbno_int!='',a.bpbno_int,a.bpbno)"; }
 			$kode_brg = "if(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0',s.goods_code,
 				concat(s.mattype,' ',s.id_item))";
-// Tentukan column sesuai jenis tanggal
-if ($jns_tgl == 'tanggal_terima') {
-    $column = 'bpbdate';
-} else if ($jns_tgl == 'tanggal_pabean') {
-    $column = 'bcdate';
-}
+			// Tentukan column sesuai jenis tanggal
+			if ($jns_tgl == 'tanggal_terima') {
+			    $column = 'bpbdate';
+			} else if ($jns_tgl == 'tanggal_pabean') {
+			    $column = 'bcdate';
+			}
 
 			$sqlk = "SELECT 'BC 2.3 IMPOR' jenis_dokumen,lpad(a.bcno,6,'0') bcno,
 				a.bcdate,$trans_no trans_no,a.bpbdate trans_date,d.supplier,$kode_brg kode_brg,s.itemdesc,
@@ -749,14 +750,15 @@ if ($jns_tgl == 'tanggal_terima') {
 			// echo $sqlk;
 			$kode_brg = "if(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0',s.goods_code,
 				concat('FG ',s.id_item))";
-			$sqlk = "SELECT 'BC 2.3 IMPOR' jenis_dokumen,lpad(a.bcno,6,'0') bcno,
+			$sqlk2 = "SELECT 'BC 2.3 IMPOR' jenis_dokumen,lpad(a.bcno,6,'0') bcno,
 				a.bcdate,$trans_no trans_no,a.bpbdate trans_date,d.supplier,$kode_brg kode_brg,s.itemname itemdesc,
 				a.unit,sum(a.qty) qty,IFNULL(a.curr_bc,a.curr) curr,round(sum(ifnull(a.price_bc,a.price)*a.qty),2) nilai_barang,a.id_item, satuan_bc, qty_bc
 				from bpb a inner join masterstyle s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
 				where a.cancel='N' and bpbdate between '$tglf' and '$tglt' and left(bpbno,2)='FG'  and 
 				jenis_dok='BC 2.3' and a.invno not like '%PJT%' and a.invno not like '%PIB%' 
 				and a.invno not like '%PIBK%' group by bcno,bpbno,a.id_item,price order by bcdate,bcno,bpbno";
-			insert_temp_perdok_bc23($sqlk,$user,$sesi,"N");
+			insert_temp_perdok_bc23($sqlk2,$user,$sesi,"N");
+
 		} elseif ($rpt=='bc262msk')
 		{	if ($nm_company=='PT. Geum Cheon Indo')
 			{ 	$sqlk = "SELECT 'BC 2.6.2 MASUK' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,a.bpbdate trans_date,d.supplier,
@@ -786,6 +788,9 @@ if ($jns_tgl == 'tanggal_terima') {
 				where bcno!='-' and a.cancel='N' and bpbdate between '$tglf' and '$tglt' 
 				and a.jenis_dok='BC 2.6.2' and left(a.bpbno,2)='FG' order by bcdate,bcno";
 			insert_temp_perdok($sqlk2,$user,$sesi,"N");
+			// echo $sqlk;
+			// echo "==================";
+			// echo $sqlk2;
 		} elseif ($rpt=='bc27msk' or $rpt=="bc27msksub")
 		{	if ($nm_company=="PT. Jinwoo Engineering Indonesia") 
 			{	$nm_brg="concat(s.matclass,' (',s.itemdesc,')')"; }
@@ -811,6 +816,7 @@ if ($jns_tgl == 'tanggal_terima') {
 				where a.cancel='N' and bpbdate between '$tglf' and '$tglt' and left(bpbno,2)='FG' 
 				and a.jenis_dok='BC 2.7' $sql_tuj group by bcno,bpbno,a.id_item,price order by bcdate,bcno";
 			insert_temp_perdok($sqlk3,$user,$sesi,"N");
+
 		} elseif ($rpt=='bc40lkl')
 		{	$kode_brg = "if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item)) "; 
 			$kode_brg_fg = "if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat('FG ',s.id_item)) ";
@@ -827,6 +833,9 @@ if ($jns_tgl == 'tanggal_terima') {
 				where a.cancel='N' and bpbdate between '$tglf' and '$tglt' and left(bpbno,2)='FG' and d.area='L' and a.jenis_dok='BC 4.0' and ucase(invno) not like '%SEWA%' 
 				and a.tujuan not like '%SUBKON%' group by bcno,bpbno,a.id_item,price order by bcdate,bcno";
 			insert_temp_perdok($sqlk,$user,$sesi,"Y");
+
+
+			
 			// echo $sqlk;
 			// echo $sesi;
 			// $sqlk2 = "SELECT 'BC 4.0' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,a.bpbdate trans_date,d.supplier,
@@ -843,6 +852,7 @@ if ($jns_tgl == 'tanggal_terima') {
 				from bpb a inner join masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
 				where a.cancel='N' and bpbdate between '$tglf' and '$tglt' and left(bpbno,2)<>'FG'  and d.status_kb='NON KB' and d.area='L' and ucase(invno) like '%SEWA%' order by bcdate,bcno";
 			insert_temp_perdok($sqlk,$user,$sesi,"Y");
+
 		} elseif ($rpt=='bc40subkon')
 		{	$kode_brg = "if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item)) ";
 			$sqlk = "SELECT 'BC 4.0 SUBKON' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,a.bpbdate trans_date,d.supplier,
@@ -858,6 +868,9 @@ if ($jns_tgl == 'tanggal_terima') {
 				where a.cancel='N' and bpbdate between '$tglf' and '$tglt' and left(bpbno,2)='FG'  and a.jenis_dok='BC 4.0' 
 				and ucase(invno) not like '%SEWA%' and a.tujuan like '%SUBKON%' order by bcdate,bcno";
 			insert_temp_perdok($sqlk2,$user,$sesi,"N");
+			// echo $sqlk;
+			// echo "==================";
+			// echo $sqlk2;
 		} elseif ($rpt=='bc20pibbyr')
 		{	$sqlk = "SELECT 'BC 2.0 IMPOR PIB' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,
 				a.bpbdate trans_date,d.supplier,if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item)) kode_brg,
@@ -1040,9 +1053,7 @@ if ($jns_tgl == 'tanggal_terima') {
 				ucase(remark) not like '%SEWA%' and a.tujuan like '%SUBKON%' order by bcdate,bcno";
 			insert_temp_perdok($sqlk2,$user,$sesi,"N");
 
-			echo $sqlk;
-			echo '=====================';
-			echo $sqlk2;
+			
 		} elseif ($rpt=='bc25scrap')
 		{	$kodenya = "if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item))";
 			$sqlk = "SELECT 'BC 2.5 SCRAP' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,
@@ -1052,6 +1063,7 @@ if ($jns_tgl == 'tanggal_terima') {
 				and jenis_dok='BC 2.5' and s.mattype in ('S') 
 				group by bcno,bppbno,s.goods_code,s.itemdesc,price order by bcdate,bcno";
 			insert_temp_perdok($sqlk,$user,$sesi,"Y");
+
 		} elseif ($rpt=='bc25lkl')
 		{	if ($nm_company=="PT. Bangun Sarana Alloy")
 			{ $vkode = "s.styleno";} 
@@ -1064,6 +1076,8 @@ if ($jns_tgl == 'tanggal_terima') {
 					bppbdate between '$tglf' and '$tglt' and bppbno not like 'SJ-FG%' 
 					and jenis_dok='BC 2.5' order by bcdate,bcno,bppbno";
 				insert_temp_perdok($sqlk,$user,$sesi,"Y");
+
+				$sqlk2 = "";
 			}
 			else
 			{	$sqlk = "SELECT 'BC 2.5 JUAL LOKAL' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,
@@ -1073,15 +1087,17 @@ if ($jns_tgl == 'tanggal_terima') {
 					jenis_dok='BC 2.5' 
 					group by bcno,bppbno,s.goods_code,s.itemname,price order by bcdate,bcno,bppbno";
 				insert_temp_perdok($sqlk,$user,$sesi,"Y");
-				$sqlk = "SELECT 'BC 2.5 JUAL LOKAL' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,
+				$sqlk2 = "SELECT 'BC 2.5 JUAL LOKAL' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,
 					if(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0',s.goods_code,concat(s.mattype,' ',s.id_item)) kode_brg,s.itemdesc,
 					a.unit,sum(a.qty) qty,round(sum(a.qty*ifnull(a.price_bc,a.price)),2) nilai_barang,a.id_item ,a.curr,a.price,s.mattype,a.id_item 
 					from bppb a inner join masteritem s on a.id_item=s.id_item LEFT join mastersupplier d on a.id_supplier=d.id_supplier 
 					where bppbdate between '$tglf' and '$tglt' and mid(bppbno,4,2)<>'FG' and mid(bppbno,4,1)<>'S' and 
 					jenis_dok='BC 2.5' 
 					group by bcno,bppbno,s.goods_code,s.itemdesc,price order by bcdate,bcno,bppbno";
-				insert_temp_perdok($sqlk,$user,$sesi,"N");
+				insert_temp_perdok($sqlk2,$user,$sesi,"N");
 			}
+
+			
 		} elseif ($rpt=='inrekap')
 		{	$sqlk = "SELECT 
 				if(jenis_dok='BC 2.3' and a.invno like '%PJT%','BC 2.3 IMPOR PJT',
