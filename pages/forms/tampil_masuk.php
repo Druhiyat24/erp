@@ -704,9 +704,10 @@ insert_log($sql,$user);
 			$sqlk = "SELECT 'BC 2.3 IMPOR PJT' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,
 				a.bpbdate trans_date,d.supplier,
 				$kode_brg kode_brg,s.itemdesc,a.unit,sum(a.qty) qty,IFNULL(a.curr_bc,a.curr) curr,
-				round(sum(a.price*a.qty),2) nilai_barang,a.id_item, satuan_bc, qty_bc
+				round(sum(a.price*a.qty),2) nilai_barang,a.id_item, satuan_bc, qty_bc, COALESCE(mr.rate,1) rate, (round(sum(ifnull(a.price_bc,a.price)*a.qty),2) * COALESCE(mr.rate,1)) nilai_barang_idr
 				from bpb a 
-				inner join masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
+				inner join masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier
+				LEFT JOIN (SELECT tanggal, curr, rate FROM ap_masterrate where v_codecurr = 'PAJAK' GROUP BY tanggal, curr) mr ON mr.tanggal = a.bcdate AND mr.curr = IFNULL(a.curr_bc,a.curr)  
 				where a.cancel='N' and bpbdate between '$tglf' and '$tglt' and left(bpbno,2)<>'FG'  and d.area='I' 
 				and a.invno like '%PJT%' group by bcno,bpbno,a.id_item,price 
 				order by bcdate,bcno,bpbno";
@@ -716,9 +717,10 @@ insert_log($sql,$user);
 			$sqlk = "SELECT 'BC 2.3 IMPOR PJT' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,
 				a.bpbdate trans_date,d.supplier,
 				$kode_brg kode_brg,s.itemname itemdesc,a.unit,sum(a.qty) qty,IFNULL(a.curr_bc,a.curr) curr,
-				round(sum(ifnull(a.price_bc,a.price)*a.qty),2) nilai_barang,a.id_item, satuan_bc, qty_bc 
+				round(sum(ifnull(a.price_bc,a.price)*a.qty),2) nilai_barang,a.id_item, satuan_bc, qty_bc, COALESCE(mr.rate,1) rate, (round(sum(ifnull(a.price_bc,a.price)*a.qty),2) * COALESCE(mr.rate,1)) nilai_barang_idr 
 				from bpb a 
-				inner join masterstyle s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
+				inner join masterstyle s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier
+				LEFT JOIN (SELECT tanggal, curr, rate FROM ap_masterrate where v_codecurr = 'PAJAK' GROUP BY tanggal, curr) mr ON mr.tanggal = a.bcdate AND mr.curr = IFNULL(a.curr_bc,a.curr)  
 				where a.cancel='N' and bpbdate between '$tglf' and '$tglt' and left(bpbno,2)='FG'  and d.area='I' and a.invno like '%PJT%' 
 				group by bcno,bpbno,a.id_item,price
 				order by bcdate,bcno,bpbno";
@@ -739,8 +741,9 @@ if ($jns_tgl == 'tanggal_terima') {
 
 			$sqlk = "SELECT 'BC 2.3 IMPOR' jenis_dokumen,lpad(a.bcno,6,'0') bcno,
 				a.bcdate,$trans_no trans_no,a.bpbdate trans_date,d.supplier,$kode_brg kode_brg,s.itemdesc,
-				a.unit,sum(a.qty) qty,IFNULL(a.curr_bc,a.curr) curr,round(sum(ifnull(a.price_bc,a.price)*a.qty),2) nilai_barang,a.id_item, satuan_bc, qty_bc
-				from bpb a inner join masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
+				a.unit,sum(a.qty) qty,IFNULL(a.curr_bc,a.curr) curr,round(sum(ifnull(a.price_bc,a.price)*a.qty),2) nilai_barang,a.id_item, satuan_bc, qty_bc, COALESCE(mr.rate,1) rate, (round(sum(ifnull(a.price_bc,a.price)*a.qty),2) * COALESCE(mr.rate,1)) nilai_barang_idr
+				from bpb a inner join masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier
+				LEFT JOIN (SELECT tanggal, curr, rate FROM ap_masterrate where v_codecurr = 'PAJAK' GROUP BY tanggal, curr) mr ON mr.tanggal = a.bcdate AND mr.curr = IFNULL(a.curr_bc,a.curr) 
 				where a.cancel='N' and $column between '$tglf' and '$tglt' and left(bpbno,2)<>'FG'  and 
 				jenis_dok='BC 2.3' and a.invno not like '%PJT%' and a.invno not like '%PIB%' 
 				and a.invno not like '%PIBK%' group by bcno,bpbno,a.id_item,price order by bcdate,bcno,bpbno";
@@ -750,8 +753,9 @@ if ($jns_tgl == 'tanggal_terima') {
 				concat('FG ',s.id_item))";
 			$sqlk = "SELECT 'BC 2.3 IMPOR' jenis_dokumen,lpad(a.bcno,6,'0') bcno,
 				a.bcdate,$trans_no trans_no,a.bpbdate trans_date,d.supplier,$kode_brg kode_brg,s.itemname itemdesc,
-				a.unit,sum(a.qty) qty,IFNULL(a.curr_bc,a.curr) curr,round(sum(ifnull(a.price_bc,a.price)*a.qty),2) nilai_barang,a.id_item, satuan_bc, qty_bc
-				from bpb a inner join masterstyle s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
+				a.unit,sum(a.qty) qty,IFNULL(a.curr_bc,a.curr) curr,round(sum(ifnull(a.price_bc,a.price)*a.qty),2) nilai_barang,a.id_item, satuan_bc, qty_bc, COALESCE(mr.rate,1) rate, (round(sum(ifnull(a.price_bc,a.price)*a.qty),2) * COALESCE(mr.rate,1)) nilai_barang_idr
+				from bpb a inner join masterstyle s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier
+				LEFT JOIN (SELECT tanggal, curr, rate FROM ap_masterrate where v_codecurr = 'PAJAK' GROUP BY tanggal, curr) mr ON mr.tanggal = a.bcdate AND mr.curr = IFNULL(a.curr_bc,a.curr)  
 				where a.cancel='N' and bpbdate between '$tglf' and '$tglt' and left(bpbno,2)='FG'  and 
 				jenis_dok='BC 2.3' and a.invno not like '%PJT%' and a.invno not like '%PIB%' 
 				and a.invno not like '%PIBK%' group by bcno,bpbno,a.id_item,price order by bcdate,bcno,bpbno";
