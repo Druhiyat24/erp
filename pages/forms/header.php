@@ -514,13 +514,13 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
                 <li><a href='?mod=7&rptid=kite_d'>Hasil Produksi</a></li>";
             } else {
               echo "
-                <li><a href='?mod=7&rptid=bc23'>BC 2.3 Impor</a></li>
-                <li><a href='?mod=7&rptid=bc23pjt'>BC 2.3 Impor PJT</a></li>
-                <li><a href='?mod=7&rptid=bc262msk'>BC 2.6.2</a></li>
-                <li><a href='?mod=7&rptid=bc27msk'>BC 2.7</a></li>
-                <li><a href='?mod=7&rptid=bc27msksub'>BC 2.7 Subkon</a></li>
-                <li><a href='?mod=7&rptid=bc40lkl'>BC 4.0</a></li>
-                <li><a href='?mod=7&rptid=bc40sewa'>BC 4.0 Sewa Mesin</a></li>
+                <li><a href='?mod=lap_bc_in&rptid=bc23'>BC 2.3 Impor</a></li>
+                <li><a href='?mod=lap_bc_in&rptid=bc23pjt'>BC 2.3 Impor PJT</a></li>
+                <li><a href='?mod=lap_bc_in&rptid=bc262msk'>BC 2.6.2</a></li>
+                <li><a href='?mod=lap_bc_in&rptid=bc27msk'>BC 2.7</a></li>
+                <li><a href='?mod=lap_bc_in&rptid=bc27msksub'>BC 2.7 Subkon</a></li>
+                <li><a href='?mod=lap_bc_in&rptid=bc40lkl'>BC 4.0</a></li>
+                <li><a href='?mod=lap_bc_in&rptid=bc40sewa'>BC 4.0 Sewa Mesin</a></li>
                 <li><a href='?mod=7&rptid=bc40subkon'>BC 4.0 Subkon</a></li>";
               if ($nm_company != "PT. Nirwana Alabare Garment") {
                 echo "
@@ -584,14 +584,14 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
               echo "
                 <li><a href='?mod=lap_bc&rptid=bc30'>BC 3.0 Export</a></li>
 				<li><a href='?mod=lap_bc&rptid=bc33'>BC 3.3</a></li>
-                <li><a href='?mod=7&rptid=bc261keluar'>BC 2.6.1</a></li>
-                <li><a href='?mod=7&rptid=bc27keluar'>BC 2.7</a></li>
-                <li><a href='?mod=7&rptid=bc27subkon'>BC 2.7 Subkon</a></li>
-                <li><a href='?mod=7&rptid=bc41lkl'>BC 4.1 Lokal</a></li>
-                <li><a href='?mod=7&rptid=bc41sewa'>BC 4.1 Sewa Mesin</a></li>
-                <li><a href='?mod=7&rptid=bc41subkon'>BC 4.1 Subkon</a></li>
-                <li><a href='?mod=7&rptid=bc25scrap'>BC 2.5 Scrap</a></li>
-                <li><a href='?mod=7&rptid=bc25lkl'>BC 2.5 Jual Lokal</a></li>";
+                <li><a href='?mod=lap_bc&rptid=bc261keluar'>BC 2.6.1</a></li>
+                <li><a href='?mod=lap_bc&rptid=bc27keluar'>BC 2.7</a></li>
+                <li><a href='?mod=lap_bc&rptid=bc27subkon'>BC 2.7 Subkon</a></li>
+                <li><a href='?mod=lap_bc&rptid=bc41lkl'>BC 4.1 Lokal</a></li>
+                <li><a href='?mod=lap_bc&rptid=bc41sewa'>BC 4.1 Sewa Mesin</a></li>
+                <li><a href='?mod=lap_bc&rptid=bc41subkon'>BC 4.1 Subkon</a></li>
+                <li><a href='?mod=lap_bc&rptid=bc25scrap'>BC 2.5 Scrap</a></li>
+                <li><a href='?mod=lap_bc&rptid=bc25lkl'>BC 2.5 Jual Lokal</a></li>";
               $akses = $rsUser["out_rekap"];
               if ($akses == "1") {
                 echo "<li><a href='?mod=7&rptid=outrekap'>Rekap</a></li>";

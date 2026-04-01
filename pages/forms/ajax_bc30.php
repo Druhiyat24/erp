@@ -18,7 +18,9 @@ $columns = array(
     9 => 'unit',
     10 => 'qty',
     11 => 'curr',
-    12 => 'nilai_barang'
+    12 => 'nilai_barang',
+    13 => 'rate',
+    14 => 'nilai_barang_idr'
 );
 
 $start = intval($_POST['start']);
@@ -37,7 +39,7 @@ $where = "WHERE a.bppbdate BETWEEN '$tglf' AND '$tglt' AND a.cancel='N' AND jeni
 
 // QUERY UTAMA
 $sql_union = "
-SELECT * FROM (
+SELECT x.*, COALESCE(mr.rate,1) rate, (nilai_barang * COALESCE(mr.rate,1)) nilai_barang_idr FROM (
     SELECT 'BC 3.0' jenis_dokumen,
         LPAD(a.bcno,6,'0') bcno,
         a.bcdate,
@@ -93,7 +95,7 @@ SELECT * FROM (
     INNER JOIN masteritem s ON a.id_item = s.id_item
     LEFT JOIN mastersupplier d ON a.id_supplier = d.id_supplier
     $where AND LEFT(a.bppbno_int,3) = 'GEN'
-) x
+) x LEFT JOIN (SELECT tanggal, curr, rate FROM ap_masterrate where v_codecurr = 'PAJAK' GROUP BY tanggal, curr) mr ON mr.tanggal = x.bcdate AND mr.curr = x.curr
 ";
 
 // Hitung total
@@ -118,7 +120,9 @@ while ($row = mysql_fetch_assoc($query)) {
         "unit" => $row['unit'],
         "qty" => number_format($row['qty'], 2),
         "curr" => $row['curr'],
-        "nilai_barang" => number_format($row['nilai_barang'], 2)
+        "nilai_barang" => number_format($row['nilai_barang'], 2),
+        "rate" => number_format($row['rate'], 2),
+        "nilai_barang_idr" => number_format($row['nilai_barang_idr'], 2)
     );
 }
 

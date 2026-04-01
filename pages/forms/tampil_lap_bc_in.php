@@ -29,6 +29,14 @@ if (isset($_GET['parfromv'])) {
 	$tglt = fd($_POST['txtto']);
 	$pert = date('d F Y', strtotime($tglt));
 }
+
+    $jenis_tanggal = $_POST['jenis_tanggal'];
+
+if ($jenis_tanggal == 'tanggal_terima') {
+    $kata = 'TANGGAL TERIMA ';
+}else{
+    $kata = 'TANGGAL PABEAN ';
+}
 $sql = "X" . $header_cap . "-" . $rpt . " Dari " . $perf . " s/d " . $pert;
 insert_log($sql, $user);
 ?>
@@ -40,10 +48,10 @@ insert_log($sql, $user);
 			echo "KAWASAN BERIKAT ";
 			echo strtoupper($nm_company);
 			echo "<br>";
-			echo "B. LAPORAN PENGELUARAN BARANG PER DOKUMEN PABEAN";
+			echo "A. LAPORAN PEMASUKAN BARANG PER DOKUMEN PABEAN";
 			echo "<br>";
 		// }
-		echo "PERIODE ";
+		echo "PERIODE "; echo $kata;
 		echo strtoupper($perf);
 		echo " S/D ";
 		echo strtoupper($pert);
@@ -51,30 +59,28 @@ insert_log($sql, $user);
 
 		if ($toexcel != "Y") {
     // Tentukan file tujuan berdasarkan $rpt
-    if ($rpt == "bc33") {
-        $export_file = "export_bc33_excel.php";
-    } elseif ($rpt == "bc261keluar") {
-        $export_file = "export_bc261keluar.php";
-    } elseif ($rpt == "bc27keluar") {
-        $export_file = "export_bc27keluar.php";
-    } elseif ($rpt == "bc27subkon") {
-        $export_file = "export_bc27subkon.php";
-    } elseif ($rpt == "bc41lkl") {
-        $export_file = "export_bc41lkl.php";
-    } elseif ($rpt == "bc41sewa") {
-        $export_file = "export_bc41sewa.php";
-    } elseif ($rpt == "bc41subkon") {
-        $export_file = "export_bc41subkon.php";
-    } elseif ($rpt == "bc25scrap") {
-        $export_file = "export_bc25scrap.php";
-    } elseif ($rpt == "bc25lkl") {
-        $export_file = "export_bc25lkl.php";
+    if ($rpt == "bc23") {
+        $export_file = "export_bc23.php";
+    } elseif ($rpt == "bc23pjt") {
+        $export_file = "export_bc23pjt.php";
+    } elseif ($rpt == "bc262msk") {
+        $export_file = "export_bc262msk.php";
+    } elseif ($rpt == "bc27msk") {
+        $export_file = "export_bc27msk.php";
+    } elseif ($rpt == "bc27msksub") {
+        $export_file = "export_bc27msksub.php";
+    } elseif ($rpt == "bc40lkl") {
+        $export_file = "export_bc40lkl.php";
+    } elseif ($rpt == "bc40sewa") {
+        $export_file = "export_bc40sewa.php";
+    } elseif ($rpt == "bc40subkon") {
+        $export_file = "export_bc40subkon.php";
     } else {
-        $export_file = "export_bc30_excel.php";
+        $export_file = "";
     }			
 			echo "
 		<a class='btn btn-primary btn-s' 
-       href='$export_file?parfrom=$tglf&parto=$tglt&rptid$rpt'>
+       href='$export_file?jenis_tanggal=$jenis_tanggal&parfrom=$tglf&parto=$tglt&rptid$rpt'>
        <i class='fa fa-file-excel-o'></i> Save Excel
     </a>";
 		}
@@ -94,8 +100,8 @@ insert_log($sql, $user);
 						<th rowspan='2'>JENIS DOKUMEN</th>
 						<th rowspan='2'>KATEGORI BARANG</th>
 						<th colspan='2'>DOKUMEN PABEAN</th>
-						<th colspan='2'>BUKTI PENGELUARAN BARANG</th>
-						<th rowspan='2'>PEMBELI / PENERIMA</th>
+						<th colspan='2'>BUKTI PENERIMAAN BARANG</th>
+						<th rowspan='2'>PEMASOK / PENGIRIM</th>
 						<th rowspan='2'>KODE BARANG</th>
 						<th rowspan='2'>NAMA BARANG</th>
 						<th rowspan='2'>SAT</th>
@@ -103,6 +109,7 @@ insert_log($sql, $user);
 						<th colspan='2'>NILAI BARANG</th>
 						<th rowspan='2'>RATE</th>
 						<th rowspan='2'>NILAI BARANG IDR</th>
+                        <th rowspan='2'>REMARK</th>
 					</tr>
 					<tr>
 						<th>NOMOR</th>
@@ -122,26 +129,22 @@ insert_log($sql, $user);
 <script>
     var ajaxUrl = "";
 
-    <?php if ($rpt == 'bc30'): ?>
-        ajaxUrl = "ajax_bc30.php";
-    <?php elseif ($rpt == 'bc33'): ?>
-        ajaxUrl = "ajax_bc33.php";
-    <?php elseif ($rpt == 'bc261keluar'): ?>
-        ajaxUrl = "ajax_bc261keluar.php";
-    <?php elseif ($rpt == 'bc27keluar'): ?>
-        ajaxUrl = "ajax_bc27keluar.php";
-    <?php elseif ($rpt == 'bc27subkon'): ?>
-        ajaxUrl = "ajax_bc27subkon.php";
-    <?php elseif ($rpt == 'bc41lkl'): ?>
-        ajaxUrl = "ajax_bc41lkl.php";
-    <?php elseif ($rpt == 'bc41sewa'): ?>
-        ajaxUrl = "ajax_bc41sewa.php";
-    <?php elseif ($rpt == 'bc41subkon'): ?>
-        ajaxUrl = "ajax_bc41subkon.php";
-    <?php elseif ($rpt == 'bc25scrap'): ?>
-        ajaxUrl = "ajax_bc25scrap.php";
-    <?php elseif ($rpt == 'bc25lkl'): ?>
-        ajaxUrl = "ajax_bc25lkl.php";
+    <?php if ($rpt == 'bc23'): ?>
+        ajaxUrl = "ajax_bc23.php";
+    <?php elseif ($rpt == 'bc23pjt'): ?>
+        ajaxUrl = "ajax_bc23pjt.php";
+    <?php elseif ($rpt == 'bc262msk'): ?>
+        ajaxUrl = "ajax_bc262msk.php";
+    <?php elseif ($rpt == 'bc27msk'): ?>
+        ajaxUrl = "ajax_bc27msk.php";
+    <?php elseif ($rpt == 'bc27msksub'): ?>
+        ajaxUrl = "ajax_bc27msksub.php";
+     <?php elseif ($rpt == 'bc40lkl'): ?>
+        ajaxUrl = "ajax_bc40lkl.php";
+    <?php elseif ($rpt == 'bc40sewa'): ?>
+        ajaxUrl = "ajax_bc40sewa.php";
+    <?php elseif ($rpt == 'bc40subkon'): ?>
+        ajaxUrl = "ajax_bc40subkon.php";
     <?php else: ?>
         ajaxUrl = ""; // fallback kalau tidak cocok
     <?php endif; ?>
@@ -154,7 +157,8 @@ $(document).ready(function() {
             "type": "POST",
             "data": {
                 tglfrom: "<?= $tglf ?>",
-                tglto: "<?= $tglt ?>"
+                tglto: "<?= $tglt ?>",
+                jenis_tanggal: "<?= $jenis_tanggal ?>"
             }
         },
         "columns": [
@@ -173,7 +177,8 @@ $(document).ready(function() {
             { "data": "curr" },
             { "data": "nilai_barang" },
             { "data": "rate" },
-            { "data": "nilai_barang_idr" }
+            { "data": "nilai_barang_idr" },
+            { "data": "remark", "defaultContent": "" }
         ]
     });
 });

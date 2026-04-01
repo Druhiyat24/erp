@@ -75,6 +75,8 @@ else if ($mod==66)
 {	include "bppb_gb.php";	}
 else if ($mod=="tampil_lap_bc")
 {	include "tampil_lap_bc.php";	}
+else if ($mod=="tampil_lap_bc_in")
+{	include "tampil_lap_bc_in.php";	}
 else if ($mod=="view_in")
 {	include "tampil_masuk.php";	}
 else if ($mod=="view_mut")
@@ -91,6 +93,8 @@ else if ($mod==7)
 {	include "lap_in.php";	}
 else if ($mod=="lap_bc")
 {	include "lap_bc.php";	}
+else if ($mod=="lap_bc_in")
+{	include "lap_bc_in.php";	}
 else if ($mod=="lap_mutasi_wip")
 {	include "lap_data_mutasi_wip.php";	}
 else if ($mod=="lap_data_mutasi_scrap_knitting")
