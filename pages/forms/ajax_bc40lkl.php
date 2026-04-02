@@ -22,20 +22,33 @@ $columns = array(
     12 => 'nilai_barang',
     13 => 'rate',
     14 => 'nilai_barang_idr',
-    14 => 'remark'
+    14 => 'remark' // BIARKAN (tidak diubah)
 );
+
+// =======================
+// TAMBAHAN: FIX INDEX KOLOM
+// =======================
+$columns[15] = 'remark'; // TAMBAHAN (biar sorting & search normal)
 
 $start = intval($_POST['start']);
 $length = intval($_POST['length']);
 
 if ($length == -1) {
-    $limit = ""; // tampilkan semua data
+    $limit = "";
 } else {
     $limit = "LIMIT $start, $length";
 }
+
 $orderCol = $columns[intval($_POST['order'][0]['column'])];
 $orderDir = $_POST['order'][0]['dir'];
 $order = "ORDER BY $orderCol $orderDir";
+
+
+// =======================
+// TAMBAHAN: SEARCH DATATABLE
+// =======================
+$searchValue = $_POST['search']['value']; // TAMBAHAN
+$where = ""; // TAMBAHAN
 
 
 if($jenis_tanggal == 'tanggal_terima'){
@@ -51,13 +64,41 @@ SELECT 'BC 4.0' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='
 }
 
 
+// =======================
+// TAMBAHAN: FILTER SEARCH
+// =======================
+if (!empty($searchValue)) {
+    $searchValue = mysql_real_escape_string($searchValue);
+
+    $where .= " WHERE (
+        jenis_dokumen LIKE '%$searchValue%' OR
+        matclass LIKE '%$searchValue%' OR
+        bcno LIKE '%$searchValue%' OR
+        trans_no LIKE '%$searchValue%' OR
+        supplier LIKE '%$searchValue%' OR
+        kode_brg LIKE '%$searchValue%' OR
+        itemdesc LIKE '%$searchValue%' OR
+        curr LIKE '%$searchValue%' OR
+        remark LIKE '%$searchValue%'
+    )";
+}
+
+
+// =======================
+// FIX: BUNGKUS QUERY
+// =======================
+$finalQuery = "SELECT * FROM ($sql_union) AS x $where"; // TAMBAHAN
+
 // Hitung total
-$totalData = mysql_num_rows(mysql_query($sql_union));
-$sql_query = "$sql_union $order $limit";
+$totalData = mysql_num_rows(mysql_query($finalQuery)); // FIX
+
+$sql_query = "$finalQuery $order $limit"; // FIX
 $query = mysql_query($sql_query);
+
 
 $data = array();
 $no = $_POST['start'] + 1;
+
 while ($row = mysql_fetch_assoc($query)) {
     $data[] = array(
         "no" => $no++,
@@ -83,7 +124,7 @@ while ($row = mysql_fetch_assoc($query)) {
 $json_data = array(
     "draw" => intval($_POST['draw']),
     "recordsTotal" => $totalData,
-    "recordsFiltered" => $totalData, // update if ada filter pencarian nanti
+    "recordsFiltered" => $totalData,
     "data" => $data
 );
 
