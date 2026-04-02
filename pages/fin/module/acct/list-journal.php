@@ -172,7 +172,7 @@ select DISTINCT '' id,no_journal, tgl_journal, type_journal, no_coa, nama_coa, C
 union
 select id,no_journal, tgl_journal, type_journal, no_coa, nama_coa, CONCAT(no_coa,' ',nama_coa) coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date from sb_list_journal where tgl_journal BETWEEN '$start_date' and '$end_date' and no_journal not like '%GM/NAG%' and no_journal not like '%KKK%'
 union
-select DISTINCT '' id,no_journal, tgl_journal, type_journal, no_coa, nama_coa, CONCAT(no_coa,' ',nama_coa) coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date from sb_list_journal where tgl_journal BETWEEN '$start_date' and '$end_date' and no_journal like '%KKK%') a where debit != 0 OR credit != 0) a left join (select * from status_memorial_journal where mj_date BETWEEN '$start_date' and '$end_date' GROUP BY no_mj_sb)  b on b.no_mj_sb = a.no_journal");
+select DISTINCT '' id,no_journal, tgl_journal, type_journal, no_coa, nama_coa, CONCAT(no_coa,' ',nama_coa) coa, no_costcenter, nama_costcenter, reff_doc, reff_date, buyer, no_ws, curr, rate, debit, credit, debit_idr, credit_idr, status, keterangan, create_by, create_date, approve_by, approve_date, cancel_by, cancel_date from sb_list_journal where tgl_journal BETWEEN '$start_date' and '$end_date' and no_journal like '%KKK%') a where debit != 0 OR credit != 0) a left join (select * from status_memorial_journal GROUP BY no_mj_sb)  b on b.no_mj_sb = a.no_journal");
 }
 
 
