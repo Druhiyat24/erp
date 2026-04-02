@@ -521,7 +521,7 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
                 <li><a href='?mod=lap_bc_in&rptid=bc27msksub'>BC 2.7 Subkon</a></li>
                 <li><a href='?mod=lap_bc_in&rptid=bc40lkl'>BC 4.0</a></li>
                 <li><a href='?mod=lap_bc_in&rptid=bc40sewa'>BC 4.0 Sewa Mesin</a></li>
-                <li><a href='?mod=7&rptid=bc40subkon'>BC 4.0 Subkon</a></li>";
+                <li><a href='?mod=lap_bc_in&rptid=bc40subkon'>BC 4.0 Subkon</a></li>";
               if ($nm_company != "PT. Nirwana Alabare Garment") {
                 echo "
                   <li><a href='?mod=7&rptid=bc20pibbyr'>BC 2.0 PIB Bayar</a></li>

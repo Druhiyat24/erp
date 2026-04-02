@@ -37,6 +37,32 @@ $order = "ORDER BY $orderCol $orderDir";
 
 $where = "WHERE a.bppbdate BETWEEN '$tglf' AND '$tglt' AND a.cancel='N' AND jenis_dok='BC 3.3'";
 
+
+// =============================
+// === TAMBAHAN SEARCH START ===
+// =============================
+$searchValue = $_POST['search']['value'];
+$where_search = "";
+
+if (!empty($searchValue)) {
+    $searchValue = mysql_real_escape_string($searchValue);
+
+    $where_search .= " WHERE (
+        jenis_dokumen LIKE '%$searchValue%' OR
+        matclass LIKE '%$searchValue%' OR
+        bcno LIKE '%$searchValue%' OR
+        trans_no LIKE '%$searchValue%' OR
+        supplier LIKE '%$searchValue%' OR
+        kode_brg LIKE '%$searchValue%' OR
+        itemdesc LIKE '%$searchValue%' OR
+        curr LIKE '%$searchValue%'
+    )";
+}
+// ===========================
+// === TAMBAHAN SEARCH END ===
+// ===========================
+
+
 // QUERY UTAMA
 $sql_union = "
 SELECT x.*, COALESCE(mr.rate,1) rate, (nilai_barang * COALESCE(mr.rate,1)) nilai_barang_idr FROM (
@@ -91,13 +117,25 @@ SELECT x.*, COALESCE(mr.rate,1) rate, (nilai_barang * COALESCE(mr.rate,1)) nilai
     INNER JOIN masteritem s ON a.id_item = s.id_item
     LEFT JOIN mastersupplier d ON a.id_supplier = d.id_supplier
     $where AND LEFT(a.bppbno_int,3) = 'GEN'
-) x LEFT JOIN (SELECT tanggal, curr, rate FROM ap_masterrate where v_codecurr = 'PAJAK' GROUP BY tanggal, curr) mr ON mr.tanggal = x.bcdate AND mr.curr = x.curr
+) x 
+LEFT JOIN (SELECT tanggal, curr, rate FROM ap_masterrate where v_codecurr = 'PAJAK' GROUP BY tanggal, curr) mr 
+ON mr.tanggal = x.bcdate AND mr.curr = x.curr
 ";
 
-// Hitung total
-$totalData = mysql_num_rows(mysql_query($sql_union));
-$sql_query = "$sql_union $order $limit";
+
+// ==============================
+// === TAMBAHAN WRAP QUERY !!! ===
+// ==============================
+$finalQuery = "SELECT * FROM ($sql_union) AS a $where_search";
+
+
+// ==============================
+// === TAMBAHAN APPLY QUERY !!! ===
+// ==============================
+$totalData = mysql_num_rows(mysql_query($finalQuery));
+$sql_query = "$finalQuery $order $limit";
 $query = mysql_query($sql_query);
+
 
 $data = array();
 $no = $_POST['start'] + 1;
@@ -125,7 +163,7 @@ while ($row = mysql_fetch_assoc($query)) {
 $json_data = array(
     "draw" => intval($_POST['draw']),
     "recordsTotal" => $totalData,
-    "recordsFiltered" => $totalData, // update if ada filter pencarian nanti
+    "recordsFiltered" => $totalData,
     "data" => $data
 );
 
