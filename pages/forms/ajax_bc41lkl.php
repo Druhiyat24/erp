@@ -27,15 +27,42 @@ $start = intval($_POST['start']);
 $length = intval($_POST['length']);
 
 if ($length == -1) {
-    $limit = ""; // tampilkan semua data
+    $limit = "";
 } else {
     $limit = "LIMIT $start, $length";
 }
+
 $orderCol = $columns[intval($_POST['order'][0]['column'])];
 $orderDir = $_POST['order'][0]['dir'];
 $order = "ORDER BY $orderCol $orderDir";
 
-// QUERY UTAMA
+
+// =============================
+// === TAMBAHAN SEARCH START ===
+// =============================
+$searchValue = $_POST['search']['value'];
+$where_search = "";
+
+if (!empty($searchValue)) {
+    $searchValue = mysql_real_escape_string($searchValue);
+
+    $where_search .= " WHERE (
+        jenis_dokumen LIKE '%$searchValue%' OR
+        matclass LIKE '%$searchValue%' OR
+        bcno LIKE '%$searchValue%' OR
+        trans_no LIKE '%$searchValue%' OR
+        supplier LIKE '%$searchValue%' OR
+        kode_brg LIKE '%$searchValue%' OR
+        itemdesc LIKE '%$searchValue%' OR
+        curr LIKE '%$searchValue%'
+    )";
+}
+// ===========================
+// === TAMBAHAN SEARCH END ===
+// ===========================
+
+
+// QUERY UTAMA (TIDAK DIUBAH)
 $sql_union = "SELECT jenis_dokumen, bcno, bcdate, trans_no, trans_date, supplier, kode_brg, itemdesc, unit, qty, nilai_barang, a.curr, price, id_item, matclass, COALESCE(mr.rate,1) rate, (nilai_barang * COALESCE(mr.rate,1)) nilai_barang_idr from (
 SELECT * from (SELECT 'BC 4.1 LOKAL' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bppbno_int!='',a.bppbno_int,a.bppbno) trans_no,a.bppbdate trans_date,d.supplier, if(goods_code<>'' AND goods_code<>'-' AND goods_code<>'0',goods_code,concat(s.mattype,s.id_item)) kode_brg,s.itemdesc,a.unit,sum(a.qty) qty, round(sum(a.qty*ifnull(a.price_bc,a.price)),2) nilai_barang,a.id_item ,a.curr,a.price , s.mattype, s.matclass from bppb a inner join masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier where bppbdate between '$tglf' AND '$tglt' and mid(a.bppbno,4,2)<>'FG' and jenis_dok='BC 4.1' and ucase(remark) not like '%SEWA%' and a.tujuan not like '%SUBKON%' or bppbdate between '$tglf' AND '$tglt' and mid(a.bppbno,4,2)<>'FG' and jenis_dok='BC 4.1' and ucase(remark) is null and a.tujuan is null group by a.bcno,a.bppbno,s.goods_code,s.itemdesc,a.price order by bcdate,bcno) a 
 UNION 
@@ -45,13 +72,23 @@ SELECT 'BC 4.1 LOKAL' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bppbno
 UNION ALL
 SELECT 'BC 4.1 LOKAL' jenis_dokumen,lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bppbno_int!='',a.bppbno_int,a.bppbno) trans_no,a.bppbdate trans_date,d.supplier, if(s.goods_code<>'' AND s.goods_code<>'-' AND s.goods_code<>'0',s.goods_code,concat('FG ',s.id_item)) kode_brg,s.itemname itemdesc,a.unit, sum(a.qty) qty,round(sum(a.qty*ifnull(a.price_bc,a.price)),2) nilai_barang,s.id_so_det id_item ,a.curr,a.price , 'FG' mattype, 'BARANG JADI' matclass from bppb a inner join masterstyle s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier where bppbdate between '$tglf' AND '$tglt' and mid(a.bppbno,4,2)='FG' and jenis_dok='BC 4.1' and ucase(remark) not like '%SEWA%' and a.tujuan not like '%SUBKON%' group by a.bcno,a.bppbno,s.goods_code,s.itemname,a.price order by bcdate,bcno) a LEFT JOIN (SELECT tanggal, curr, rate FROM ap_masterrate where v_codecurr = 'PAJAK' GROUP BY tanggal, curr) mr ON mr.tanggal = a.bcdate AND mr.curr = a.curr";
 
-// Hitung total
-$totalData = mysql_num_rows(mysql_query($sql_union));
-$sql_query = "$sql_union $order $limit";
+// ==============================
+// === TAMBAHAN WRAP QUERY !!! ===
+// ==============================
+$finalQuery = "SELECT * FROM ($sql_union) AS a $where_search";
+
+
+// ==============================
+// === TAMBAHAN APPLY QUERY !!! ===
+// ==============================
+$totalData = mysql_num_rows(mysql_query($finalQuery));
+$sql_query = "$finalQuery $order $limit";
 $query = mysql_query($sql_query);
+
 
 $data = array();
 $no = $_POST['start'] + 1;
+
 while ($row = mysql_fetch_assoc($query)) {
     $data[] = array(
         "no" => $no++,
@@ -76,7 +113,7 @@ while ($row = mysql_fetch_assoc($query)) {
 $json_data = array(
     "draw" => intval($_POST['draw']),
     "recordsTotal" => $totalData,
-    "recordsFiltered" => $totalData, // update if ada filter pencarian nanti
+    "recordsFiltered" => $totalData,
     "data" => $data
 );
 
