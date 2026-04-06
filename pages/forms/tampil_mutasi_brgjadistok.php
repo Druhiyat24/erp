@@ -112,7 +112,7 @@ insert_log($sql,$user);
 		<?php
 			echo "<th>NO WS</th>";
 			echo "<th>STYLE</th>";
-			echo "<th>ID SO DETAIL</th>";
+			echo "<th>ID SO DET</th>";
 			echo "<th>PRODUCT GROUP</th>";
 			echo "<th>PRODUCT ITEM</th>";
 			echo "<th>COLOR</th>";
