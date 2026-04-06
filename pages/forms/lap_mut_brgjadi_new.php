@@ -94,7 +94,7 @@ echo "</script>";
       <thead>
         <tr>
             <th>No</th>
-            <th>Id Item</th>
+           <!--  <th>Id Item</th> -->
             <th>Id So Det</th>
             <th>Kode Barang</th>
             <th>Style</th>
@@ -197,7 +197,7 @@ having sum(saldo_awal) != '0' or sum(penerimaan) != '0' or sum(pengeluaran) != '
         {
         echo "<tr>"; 
         echo "<td>$no</td>";
-        echo "<td>$data[id_item]</td>";
+        // echo "<td>$data[id_item]</td>";
         echo "<td>$data[id_so_det]</td>";
         echo "<td>$data[goods_code]</td>";
         echo "<td>$data[styleno]</td>";

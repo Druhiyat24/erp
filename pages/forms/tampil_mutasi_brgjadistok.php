@@ -112,6 +112,7 @@ insert_log($sql,$user);
 		<?php
 			echo "<th>NO WS</th>";
 			echo "<th>STYLE</th>";
+			echo "<th>ID SO DETAIL</th>";
 			echo "<th>PRODUCT GROUP</th>";
 			echo "<th>PRODUCT ITEM</th>";
 			echo "<th>COLOR</th>";
@@ -155,6 +156,7 @@ foreach ($id as $x)
       <td><?php echo $no;?></td>
       <td><?php  echo($x['ws']);?></td>
       <td><?php  echo($x['styleno']);?></td>
+      <td><?php  echo($x['id_so_det']);?></td>
       <td><?php  echo($x['product_group']);?></td>
       <td><?php  echo($x['product_item']);?></td>
       <td><?php  echo($x['color']);?></td>
