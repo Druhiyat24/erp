@@ -1142,13 +1142,14 @@ insert_log($sql,$user);
 		} elseif ($rpt=='outrekap')
 		{	$sqlk = "SELECT 
 				if(jenis_dok='BC 3.0','BC 3.0',
+				if(jenis_dok='BC 3.3','BC 3.3',
 				if(jenis_dok='BC 2.6.1','BC 2.6.1 KELUAR',
 				if(jenis_dok='BC 2.7','BC 2.7',
 				if(jenis_dok='BC 4.1' and ucase(remark) not like '%SEWA%' and ucase(tujuan) not like '%SUBKON%','BC 4.1',
 				if(jenis_dok='BC 4.1' and ucase(remark) like '%SEWA%' and mid(bppbno,4,1)='M','BC 4.1 LOKAL MESIN (SEWA)',
 				if(jenis_dok='BC 4.1' and ucase(remark) not like '%SEWA%' and ucase(tujuan) like '%SUBKON%','BC 4.1 SUBKON',
 				if(jenis_dok='BC 2.5' and mid(bppbno,4,1) in ('S'),'BC 2.5 SCRAP',
-				if(jenis_dok='BC 2.5' and mid(bppbno,4,1) not in ('S'),'BC 2.5',jenis_dok)))))))) jenis_dokumen,
+				if(jenis_dok='BC 2.5' and mid(bppbno,4,1) not in ('S'),'BC 2.5',jenis_dok))))))))) jenis_dokumen,
 				lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,
 				if(s.goods_code='' OR s.goods_code='-' OR s.goods_code='0',concat(s.mattype,' ',a.id_item),s.goods_code) kode_brg,
 				s.itemdesc,a.unit,a.qty,a.curr,round(ifnull(a.price_bc,a.price)*a.qty,2) nilai_barang,ifnull(a.price_bc,a.price),
@@ -1160,13 +1161,14 @@ insert_log($sql,$user);
 			insert_temp_perdok_rekap($sqlk,$user,$sesi,"Y");
 			$sqlk = "SELECT 
 				if(jenis_dok='BC 3.0','BC 3.0',
+				if(jenis_dok='BC 3.3','BC 3.3',
 				if(jenis_dok='BC 2.6.1','BC 2.6.1 KELUAR',
 				if(jenis_dok='BC 2.7','BC 2.7',
 				if(jenis_dok='BC 4.1' and ucase(remark) not like '%SEWA%' and ucase(tujuan) not like '%SUBKON%','BC 4.1',
 				if(jenis_dok='BC 4.1' and ucase(remark) like '%SEWA%' and mid(bppbno,4,1)<>'S','BC 4.1 LOKAL MESIN (SEWA)',
 				if(jenis_dok='BC 4.1' and ucase(remark) not like '%SEWA%' and ucase(tujuan) like '%SUBKON%','BC 4.1 SUBKON',
 				if(jenis_dok='BC 2.5' and mid(bppbno,4,1) in ('S'),'BC 2.5 SCRAP',
-				if(jenis_dok='BC 2.5' and mid(bppbno,4,1) not in ('S'),'BC 2.5','N/A')))))))) jenis_dokumen,lpad(a.bcno,6,'0') bcno,
+				if(jenis_dok='BC 2.5' and mid(bppbno,4,1) not in ('S'),'BC 2.5','N/A'))))))))) jenis_dokumen,lpad(a.bcno,6,'0') bcno,
 				a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,
 				if(s.goods_code='' OR s.goods_code='-' OR s.goods_code='0',concat('FG ',a.id_item),s.goods_code) kode_brg,
 				s.itemname itemdesc,a.unit,a.qty,a.curr,round(ifnull(a.price_bc,a.price)*a.qty,2) nilai_barang,ifnull(a.price_bc,a.price),
