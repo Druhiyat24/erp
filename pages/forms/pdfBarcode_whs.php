@@ -23,7 +23,7 @@ $mode=$_GET['mode'];
 // { $space_head=55; }
 //end paging------------------------------
 
- $space_head=39;
+ $space_head=40;
 
  $ukuran_kertas="A7"; 
 
@@ -58,28 +58,82 @@ if ($mode=="barcode")
 
 $product_code_40 = "<img alt='code 128 bar code' src='barcode.php?codetype=Code128&size=15&text=".$rshder['id_item']."&print=false' />";            
           $head_data = ' 
-            <table width="100%" style="border:none; font: size 5px;font-weight:bold">
-              <tr style="width:100%"> <td>Product <td>:<td></tr>
-              <td>'.$rshder['item_desc'].'</td>
-              <tr> <td>Kode Barang <td>:<td></tr>
-              <td>'.$rshder['kode_item'].'</td>
-              <tr> <td>ID Item <td>:<td></tr>
-              <td>'.$rshder['id_item'].'</td>           
-              <tr> <td>Supplier <td>:<td></tr>
-              <td>'.$rshder['supplier'].'</td>
-              <tr> <td>No BPB <td>:<td></tr>
-              <td>'.$rshder['no_dok'].'</td> 
-              <tr> <td>No SJ <td>:<td></tr>
-              <td>'.$rshder['no_sj'].'</td>
-              <tr> <td>No PO <td>:<td></tr>
-              <td>'.$rshder['no_po'].'</td>
-              <tr> <td>No WS <td>:<td></tr>
-              <td>'.$rshder['no_ws'].'</td>
-              <tr> <td>Style <td>:<td></tr>
-              <td>'.$rshder['styleno'].'</td>
-            </table>             
+              <table width="100%" style="border:none; font: size 5px;font-weight:bold" cellspacing="0">
+    
+<tr>
+    <td>Product</td>
+    <td>:</td>
+    <td colspan="2">'.$rshder['item_desc'].'</td>
+</tr>
+
+<tr>
+    <td>Kode Barang</td>
+    <td>:</td>
+    <td colspan="2">'.$rshder['kode_item'].'</td>
+</tr>
+
+<tr>
+    <td>ID Item</td>
+    <td>:</td>
+    <td colspan="2">'.$rshder['id_item'].'</td>
+</tr>
+
+<tr>
+    <td>Supplier</td>
+    <td>:</td>
+    <td colspan="2">'.$rshder['supplier'].'</td>
+</tr>
+
+<tr>
+    <td>No BPB</td>
+    <td>:</td>
+    <td >'.$rshder['no_dok'].'</td>
+    <td rowspan="5" align="right" style="width:115px; padding:0;">
+    <table style="border-collapse:collapse; float:right; width:115px;">
+        <tr>
+            <td style="border:1px solid black; text-align:center; font-weight:bold;">
+                Grouping
+            </td>
+        </tr>
+        <tr>
+            <td style="border:1px solid black; height:55px;">
+            </td>
+        </tr>
+    </table>
+</td>
+
+</tr>
+
+<tr>
+    <td>No SJ</td>
+    <td>:</td>
+    <td>'.$rshder['no_sj'].'</td>
+    
+</tr>
+
+<tr>
+    <td>No PO</td>
+    <td>:</td>
+    <td>'.$rshder['no_po'].'</td>
+    
+</tr>
+
+<tr>
+    <td>No WS</td>
+    <td>:</td>
+    <td>'.$rshder['no_ws'].'</td>
+</tr>
+
+<tr>
+    <td>Style</td>
+    <td>:</td>
+    <td>'.$rshder['styleno'].'</td>
+</tr>
+
+</table>
+   
             ';
-              //             <tr> <td>No WS <td>:<td></tr>
+              //             <tr> <td>No WS <td>:<td></tr> <td style="width:100px;"><td>
               // <td>'.$rshder['kpno'].'</td> 
 // <td>'.$rshder['id_item'].''.$product_code_40.'</td>  
           $header = $head_data;
@@ -95,8 +149,7 @@ $product_code_40 = "<img alt='code 128 bar code' src='barcode.php?codetype=Code1
                          <td align="center">Lot</td>
                         <td align="center">Qty</td>
                         <td align="center">Nama Rak</td> 
-                        <td align="center">Unit</td>
-						<td align="center">Grouping</td>					
+                        <td align="center">Unit</td>				
                     </tr>
                     </thead>
 
@@ -109,7 +162,6 @@ $product_code_40 = "<img alt='code 128 bar code' src='barcode.php?codetype=Code1
                                 <td align="center">'.number_format($rshder['qty'],2).'</td>
                                 <td align="center">'.$rshder['kode_lok'].'</td>
                                 <td align="center">'.$rshder['satuan'].'</td>
-								<td align="center"></td>
                                 </tr>
                     </tbody>
             </table>           

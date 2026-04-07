@@ -71,17 +71,79 @@ select no_bpb,'' supplier, no_sj no_invoice,no_po from whs_sa_fabric GROUP BY no
 
 $product_code_40 = "<img alt='code 128 bar code' src='barcode.php?codetype=Code128&size=15&text=".$rshder['id_item']."&print=false' />";            
           $head_data = ' 
-            <table width="100%" style="border:none; font: size 5px;font-weight:bold">
-                <tr><td>Product</td><td>:</td><td>' . (!empty($rshder['item_desc']) ? $rshder['item_desc'] : '-') . '</td></tr>
-                <tr><td>ID Item</td><td>:</td><td>' . (!empty($rshder['id_item']) ? $rshder['id_item'] : '-') . '</td></tr>
-                <tr><td>Supplier</td><td>:</td><td>' . (!empty($rshder['supplier']) ? $rshder['supplier'] : '-') . '</td></tr>
-                <tr><td>No BPB</td><td>:</td><td>' . (!empty($rshder['no_dok']) ? $rshder['no_dok'] : '-') . '</td></tr>
-                <tr><td>No SJ</td><td>:</td><td>' . (!empty($rshder['no_sj']) ? $rshder['no_sj'] : '-') . '</td></tr>
-                <tr><td>No PO</td><td>:</td><td>' . (!empty($rshder['no_po']) ? $rshder['no_po'] : '-') . '</td></tr>
-                <tr><td>No WS</td><td>:</td><td>' . (!empty($rshder['no_ws']) ? $rshder['no_ws'] : '-') . '</td></tr>
-                <tr><td>Style</td><td>:</td><td>' . (!empty($rshder['styleno']) ? $rshder['styleno'] : '-') . '</td></tr>
-                <tr><td>Barcode Before</td><td>:</td><td>' . (!empty($rsbarbef['barcode_before']) ? $rsbarbef['barcode_before'] : '-') . '</td></tr>
-            </table>             
+            <table width="100%" style="border:none; font: size 5px;font-weight:bold" cellspacing="0">
+    
+<tr>
+    <td>Product</td>
+    <td>:</td>
+    <td colspan="2">'.$rshder['item_desc'].'</td>
+</tr>
+
+<tr>
+    <td>ID Item</td>
+    <td>:</td>
+    <td colspan="2">'.$rshder['id_item'].'</td>
+</tr>
+
+<tr>
+    <td>Supplier</td>
+    <td>:</td>
+    <td colspan="2">'.$rshder['supplier'].'</td>
+</tr>
+
+<tr>
+    <td>No BPB</td>
+    <td>:</td>
+    <td colspan="2">'.$rshder['no_dok'].'</td>
+    
+
+</tr>
+
+<tr>
+    <td>No SJ</td>
+    <td>:</td>
+    <td>'.$rshder['no_sj'].'</td>
+    <td rowspan="5" align="right" style="width:115px; padding:0;">
+    <table style="border-collapse:collapse; float:right; width:115px;">
+        <tr>
+            <td style="border:1px solid black; text-align:center; font-weight:bold;">
+                Grouping
+            </td>
+        </tr>
+        <tr>
+            <td style="border:1px solid black; height:55px;">
+            </td>
+        </tr>
+    </table>
+</td>
+</tr>
+
+<tr>
+    <td>No PO</td>
+    <td>:</td>
+    <td>'.$rshder['no_po'].'</td>
+    
+</tr>
+
+<tr>
+    <td>No WS</td>
+    <td>:</td>
+    <td>'.$rshder['no_ws'].'</td>
+</tr>
+
+<tr>
+    <td>Style</td>
+    <td>:</td>
+    <td>'.$rshder['styleno'].'</td>
+</tr>
+
+<tr>
+    <td>Barcode Before</td>
+    <td>:</td>
+    <td colspan="2">'.$rshder['barcode_before'].'</td>
+</tr>
+
+</table>          
             ';
               //             <tr> <td>No WS <td>:<td></tr>
               // <td>'.$rshder['kpno'].'</td> 
