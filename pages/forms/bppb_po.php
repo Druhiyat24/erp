@@ -655,7 +655,7 @@ if ($mod=="37v_bppb_po")
           inner join mastersupplier mb on ac.id_buyer=mb.id_supplier  
 		   LEFT JOIN po_header POH ON POH.id = a.id_po #AND POH.id_supplier = a.id_supplier		  
           INNER JOIN (SELECT * FROM po_item WHERE 1=1 )POI ON POI.id_po = POH.id #AND 
-          where mid(bppbno,4,1)='C' and a.id_jo!='' and a.cancel='N' and a.bppbdate >='$tglf' and a.bppbdate <='$tglt' #and a.confirm = 'Y'
+          where (mid(bppbno,4,1)='C' OR bppbno like '%SPCK%') and a.id_jo!='' and a.cancel='N' and a.bppbdate >='$tglf' and a.bppbdate <='$tglt' #and a.confirm = 'Y'
           GROUP BY a.bppbno ASC order by bppbdate desc";		  
         $query = mysqli_query($con_new,$sql);
         while($data = mysqli_fetch_array($query))
