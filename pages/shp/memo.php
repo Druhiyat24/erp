@@ -274,7 +274,7 @@ if ($mod == "memo_list") {
             <div class='row'>
               <div class='col-md-6'>
                 <div class='form-group'>
-                  <label>Tanggal :</label>
+                  <label>Tanggal Memo:</label>
                   <input type='text' class='form-control' id='datepicker1_memo' name='txtmemodate' required placeholder='Masukkan Request Date' value='<?php echo $reqdate; ?>'>
                 </div>
               </div>
@@ -287,6 +287,20 @@ if ($mod == "memo_list") {
                     IsiCombo($sql, $cbokpd, 'Pilih Department #');
                     ?>
                   </select>
+                </div>
+              </div>
+
+              <div class='col-md-6'>
+                <div class='form-group'>
+                  <label>Tanggal Invoice:</label>
+                  <input type='text' class='form-control' id='tgl_invoice' name='tgl_invoice' required placeholder='' value='<?php echo $reqdate; ?>'>
+                </div>
+              </div>
+
+              <div class='col-md-6'>
+                <div class='form-group'>
+                  <label>Tanggal Kontrabon:</label>
+                  <input type='text' class='form-control' id='tgl_kontrabon' name='tgl_kontrabon' required placeholder='' value='<?php echo $reqdate; ?>'>
                 </div>
               </div>
 
@@ -550,6 +564,8 @@ if ($mod == "memo_list") {
   $txtnotes = $datamemo['notes'];
   $inv_vendor = $datamemo['inv_vendor'];
   $profit_center = $datamemo['profit_center'];
+  $txttgl_invoice = date('d M Y', strtotime($datamemo['tgl_invoice']));
+  $txttgl_kontrabon = date('d M Y', strtotime($datamemo['tgl_kontrabon']));
 
 ?>
   <script type='text/javascript'>
@@ -582,7 +598,7 @@ if ($mod == "memo_list") {
             <div class='row'>
               <div class='col-md-6'>
                 <div class='form-group'>
-                  <label>Tanggal :</label>
+                  <label>Tanggal Memo:</label>
                   <input type='text' class='form-control' id='datepicker1_memo' name='txtmemodate' required placeholder='Masukkan Request Date' value='<?php echo $reqdate; ?>'>
                 </div>
               </div>
@@ -595,6 +611,20 @@ if ($mod == "memo_list") {
                     IsiCombo($sql, $cbokpd, 'Pilih Department #');
                     ?>
                   </select>
+                </div>
+              </div>
+
+              <div class='col-md-6'>
+                <div class='form-group'>
+                  <label>Tanggal Invoice:</label>
+                  <input type='text' class='form-control' id='tgl_invoice' name='tgl_invoice' required placeholder='' value='<?php echo $txttgl_invoice; ?>'>
+                </div>
+              </div>
+
+              <div class='col-md-6'>
+                <div class='form-group'>
+                  <label>Tanggal Kontrabon:</label>
+                  <input type='text' class='form-control' id='tgl_kontrabon' name='tgl_kontrabon' required placeholder='' value='<?php echo $txttgl_kontrabon; ?>'>
                 </div>
               </div>
 

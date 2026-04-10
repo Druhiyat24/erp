@@ -64,6 +64,7 @@
             <?php }else{ ?>
               <li><a href='?mod=2'>Update Dok Pabean</a></li>
             <?php } ?>
+            <li><a href='?mod=transfer_memo'>Transfer Memo</a></li>
           </ul>
         </li>
         <?php if($user != 'guest'){ ?>

@@ -201,10 +201,12 @@ if ($mod == 'update_header') {
 	$dok_pendukung	= nb($_POST['dok_pendukung']);
 	$txtnotes		= nb($_POST['txtnotes']);
 	$inv_buyer		= nb($_POST['inv_buyer']);
+	$tgl_invoice	= nb($_POST['tgl_invoice']);
+	$tgl_kontrabon	= nb($_POST['tgl_kontrabon']);
 
 	$nm_memo = flookup("nm_memo", "memo_h", "id_h='$id_h'");
 
-	$sql = "update memo_h set tgl_memo = '$txtmemodate', kepada = '$cbokpd', id_supplier = '$cbosupp', jns_trans = '$jns_trans', jns_pengiriman = '$jns_pengiriman', ditagihkan = '$ditagihkan', curr = '$curr', jatuh_tempo = '$txtjth_tempo', dok_pendukung = '$dok_pendukung', notes = '$txtnotes', inv_buyer = '$inv_buyer' where id_h = '$id_h'";
+	$sql = "update memo_h set tgl_memo = '$txtmemodate', kepada = '$cbokpd', id_supplier = '$cbosupp', jns_trans = '$jns_trans', jns_pengiriman = '$jns_pengiriman', ditagihkan = '$ditagihkan', curr = '$curr', jatuh_tempo = '$txtjth_tempo', dok_pendukung = '$dok_pendukung', notes = '$txtnotes', inv_buyer = '$inv_buyer', tgl_invoice = '$tgl_invoice', tgl_kontrabon = '$tgl_kontrabon' where id_h = '$id_h'";
 	insert_log($sql, $user); {
 		$_SESSION['msg'] = "Data Berhasil Diupdate, Nomor Memo : " . $nm_memo;
 	}

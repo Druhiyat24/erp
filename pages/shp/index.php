@@ -440,7 +440,7 @@ function showLoading() {
 </script>
 
 <script type="text/javascript">
-  $('table tbody tr').on('click', 'td:eq(1)', function(){                
+  $('#tbl_memo tbody').on('click', 'td:eq(1)', function(){                
     $('#modal_memo_app').modal('show');
     var no_memo = $(this).closest('tr').find('td:eq(1)').attr('value');
     var tgl_memo = $(this).closest('tr').find('td:eq(2)').attr('value');
@@ -470,6 +470,102 @@ function showLoading() {
     });       
         //make your ajax call populate items or what even you need
         $('#txt_title').html(no_memo);
+      });
+
+  $('#tbl_transfer tbody').on('click', 'tr td:eq(1)', function() {               
+    $('#modal_memo_trf').modal('show');
+    var no_memo = $(this).closest('tr').find('td:eq(1)').attr('value');
+    var tgl_memo = $(this).closest('tr').find('td:eq(2)').attr('value');
+    var jns_inv = $(this).closest('tr').find('td:eq(6)').attr('value');
+    var kepada = $(this).closest('tr').find('td:eq(3)').attr('value');
+    var supplier = $(this).closest('tr').find('td:eq(4)').attr('value');
+    var jns_trans = $(this).closest('tr').find('td:eq(5)').attr('value');
+    var buyer = $(this).closest('tr').find('td:eq(7)').attr('value');
+    var id_h = $(this).closest('tr').find('td:eq(9)').attr('value');
+    $.ajax({
+      type: 'post',
+      url: 'ajax_modal_memo.php',
+      data: {
+        no_memo: no_memo,
+        tgl_memo: tgl_memo,
+        jns_inv: jns_inv,
+        kepada: kepada,
+        supplier: supplier,
+        jns_trans: jns_trans,
+        buyer: buyer,
+        id_h: id_h
+      },
+      success: function(data) {
+        console.log(data);
+        $('#detail_memo_trf').html(data); //menampilkan data ke dalam modal
+      }
+    });       
+        //make your ajax call populate items or what even you need
+        $('#txt_title_trf').html(no_memo);
+      });
+    </script>
+
+    <script type="text/javascript">
+      $("#form-simpan").on("click", "#transfer_memo", function(){             
+        var transfer_to = document.getElementById('transfer_to').value;
+        var trf_date = document.getElementById('trfdate').value;
+        var keterangan = document.getElementById('txt_keterangan').value;
+        var unik_code = document.getElementById('unik_code').value; 
+
+        $.ajax({
+          type:'POST',
+          url:'insert_transfer_memo_h.php',
+          data: {'transfer_to':transfer_to, 'trf_date':trf_date, 'keterangan':keterangan, 'unik_code':unik_code},
+          cache: 'false',
+          close: function(e){
+            e.preventDefault();
+          },
+          success: function(response){
+            console.log(response);
+            $("input[type=checkbox]:checked").each(function () {
+              var no_memo = $(this).closest('tr').find('td:eq(1)').attr('value');
+              var tgl_memo = $(this).closest('tr').find('td:eq(2)').attr('value');
+              var pono = $(this).closest('tr').find('td:eq(3)').attr('value');
+              var Supplier = $(this).closest('tr').find('td:eq(4)').attr('value');
+              var jml_pterms = $(this).closest('tr').find('td:eq(5)').attr('value');
+              var kode_pterms = $(this).closest('tr').find('td:eq(6)').attr('value');
+              var keterangan = $(this).closest('tr').find('td:eq(7) input').val();
+              var curr = $(this).closest('tr').find('td:eq(8)').attr('value');
+              var total = $(this).closest('tr').find('td:eq(9)').attr('value');
+              var confirm_by = $(this).closest('tr').find('td:eq(10)').attr('value');
+              var confirm_date = $(this).closest('tr').find('td:eq(11)').attr('value');
+              var tgl_transfer = document.getElementById('trfdate').value;
+              var unik_code = document.getElementById('unik_code').value; 
+
+              $.ajax({
+                type:'POST',
+                url:'insert_ir_bpb.php',
+                data: {'no_bpb':no_bpb, 'tgl_bpb':tgl_bpb, 'pono':pono, 'Supplier':Supplier, 'jml_pterms':jml_pterms, 'kode_pterms':kode_pterms, 'keterangan':keterangan, 'curr':curr, 'total':total, 'confirm_by':confirm_by, 'confirm_date':confirm_date, 'tgl_transfer':tgl_transfer, 'unik_code':unik_code},
+                cache: 'false',
+                close: function(e){
+                  e.preventDefault();
+                },
+                success: function(response){
+                  console.log(response);
+                  window.location = '../doc_handover/?mod=trans_bpb';
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                  console.log(xhr);
+                  alert(xhr);
+                }
+              });
+            }); 
+            alert(response);
+                // window.location = 'cash-in.php';
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr);
+                alert(xhr);
+              }
+            });
+        if(document.querySelectorAll("input[name='select[]']:checked").length <= 0){
+          alert("Please Check BPB");
+        }        
       });
     </script>
 
@@ -557,6 +653,18 @@ function showLoading() {
     });
 
     $('#datepicker1_memo').datepicker
+    ({  format: "dd M yyyy",
+      autoclose: true,
+      startDate : "01-11-2025",
+    });
+
+    $('#tgl_invoice').datepicker
+    ({  format: "dd M yyyy",
+      autoclose: true,
+      startDate : "01-11-2025",
+    });
+
+    $('#tgl_kontrabon').datepicker
     ({  format: "dd M yyyy",
       autoclose: true,
       startDate : "01-11-2025",
@@ -666,6 +774,19 @@ function showLoading() {
   });
 
   $(document).ready(function() {
+    var table = $('#tbl_transfer').DataTable
+    ({  scrollY: "300px",
+      scrollCollapse: true,
+      paging: true,
+      pageLength: 1000,
+      fixedColumns:   
+      { leftColumns: 1,
+        rightColumns: 1
+      }
+    });
+  });
+
+  $(document).ready(function() {
     var table = $('#examplememo').DataTable
     ({  paging: false,
       ordering: true,
@@ -695,6 +816,11 @@ function showLoading() {
       }
     });
   });
+
+function clearTableTransfer() {
+    $('#tbl_transfer tbody').empty();
+}
+
 
   // tabel dengan grand total
   $(document).ready(function() {

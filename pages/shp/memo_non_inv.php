@@ -261,6 +261,20 @@ if ($mod == "memo_list_non_inv") {
                   </select>
                 </div>
               </div>
+
+              <div class='col-md-6'>
+                <div class='form-group'>
+                  <label>Tanggal Invoice:</label>
+                  <input type='text' class='form-control' id='tgl_invoice' name='tgl_invoice' required placeholder='' value='<?php echo $reqdate; ?>'>
+                </div>
+              </div>
+
+              <div class='col-md-6'>
+                <div class='form-group'>
+                  <label>Tanggal Kontrabon:</label>
+                  <input type='text' class='form-control' id='tgl_kontrabon' name='tgl_kontrabon' required placeholder='' value='<?php echo $reqdate; ?>'>
+                </div>
+              </div>
               
               <div class='col-md-6'>
                 <div class='form-group'>
@@ -514,10 +528,12 @@ if ($mod == "memo_list_non_inv") {
   $cbobuyer = $datamemo['id_buyer'];
   $ditagihkan = $datamemo['ditagihkan'];
   $curr = $datamemo['curr'];
-  $txtjth_tempo = $datamemo['jatuh_tempo'];
+  $txtjth_tempo = date('d M Y', strtotime($datamemo['jatuh_tempo_new']));
   $dok_pendukung = $datamemo['dok_pendukung'];
   $txtnotes = $datamemo['notes'];
   $inv_vendor = $datamemo['inv_vendor'];
+  $txttgl_invoice = date('d M Y', strtotime($datamemo['tgl_invoice']));
+  $txttgl_kontrabon = date('d M Y', strtotime($datamemo['tgl_kontrabon']));
 
   ?>
   <script type='text/javascript'>
@@ -565,7 +581,22 @@ if ($mod == "memo_list_non_inv") {
                   </select>
                 </div>
               </div>
+              <div class='col-md-6'>
+                <div class='form-group'>
+                  <label>Tanggal Invoice:</label>
+                  <input type='text' class='form-control' id='tgl_invoice' name='tgl_invoice' required placeholder='' value='<?php echo $txttgl_invoice; ?>'>
+                </div>
+              </div>
+
+              <div class='col-md-6'>
+                <div class='form-group'>
+                  <label>Tanggal Kontrabon:</label>
+                  <input type='text' class='form-control' id='tgl_kontrabon' name='tgl_kontrabon' required placeholder='' value='<?php echo $txttgl_kontrabon; ?>'>
+                </div>
+              </div>
             </div>
+
+            
 
             <div class='form-group'>
               <label>Nama Penerima :</label>
