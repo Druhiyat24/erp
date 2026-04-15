@@ -524,30 +524,20 @@ function showLoading() {
             console.log(response);
             $("input[type=checkbox]:checked").each(function () {
               var no_memo = $(this).closest('tr').find('td:eq(1)').attr('value');
-              var tgl_memo = $(this).closest('tr').find('td:eq(2)').attr('value');
-              var pono = $(this).closest('tr').find('td:eq(3)').attr('value');
-              var Supplier = $(this).closest('tr').find('td:eq(4)').attr('value');
-              var jml_pterms = $(this).closest('tr').find('td:eq(5)').attr('value');
-              var kode_pterms = $(this).closest('tr').find('td:eq(6)').attr('value');
-              var keterangan = $(this).closest('tr').find('td:eq(7) input').val();
-              var curr = $(this).closest('tr').find('td:eq(8)').attr('value');
-              var total = $(this).closest('tr').find('td:eq(9)').attr('value');
-              var confirm_by = $(this).closest('tr').find('td:eq(10)').attr('value');
-              var confirm_date = $(this).closest('tr').find('td:eq(11)').attr('value');
-              var tgl_transfer = document.getElementById('trfdate').value;
+              var keterangan = $(this).closest('tr').find('td:eq(8) input').val() || document.getElementById('txt_keterangan').value;
               var unik_code = document.getElementById('unik_code').value; 
 
               $.ajax({
                 type:'POST',
-                url:'insert_ir_bpb.php',
-                data: {'no_bpb':no_bpb, 'tgl_bpb':tgl_bpb, 'pono':pono, 'Supplier':Supplier, 'jml_pterms':jml_pterms, 'kode_pterms':kode_pterms, 'keterangan':keterangan, 'curr':curr, 'total':total, 'confirm_by':confirm_by, 'confirm_date':confirm_date, 'tgl_transfer':tgl_transfer, 'unik_code':unik_code},
+                url:'insert_transfer_memo_det.php',
+                data: {'no_memo':no_memo, 'keterangan':keterangan, 'unik_code':unik_code},
                 cache: 'false',
                 close: function(e){
                   e.preventDefault();
                 },
                 success: function(response){
                   console.log(response);
-                  window.location = '../doc_handover/?mod=trans_bpb';
+                  window.location = '../shp/?mod=transfer_memo';
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                   console.log(xhr);

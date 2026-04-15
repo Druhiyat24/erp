@@ -14,7 +14,7 @@ $app_date = date("Y-m-d H:i:s");
 
 
 
-if ($transfer_to = 'MARKETING') {
+if ($transfer_to == 'MARKETING') {
 	$kode_dok = 'TETM';
 }else{
 	$kode_dok = 'TETF';

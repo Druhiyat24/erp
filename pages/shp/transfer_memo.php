@@ -107,8 +107,7 @@ $logo_company = $rscomp["logo_company"];
           <tr>
             <th>No Transfer</th>
             <th>Tgl Transfer</th>
-            <th hidden>Supplier</th>
-            <th hidden>Total Amount</th>
+            <th>Keterangan</th>
             <th>User Create</th>
             <th>Status</th>
             <th>Action</th>
@@ -118,13 +117,7 @@ $logo_company = $rscomp["logo_company"];
           <?php
           # QUERY TABLE
 
-          if($nama_supp == 'ALL' ){
-            $where = "";
-          }else{
-            $where = "and supplier = '$nama_supp' ";  
-          }
-
-          $sql = "select *,CONCAT(no_transfer,tgl_transfer,no_bpb,nama_supp,status,create_user) filter from (select no_transfer,tgl_transfer,no_bpb,nama_supp,status,FORMAT(sum(total),2) total,CONCAT(created_by,' (',created_at,')') create_user from ir_transfer_memo where tgl_transfer BETWEEN '$from' and '$to' ".$where." group by no_transfer order by no_transfer asc) a";
+          $sql = "select a.no_trans, tgl_trans, CONCAT(a.created_by,' (',a.created_at,')') create_user, a.status, a.id, upper(IFNULL(a.keterangan,b.keterangan)) keterangan from transfer_memo_exim_h a INNER JOIN transfer_memo_exim_det b on b.no_trans = a.no_trans where tgl_trans BETWEEN '$from' and '$to' GROUP BY a.id";
           
           $query = mysql_query($sql);
 
@@ -132,21 +125,22 @@ $logo_company = $rscomp["logo_company"];
 
           $no = 1;
           while ($data = mysql_fetch_array($query)) {
-              $tgl_transfer = date('d M Y', strtotime($data[tgl_transfer]));
+              $tgl_transfer = date('d M Y', strtotime($data[tgl_trans]));
             
             echo "<tr>";
-            echo "<td value= '".$data[no_transfer]."'>$data[no_transfer]</td>";
+            echo "<td value= '".$data[no_trans]."'>$data[no_trans]</td>";
             echo "<td>$tgl_transfer</td>";
-            echo "<td hidden>$data[nama_supp]</td>";
-            echo "<td hidden>$data[total]</td>";
+            echo "<td>$data[keterangan]</td>";
             echo "<td>$data[create_user]</td>";
             echo "<td>$data[status]</td>";
-            if ($data[status] == 'Cancel' OR $data[status] == 'Approved') {
-               echo "<td><a href='http://10.10.5.60/ap/module/AP/pdf_transf_bpb.php?doc_number=".$data[no_transfer]."' target='_blank'><button type='button' class='btn btn-xs btn-success'><i class='fa fa-print '> Print</i></button></a>
+            if ($data[status] == 'CANCEL') {
+               echo "<td>-</td>";
+            }elseif ($data[status] == 'APPROVED') {
+               echo "<td><a href='http://10.10.5.60/ap/module/AP/pdf_transfer_memo.php?doc_number=".$data[no_trans]."' target='_blank'><button type='button' class='btn btn-xs btn-success'><i class='fa fa-print '> Print</i></button></a>
             </td>";
             }else{
 
-            echo "<td><a href='http://10.10.5.60/ap/module/AP/pdf_transf_bpb.php?doc_number=".$data[no_transfer]."' target='_blank'><button type='button' class='btn btn-xs btn-success'><i class='fa fa-print '> Print</i></button></a>
+            echo "<td><a href='http://10.10.5.60/ap/module/AP/pdf_transfer_memo.php?doc_number=".$data[no_trans]."' target='_blank'><button type='button' class='btn btn-xs btn-success'><i class='fa fa-print '> Print</i></button></a>
             <a id='cancel_trf'><button type='button' class='btn btn-xs btn-danger'><i class='fa fa-trash' aria-hidden='true' > Cancel</i></button></a>
             </td>";
             }
