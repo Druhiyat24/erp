@@ -142,7 +142,7 @@ if ($modenya=="view_list_stock_req")
 				  {	
 					if ($tipe_mat == "A")
 					{
-						$id=$data['id_item']."|".$data['id_jo'];				
+						$id=$data['id_item']."|".$data['id_jo']."|".$data['unit'];				
 						$id_item = $data['id_item'];						
 						$sisaall =
 						flookup("sum(qty)","saldoawal_rak","id_item='$id_item' and periode = '2023-02-01'") 
@@ -302,7 +302,7 @@ if ($modenya=="view_list_stock_req")
 			}
 			else if($tipe_mat_1 == "A")
 			{
-				$x = $data['id_item']."|".$data['id_jo']."|".$data['id']."|".$data['id_rak_loc'];
+				$x = $data['id_item']."|".$data['id_jo']."|".$data['id']."|".$data['id_rak_loc']."|".$data['unit'];
 				$tot_isi = $data['qty_sisa'];				
 			} 
 
