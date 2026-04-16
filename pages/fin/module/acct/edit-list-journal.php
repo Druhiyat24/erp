@@ -80,7 +80,7 @@
             $start_date = $_GET['start_date'];
             $end_date = $_GET['end_date'];
 
-            echo '<input type="hidden" name="nama_type" id="nama_type" value="'.$nama_type.'">
+            echo '<input type="hidden" name="type_name" id="type_name" value="'.$nama_type.'">
             <input type="hidden" name="start_date" id="start_date" value="'.$start_date.'">
             <input type="hidden" name="end_date" id="end_date" value="'.$end_date.'">';
 
@@ -1504,7 +1504,7 @@ function addListener(elm,index){
 
     var totalDebit  = $("#txt_debit_idr_h").val();
     var totalCredit = $("#txt_credit_idr_h").val();
-    let typename  = document.getElementById("nama_type").value;
+    let typename  = document.getElementById("type_name").value;
     let start_date = document.getElementById("start_date").value;
     let end_date   = document.getElementById("end_date").value;
 
