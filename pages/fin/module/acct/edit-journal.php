@@ -147,7 +147,7 @@ $sql = mysqli_query($conn1, $query);
 
 while($row = mysqli_fetch_array($sql)){
 echo '<tr>
-<td>'.$row['no_journal'].'</td>
+<td value="'.$row['no_journal'].'">'.$row['no_journal'].'</td>
 <td>'.date("d-M-Y",strtotime($row['tgl_journal'])).'</td>
 <td>'.$row['type_journal'].'</td>
 <td>'.$row['curr'].'</td>
@@ -158,7 +158,7 @@ echo '<tr>
 <td>
 <div style="display:flex;gap:5px">
 
-<a>
+<a id="delete">
 <button type="button" class="btn btn-danger btn-xs">
 <i class="fa fa-trash"></i>
 </button>
