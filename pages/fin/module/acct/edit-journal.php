@@ -1,4 +1,11 @@
-<?php include '../header2.php' ?>
+<?php include '../header2.php';
+
+$nama_type  = isset($_GET['nama_type']) ? $_GET['nama_type'] : (isset($_POST['nama_type']) ? $_POST['nama_type'] : 'ALL');
+
+$start_date = isset($_GET['start_date']) ? $_GET['start_date'] : (isset($_POST['start_date']) ? $_POST['start_date'] : date('Y-m-d'));
+
+$end_date   = isset($_GET['end_date']) ? $_GET['end_date'] : (isset($_POST['end_date']) ? $_POST['end_date'] : date('Y-m-d'));
+?>
 <style >
     .modal {
       text-align: center;
@@ -28,64 +35,42 @@
 
             <form id="form-data" action="edit-journal.php" method="post">        
                 <div class="form-row">
-                 <div class="col-md-3">
-                    <label for="nama_supp"><b>Type Journal</b></label>            
-                    <select class="form-control selectpicker" name="nama_type" id="nama_type" data-dropup-auto="false" data-live-search="true" onchange="this.form.submit()">
-                        <option value="ALL" selected="selected">ALL</option>                                 
-                        <?php
-                        $nama_type ='';
-                        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                            $nama_type = isset($_POST['nama_type']) ? $_POST['nama_type']: null;
-                        }   
+                <div class="col-md-3">
+<label><b>Type Journal</b></label>            
+<select class="form-control selectpicker" name="nama_type" onchange="this.form.submit()">
+<option value="ALL">ALL</option>                                 
+<?php
+$sql = mysqli_query($conn1,"SELECT DISTINCT type_journal FROM sb_list_journal WHERE type_journal != ''");
+while ($row = mysqli_fetch_array($sql)) {
 
-                        $sql = mysqli_query($conn1,"select DISTINCT type_journal from sb_list_journal where type_journal != ''");
-                        while ($row = mysqli_fetch_array($sql)) {
-                            $data = $row['type_journal'];
-                            $data2 = strtoupper($row['type_journal']);
-                            if($row['type_journal'] == $_POST['nama_type']){
-                                $isSelected = ' selected="selected"';
-                            }else{
-                                $isSelected = '';
+    $data = $row['type_journal'];
+    $data2 = strtoupper($data);
 
-                            }
-                            echo '<option value="'.$data.'"'.$isSelected.'">'. $data2 .'</option>';    
-                        }?>
-                    </select>
-                </div>  
+    if($data == $nama_type){
+        $isSelected = 'selected';
+    }else{
+        $isSelected = '';
+    }
 
-                <div class="col-md-2 mb-3"> 
-                    <label for="start_date"><b>From</b></label>          
-                    <input type="text" style="font-size: 12px;" class="form-control tanggal" id="start_date" name="start_date" 
-                    value="<?php
-                    $start_date ='';
-                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                     $start_date = date("Y-m-d",strtotime($_POST['start_date']));
-                 }
-                 if(!empty($_POST['start_date'])) {
-                     echo $_POST['start_date'];
-                 }
-                 else{
-                     echo date("d-m-Y");
-                 } ?>" 
-                 placeholder="Tanggal Awal">
-             </div>
+    echo '<option value="'.$data.'" '.$isSelected.'>'.$data2.'</option>';    
+}
+?>
+</select>
+</div>  
 
-             <div class="col-md-2 mb-3"> 
-                <label for="end_date"><b>To</b></label>          
-                <input type="text" style="font-size: 12px;" class="form-control tanggal" id="end_date" name="end_date" 
-                value="<?php
-                $end_date ='';
-                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                 $end_date = date("Y-m-d",strtotime($_POST['end_date']));
-             }
-             if(!empty($_POST['end_date'])) {
-                 echo $_POST['end_date'];
-             }
-             else{
-                 echo date("d-m-Y");
-             } ?>" 
-             placeholder="Tanggal Awal">
-         </div>
+<!-- FROM -->
+<div class="col-md-2 mb-3"> 
+<label><b>From</b></label>          
+<input type="text" class="form-control tanggal" name="start_date"
+value="<?php echo date('d-m-Y', strtotime($start_date)); ?>">
+</div>
+
+<!-- TO -->
+<div class="col-md-2 mb-3"> 
+<label><b>To</b></label>          
+<input type="text" class="form-control tanggal" name="end_date"
+value="<?php echo date('d-m-Y', strtotime($end_date)); ?>">
+</div>
          <div class="input-group-append col">                                   
             <button  type="submit" id="submit" value=" Search " style="margin-top: 30px; margin-bottom: 15px;margin-right: 15px;border: 0;
             line-height: 1;
@@ -134,50 +119,63 @@
 
                 <tbody>
                     <?php
-                    $nama_type ='';
-                    $Status = '';
-                    $start_date ='';
-                    $end_date ='';
-                    $date_now = date("Y-m-d");                
-                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                        $nama_type = isset($_POST['nama_type']) ? $_POST['nama_type']: null; 
-                        $start_date = date("Y-m-d",strtotime($_POST['start_date']));
-                        $end_date = date("Y-m-d",strtotime($_POST['end_date']));               
-                    }
-                    if ($nama_type == 'ALL') {
-                       $sql = mysqli_query($conn1,"select no_journal, tgl_journal, type_journal, curr, sum(debit) debit, sum(credit) credit, keterangan from sb_list_journal where tgl_journal between '$start_date' and '$end_date' and tgl_journal != '0000-00-00' GROUP BY no_journal order by tgl_journal asc");
-                   }else{
-                    $sql = mysqli_query($conn1,"select no_journal, tgl_journal, type_journal, curr, sum(debit) debit, sum(credit) credit, keterangan from sb_list_journal where type_journal = '$nama_type' and tgl_journal between '$start_date' and '$end_date' and tgl_journal != '0000-00-00' GROUP BY no_journal order by tgl_journal asc ");
-                }
 
-                while($row = mysqli_fetch_array($sql)){
-                  echo '<tr style="font-size:12px;text-align:left;">
-                  <td style="" value = "'.$row['no_journal'].'">'.$row['no_journal'].'</td>
-                  <td style="" value = "'.$row['tgl_journal'].'">'.date("d-M-Y",strtotime($row['tgl_journal'])).'</td>
-                  <td style="" value = "'.$row['type_journal'].'">'.$row['type_journal'].'</td>
-                  <td style="" value = "'.$row['curr'].'">'.$row['curr'].'</td>
-                  <td style=" text-align : right;" value="'.$row['debit'].'">'.number_format($row['debit'],2).'</td>
-                  <td style=" text-align : right;" value="'.$row['credit'].'">'.number_format($row['credit'],2).'</td>
-                  <td style="" value = "'.$row['keterangan'].'">'.$row['keterangan'].'</td>';
+// FORMAT DATE KE Y-m-d UNTUK QUERY
+$start = date("Y-m-d", strtotime($start_date));
+$end   = date("Y-m-d", strtotime($end_date));
 
-                  echo '<td style="text-align: center;">
-          <div style="display: flex; justify-content: center; gap: 5px;">
-              <a id="delete">
-                  <button style="border-radius: 6px;" type="button" class="btn-xs btn-danger">
-                      <i class="fa fa-trash" aria-hidden="true"></i> Delete
-                  </button>
-              </a>
-              <a href="edit-list-journal.php?no_mj='.base64_encode($row['no_journal']).'">
-                  <button style="border-radius: 6px;" type="button" class="btn-xs btn-warning">
-                      <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
-                  </button>
-              </a>
-          </div>
-      </td>';
+if ($nama_type == 'ALL') {
+    $query = "SELECT no_journal, tgl_journal, type_journal, curr,
+              SUM(debit) debit, SUM(credit) credit, keterangan
+              FROM sb_list_journal
+              WHERE tgl_journal BETWEEN '$start' AND '$end'
+              AND tgl_journal != '0000-00-00'
+              GROUP BY no_journal
+              ORDER BY tgl_journal ASC";
+}else{
+    $query = "SELECT no_journal, tgl_journal, type_journal, curr,
+              SUM(debit) debit, SUM(credit) credit, keterangan
+              FROM sb_list_journal
+              WHERE type_journal = '$nama_type'
+              AND tgl_journal BETWEEN '$start' AND '$end'
+              AND tgl_journal != '0000-00-00'
+              GROUP BY no_journal
+              ORDER BY tgl_journal ASC";
+}
 
+$sql = mysqli_query($conn1, $query);
 
-             echo '</tr>';
-         }?>
+while($row = mysqli_fetch_array($sql)){
+echo '<tr>
+<td>'.$row['no_journal'].'</td>
+<td>'.date("d-M-Y",strtotime($row['tgl_journal'])).'</td>
+<td>'.$row['type_journal'].'</td>
+<td>'.$row['curr'].'</td>
+<td style="text-align:right">'.number_format($row['debit'],2).'</td>
+<td style="text-align:right">'.number_format($row['credit'],2).'</td>
+<td>'.$row['keterangan'].'</td>
+
+<td>
+<div style="display:flex;gap:5px">
+
+<a>
+<button type="button" class="btn btn-danger btn-xs">
+<i class="fa fa-trash"></i>
+</button>
+</a>
+
+<a href="edit-list-journal.php?no_mj='.base64_encode($row['no_journal']).'&nama_type='.$nama_type.'&start_date='.$start_date.'&end_date='.$end_date.'">
+<button type="button" class="btn btn-warning btn-xs">
+<i class="fa fa-pencil"></i>
+</button>
+</a>
+
+</div>
+</td>
+
+</tr>';
+}
+?>
      </tbody>                    
  </table>
 

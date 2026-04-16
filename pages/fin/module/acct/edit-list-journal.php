@@ -76,6 +76,15 @@
             <label for="pajak" class="col-form-label" style="width: 150px;"><b>No Journal</b></label>
             <?php
             $no_mj = base64_decode($_GET['no_mj']);
+            $nama_type = $_GET['nama_type'];
+            $start_date = $_GET['start_date'];
+            $end_date = $_GET['end_date'];
+
+            echo '<input type="hidden" name="nama_type" id="nama_type" value="'.$nama_type.'">
+            <input type="hidden" name="start_date" id="start_date" value="'.$start_date.'">
+            <input type="hidden" name="end_date" id="end_date" value="'.$end_date.'">';
+
+
 
             echo'<input type="text" readonly style="font-size: 14px;" class="form-control-plaintext" id="no_doc" name="no_doc" value="'.$no_mj.'">'
             ?>
@@ -1495,6 +1504,9 @@ function addListener(elm,index){
 
     var totalDebit  = $("#txt_debit_idr_h").val();
     var totalCredit = $("#txt_credit_idr_h").val();
+    let typename  = document.getElementById("nama_type").value;
+    let start_date = document.getElementById("start_date").value;
+    let end_date   = document.getElementById("end_date").value;
 
     // VALIDASI
     if (nama_type == "") {
@@ -1575,7 +1587,9 @@ function addListener(elm,index){
             }); // end each
 
             alert("No Journal: " + no_mj + " Changed successfully");
-            window.location = "edit-journal.php";
+            window.location = "edit-journal.php?nama_type=" + typename 
+                + "&start_date=" + start_date 
+                + "&end_date=" + end_date;
         },
 
         error: function (xhr) {
