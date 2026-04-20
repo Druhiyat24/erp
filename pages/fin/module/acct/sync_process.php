@@ -16,6 +16,8 @@ function syncData($conn1, $start_date, $end_date)
         FROM sb_list_journal 
         WHERE tgl_journal BETWEEN '$start' AND '$end'
           AND no_journal NOT LIKE '%GM/NAG%'
+          AND no_journal NOT LIKE '%E/NAK%'
+          AND no_journal NOT LIKE '%L/NAK%'
     ";
 
     if (!mysqli_query($conn1, $sqlBackup)) {
@@ -27,6 +29,8 @@ function syncData($conn1, $start_date, $end_date)
         DELETE FROM sb_list_journal 
         WHERE tgl_journal BETWEEN '$start' AND '$end'
           AND no_journal NOT LIKE '%GM/NAG%'
+          AND no_journal NOT LIKE '%E/NAK%'
+          AND no_journal NOT LIKE '%L/NAK%'
     ";
 
     if (!mysqli_query($conn1, $sqlDel)) {

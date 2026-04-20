@@ -28,10 +28,10 @@ if(!$execute){
 }else{
 
 	if (strpos($kode, 'TETM') !== false) {
-    	$sql_upt = "update memo_h set status_transfer = 'TETM' where nm_memo = '$no_memo'";
+    	$sql_upt = "update memo_h set status_transfer = 'TETM', tetm_by = '$user', tetm_date = '$app_date' where nm_memo = '$no_memo'";
 		$execute_upt = mysqli_query($conn_li,$sql_upt);
 	}else{
-		$sql_upt = "update memo_h set status_transfer = 'TETF' where nm_memo = '$no_memo'";
+		$sql_upt = "update memo_h set status_transfer = 'TETF', tetf_by = '$user', tetf_date = '$app_date' where nm_memo = '$no_memo'";
 		$execute_upt = mysqli_query($conn_li,$sql_upt);
 	}
 

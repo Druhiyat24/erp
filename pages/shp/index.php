@@ -560,6 +560,31 @@ function showLoading() {
     </script>
 
     <script type="text/javascript">
+      $("table tbody tr").on("click", "#cancel_trf", function(){                 
+        var no_transfer = $(this).closest('tr').find('td:eq(0)').attr('value');
+        // alert(no_transfer);
+        // alert(no_transfer);
+
+        $.ajax({
+          type:'POST',
+          url:'cancel_transfer_memo.php',
+          data: {'no_transfer':no_transfer},
+            // close: function(e){
+            //     e.preventDefault();
+            // },
+            success: function(data){                
+              console.log(data);
+              window.location.reload();                                                            
+            },
+            error:  function (xhr, exc, ajaxOptions, thrownError) {
+             alert(xhr.status);
+             alert(exc);               
+           }
+         });
+      });
+    </script>
+
+    <script type="text/javascript">
       $("#select_all_memo").click(function() {
         var c = this.checked;
         $(':checkbox').prop('checked', c);
@@ -624,6 +649,70 @@ function showLoading() {
           alert("Please check Memo");
         }        
       });
+
+      let detailDT = null;
+let currentNoTrans = '';
+
+      function showDetail(id) {
+
+    let url = "get_detail_transfer_memo.php?id=" + id;
+
+    $.get(url, function(res){
+
+        $("#d_no_trans").text(res?.header?.no_trans ?? '-');
+        $("#d_tgl_trans").text(res?.header?.tgl_trans ?? '-');
+        currentNoTrans = res?.header?.no_trans ?? '';
+
+        let status = (res?.header?.status ?? '-').toUpperCase();
+        let badge = 'bg-secondary';
+
+        if(status === 'APPROVED') badge = 'bg-success';
+        else if(status === 'DRAFT') badge = 'bg-warning text-dark';
+        else if(status === 'REJECTED') badge = 'bg-danger';
+
+        $("#d_status").removeClass().addClass('badge '+badge).text(status);
+
+        if (detailDT !== null) detailDT.clear().destroy();
+        $("#detailTable tbody").html('');
+
+        let rows = '';
+        res.detail.forEach((d,i)=>{
+            rows += `
+                <tr>
+                    <td>${d.nm_memo ?? ''}</td>
+                    <td>${d.tgl_memo ?? ''}</td>
+                    <td>${d.supplier ?? ''}</td>
+                    <td>${d.jns_trans ?? ''}</td>
+                    <td>${d.jns_pengiriman ?? ''}</td>
+                    <td>${d.buyer ?? ''}</td>
+                    <td>${d.keterangan ?? ''}</td>
+                    <td>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <input type="checkbox" 
+                                   class="form-check-input chk-detail" 
+                                   value="${d.id_h}" 
+                                   checked>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        });
+
+        $("#detailTable tbody").html(rows);
+
+        detailDT = $("#detailTable").DataTable({
+            searching: true,
+            paging: true,
+            ordering: true,
+            info: false,
+            lengthChange: false,
+            pageLength: 10
+        });
+
+        $("#modalDetail").modal('show');
+    });
+}
+
     </script>
 
     <script>
@@ -765,6 +854,19 @@ function showLoading() {
 
   $(document).ready(function() {
     var table = $('#tbl_transfer').DataTable
+    ({  scrollY: "300px",
+      scrollCollapse: true,
+      paging: true,
+      pageLength: 1000,
+      fixedColumns:   
+      { leftColumns: 1,
+        rightColumns: 1
+      }
+    });
+  });
+
+  $(document).ready(function() {
+    var table = $('#tbl_app_transfer').DataTable
     ({  scrollY: "300px",
       scrollCollapse: true,
       paging: true,

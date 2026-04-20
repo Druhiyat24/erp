@@ -117,7 +117,7 @@ $logo_company = $rscomp["logo_company"];
           <?php
           # QUERY TABLE
 
-          $sql = "select a.no_trans, tgl_trans, CONCAT(a.created_by,' (',a.created_at,')') create_user, a.status, a.id, upper(IFNULL(a.keterangan,b.keterangan)) keterangan from transfer_memo_exim_h a INNER JOIN transfer_memo_exim_det b on b.no_trans = a.no_trans where tgl_trans BETWEEN '$from' and '$to' GROUP BY a.id";
+          $sql = "select a.no_trans, tgl_trans, CONCAT(a.created_by,' (',a.created_at,')') create_user, a.status, a.id, upper(IFNULL(a.keterangan,b.keterangan)) keterangan from transfer_memo_exim_h a INNER JOIN transfer_memo_exim_det b on b.no_trans = a.no_trans where tgl_trans BETWEEN '$from' and '$to' and (a.no_trans like '%TETF%' OR a.no_trans like '%TETM%') GROUP BY a.id";
           
           $query = mysql_query($sql);
 

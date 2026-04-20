@@ -84,6 +84,8 @@ else if ($mod=="lap_dok_pabean_exc_det")
 {	include "lap_dok_pabean_det_exc.php";	}
 else if ($mod=="transfer_memo")
 {	include "transfer_memo.php"; }
+else if ($mod=="konfirmasi_transfer_memo")
+{	include "konfirmasi_transfer_memo.php"; }
 else if ($mod=="create_transfer_memo")
 {	include "create_transfer_memo.php"; }
 else
