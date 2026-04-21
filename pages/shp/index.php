@@ -713,6 +713,300 @@ let currentNoTrans = '';
     });
 }
 
+
+$('#btnApprove').on('click', function(){
+
+    var approveIds = [];
+    var cancelIds  = [];
+
+    $('.chk-detail').each(function(){
+        var id = $(this).val();
+
+        if($(this).is(':checked')){
+            approveIds.push(id);
+        }else{
+            cancelIds.push(id);
+        }
+    });
+
+    var totalApprove = approveIds.length;
+    var totalCancel  = cancelIds.length;
+
+    // VALIDASI
+    if(totalApprove === 0 && totalCancel === 0){
+        Swal.fire('Warning','Tidak ada data','warning');
+        return;
+    }
+
+    // KONFIRMASI
+    Swal.fire({
+        title: 'Konfirmasi Approve',
+        html: 
+            '<b>Approve:</b> ' + totalApprove + ' data<br>' +
+            '<b>Cancel:</b> ' + totalCancel + ' data',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, Proses',
+        cancelButtonText: 'Batal'
+    }).then(function(result){
+
+        if(result.isConfirmed){
+
+            $.ajax({
+                url: "update_transfer_memo_approve.php",
+                type: "POST",
+                data: {
+                    no_trans: currentNoTrans,
+                    approve_ids: approveIds,
+                    cancel_ids: cancelIds
+                },
+                beforeSend: function(){
+                    Swal.fire({
+                        title: 'Processing...',
+                        text: 'Sedang menyimpan data',
+                        allowOutsideClick: false,
+                        didOpen: function(){
+                            Swal.showLoading();
+                        }
+                    });
+                },
+                success: function(res){
+
+                    if(res.status === 'success'){
+                        Swal.fire('Berhasil','Data berhasil diproses','success');
+                        $('#modalDetail').modal('hide');
+                        window.location.reload();
+                    }else{
+                        Swal.fire('Gagal', res.message, 'error');
+                    }
+
+                },
+                error: function(){
+                    Swal.fire('Error','Terjadi kesalahan','error');
+                }
+            });
+
+        }
+
+    });
+
+});
+
+
+$('#btnCancelAll').on('click', function(){
+
+    var allIds = [];
+
+    // ambil semua ID tanpa peduli checkbox
+    $('.chk-detail').each(function(){
+        allIds.push($(this).val());
+    });
+
+    var totalData = allIds.length;
+
+    if(totalData === 0){
+        Swal.fire('Warning','Tidak ada data untuk dicancel','warning');
+        return;
+    }
+
+    // KONFIRMASI
+    Swal.fire({
+        title: 'Konfirmasi Cancel',
+        html: 
+            '<b>No Transfer:</b> ' + currentNoTrans + '<br><br>' +
+            'Semua data (<b>' + totalData + '</b>) akan di <b>Cancel</b>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, Cancel Semua',
+        cancelButtonText: 'Batal',
+        confirmButtonColor: '#d33'
+    }).then(function(result){
+
+        if(result.isConfirmed){
+
+            $.ajax({
+                url: "update_transfer_memo_cancel.php",
+                type: "POST",
+                data: {
+                    no_trans: currentNoTrans,
+                    cancel_ids: allIds
+                },
+                beforeSend: function(){
+                    Swal.fire({
+                        title: 'Processing...',
+                        text: 'Sedang cancel semua data',
+                        allowOutsideClick: false,
+                        didOpen: function(){
+                            Swal.showLoading();
+                        }
+                    });
+                },
+                success: function(res){
+
+                    if(res.status === 'success'){
+                        Swal.fire(
+                            'Berhasil',
+                            'Semua data (' + totalData + ') berhasil di-cancel',
+                            'success'
+                        );
+
+                        $('#modalDetail').modal('hide');
+                        window.location.reload();
+                    }else{
+                        Swal.fire('Gagal', res.message, 'error');
+                    }
+
+                },
+                error: function(){
+                    Swal.fire('Error','Terjadi kesalahan saat cancel','error');
+                }
+            });
+
+        }
+
+    });
+
+});
+
+
+function openUploadModal(id){
+    $('#id_h_upload').val(id);
+    $('#modalUpload').modal('show');
+    loadFile(id);
+}
+
+function uploadFile(){
+
+    let formData = new FormData($('#formUpload')[0]);
+
+    Swal.fire({
+        title: 'Uploading...',
+        text: 'Sedang mengupload file',
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
+    $.ajax({
+        url: 'upload_file.php',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(res){
+
+            Swal.close();
+
+            if(res.trim() == "OK"){
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: 'File berhasil diupload'
+                }).then(() => {
+                    location.reload();
+                    loadFile($('#id_h_upload').val());
+                });
+
+            } else {
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: 'Upload gagal, coba lagi'
+                });
+
+            }
+
+        },
+        error: function(){
+
+            Swal.close();
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Terjadi kesalahan server'
+            });
+
+        }
+    });
+
+}
+
+function loadFile(id){
+
+    $.ajax({
+        url: 'load_file.php',
+        type: 'POST',
+        data: {id_h:id},
+        success: function(res){
+            $('#list_file_upload').html(res);
+        }
+    });
+
+}
+
+$(document).on('click', '.btn-cancel-file', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    let id = $(this).data('id');
+
+    Swal.fire({
+        title: 'Yakin cancel file ini?',
+        text: "Status file akan diubah menjadi CANCEL",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Ya, Cancel!',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            $.ajax({
+                url: 'cancel_file.php',
+                type: 'POST',
+                data: { id: id },
+                success: function(res){
+
+                    if(res.trim() == "OK"){
+                        Swal.fire(
+                            'Berhasil!',
+                            'File sudah di-cancel.',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire(
+                            'Gagal!',
+                            'Tidak bisa update status.',
+                            'error'
+                        );
+                    }
+
+                },
+                error: function(){
+                    Swal.fire(
+                        'Error!',
+                        'Terjadi kesalahan server.',
+                        'error'
+                    );
+                }
+            });
+
+        }
+    });
+
+});
+
+
+
+
+
     </script>
 
     <script>
@@ -794,7 +1088,7 @@ let currentNoTrans = '';
   $(document).ready(function() {
   var table = $('#examplefix').DataTable({
     scrollX: true,
-    scrollY: "300px",
+    scrollY: "400px",
     scrollCollapse: true,
     autoWidth: false,
     responsive: false,   // JANGAN pakai responsive:true kalau menggunakan FixedColumns

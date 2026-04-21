@@ -146,14 +146,14 @@ $logo_company = $rscomp["logo_company"];
           </div>
         </form>
 
-        <form id="form-simpan" >
+<!--         <form id="form-simpan" >
            <div class="form-row">
             <div class="col-md-3 mb-3">                            
             <button style="border-radius: 7px" type="button" class="btn-primary" name="approve_memo" id="approve_memo"><span class="fa fa-thumbs-up"></span> Approve</button>                
             <button style="border-radius: 7px" type="button" class="btn-danger" name="cancel_memo" id="cancel_memo"><span class="fa fa-ban"></span> Cancel</button>           
             </div>
             </div>                                   
-        </form>    
+        </form> -->    
 
       </div>
     </div>
@@ -240,11 +240,11 @@ div.dataTables_wrapper .dataTables_info {
   <div class="modal-dialog modal-dialog-centered" style="max-width:75%;width:75%;">
     <div class="modal-content">
 
-      <div class="modal-header text-white skin-purple">
+      <div class="modal-header text-white skin-purple" style="background-color: #5B57A6;">
         <h5 class="modal-title">
-          <i class="far fa-list-alt"></i> Detail Transfer Memo
+          <strong style="font-size: 20px;color: white">Detail Transfer Memo</strong>
         </h5>
-        <button type="button" class="close text-white" data-dismiss="modal">
+        <button type="button" class="close text-white" data-dismiss="modal" style="color: white">
           &times;
         </button>
       </div>
@@ -253,17 +253,22 @@ div.dataTables_wrapper .dataTables_info {
       <div class="modal-body">
 
         <!-- HEADER -->
-        <div class="row">
-          <div class="col col-6 mb-1">
-            <strong>No Transfer</strong><br>
-            <span id="d_no_trans">-</span>
-          </div>
+        <div class="row mb-3">
+  <div class="col-md-6">
+    <div class="border rounded p-2 bg-light">
+      <small class="text-muted">No Transfer</small><br>
+      <strong id="d_no_trans">-</strong>
+    </div>
+  </div>
 
-          <div class="col col-6 mb-1">
-            <strong>Transfer Date</strong><br>
-            <span id="d_tgl_trans">-</span>
-          </div>
-        </div>
+  <div class="col-md-6">
+    <div class="border rounded p-2 bg-light">
+      <small class="text-muted">Transfer Date</small><br>
+      <strong id="d_tgl_trans">-</strong>
+    </div>
+  </div>
+</div>
+
 
         <hr>
 
