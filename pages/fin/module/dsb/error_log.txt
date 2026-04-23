@@ -3291,6 +3291,7 @@
 [01-Apr-2026 12:28:21 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 109
 [02-Apr-2026 09:49:30 Europe/Berlin] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 108
 [02-Apr-2026 09:49:30 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 109
+<<<<<<< HEAD
 [06-Apr-2026 09:34:07 Europe/Berlin] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 108
 [06-Apr-2026 09:34:07 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 109
 [06-Apr-2026 09:41:20 Europe/Berlin] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 108
@@ -3351,3 +3352,7 @@
 [20-Apr-2026 14:28:34 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 109
 [21-Apr-2026 06:14:29 Europe/Berlin] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 108
 [21-Apr-2026 06:14:29 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in C:\xampp\htdocs\erp\pages\fin\module\dsb\dashboard.php on line 109
+=======
+[16-Apr-2026 11:16:20 Europe/Berlin] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in D:\xampp\htdocs\signalbit_erp\pages\fin\module\dsb\dashboard.php on line 108
+[16-Apr-2026 11:16:20 Europe/Berlin] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, null given in D:\xampp\htdocs\signalbit_erp\pages\fin\module\dsb\dashboard.php on line 109
+>>>>>>> e3a88eaee83627f2771280c560dffcbed2f8f627

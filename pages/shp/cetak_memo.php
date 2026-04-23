@@ -75,7 +75,7 @@ $head_data = '
     <tr>
       <td  width = "20%"></td>
       <td  width = "35%"></td>
-      <td width = "20%" >Tanggal</td>
+      <td width = "20%" >Tanggal Memo</td>
       <td width = "25%"> : ' . fd_view($rsh['tgl_memo']) . '</td>
     </tr>
     <tr>
@@ -112,19 +112,19 @@ $head_data = '
       <td>Profit Center</td>
       <td> : ' . $rsh['nama_pc'] . '</td>
       <td>Jatuh Tempo</td>
-      <td> : ' . $rsh['jatuh_tempo_new'] . '</td>
+      <td> : ' . fd_view($rsh['jatuh_tempo_new']) . '</td>
     </tr>    
     <tr>
     <td>Nama Penerima</td>
     <td> : ' . $rsh['supplier'] . '</td>
-    <td></td>
-    <td></td>
+    <td>Tanggal Invoice</td>
+      <td> : ' . fd_view($rsh['tgl_invoice']) . '</td>
   </tr>    
   <tr>
     <td>Jenis Transaksi</td>
     <td> : ' . $rsh['jns_trans'] . '</td>
-    <td></td>
-    <td></td>
+    <td>Tanggal Kontrabon</td>
+      <td> : ' . fd_view($rsh['tgl_kontrabon']) . '</td>
   </tr>    
   <tr>
   <td>Jalur Pengiriman</td>

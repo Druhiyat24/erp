@@ -82,6 +82,12 @@ else if ($mod=="lap_dok_pabean_det")
 {	include "lap_dok_pabean_detail.php"; }
 else if ($mod=="lap_dok_pabean_exc_det")
 {	include "lap_dok_pabean_det_exc.php";	}
+else if ($mod=="transfer_memo")
+{	include "transfer_memo.php"; }
+else if ($mod=="konfirmasi_transfer_memo")
+{	include "konfirmasi_transfer_memo.php"; }
+else if ($mod=="create_transfer_memo")
+{	include "create_transfer_memo.php"; }
 else
 {	echo "<h1>Halaman tidak tersedia</h1>";	}
 ?>

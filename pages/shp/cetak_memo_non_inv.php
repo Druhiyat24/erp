@@ -127,26 +127,26 @@ $head_data = '
   <tr>
   <td>Jalur Pengiriman</td>
   <td> : ' . $rsh['jns_pengiriman'] . '</td>
-  <td></td>
-  <td></td>
+ <td>Ditagihkan ke buyer</td>
+  <td> : ' . $rsh['ditagihkan_fix'] . '</td>
   </tr>    
   <tr>
   <td>Keperluan Buyer</td>
   <td> : ' . $rsh['buyer'] . '</td>
-  <td>Ditagihkan ke buyer</td>
-  <td> : ' . $rsh['ditagihkan_fix'] . '</td>
+  <td>Jatuh Tempo</td>
+  <td> : ' . fd_view($rsh['jatuh_tempo_new']) . '</td>
   </tr>
   <tr>
   <td>Sejumlah</td>
   <td> : ' . $totalbiaya . '</td>
-  <td>Jatuh Tempo</td>
-  <td> : ' . $rsh['jatuh_tempo_new'] . '</td>
+  <td>Tanggal Invoice</td>
+  <td> : ' . fd_view($rsh['tgl_invoice']) . '</td>
   </tr>    
   <tr>
   <td>Dok Pendukung</td>
   <td> : ' . $rsh['dok_pendukung'] . '</td>
-  <td></td>
-  <td></td>
+  <td>Tanggal Kontrabon</td>
+  <td> : ' . fd_view($rsh['tgl_kontrabon']) . '</td>
   </tr>      ';
 
 $head_data = $head_data . '

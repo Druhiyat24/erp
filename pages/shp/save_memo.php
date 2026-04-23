@@ -25,6 +25,8 @@ if ($mod == 'simpan_header') {
 	$dok_pendukung	= nb($_POST['dok_pendukung']);
 	$dateinput		= date('Y-m-d H:i:s');
 	$txtnotes 		= nb($_POST['txtnotes']);
+	$tgl_invoice	= fd($_POST['tgl_invoice']);
+	$tgl_kontrabon	= fd($_POST['tgl_kontrabon']);
 	// $inv_buyer 		= nb($_POST['inv_buyer']);
 
 	// $sql_cari  = mysql_query("select max(nm_memo) urut from memo_h where YEAR(CURRENT_DATE()) and MONTH(CURRENT_DATE())");
@@ -48,9 +50,9 @@ if ($mod == 'simpan_header') {
 
 
 	$sql = "insert into memo_h (nm_memo, tgl_memo, kepada, id_supplier, jns_trans, jns_pengiriman, id_buyer, 
-			ditagihkan, curr, jatuh_tempo_new, dok_pendukung, date_input, status, jns_inv, user,notes, inv_buyer,id_item, profit_center) 
+			ditagihkan, curr, jatuh_tempo_new, dok_pendukung, date_input, status, jns_inv, user,notes, inv_buyer,id_item, profit_center, tgl_invoice, tgl_kontrabon, status_transfer) 
 			values ('$kodepay_f','$txtmemodate','$cbokpd','$cbosupp','$jns_trans','$jns_pengiriman','$cbobuyer',
-			'$ditagihkan','$curr','$txtjth_tempo','$dok_pendukung','$dateinput','DRAFT','INVOICE','$user','$txtnotes','$inv_buyer','$id_item','$profit_center')";
+			'$ditagihkan','$curr','$txtjth_tempo','$dok_pendukung','$dateinput','DRAFT','INVOICE','$user','$txtnotes','$inv_buyer','$id_item','$profit_center','$tgl_invoice','$tgl_kontrabon', 'PENDING')";
 	insert_log($sql, $user);
 
 	$cekheader = flookup("id_h", "memo_h", "nm_memo='$kodepay_f'");
@@ -100,6 +102,8 @@ if ($mod == 'simpan_header_non_inv') {
 	$txtnotes 		= nb($_POST['txtnotes']);
 	$dateinput		= date('Y-m-d H:i:s');
 	$id_item     	= nb($_POST['id_item']);
+	$tgl_invoice	= fd($_POST['tgl_invoice']);
+	$tgl_kontrabon	= fd($_POST['tgl_kontrabon']);
 	// $inv_buyer 		= nb($_POST['inv_buyer']);
 
 	// $sql_cari  = mysql_query("select max(nm_memo) urut from memo_h where YEAR(CURRENT_DATE()) and MONTH(CURRENT_DATE())");
@@ -123,9 +127,9 @@ if ($mod == 'simpan_header_non_inv') {
 
 
 	$sql = "insert into memo_h (nm_memo, tgl_memo, kepada, id_supplier, jns_trans, jns_pengiriman, id_buyer, 
-			ditagihkan, curr, jatuh_tempo_new, dok_pendukung, date_input, status, jns_inv, user,no_aju, notes, inv_buyer,id_item,profit_center) 
+			ditagihkan, curr, jatuh_tempo_new, dok_pendukung, date_input, status, jns_inv, user,no_aju, notes, inv_buyer,id_item,profit_center, tgl_invoice, tgl_kontrabon, status_transfer) 
 			values ('$kodepay_f','$txtmemodate','$cbokpd','$cbosupp','$jns_trans','$jns_pengiriman','$cbobuyer',
-			'$ditagihkan','$curr','$txtjth_tempo','$dok_pendukung','$dateinput','DRAFT','NON INVOICE','$user','$txtno_aju','$txtnotes','$inv_buyer','$id_item','$profit_center')";
+			'$ditagihkan','$curr','$txtjth_tempo','$dok_pendukung','$dateinput','DRAFT','NON INVOICE','$user','$txtno_aju','$txtnotes','$inv_buyer','$id_item','$profit_center','$tgl_invoice','$tgl_kontrabon', 'PENDING')";
 	insert_log($sql, $user);
 
 	$cekheader = flookup("id_h", "memo_h", "nm_memo='$kodepay_f'");
@@ -213,10 +217,12 @@ if ($mod == 'update_header') {
 	$dok_pendukung	= nb($_POST['dok_pendukung']);
 	$txtnotes		= nb($_POST['txtnotes']);
 	$inv_buyer		= nb($_POST['inv_buyer']);
+	$tgl_invoice	= fd($_POST['tgl_invoice']);
+	$tgl_kontrabon	= fd($_POST['tgl_kontrabon']);
 
 	$nm_memo = flookup("nm_memo", "memo_h", "id_h='$id_h'");
 
-	$sql = "update memo_h set tgl_memo = '$txtmemodate', kepada = '$cbokpd', id_supplier = '$cbosupp', jns_trans = '$jns_trans', jns_pengiriman = '$jns_pengiriman', ditagihkan = '$ditagihkan', curr = '$curr', jatuh_tempo_new = '$txtjth_tempo', dok_pendukung = '$dok_pendukung', notes = '$txtnotes', inv_buyer = '$inv_buyer', profit_center = '$profit_center' where id_h = '$id_h'";
+	$sql = "update memo_h set tgl_memo = '$txtmemodate', kepada = '$cbokpd', id_supplier = '$cbosupp', jns_trans = '$jns_trans', jns_pengiriman = '$jns_pengiriman', ditagihkan = '$ditagihkan', curr = '$curr', jatuh_tempo_new = '$txtjth_tempo', dok_pendukung = '$dok_pendukung', notes = '$txtnotes', inv_buyer = '$inv_buyer', profit_center = '$profit_center', tgl_invoice = '$tgl_invoice', tgl_kontrabon = '$tgl_kontrabon' where id_h = '$id_h'";
 	insert_log($sql, $user); {
 		$_SESSION['msg'] = "Data Berhasil Diupdate, Nomor Memo : " . $nm_memo;
 	}
@@ -236,10 +242,12 @@ if ($mod == 'update_header_non_inv') {
 	$dok_pendukung	= nb($_POST['dok_pendukung']);
 	$txtnotes		= nb($_POST['txtnotes']);
 	$inv_buyer		= nb($_POST['inv_buyer']);
+	$tgl_invoice	= fd($_POST['tgl_invoice']);
+	$tgl_kontrabon	= fd($_POST['tgl_kontrabon']);
 
 	$nm_memo = flookup("nm_memo", "memo_h", "id_h='$id_h'");
 
-	$sql = "update memo_h set tgl_memo = '$txtmemodate', kepada = '$cbokpd', id_supplier = '$cbosupp', jns_trans = '$jns_trans', jns_pengiriman = '$jns_pengiriman', ditagihkan = '$ditagihkan', curr = '$curr', jatuh_tempo_new = '$txtjth_tempo', dok_pendukung = '$dok_pendukung', notes = '$txtnotes',inv_buyer = '$inv_buyer' where id_h = '$id_h'";
+	$sql = "update memo_h set tgl_memo = '$txtmemodate', kepada = '$cbokpd', id_supplier = '$cbosupp', jns_trans = '$jns_trans', jns_pengiriman = '$jns_pengiriman', ditagihkan = '$ditagihkan', curr = '$curr', jatuh_tempo_new = '$txtjth_tempo', dok_pendukung = '$dok_pendukung', notes = '$txtnotes',inv_buyer = '$inv_buyer', tgl_invoice = '$tgl_invoice', tgl_kontrabon = '$tgl_kontrabon' where id_h = '$id_h'";
 	insert_log($sql, $user); {
 		$_SESSION['msg'] = "Data Berhasil Diupdate, Nomor Memo : " . $nm_memo;
 	}

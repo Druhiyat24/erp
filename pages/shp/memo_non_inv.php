@@ -1,3 +1,62 @@
+<style type="text/css">
+  /* ITEM FILE */
+.file-item-clean {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin: 4px 8px;
+    font-size: 13px;
+    color: #334155;
+    display: block;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    border: 1px solid transparent;
+}
+
+/* HOVER EFFECT */
+.file-item-clean:hover {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    transform: translateX(4px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    color: #0f172a;
+}
+
+/* NAMA FILE */
+.file-name {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* GARIS ANTAR ITEM */
+.file-item-clean:not(:last-child) {
+    border-bottom: 1px dashed #f1f5f9;
+}
+
+/* EFEK KLIK */
+.file-item-clean:active {
+    transform: scale(0.98);
+}
+
+/* DROPDOWN CONTAINER BIAR LEBIH RAPI */
+.dropdown-menu {
+    border-radius: 10px;
+    padding: 6px 0;
+    border: 1px solid #e5e7eb;
+}
+
+.custom-dropdown {
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    padding: 8px 0;
+    min-width: 280px;
+}
+
+
+</style>
+
 <?php
 if (empty($_SESSION['username'])) {
   header("location:../../index.php");
@@ -113,16 +172,81 @@ if ($mod == "memo_list_non_inv") {
               echo "
               <td>$data[status]</td>
               <td>";
-              if ($data[status] == 'DRAFT') {
-              // code...
-                echo "<a href='../shp/?mod=memo_edit_non_inv&id_h=$data[id_h]'
-                data-toggle='tooltip' ><i class='fa fa-pencil'></i>
-                </a>";
-              }
-              echo "<a href='cetak_memo_non_inv.php?id_h=$data[id_h]'
-              data-toggle='tooltip' ><i class='fa fa-print'></i>
-              </a>            
-              </td>";
+              $qfile = mysql_query("SELECT  a.*, REGEXP_REPLACE(file_name, '^[0-9]+_', '') AS clean_name FROM memo_file a WHERE id_h = '$data[id_h]' and status != 'CANCEL'");
+?>
+
+<div class="d-flex align-items-center gap-2">
+
+    <!-- EDIT -->
+    <?php if ($data['status'] == 'DRAFT') { ?>
+        <a href="../shp/?mod=memo_edit_non_inv&id_h=<?php echo $data['id_h']; ?>" 
+           class="btn btn-sm btn-warning" title="Edit">
+            <i class="fa fa-pencil"></i>
+        </a>
+    <?php } ?>
+
+    <!-- PRINT + FILE -->
+    <div class="btn-group">
+
+        <!-- PRINT BUTTON -->
+        <a style="margin-right: 3px;" href="cetak_memo_non_inv.php?id_h=<?php echo $data['id_h']; ?>" 
+           class="btn btn-sm btn-primary" title="Print">
+            <i class="fa fa-print"></i>
+        </a>
+
+        <!-- DROPDOWN FILE -->
+        <?php if(mysql_num_rows($qfile) > 0){ ?>
+        <button type="button" 
+        class="btn btn-sm btn-info dropdown-toggle" 
+        data-toggle="dropdown">
+    <i class="fa fa-paperclip"></i> 
+    <?php echo mysql_num_rows($qfile); ?>
+</button>
+
+
+        <div class="dropdown-menu dropdown-menu-right custom-dropdown shadow">
+
+
+            <h6 class="dropdown-header">File Upload</h6>
+
+            <?php while($f = mysql_fetch_array($qfile)){ ?>
+              <a class="dropdown-item file-item-clean d-flex align-items-center"
+   target="_blank"
+   href="upload/<?php echo $f['file_name']; ?>">
+
+    <span class="file-name text-truncate">
+        <?php echo $f['clean_name']; ?>
+    </span>
+
+    <button type="button"
+        class="btn btn-sm btn-danger ms-auto btn-cancel-file"
+        data-id="<?php echo $f['id']; ?>"
+        title="Cancel file">
+        &times;
+    </button>
+
+</a>
+
+
+
+            <?php } ?>
+
+        </div>
+        <?php } ?>
+
+    </div>
+
+    <!-- UPLOAD -->
+    <button type="button"
+            onclick="openUploadModal('<?php echo $data['id_h']; ?>')"
+            class="btn btn-sm btn-success" 
+            title="Upload File">
+        <i class="fa fa-upload"></i>
+    </button>
+
+</div>
+            
+          <?php echo "</td>";
               echo "</tr>";
             $no++; // menambah nilai nomor urut
           }
@@ -259,6 +383,20 @@ if ($mod == "memo_list_non_inv") {
                     IsiCombo($sql, $cbokpd, 'Pilih Department #');
                     ?>
                   </select>
+                </div>
+              </div>
+
+              <div class='col-md-6'>
+                <div class='form-group'>
+                  <label>Tanggal Invoice:</label>
+                  <input type='text' class='form-control' id='tgl_invoice' name='tgl_invoice' required placeholder='' value='<?php echo $reqdate; ?>'>
+                </div>
+              </div>
+
+              <div class='col-md-6'>
+                <div class='form-group'>
+                  <label>Tanggal Kontrabon:</label>
+                  <input type='text' class='form-control' id='tgl_kontrabon' name='tgl_kontrabon' required placeholder='' value='<?php echo $reqdate; ?>'>
                 </div>
               </div>
               
@@ -514,10 +652,12 @@ if ($mod == "memo_list_non_inv") {
   $cbobuyer = $datamemo['id_buyer'];
   $ditagihkan = $datamemo['ditagihkan'];
   $curr = $datamemo['curr'];
-  $txtjth_tempo = $datamemo['jatuh_tempo'];
+  $txtjth_tempo = date('d M Y', strtotime($datamemo['jatuh_tempo_new']));
   $dok_pendukung = $datamemo['dok_pendukung'];
   $txtnotes = $datamemo['notes'];
   $inv_vendor = $datamemo['inv_vendor'];
+  $txttgl_invoice = date('d M Y', strtotime($datamemo['tgl_invoice']));
+  $txttgl_kontrabon = date('d M Y', strtotime($datamemo['tgl_kontrabon']));
 
   ?>
   <script type='text/javascript'>
@@ -565,7 +705,22 @@ if ($mod == "memo_list_non_inv") {
                   </select>
                 </div>
               </div>
+              <div class='col-md-6'>
+                <div class='form-group'>
+                  <label>Tanggal Invoice:</label>
+                  <input type='text' class='form-control' id='tgl_invoice' name='tgl_invoice' required placeholder='' value='<?php echo $txttgl_invoice; ?>'>
+                </div>
+              </div>
+
+              <div class='col-md-6'>
+                <div class='form-group'>
+                  <label>Tanggal Kontrabon:</label>
+                  <input type='text' class='form-control' id='tgl_kontrabon' name='tgl_kontrabon' required placeholder='' value='<?php echo $txttgl_kontrabon; ?>'>
+                </div>
+              </div>
             </div>
+
+            
 
             <div class='form-group'>
               <label>Nama Penerima :</label>
@@ -818,3 +973,59 @@ if ($mod == "memo_list_non_inv") {
 </div>
 <?php }
 ?>
+
+
+<div class="modal fade" id="modalUpload">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content shadow-lg rounded">
+
+      <!-- HEADER -->
+      <div class="modal-header bg-primary text-white" style="background-color: #5B57A6;">
+        <h5 class="modal-title">
+          <i class="fa fa-upload"></i> Upload Dokumen
+        </h5>
+        <button type="button" class="close text-white" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- BODY -->
+      <div class="modal-body">
+
+        <form id="formUpload" enctype="multipart/form-data">
+
+          <input type="hidden" name="id_h" id="id_h_upload">
+
+          <!-- FILE INPUT -->
+          <div class="form-group">
+            <label><b>Pilih File</b></label>
+            <div class="custom-file">
+              <input type="file" name="file[]" multiple class="custom-file-input" id="fileUpload">
+             <!--  <label class="custom-file-label" for="fileUpload">Pilih file...</label> -->
+            </div>
+            <small class="text-muted">Bisa upload lebih dari 1 file</small>
+          </div>
+
+        </form>
+
+        <!-- LIST FILE -->
+        <div id="list_file_upload" class="mt-3 border rounded p-2" style="max-height:150px; overflow:auto;">
+          <small class="text-muted">Belum ada file</small>
+        </div>
+
+      </div>
+
+      <!-- FOOTER -->
+      <div class="modal-footer justify-content-between">
+        <button onclick="uploadFile()" class="btn btn-success">
+          <i class="fa fa-paper-plane"></i> Upload
+        </button>
+
+        <button data-dismiss="modal" class="btn btn-outline-secondary">
+          <i class="fa fa-times"></i> Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

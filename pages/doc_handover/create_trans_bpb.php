@@ -37,6 +37,26 @@ $logo_company = $rscomp["logo_company"];
     $pert = date('d M Y', strtotime($tglt));
     $nama_supp = $_POST['nama_supp'];
     $type_item = $_POST['type_item'];
+    $where_type  = "1=1";
+$where_type2 = "1=1";
+
+/* MAPPING TYPE */
+if($type_item == 'GK'){
+    $where_type  = "bpbno_int LIKE '%gk%'";
+    $where_type2 = "bppbno_int LIKE '%gk%'";
+}
+elseif($type_item == 'GACC'){
+    $where_type  = "bpbno_int LIKE '%gacc%'";
+    $where_type2 = "bppbno_int LIKE '%gacc%'";
+}
+elseif($type_item == 'WIP'){
+    $where_type  = "(bpbno_int LIKE '%wip%' OR bpbno_int LIKE '%spck%')";
+    $where_type2 = "(bppbno_int LIKE '%wip%' OR bppbno_int LIKE '%spck%')";
+}
+elseif($type_item == 'GEN'){
+    $where_type  = "bpbno_int LIKE '%gen%'";
+    $where_type2 = "bppbno_int LIKE '%gen%'";
+}
     $trdate = fd($_POST['trfdate']);
     $trfdate = date('d M Y', strtotime($trdate));
   }
@@ -128,13 +148,13 @@ $logo_company = $rscomp["logo_company"];
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                   $type_item = isset($_POST['type_item']) ? $_POST['type_item']: null;
                 }                 
-                $sql = mysql_query("select UPPER(id) id, UPPER(kode) kode from (select '%gk%' id, 'Fabric' kode
+                $sql = mysql_query("select UPPER(id) id, UPPER(kode) kode from (select 'gk' id, 'Fabric' kode
                   UNION
-                  select '%gacc%' id, 'Accessories' kode
+                  select 'gacc' id, 'Accessories' kode
                   UNION
-                  select '%wip%' id, 'Barang Dalam Proses' kode
+                  select 'wip' id, 'Barang Dalam Proses' kode
                   UNION
-                  select '%gen%' id, 'General' kode) a");
+                  select 'gen' id, 'General' kode) a");
                 while ($row = mysql_fetch_array($sql)) {
                   $data = $row['kode'];
                   $data2 = $row['id'];
@@ -229,9 +249,10 @@ $logo_company = $rscomp["logo_company"];
                       left JOIN po_header_draft on po_header_draft.id = po_header.id_draft
                       INNER JOIN mastersupplier on mastersupplier.Id_Supplier = bpb.id_supplier 
                       inner join masterpterms on masterpterms.id = po_header.id_terms 
-                      where bpbno_int like '$type_item' AND (stat_trf IS NULL OR stat_trf = '') and bpb.confirm='Y' and bpb.cancel='N' and bpb.bpbdate between '$tglf' and '$tglt' and po_header_draft.tipe_com is null || bpbno_int like '$type_item' AND (stat_trf IS NULL OR stat_trf = '') and bpb.confirm='Y' and bpb.cancel='N' and bpb.bpbdate between '$tglf' and '$tglt' and po_header_draft.tipe_com IN ('REGULAR','BUYER','','FOC') group by bpb.bpbno_int
+                      where $where_type AND (stat_trf IS NULL OR stat_trf = '') and bpb.confirm='Y' and bpb.cancel='N' and bpb.bpbdate between '$tglf' and '$tglt' and po_header_draft.tipe_com is null || $where_type AND (stat_trf IS NULL OR stat_trf = '') and bpb.confirm='Y' and bpb.cancel='N' and bpb.bpbdate between '$tglf' and '$tglt' and po_header_draft.tipe_com IN ('REGULAR','BUYER','','FOC') group by bpb.bpbno_int
                       UNION 
-                      select id,bppb.bppbno_int, '-' pono, bppb.bppbdate, mastersupplier.Supplier , '' ,'' , bppb.curr,bppb.confirm_by,DATE_FORMAT(bppb.confirm_date,'%Y-%m-%d') confirm_date, sum(bppb.qty * bppb.price) as total, '','' from bppb inner join mastersupplier on mastersupplier.Id_Supplier = bppb.id_supplier where bppbno_int like '$type_item' and confirm = 'Y' and cancel != 'Y' and  bppb.bppbdate between '$tglf' and '$tglt' AND (stat_trf IS NULL OR stat_trf = '') and tipe_sup = 'S' group by bppbno_int");
+                      select id,bppb.bppbno_int, '-' pono, bppb.bppbdate, mastersupplier.Supplier , '' ,'' , bppb.curr,bppb.confirm_by,DATE_FORMAT(bppb.confirm_date,'%Y-%m-%d') confirm_date, sum(bppb.qty * bppb.price) as total, '','' from bppb inner join mastersupplier on mastersupplier.Id_Supplier = bppb.id_supplier where $where_type2 and confirm = 'Y' and cancel != 'Y' and  bppb.bppbdate between '$tglf' and '$tglt' AND (stat_trf IS NULL OR stat_trf = '') and tipe_sup = 'S' group by bppbno_int");
+
                   }else{
                     $query = mysql_query("select bpb.id ,bpb.bpbno_int, bpb.pono, bpb.bpbdate, mastersupplier.Supplier, po_header.jml_pterms, masterpterms.kode_pterms, bpb.curr, bpb.confirm_by,DATE_FORMAT(bpb.confirm_date,'%Y-%m-%d') confirm_date,round(sum((((IF(bpb.qty_reject IS NULL,(bpb.qty), (bpb.qty - bpb.qty_reject))) * bpb.price) + (((IF(bpb.qty_reject IS NULL,(bpb.qty), (bpb.qty - bpb.qty_reject))) * bpb.price) * (po_header.tax /100)))),2) as total, po_header.podate, po_header_draft.tipe_com
                       from bpb 
@@ -239,9 +260,9 @@ $logo_company = $rscomp["logo_company"];
                       left JOIN po_header_draft on po_header_draft.id = po_header.id_draft
                       INNER JOIN mastersupplier on mastersupplier.Id_Supplier = bpb.id_supplier 
                       inner join masterpterms on masterpterms.id = po_header.id_terms 
-                      where bpbno_int like '$type_item' AND (stat_trf IS NULL OR stat_trf = '') and bpb.confirm='Y' and bpb.cancel='N' and bpb.bpbdate between '$tglf' and '$tglt' and po_header_draft.tipe_com is null  and supplier = '$nama_supp' || bpbno_int like '$type_item' AND (stat_trf IS NULL OR stat_trf = '') and bpb.confirm='Y' and bpb.cancel='N' and bpb.bpbdate between '$tglf' and '$tglt' and po_header_draft.tipe_com IN ('REGULAR','BUYER','','FOC') and supplier = '$nama_supp' group by bpb.bpbno_int
+                      where $where_type AND (stat_trf IS NULL OR stat_trf = '') and bpb.confirm='Y' and bpb.cancel='N' and bpb.bpbdate between '$tglf' and '$tglt' and po_header_draft.tipe_com is null  and supplier = '$nama_supp' || $where_type AND (stat_trf IS NULL OR stat_trf = '') and bpb.confirm='Y' and bpb.cancel='N' and bpb.bpbdate between '$tglf' and '$tglt' and po_header_draft.tipe_com IN ('REGULAR','BUYER','','FOC') and supplier = '$nama_supp' group by bpb.bpbno_int
                       UNION
-                      select id,bppb.bppbno_int, '-' pono, bppb.bppbdate, mastersupplier.Supplier , '' ,'' , bppb.curr,bppb.confirm_by,DATE_FORMAT(bppb.confirm_date,'%Y-%m-%d') confirm_date, sum(bppb.qty * bppb.price) as total, '','' from bppb inner join mastersupplier on mastersupplier.Id_Supplier = bppb.id_supplier where bppbno_int like '$type_item' and confirm = 'Y' and cancel != 'Y' and  bppb.bppbdate between '$tglf' and '$tglt' AND (stat_trf IS NULL OR stat_trf = '') and tipe_sup = 'S' and supplier = '$nama_supp' group by bppbno_int");
+                      select id,bppb.bppbno_int, '-' pono, bppb.bppbdate, mastersupplier.Supplier , '' ,'' , bppb.curr,bppb.confirm_by,DATE_FORMAT(bppb.confirm_date,'%Y-%m-%d') confirm_date, sum(bppb.qty * bppb.price) as total, '','' from bppb inner join mastersupplier on mastersupplier.Id_Supplier = bppb.id_supplier where $where_type2 and confirm = 'Y' and cancel != 'Y' and  bppb.bppbdate between '$tglf' and '$tglt' AND (stat_trf IS NULL OR stat_trf = '') and tipe_sup = 'S' and supplier = '$nama_supp' group by bppbno_int");
                   }
 
 
