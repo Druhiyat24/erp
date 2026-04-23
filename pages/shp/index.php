@@ -526,11 +526,12 @@ function showLoading() {
               var no_memo = $(this).closest('tr').find('td:eq(1)').attr('value');
               var keterangan = $(this).closest('tr').find('td:eq(8) input').val() || document.getElementById('txt_keterangan').value;
               var unik_code = document.getElementById('unik_code').value; 
+              var status_before = $(this).closest('tr').find('td:eq(10)').attr('value');
 
               $.ajax({
                 type:'POST',
                 url:'insert_transfer_memo_det.php',
-                data: {'no_memo':no_memo, 'keterangan':keterangan, 'unik_code':unik_code},
+                data: {'no_memo':no_memo, 'keterangan':keterangan, 'unik_code':unik_code, 'status_before':status_before},
                 cache: 'false',
                 close: function(e){
                   e.preventDefault();
@@ -561,27 +562,69 @@ function showLoading() {
 
     <script type="text/javascript">
       $("table tbody tr").on("click", "#cancel_trf", function(){                 
-        var no_transfer = $(this).closest('tr').find('td:eq(0)').attr('value');
-        // alert(no_transfer);
-        // alert(no_transfer);
+    var no_transfer = $(this).closest('tr').find('td:eq(0)').attr('value');
 
-        $.ajax({
-          type:'POST',
-          url:'cancel_transfer_memo.php',
-          data: {'no_transfer':no_transfer},
-            // close: function(e){
-            //     e.preventDefault();
-            // },
-            success: function(data){                
-              console.log(data);
-              window.location.reload();                                                            
-            },
-            error:  function (xhr, exc, ajaxOptions, thrownError) {
-             alert(xhr.status);
-             alert(exc);               
-           }
-         });
-      });
+    Swal.fire({
+        title: 'Yakin cancel data ini?',
+        text: "Data transfer akan di-cancel",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Ya, Cancel!',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+
+            $.ajax({
+                type:'POST',
+                url:'cancel_transfer_memo.php',
+                data: {'no_transfer':no_transfer},
+
+                beforeSend: function(){
+                    Swal.fire({
+                        title: 'Processing...',
+                        text: 'Sedang memproses data',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+                },
+
+                success: function(data){                
+                    console.log(data);
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil!',
+                        text: 'Data berhasil di-cancel'
+                    }).then(() => {
+                        window.location.reload();
+                    });
+
+                },
+
+                error:  function (xhr, exc, ajaxOptions, thrownError) {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Terjadi kesalahan'
+                    });
+
+                    alert(xhr.status);
+                    alert(exc);               
+                }
+            });
+
+        }
+
+    });
+
+});
+
     </script>
 
     <script type="text/javascript">

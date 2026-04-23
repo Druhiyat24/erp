@@ -16,8 +16,13 @@ $execute = mysqli_query($conn_li,$query);
 $query_det = "update transfer_memo_exim_det SET status = 'N', updated_at = '$app_date' where no_trans = '$no_transfer'";
 $execute_det = mysqli_query($conn_li,$query_det);
 
-$query2 = "update memo_h a INNER JOIN transfer_memo_exim_det b ON b.nm_memo = a.nm_memo SET a.status_transfer = 'PENDING', a.tetm_by = null, a.tetm_date = null where b.no_trans = '$no_transfer'";
-$execute2 = mysqli_query($conn_li,$query2);
+if (strpos($kode, 'TETM') !== false) {
+	$query2 = "update memo_h a INNER JOIN transfer_memo_exim_det b ON b.nm_memo = a.nm_memo SET a.status_transfer = 'PENDING', a.tetm_by = null, a.tetm_date = null where b.no_trans = '$no_transfer'";
+	$execute2 = mysqli_query($conn_li,$query2);
+}else{
+	$query2 = "update memo_h a INNER JOIN transfer_memo_exim_det b ON b.nm_memo = a.nm_memo SET a.status_transfer = a.status_to_finance, a.tetf_by = null, a.tetf_date = null, a.status_to_finance = null where b.no_trans = '$no_transfer'";
+	$execute2 = mysqli_query($conn_li,$query2);
+}
 
 
 if(!$execute){	
