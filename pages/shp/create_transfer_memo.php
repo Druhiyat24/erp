@@ -36,7 +36,13 @@ $logo_company = $rscomp["logo_company"];
     $tglt = fd($_POST['kedate']);
     $pert = date('d M Y', strtotime($tglt));
     $nama_supp = $_POST['nama_supp'];
-    $type_item = $_POST['type_item'];
+    $addwhere = "1=1";
+    if ($nama_supp == 'ALL') {
+      $addwhere = "";
+    }else{
+      $addwhere = "and ms.supplier = '$nama_supp'";
+    }
+    $transfer_to = $_POST['transfer_to'];
     $trdate = fd($_POST['trfdate']);
     $trfdate = date('d M Y', strtotime($trdate));
   }
@@ -200,20 +206,23 @@ $logo_company = $rscomp["logo_company"];
                     <th class="text-center">Buyer</th>
                     <th class="text-center">Description</th>
                     <th hidden>id_memo</th>
+                    <th hidden>id_memo</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php
           # QUERY TABLE
 
-                  if ($nama_supp == 'ALL') {
+                  if ($transfer_to == 'MARKETING') {
                     $query = mysql_query("select a.*, ms.supplier supplier, mb.supplier buyer from memo_h a
                     inner join mastersupplier ms on a.id_supplier = ms.id_supplier
-                    inner join mastersupplier mb on a.id_buyer = mb.id_supplier where tgl_memo between '$tglf' and '$tglt' and a.status != 'CANCEL' and a.status_transfer = 'PENDING' order by id_h desc");
+                    inner join mastersupplier mb on a.id_buyer = mb.id_supplier where tgl_memo between '$tglf' and '$tglt' and a.status != 'CANCEL' and a.status_transfer = 'PENDING' $addwhere order by id_h desc");
                   }else{
                     $query = mysql_query("select a.*, ms.supplier supplier, mb.supplier buyer from memo_h a
                     inner join mastersupplier ms on a.id_supplier = ms.id_supplier
-                    inner join mastersupplier mb on a.id_buyer = mb.id_supplier where tgl_memo between '$tglf' and '$tglt' and a.status != 'CANCEL' and a.status_transfer = 'PENDING' and ms.supplier = '$nama_supp' order by id_h desc");
+                    inner join mastersupplier mb on a.id_buyer = mb.id_supplier
+                    INNER JOIN (select id_h, status from memo_file where status != 'CANCEL' GROUP BY id_h) fu on fu.id_h = a.id_h
+                    where tgl_memo between '$tglf' and '$tglt' and a.status != 'CANCEL' and (a.status_transfer = 'PENDING' OR a.status_transfer = 'A-TMTE') $addwhere order by id_h desc");
                   }
 
 
@@ -232,6 +241,7 @@ $logo_company = $rscomp["logo_company"];
                     echo "<td><input style='font-size: 12px;' type='text' class='form-control' name='keterangan[]' placeholder='' autocomplete='off'></td>
                     ";
                     echo "<td value= '$data[id_h]' hidden>$data[id_h]</td>";
+                    echo "<td value= '$data[status_transfer]' hidden>$data[status_transfer]</td>";
                     echo "</tr>";
 
             $no++; // menambah nilai nomor urut

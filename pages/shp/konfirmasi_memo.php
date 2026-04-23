@@ -144,7 +144,7 @@ $logo_company = $rscomp["logo_company"];
           $query = mysql_query("select a.*, ms.supplier supplier, mb.supplier buyer, sum(d.biaya) total, IF(a.ditagihkan = 'Y','YA','TIDAK') tagih from memo_h a
           inner join mastersupplier ms on a.id_supplier = ms.id_supplier
           inner join mastersupplier mb on a.id_buyer = mb.id_supplier
-          INNER JOIN memo_det d on d.id_h = a.id_h where status = 'DRAFT' and tgl_memo >= '$tglf' and tgl_memo <= '$tglt' GROUP BY a.id_h order by a.id_h desc");
+          INNER JOIN memo_det d on d.id_h = a.id_h where status = 'DRAFT' and tgl_memo >= '$tglf' and tgl_memo <= '$tglt' and d.cancel != 'Y' GROUP BY a.id_h order by a.id_h desc");
           $no = 1;
           while ($data = mysql_fetch_array($query)) {
             $memo_num = $data[nm_memo];

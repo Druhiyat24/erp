@@ -7,6 +7,7 @@ session_start();
 $no_memo = $_REQUEST['no_memo'];
 $unik_code = $_REQUEST['unik_code'];
 $keterangan = $_REQUEST['keterangan'];
+$status_before = $_REQUEST['status_before'];
 $user = $_SESSION['username'];
 $app_date = date("Y-m-d H:i:s");
 
@@ -31,7 +32,7 @@ if(!$execute){
     	$sql_upt = "update memo_h set status_transfer = 'TETM', tetm_by = '$user', tetm_date = '$app_date' where nm_memo = '$no_memo'";
 		$execute_upt = mysqli_query($conn_li,$sql_upt);
 	}else{
-		$sql_upt = "update memo_h set status_transfer = 'TETF', tetf_by = '$user', tetf_date = '$app_date' where nm_memo = '$no_memo'";
+		$sql_upt = "update memo_h set status_transfer = 'TETF', tetf_by = '$user', tetf_date = '$app_date', status_to_finance = '$status_before' where nm_memo = '$no_memo'";
 		$execute_upt = mysqli_query($conn_li,$sql_upt);
 	}
 
