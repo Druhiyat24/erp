@@ -82,6 +82,8 @@ else if ($mod=="mpanel")
 {	include "m_panel.php"; }
 else if ($mod=="29")
 {	include "m_odo.php"; }
+else if ($mod=="30")
+{	include "m_master_all.php"; }
 else if ($mod=="block_customer")
 {	include __DIR__ ."/../marketting/BlockCustomerPage/HeaderPage.php"; }
 else

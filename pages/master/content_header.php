@@ -66,4 +66,6 @@ else if ($mod=="28" or $mod=="28R" or $mod=="28L" or $mod=="28LD")
 {	echo "Product - BOM"; }
 else if ($mod=="29")
 {	echo "Master Item ODO"; }
+else if ($mod=="30")
+{	echo "Master Item All"; }
 ?>
