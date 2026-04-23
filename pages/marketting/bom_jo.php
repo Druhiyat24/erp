@@ -202,6 +202,7 @@ if ($mod=="14L") {
 		<th>Brand</th>
 		<th>Rev</th>
 		<th>Created By</th>
+		<th>Buyer PO</th>
 		<th>All</th>
 		<th>Fabric</th>
 		<th>Accs Packing</th>
@@ -214,12 +215,12 @@ if ($mod=="14L") {
         <?php
         # QUERY TABLE
         $query = mysql_query("select a.revise,group_concat(distinct concat(' ',ac.kpno)) kpno,ac.brand,a.id,
-        	a.jo_no,a.jo_date,fullname,msup.supplier,ac.styleno,max(s.dateinput) last_update   
+        	a.jo_no,a.jo_date,fullname,msup.supplier,ac.styleno,max(s.dateinput) last_update,GROUP_CONCAT(DISTINCT so.buyerno SEPARATOR ',<br>') AS pono   
         	from jo a inner join bom_jo_item s on a.id=s.id_jo
         	inner join jo_det jod on a.id=jod.id_jo
         	inner join so on jod.id_so=so.id inner join act_costing ac on so.id_cost=ac.id 
         	inner join mastersupplier msup on ac.id_buyer=msup.id_supplier 
-        	inner join userpassword up on a.username=up.username 
+        	inner join userpassword up on a.username=up.username			
         	where a.jo_date >= '$tglbomawal' and a.jo_date <= '$tglbomakhir'
         	group by a.jo_no order by a.jo_date desc"); 
         $no = 1; 
@@ -236,7 +237,8 @@ if ($mod=="14L") {
 				    <td>$data[styleno]</td>
 				    <td>$data[brand]</td>
 				    <td>$data[revise]</td>
-				    <td>$createby</td>";
+				    <td>$createby</td>
+					<td>$data[pono]</td>";
 						echo "
 			<td style='text-align: center; vertical-align: middle;'>
             	<a href='pdfBOM.php?id=$data[id]'

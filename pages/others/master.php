@@ -174,7 +174,7 @@ else
               <option value="1" <?php if ($persediaanfilter == 1) { echo 'selected'; }?>>PERSEDIAAN ATK</option>
               <option value="2" <?php if ($persediaanfilter == 2) { echo 'selected'; }?> >PERSEDIAAN UMUM</option>
               <option value="3" <?php if ($persediaanfilter == 3) { echo 'selected'; }?> >PERSEDIAAN SPAREPARTS - FACTORY SUPPLIES</option>
-              <option value="4" <?php if ($persediaanfilter == 3) { echo 'selected'; }?> >PERSEDIAAN MESIN</option>              
+              <option value="4" <?php if ($persediaanfilter == 4) { echo 'selected'; }?> >PERSEDIAAN MESIN</option>			  
             </select>            
       </div>
       <div class='col-md-3'>
@@ -189,7 +189,7 @@ else
   </div>
 
   <div class="box-body">
-    <table id="examplefix" class="display responsive" style="width:100%">
+    <table id="data_masteritem" class="display responsive" style="width:100%">
       <thead>
       <tr>
         <th>ID</th>
@@ -208,64 +208,30 @@ else
       </tr>
       </thead>
       <tbody>
-        <?php
-        # QUERY TABLE
-        $sql="select ITEM.*,MAPP.description from masteritem ITEM LEFT JOIN mapping_category MAPP ON MAPP.n_id = ITEM.n_code_category where ITEM.mattype IN ('N','M') $queryfilter  order by ITEM.id_item desc";
-        $result=mysql_query($sql);
-        #echo $sql;
-        while($data = mysql_fetch_array($result))
-        { echo "<tr>";
-      echo "<td>$data[id_item]</td>";
-            echo "<td>$data[goods_code]</td>";
-			echo "<td>$data[description]</td>";
-            echo "<td>$data[itemdesc]</td>";
-            echo "<td>$data[color]</td>";
-            echo "<td>$data[size]</td>";
-            echo "<td>$data[tipe_item]</td>";
-            echo "<td>$data[non_aktif]</td>";
-            if($data['non_aktif']=="N")
-            {
-              echo "
-              <td><a href='../others/?mod=2&id=$data[id_item]'
-                data-toggle='tooltip' title='Update'>
-                <i class='fa fa-pencil'></i></a>
-              </td>";
-               echo "
-              <td>
-                 <a href='d_master.php?mode=$mode&id=$data[id_item]'
-                   $tt_hapus";?> 
-                   onclick="return confirm('Apakah anda yakin akan menghapus ?')">
-                   <?php echo $tt_hapus2."</a>
-              </td>";
-              echo "
-              <td><a href='../forms/non_akt.php?mod=$mod&mode=Non&id=$data[id_item]'
-                data-toggle='tooltip' title='Non Aktif' ";?> 
-                onclick="return confirm('Apakah Anda Yakin Akan Meng-Non Aktifkan ?')"><?php echo "<i class='fa fa-eye-slash'></i></a>
-              </td>";
-            }
-            else
-            {
-              echo "
-              <td></td>
-              <td></td>
-              <td></td>";
-            }
-            echo "
-            <td><a href='#' class='img-prev' data-id=$data[id_item]
-                data-toggle='tooltip' title='Attachment'><i class='fa fa-paperclip'>
-                </i></a>
-            </td>";
-            echo "
-            <td>
-              <a href='?mod=14&mode=General&id=$data[id_item]'
-                $tt_hist
-              </a>
-            </td>";
-          echo "</tr>";
-        }
-        ?>
       </tbody>
-    </table>  
+    </table>
+<script src="../../plugins/jQuery/jquery-1.11.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#data_masteritem').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "order": [[0, "desc"]],
+        "ajax": {
+            "url": "server_masteritem.php",
+            "type": "POST",
+            "data": function(d) {
+                d.persediaan = $('#persediaanfilter').val();
+            }
+        }
+    });
+});
+</script>
+<script>
+$('#persediaanfilter').change(function(){
+    $('#data_masteritem').DataTable().ajax.reload();
+});
+</script>	
   </div>
 </div>
 <?php } ?>

@@ -7,6 +7,7 @@ if ($modajax=="cari_style")
 	$sql="select styleno isi,styleno tampil from 
 		act_costing where id_buyer='$crinya' group by styleno";
 	IsiCombo($sql,'','Pilih Style #');
+	echo $crinya;
 	exit;
 }
 ?>
