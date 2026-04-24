@@ -76,6 +76,25 @@ try {
             if (trim($_POST['txt_subgroup_kode']) == '') {
                 $valid = false;
                 $msg = "Kode Sub Group wajib diisi";
+            } else {
+                $kode = strtoupper(trim($_POST['txt_subgroup_kode']));
+
+                if (!$chk_group) {
+                    $id_group = (int) $_POST['cbo_group'];
+    
+                    $query = "
+                        SELECT * FROM mastersubgroup 
+                        WHERE UPPER(kode_sub_group) = '$kode'
+                        AND id_group = '$id_group'
+                    ";
+    
+                    $cek = mysqli_query($conn, $query);
+                    
+                    if (mysqli_num_rows($cek) > 0) {
+                        $valid = false;
+                        $msg = "Sub Group dengan kode tersebut sudah ada di group ini";
+                    }
+                }
             }
         } else {
             if (trim($_POST['cbo_sub_group']) == '') {
@@ -90,6 +109,25 @@ try {
             if (trim($_POST['txt_type_kode']) == '') {
                 $valid = false;
                 $msg = "Kode Type wajib diisi";
+            } else {
+                $kode = strtoupper(trim($_POST['txt_type_kode']));
+
+                if (!$chk_sub) {
+                    $id_sub_group = (int) $_POST['cbo_sub_group'];
+    
+                    $query = "
+                        SELECT * FROM mastertype2 
+                        WHERE UPPER(kode_type) = '$kode'
+                        AND id_sub_group = '$id_sub_group'
+                    ";
+    
+                    $cek = mysqli_query($conn, $query);
+                    
+                    if (mysqli_num_rows($cek) > 0) {
+                        $valid = false;
+                        $msg = "Type dengan kode tersebut sudah ada di sub group ini";
+                    }
+                }
             }
         } else {
             if (trim($_POST['cbo_type']) == '') {
@@ -104,6 +142,25 @@ try {
             if (trim($_POST['txt_contents_kode']) == '') {
                 $valid = false;
                 $msg = "Kode Contents wajib diisi";
+            } else {
+                $kode = strtoupper(trim($_POST['txt_contents_kode']));
+
+                if (!$chk_type) {
+                    $id_type = (int) $_POST['cbo_type'];
+    
+                    $query = "
+                        SELECT * FROM mastercontents 
+                        WHERE UPPER(kode_contents) = '$kode'
+                        AND id_type = '$id_type'
+                    ";
+    
+                    $cek = mysqli_query($conn, $query);
+                    
+                    if (mysqli_num_rows($cek) > 0) {
+                        $valid = false;
+                        $msg = "Contents dengan kode tersebut sudah ada di type ini";
+                    }
+                }
             }
         } else {
             if (trim($_POST['cbo_contents']) == '') {
@@ -118,6 +175,25 @@ try {
             if (trim($_POST['txt_width_kode']) == '') {
                 $valid = false;
                 $msg = "Kode Width wajib diisi";
+            } else {
+                $kode = strtoupper(trim($_POST['txt_width_kode']));
+
+                if (!$chk_contents) {
+                    $id_contents = (int) $_POST['cbo_contents'];
+    
+                    $query = "
+                        SELECT * FROM masterwidth 
+                        WHERE UPPER(kode_width) = '$kode'
+                        AND id_contents = '$id_contents'
+                    ";
+    
+                    $cek = mysqli_query($conn, $query);
+                    
+                    if (mysqli_num_rows($cek) > 0) {
+                        $valid = false;
+                        $msg = "Width dengan kode tersebut sudah ada di contents ini";
+                    }
+                }
             }
         } else {
             if (trim($_POST['cbo_width']) == '') {
@@ -132,6 +208,25 @@ try {
             if (trim($_POST['txt_length_kode']) == '') {
                 $valid = false;
                 $msg = "Kode Length wajib diisi";
+            } else {
+                $kode = strtoupper(trim($_POST['txt_length_kode']));
+
+                if (!$chk_width) {
+                    $id_width = (int) $_POST['cbo_width'];
+    
+                    $query = "
+                        SELECT * FROM masterlength 
+                        WHERE UPPER(kode_length) = '$kode'
+                        AND id_width = '$id_width'
+                    ";
+    
+                    $cek = mysqli_query($conn, $query);
+                    
+                    if (mysqli_num_rows($cek) > 0) {
+                        $valid = false;
+                        $msg = "Length dengan kode tersebut sudah ada di width ini";
+                    }
+                }
             }
         } else {
             if (trim($_POST['cbo_length']) == '') {
@@ -146,6 +241,25 @@ try {
             if (trim($_POST['txt_weight_kode']) == '') {
                 $valid = false;
                 $msg = "Kode Weight wajib diisi";
+            } else {
+                $kode = strtoupper(trim($_POST['txt_weight_kode']));
+
+                if (!$chk_length) {
+                    $id_length = (int) $_POST['cbo_length'];
+    
+                    $query = "
+                        SELECT * FROM masterweight 
+                        WHERE UPPER(kode_weight) = '$kode'
+                        AND id_length = '$id_length'
+                    ";
+    
+                    $cek = mysqli_query($conn, $query);
+                    
+                    if (mysqli_num_rows($cek) > 0) {
+                        $valid = false;
+                        $msg = "Weight dengan kode tersebut sudah ada di length ini";
+                    }
+                }
             }
         } else {
             if (trim($_POST['cbo_weight']) == '') {
@@ -160,6 +274,25 @@ try {
             if (trim($_POST['txt_color_kode']) == '') {
                 $valid = false;
                 $msg = "Kode Color wajib diisi";
+            } else {
+                $kode = strtoupper(trim($_POST['txt_color_kode']));
+
+                if (!$chk_weight) {
+                    $id_weight = (int) $_POST['cbo_weight'];
+    
+                    $query = "
+                        SELECT * FROM mastercolor 
+                        WHERE UPPER(kode_color) = '$kode'
+                        AND id_weight = '$id_weight'
+                    ";
+    
+                    $cek = mysqli_query($conn, $query);
+                    
+                    if (mysqli_num_rows($cek) > 0) {
+                        $valid = false;
+                        $msg = "Color dengan kode tersebut sudah ada di weight ini";
+                    }
+                }
             }
         } else {
             if (trim($_POST['cbo_color']) == '') {
@@ -174,6 +307,25 @@ try {
             if (trim($_POST['txt_description_kode']) == '') {
                 $valid = false;
                 $msg = "Kode Description wajib diisi";
+            } else {
+                $kode = strtoupper(trim($_POST['txt_description_kode']));
+
+                if (!$chk_color) {
+                    $id_color = (int) $_POST['cbo_color'];
+    
+                    $query = "
+                        SELECT * FROM masterdesc 
+                        WHERE UPPER(kode_desc) = '$kode'
+                        AND id_color = '$id_color'
+                    ";
+    
+                    $cek = mysqli_query($conn, $query);
+                    
+                    if (mysqli_num_rows($cek) > 0) {
+                        $valid = false;
+                        $msg = "Description dengan kode tersebut sudah ada di color ini";
+                    }
+                }
             }
         } else {
             if (trim($_POST['cbo_description']) == '') {
@@ -336,8 +488,8 @@ try {
     // ================= GROUP =================
     if ($chk_group) {
 
-        $kode = $_POST['txt_group_kode'];
-        $desc = $_POST['txt_group_desc'];
+        $kode = strtoupper($_POST['txt_group_kode']);
+        $desc = strtoupper($_POST['txt_group_desc']);
         
         $sql = "INSERT INTO mastergroup (kode_group, nama_group)
                 VALUES ('$kode','$desc')";
@@ -352,13 +504,13 @@ try {
     // ================= SUB GROUP =================
     if ($chk_sub) {
 
-        $kode = $_POST['txt_subgroup_kode'];
-        $desc = $_POST['txt_subgroup_desc'];
-        $idcoad = $_POST['txt_subgroup_id_coa_debet'];
-        $idcoac = $_POST['txt_subgroup_id_coa_credit'];
+        $kode = strtoupper($_POST['txt_subgroup_kode']);
+        $desc = strtoupper($_POST['txt_subgroup_desc']);
+        // $idcoad = $_POST['txt_subgroup_id_coa_debet'];
+        // $idcoac = $_POST['txt_subgroup_id_coa_credit'];
 
-        $sql = "INSERT INTO mastersubgroup (id_group, kode_sub_group, nama_sub_group, id_coa_d, id_coa_k)
-                VALUES ('$id_group','$kode','$desc','$idcoad','$idcoac')";
+        $sql = "INSERT INTO mastersubgroup (id_group, kode_sub_group, nama_sub_group)
+                VALUES ('$id_group','$kode','$desc')";
         mysqli_query($conn, $sql);
 
         $id_sub_group = mysqli_insert_id($conn);
@@ -370,8 +522,8 @@ try {
     // ================= TYPE =================
     if ($chk_type) {
 
-        $kode = $_POST['txt_type_kode'];
-        $desc = $_POST['txt_type_desc'];
+        $kode = strtoupper($_POST['txt_type_kode']);
+        $desc = strtoupper($_POST['txt_type_desc']);
 
         $sql = "INSERT INTO mastertype2 (id_sub_group, kode_type, nama_type)
                 VALUES ('$id_sub_group','$kode','$desc')";
@@ -386,8 +538,8 @@ try {
     // ================= CONTENTS =================
     if ($chk_contents) {
 
-        $kode = $_POST['txt_contents_kode'];
-        $desc = $_POST['txt_contents_desc'];
+        $kode = strtoupper($_POST['txt_contents_kode']);
+        $desc = strtoupper($_POST['txt_contents_desc']);
 
         $sql = "INSERT INTO mastercontents (id_type, kode_contents, nama_contents)
                 VALUES ('$id_type','$kode','$desc')";
@@ -402,8 +554,8 @@ try {
     // ================= WIDTH =================
     if ($chk_width) {
 
-        $kode = $_POST['txt_width_kode'];
-        $desc = $_POST['txt_width_desc'];
+        $kode = strtoupper($_POST['txt_width_kode']);
+        $desc = strtoupper($_POST['txt_width_desc']);
 
         $sql = "INSERT INTO masterwidth (id_contents, kode_width, nama_width)
                 VALUES ('$id_contents','$kode','$desc')";
@@ -418,8 +570,8 @@ try {
     // ================= LENGTH =================
     if ($chk_length) {
 
-        $kode = $_POST['txt_length_kode'];
-        $desc = $_POST['txt_length_desc'];
+        $kode = strtoupper($_POST['txt_length_kode']);
+        $desc = strtoupper($_POST['txt_length_desc']);
 
         $sql = "INSERT INTO masterlength (id_width, kode_length, nama_length)
                 VALUES ('$id_width','$kode','$desc')";
@@ -434,8 +586,8 @@ try {
     // ================= WEIGHT =================
     if ($chk_weight) {
 
-        $kode = $_POST['txt_weight_kode'];
-        $desc = $_POST['txt_weight_desc'];
+        $kode = strtoupper($_POST['txt_weight_kode']);
+        $desc = strtoupper($_POST['txt_weight_desc']);
 
         $sql = "INSERT INTO masterweight (id_length, kode_weight, nama_weight)
                 VALUES ('$id_length','$kode','$desc')";
@@ -450,17 +602,17 @@ try {
     // ================= COLOR =================
     if ($chk_color) {
 
-        $kode = $_POST['txt_color_kode'];
-        $desc = $_POST['txt_color_desc'];
-        $pantone = $_POST['txt_color_pantone'];
-        $image = $_FILES['txt_color_image']['name'];
-        $tmp   = $_FILES['txt_color_image']['tmp_name'];
+        $kode = strtoupper($_POST['txt_color_kode']);
+        $desc = strtoupper($_POST['txt_color_desc']);
+        // $pantone = strtoupper($_POST['txt_color_pantone']);
+        // $image = $_FILES['txt_color_image']['name'];
+        // $tmp   = $_FILES['txt_color_image']['tmp_name'];
 
-        $path = "upload_files/color/" . $image;
-        move_uploaded_file($tmp, $path);
+        // $path = "upload_files/color/" . $image;
+        // move_uploaded_file($tmp, $path);
 
-        $sql = "INSERT INTO mastercolor (id_weight, kode_color, nama_color, phantom, nm_file)
-                VALUES ('$id_weight','$kode','$desc','$pantone','$image')";
+        $sql = "INSERT INTO mastercolor (id_weight, kode_color, nama_color)
+                VALUES ('$id_weight','$kode','$desc')";
         mysqli_query($conn, $sql);
 
         $id_color = mysqli_insert_id($conn);
@@ -472,8 +624,8 @@ try {
     // ================= DESCRIPTION =================
     if ($chk_desc) {
 
-        $kode = $_POST['txt_description_kode'];
-        $desc = $_POST['txt_description_desc'];
+        $kode = strtoupper($_POST['txt_description_kode']);
+        $desc = strtoupper($_POST['txt_description_desc']);
 
         $sql = "INSERT INTO masterdesc (id_color, kode_desc, nama_desc)
                 VALUES ('$id_color','$kode','$desc')";

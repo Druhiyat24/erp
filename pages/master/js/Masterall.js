@@ -355,7 +355,7 @@ $(document ).ready(function() {
         }
     }
 
-   let isSubmitting = false;
+    let isSubmitting = false;
 
     $("#form_master").off("submit").on("submit", function (e) {
         e.preventDefault();
@@ -383,6 +383,7 @@ $(document ).ready(function() {
                 if (res.status === "ok") {
                     box.addClass("success-box");
                     reloadCurrentTable();
+                    refreshFullChain();
                 } else {
                     box.addClass("error-box");
                 }
@@ -402,6 +403,131 @@ $(document ).ready(function() {
         });
     });
 }); 
+
+function refreshFullChain() {
+
+    let group       = $("#cbo_group").val();
+    let sub_group   = $("#cbo_sub_group").val();
+    let type        = $("#cbo_type").val();
+    let contents    = $("#cbo_contents").val();
+    let width       = $("#cbo_width").val();
+    let length      = $("#cbo_length").val();
+    let weight      = $("#cbo_weight").val();
+    let color       = $("#cbo_color").val();
+    let description = $("#cbo_description").val();
+
+    if (!group) return;
+
+    // =========================
+    // GROUP → SUB GROUP
+    // =========================
+    $.post('webservices/getDataMasterall.php', {
+        type: 'subgroup',
+        id_group: group
+    }, function (data) {
+
+        $("#cbo_sub_group").html(data).val(sub_group);
+
+        if (!sub_group) return;
+
+        // =========================
+        // SUB GROUP → TYPE
+        // =========================
+        $.post('webservices/getDataMasterall.php', {
+            type: 'type',
+            id_sub_group: sub_group
+        }, function (data2) {
+
+            $("#cbo_type").html(data2).val(type);
+
+            if (!type) return;
+
+            // =========================
+            // TYPE → CONTENTS
+            // =========================
+            $.post('webservices/getDataMasterall.php', {
+                type: 'contents',
+                id_type: type
+            }, function (data3) {
+
+                $("#cbo_contents").html(data3).val(contents);
+
+                if (!contents) return;
+
+                // =========================
+                // CONTENTS → WIDTH
+                // =========================
+                $.post('webservices/getDataMasterall.php', {
+                    type: 'width',
+                    id_contents: contents
+                }, function (data4) {
+
+                    $("#cbo_width").html(data4).val(width);
+
+                    if (!width) return;
+
+                    // =========================
+                    // WIDTH → LENGTH
+                    // =========================
+                    $.post('webservices/getDataMasterall.php', {
+                        type: 'length',
+                        id_width: width
+                    }, function (data5) {
+
+                        $("#cbo_length").html(data5).val(length);
+
+                        if (!length) return;
+
+                        // =========================
+                        // LENGTH → WEIGHT
+                        // =========================
+                        $.post('webservices/getDataMasterall.php', {
+                            type: 'weight',
+                            id_length: length
+                        }, function (data6) {
+
+                            $("#cbo_weight").html(data6).val(weight);
+
+                            if (!weight) return;
+
+                            // =========================
+                            // WEIGHT → COLOR
+                            // =========================
+                            $.post('webservices/getDataMasterall.php', {
+                                type: 'color',
+                                id_weight: weight
+                            }, function (data7) {
+
+                                $("#cbo_color").html(data7).val(color);
+
+                                if (!color) return;
+
+                                // =========================
+                                // COLOR → DESCRIPTION
+                                // =========================
+                                $.post('webservices/getDataMasterall.php', {
+                                    type: 'description',
+                                    id_color: color
+                                }, function (data8) {
+
+                                    $("#cbo_description").html(data8).val(description);
+
+                                });
+
+                            });
+
+                        });
+
+                    });
+
+                });
+
+            });
+
+        });
+
+    });
+}
 
 function reloadCurrentTable() {
     let val = $("#modeView").val();
@@ -452,6 +578,19 @@ function generateTableGroup() {
             {
                 "data": "nama_group",
             },
+            {
+                "data": null,
+                "orderable": false,
+                "render": function (data, type, row) {
+                    return `
+                        <a href="../master/?mod=3&mode=&id=${row.id}" 
+                        target="_blank"
+                        data-toggle="tooltip" title="Edit">
+                        <i class="fa fa-pencil"></i>
+                        </a>
+                    `;
+                }
+            }
         ],
     });
 }
@@ -478,11 +617,18 @@ function generateTableSubGroup() {
                 "data": "nama_sub_group",
             },
             {
-                "data": "id_coa_d",
-            },
-            {
-                "data": "id_coa_k",
-            },
+                "data": null,
+                "orderable": false,
+                "render": function (data, type, row) {
+                    return `
+                        <a href="../master/?mod=4&mode=&id=${row.id}" 
+                        target="_blank"
+                        data-toggle="tooltip" title="Edit">
+                        <i class="fa fa-pencil"></i>
+                        </a>
+                    `;
+                }
+            }
         ],
     });
 }
@@ -507,6 +653,19 @@ function generateTableType() {
             {
                 "data": "nama_type",
             },
+            {
+                "data": null,
+                "orderable": false,
+                "render": function (data, type, row) {
+                    return `
+                        <a href="../master/?mod=5&mode=&id=${row.id}" 
+                        target="_blank"
+                        data-toggle="tooltip" title="Edit">
+                        <i class="fa fa-pencil"></i>
+                        </a>
+                    `;
+                }
+            }
         ],
     });
 }
@@ -523,6 +682,9 @@ function generateTableContents() {
         },
         'columns': [
             {
+                "data": "id",
+            },
+            {
                 "data": "tampil",
             },
             {
@@ -531,6 +693,19 @@ function generateTableContents() {
             {
                 "data": "nama_contents",
             },
+            {
+                "data": null,
+                "orderable": false,
+                "render": function (data, type, row) {
+                    return `
+                        <a href="../master/?mod=6&mode=&id=${row.id}" 
+                        target="_blank"
+                        data-toggle="tooltip" title="Edit">
+                        <i class="fa fa-pencil"></i>
+                        </a>
+                    `;
+                }
+            }
         ],
     });
 }
@@ -556,6 +731,19 @@ function generateTableWidth() {
             {
                 "data": "nama_width",
             },
+            {
+                "data": null,
+                "orderable": false,
+                "render": function (data, type, row) {
+                    return `
+                        <a href="../master/?mod=7&mode=&id=${row.id}" 
+                        target="_blank"
+                        data-toggle="tooltip" title="Edit">
+                        <i class="fa fa-pencil"></i>
+                        </a>
+                    `;
+                }
+            }
         ],
     });
 }
@@ -582,6 +770,19 @@ function generateTableLength() {
             {
                 "data": "nama_length",
             },
+            {
+                "data": null,
+                "orderable": false,
+                "render": function (data, type, row) {
+                    return `
+                        <a href="../master/?mod=8&mode=&id=${row.id}" 
+                        target="_blank"
+                        data-toggle="tooltip" title="Edit">
+                        <i class="fa fa-pencil"></i>
+                        </a>
+                    `;
+                }
+            }
         ],
     });
 }
@@ -608,6 +809,19 @@ function generateTableWeight() {
             {
                 "data": "nama_weight",
             },
+            {
+                "data": null,
+                "orderable": false,
+                "render": function (data, type, row) {
+                    return `
+                        <a href="../master/?mod=9&mode=&id=${row.id}" 
+                        target="_blank"
+                        data-toggle="tooltip" title="Edit">
+                        <i class="fa fa-pencil"></i>
+                        </a>
+                    `;
+                }
+            }
         ],
     });
 }
@@ -624,6 +838,12 @@ function generateTableColor() {
         },
         'columns': [
             {
+                "data": "id",
+            },
+            {
+                "data": "id_contents",
+            },
+            {
                 "data": "tampil",
             },
             {
@@ -633,8 +853,18 @@ function generateTableColor() {
                 "data": "nama_color",
             },
             {
-                "data": "phantom",
-            },
+                "data": null,
+                "orderable": false,
+                "render": function (data, type, row) {
+                    return `
+                        <a href="../master/?mod=10&mode=&id=${row.id}" 
+                        target="_blank"
+                        data-toggle="tooltip" title="Edit">
+                        <i class="fa fa-pencil"></i>
+                        </a>
+                    `;
+                }
+            }
         ],
     });
 }
@@ -651,6 +881,9 @@ function generateTableDescription() {
         },
         'columns': [
             {
+                "data": "id_contents",
+            },
+            {
                 "data": "tampil",
             },
             {
@@ -659,6 +892,19 @@ function generateTableDescription() {
             {
                 "data": "nama_desc",
             },
+            {
+                "data": null,
+                "orderable": false,
+                "render": function (data, type, row) {
+                    return `
+                        <a href="../master/?mod=11&mode=&id=${row.id}" 
+                        target="_blank"
+                        data-toggle="tooltip" title="Edit">
+                        <i class="fa fa-pencil"></i>
+                        </a>
+                    `;
+                }
+            }
         ],
     });
 }

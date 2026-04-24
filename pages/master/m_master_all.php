@@ -242,7 +242,7 @@ $mod = isset($_GET['mod']) ? $_GET['mod'] : "";
                             <input type="text" class="form-control" name="txt_subgroup_desc" placeholder="Masukkan Deskripsi Sub Group">
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <!-- <div class="col-md-3">
                         <div class="form-group">
                             <label>ID CoA (Debet)</label>
                             <select class="form-control select2" style="width: 100%;" name="txt_subgroup_id_coa_debet">
@@ -263,7 +263,7 @@ $mod = isset($_GET['mod']) ? $_GET['mod'] : "";
                                 ?>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <!-- MASTER TYPE SECTION -->
@@ -396,7 +396,7 @@ $mod = isset($_GET['mod']) ? $_GET['mod'] : "";
                             <input type="text" class="form-control" name="txt_color_desc" placeholder="Masukkan Deskripsi Color">
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <!-- <div class="col-md-3">
                         <div class="form-group">
                             <label>Pantone Color</label>
                             <input type="text" class="form-control" name="txt_color_pantone" placeholder="Masukkan Pantone Color">
@@ -407,7 +407,7 @@ $mod = isset($_GET['mod']) ? $_GET['mod'] : "";
                             <label>Image File</label>
                             <input type="file" class="form-control" name="txt_color_image">
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <!-- MASTER DESCRIPTION SECTION -->
@@ -468,6 +468,7 @@ $mod = isset($_GET['mod']) ? $_GET['mod'] : "";
                 <tr>
                     <th>Kode Group</th>
                     <th>Deskripsi Group</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -481,8 +482,7 @@ $mod = isset($_GET['mod']) ? $_GET['mod'] : "";
                     <th>Nama Group</th>
                     <th>Kode Sub Group</th>
                     <th>Deskripsi Sub Group</th>
-                    <th>CoA Debet</th>
-                    <th>CoA Credit</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -496,6 +496,7 @@ $mod = isset($_GET['mod']) ? $_GET['mod'] : "";
                     <th>Nama Sub Group</th>
                     <th>Material Type</th>
                     <th>Deskripsi Type</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -506,9 +507,11 @@ $mod = isset($_GET['mod']) ? $_GET['mod'] : "";
         <table id="mcontent" class="display responsive" style="width:100%">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Nama Sub Group</th>
                     <th>Kode Contents</th>
                     <th>Deskripsi Type</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -522,6 +525,7 @@ $mod = isset($_GET['mod']) ? $_GET['mod'] : "";
                     <th>Nama Sub Group</th>
                     <th>Kode Width</th>
                     <th>Deskripsi</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -535,6 +539,7 @@ $mod = isset($_GET['mod']) ? $_GET['mod'] : "";
                     <th>Nama Sub Group</th>
                     <th>Kode Length</th>
                     <th>Deskripsi</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -548,6 +553,7 @@ $mod = isset($_GET['mod']) ? $_GET['mod'] : "";
                     <th>Nama Sub Group</th>
                     <th>Kode Weight</th>
                     <th>Deskripsi</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -558,10 +564,12 @@ $mod = isset($_GET['mod']) ? $_GET['mod'] : "";
         <table id="mcolor" class="display responsive" style="width:100%">
             <thead>
                 <tr>
+                    <th>ID</th>
+                    <th>ID Contents</th>
                     <th>Nama Sub Group</th>
                     <th>Kode Color</th>
                     <th>Deskripsi</th>
-                    <th>Pantone</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -572,9 +580,11 @@ $mod = isset($_GET['mod']) ? $_GET['mod'] : "";
         <table id="listmdesc" class="display responsive" style="width:100%">
             <thead>
                 <tr>
+                    <th>ID Contents</th>
                     <th>Nama Sub Group</th>
                     <th>Kode Desc</th>
                     <th>Deskripsi</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody></tbody>

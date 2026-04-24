@@ -31,14 +31,14 @@ $table = "(
 
 ## Search 
 $searchQuery = " ";
+// echo json_encode($searchValue);exit;
 if($searchValue != ''){
 $searchQuery = " AND (
 	X.id                           LIKE'%".$searchValue."%'	
 	OR X.tampil               	   LIKE'%".$searchValue."%'	
 	OR X.kode_weight       	       LIKE'%".$searchValue."%'
 	OR X.nama_weight               LIKE'%".$searchValue."%'
-	
-	";
+	)";
 }
 
 ## Total number of records without filtering
@@ -114,9 +114,9 @@ $button = '';
 ## Response
 $response = array(
   "draw" => intval($draw),
-  "iTotalRecords" => $totalRecordwithFilter,
-  "iTotalDisplayRecords" => $totalRecords,
-  "aaData" => $data
+  "recordsTotal" => intval($totalRecords),
+  "recordsFiltered" => intval($totalRecordwithFilter),
+  "data" => $data
 );
 echo json_encode($response);
 ?>
