@@ -762,7 +762,9 @@ $('#btnApprove').on('click', function(){
     var approveIds = [];
     var cancelIds  = [];
 
-    $('.chk-detail').each(function(){
+    var table = $('#detailTable').DataTable(); // ganti ID table
+
+    table.$('.chk-detail').each(function(){
         var id = $(this).val();
 
         if($(this).is(':checked')){
@@ -775,13 +777,11 @@ $('#btnApprove').on('click', function(){
     var totalApprove = approveIds.length;
     var totalCancel  = cancelIds.length;
 
-    // VALIDASI
     if(totalApprove === 0 && totalCancel === 0){
         Swal.fire('Warning','Tidak ada data','warning');
         return;
     }
 
-    // KONFIRMASI
     Swal.fire({
         title: 'Konfirmasi Approve',
         html: 
@@ -798,6 +798,7 @@ $('#btnApprove').on('click', function(){
             $.ajax({
                 url: "update_transfer_memo_approve.php",
                 type: "POST",
+                dataType: "json", // 🔥 penting
                 data: {
                     no_trans: currentNoTrans,
                     approve_ids: approveIds,
@@ -835,13 +836,13 @@ $('#btnApprove').on('click', function(){
 
 });
 
-
 $('#btnCancelAll').on('click', function(){
 
     var allIds = [];
 
-    // ambil semua ID tanpa peduli checkbox
-    $('.chk-detail').each(function(){
+    var table = $('#detailTable').DataTable(); // ganti ID table
+
+    table.$('.chk-detail').each(function(){
         allIds.push($(this).val());
     });
 
@@ -852,7 +853,6 @@ $('#btnCancelAll').on('click', function(){
         return;
     }
 
-    // KONFIRMASI
     Swal.fire({
         title: 'Konfirmasi Cancel',
         html: 
@@ -870,6 +870,7 @@ $('#btnCancelAll').on('click', function(){
             $.ajax({
                 url: "update_transfer_memo_cancel.php",
                 type: "POST",
+                dataType: "json", // 🔥 penting
                 data: {
                     no_trans: currentNoTrans,
                     cancel_ids: allIds
@@ -910,6 +911,7 @@ $('#btnCancelAll').on('click', function(){
     });
 
 });
+
 
 
 function openUploadModal(id){
