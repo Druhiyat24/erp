@@ -69,6 +69,12 @@ echo "<script type='text/javascript'>
     }
   };
 </script>
+<script>
+function exportExcel() {
+  var status = document.getElementById('cri_item').value;
+  window.location.href = "export_gen_req.php?status=" + status;
+}
+</script>
 <?php 
 # COPAS ADD
 if ($mod=="1") { ?>
@@ -145,6 +151,9 @@ if ($mod=="1") { ?>
     IsiCombo($sql,'','Pilih Status');
   ?>
 </select>
+<a href="#" onclick="exportExcel()" class="btn btn-success btn-s">
+  <i class="fa fa-file-excel-o"></i> Export Excel
+</a>
   </div>
   <div class="box-body">
     <div id='detail_item'>

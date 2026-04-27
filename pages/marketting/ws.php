@@ -195,22 +195,23 @@ echo "</div>";
         <th>Created Date</th>
         <th>Status</th>
         <th>Ratio</th>
+        <th>Buyer PO</th>
         <th></th>
         <th></th>
         <th></th>
         <th></th>
-        <th></th>
+		<th></th>
       </tr>
       </thead>
       <tbody>
         <?php
         # QUERY TABLE
         $query = mysql_query("select ac.styleno,msup.supplier buyer,a.id,s.id_so,jo_no,jo_date,so_no,d.qty,
-          d.unit,fob,d.curr,fullname,ac.deldate,ac.kpno,s.cancel,tmprat.ratnya from jo a inner join jo_det s on a.id=s.id_jo 
+          d.unit,fob,d.curr,fullname,ac.deldate,ac.kpno,s.cancel,tmprat.ratnya,GROUP_CONCAT(DISTINCT d.buyerno SEPARATOR ',<br>') AS pono from jo a inner join jo_det s on a.id=s.id_jo 
           inner join so d on s.id_so=d.id inner join userpassword up on a.username=up.username
           inner join act_costing ac on d.id_cost=ac.id 
-          inner join mastersupplier msup on ac.id_buyer=msup.id_supplier 
-          left join (select id_so,group_concat(size,'=',ratio) ratnya from so_ratio group by id_so) tmprat 
+          inner join mastersupplier msup on ac.id_buyer=msup.id_supplier		  
+          left join (select id_so,group_concat(size,'=',ratio SEPARATOR ', ') ratnya from so_ratio group by id_so) tmprat 
           on tmprat.id_so=d.id
           where jo_date >= '$tgljoawal' and jo_date <= '$tgljoakhir' 
           group by jo_no order by jo_date desc"); 
@@ -242,6 +243,7 @@ echo "</div>";
           	else
           	{echo "<td></td>";}
             echo "<td>$data[ratnya]</td>";
+			echo "<td>$data[pono]</td>";
             echo "
             <td>
               <a href='pdfWS.php?id=$data[id]'

@@ -71,6 +71,8 @@
             if ($akses=="1") { echo "<li><a href='?mod=26'>Master Unit</a></li>"; }
             $akses = $rs['item_odo'];
             if ($akses=="1") { echo "<li><a href='?mod=29'>Master Item ODO</a></li>"; }
+            $akses = $rs['generate_kode'];
+            if ($akses=="1") { echo "<li><a href='?mod=30'>Master Item All</a></li>"; }
             ?>
           </ul>
         </li>

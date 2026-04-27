@@ -37,9 +37,9 @@ $searchQuery = " AND (
 	OR X.kode_length       	  	   LIKE'%".$searchValue."%'
 	OR X.nama_length               LIKE'%".$searchValue."%'
 	)
-	ORDER BY id DESC
 	";
 }
+
 
 ## Total number of records without filtering
 $sel = mysqli_query($conn_li,"select count(*) allcount from $table");
@@ -115,9 +115,9 @@ $button = '';
 ## Response
 $response = array(
   "draw" => intval($draw),
-  "iTotalRecords" => $totalRecordwithFilter,
-  "iTotalDisplayRecords" => $totalRecords,
-  "aaData" => $data
+  "recordsTotal" => intval($totalRecords),
+  "recordsFiltered" => intval($totalRecordwithFilter),
+  "data" => $data
 );
 echo json_encode($response);
 ?>

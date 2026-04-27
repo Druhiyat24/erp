@@ -244,7 +244,7 @@ if ($id_req == "") {
         }
       }
       var res = crinya.split("|");
-      var rescri = res[0] + "|" + res[1] + "|" + res[4];
+      var rescri = res[0] + "|" + res[1];
       for (var i = 0; i < qtydet.length; i++) {
         if (qtydetori[i].value == rescri) {
           qtydet[i].value = crirollnya;

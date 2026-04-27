@@ -121,9 +121,9 @@ $button = '';
 ## Response
 $response = array(
   "draw" => intval($draw),
-  "iTotalRecords" => $totalRecordwithFilter,
-  "iTotalDisplayRecords" => $totalRecords,
-  "aaData" => $data
+  "recordsTotal" => intval($totalRecords),
+  "recordsFiltered" => intval($totalRecordwithFilter),
+  "data" => $data
 );
 echo json_encode($response);
 ?>
