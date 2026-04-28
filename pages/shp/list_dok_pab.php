@@ -370,7 +370,8 @@ if($mod=="2U") {
             { $tbl="bppb"; $fld="bppbno"; $fld2="bppbdate"; $jtrx="Status KB Out"; } 
           else 
             { $tbl="bpb"; $fld="bpbno"; $fld2="bpbdate"; $jtrx="Status KB In"; }
-          $sql="select *,$fld2 trx_date,supplier,sum(qty) totqty,sum(qty*price) totval from $tbl a inner join mastersupplier s on a.id_supplier=s.id_supplier 
+          $sql="select *,$fld2 trx_date,supplier,sum(IFNULL(NULLIF(TRIM(a.qty_bc), ''), a.qty)) totqty,sum((IFNULL(NULLIF(TRIM(a.qty_bc), ''), a.qty)) * (IFNULL(NULLIF(TRIM(a.price_bc), ''), a.price))) totval, (sum((IFNULL(NULLIF(TRIM(a.qty_bc), ''), a.qty)) * (IFNULL(NULLIF(TRIM(a.price_bc), ''), a.price))) * COALESCE(cr.rate,1)) totval_idr from $tbl a inner join mastersupplier s on a.id_supplier=s.id_supplier
+            left join (select tanggal, curr, rate from ap_masterrate where v_codecurr = 'PAJAK' GROUP BY tanggal, curr ) cr on cr.tanggal = a.bcdate and cr.curr = IFNULL(NULLIF(TRIM(a.curr_bc), ''), a.curr) 
           where $fld='$trx_no' group by $fld";
           // echo $sql;
           $rs=mysql_fetch_array(mysql_query($sql));
@@ -386,6 +387,7 @@ if($mod=="2U") {
           $rate_bc_h=$rs['rate_bc'];
           $totqty=fn($rs['totqty'],3);
           $totval=fn($rs['totval'],3);
+          $totval_idr=fn($rs['totval_idr'],3);
           $tanggal_fp=fd_view($rs['tgl_fp']);
           $sqlbm="select * from detail_bm where jenis_dok='$jenis_dok' and bcno='$nomor_daftar'
           and bcdate='".fd($tanggal_daftar)."'";
@@ -418,6 +420,15 @@ if($mod=="2U") {
                     <div class='form-group'>
                       <label>Total Value</label>
                       <input type='text' readonly class='form-control' name='txttotval' value='<?php echo $totval;?>' >
+                    </div>
+                  </div>
+                </div>
+
+                <div class='row'>
+                  <div class='col-md-12'>        
+                    <div class='form-group'>
+                      <label>Total Equivalent IDR</label>
+                      <input type='text' readonly class='form-control' name='txttotval_idr' value='<?php echo $totval_idr;?>' >
                     </div>
                   </div>
                 </div>
