@@ -38,22 +38,45 @@ $logo_company = $rscomp["logo_company"];
     }
 
 ?>
-<!--   <script type='text/javascript'>
-    function getdetail() {
-      var tipe_inv = document.form.tipe_inv.value;
-      var html = $.ajax({
-        type: "POST",
-        url: 'ajax_lap_data.php?modeajax=view_list_tipe',
-        data: {
-          tipe_data: tipe_data,
-        },
-        async: false
-      }).responseText;
-      if (html) {
-        $("#cbotipe").html(html);
-      }
-    };
-  </script> -->
+
+<style type="text/css">
+  #examplefix {
+    font-size: 12px;
+}
+
+#examplefix th {
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+#examplefix td {
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.dataTables_wrapper .dataTables_scrollBody {
+    border-bottom: 1px solid #dee2e6;
+}
+
+#examplefix td:nth-child(21) {
+    white-space: normal !important;
+    width: 400px !important;
+    min-width: 300px;
+    word-break: normal;
+}
+
+
+#examplefix td:nth-child(6) {
+    white-space: normal !important;
+    width: 600px !important;
+    min-width: 400px;
+    word-break: normal;
+}
+
+
+</style>
+
 
 
   <div class='box'>
@@ -203,6 +226,20 @@ $logo_company = $rscomp["logo_company"];
             <th>Tanggal Bank Out</th>
             <th>No DN</th>
             <th>Tanggal DN</th>
+            <th>Status Transfer</th>
+            <th>User TETM</th>
+            <th>Tanggal TETM</th>
+            <th>User Approve TETM</th>
+            <th>Tanggal Approve TETM</th>
+            <th>User TMTE</th>
+            <th>Tanggal TMTE</th>
+            <th>User Approve TMTE</th>
+            <th>Tanggal Approve TMTE</th>
+            <th>User TETF</th>
+            <th>Tanggal TETF</th>
+            <th>User Approve TETF</th>
+            <th>Tanggal Approve TETF</th>
+
           </tr>
         </thead>
         <tbody>
@@ -227,16 +264,6 @@ $logo_company = $rscomp["logo_company"];
             $where = "where a.jns_inv = '$tipe_inv' and a.id_supplier = '$nama_supp' and a.id_buyer = '$nama_buyer' and a.tgl_memo >= '$from' and a.tgl_memo <= '$to'";  
           }
           
-//           $query = mysql_query("select * from (select id_h,id_supplier,id_buyer,nm_memo,tgl_memo,jns_inv,no_invoice, inv_buyer, kepada, jns_trans,jns_pengiriman,ditagihkan,curr,jatuh_tempo,dok_pendukung,supplier,buyer,nm_ctg,nm_sub_ctg,biaya, cancel,notes, status,user, date_input,approved_by,approved_date from (select * from (select a.id_h,a.nm_memo,a.tgl_memo,a.jns_inv,IF(mdet.inv_vendor is null,'-',mdet.inv_vendor) inv_buyer,a.kepada,a.jns_trans,a.jns_pengiriman,IF(a.ditagihkan != 'Y','TIDAK','YA') ditagihkan,a.curr,a.jatuh_tempo, a.dok_pendukung, ms.supplier supplier, mb.supplier buyer,mdet.nm_ctg,mdet.nm_sub_ctg,format(round(sum(mdet.biaya),2),2) biaya,mdet.cancel, IF(a.notes is null,'-',a.notes) notes,a.status,a.user,a.date_input,a.id_supplier,a.id_buyer,a.approved_by,a.approved_date from memo_h a
-//           inner join mastersupplier ms on a.id_supplier = ms.id_supplier
-//           inner join mastersupplier mb on a.id_buyer = mb.id_supplier
-//           inner join memo_det mdet on mdet.id_h = a.id_h
-//           where mdet.cancel != 'Y' GROUP BY mdet.id order by mdet.id_h asc) a left join      
-// (select a.id_h idh, GROUP_CONCAT(b.no_invoice) no_invoice from memo_h a inner join memo_inv b on b.id_h = a.id_h GROUP BY a.id_h) b on b.idh = a.id_h) a) a left join 
-// (select * from (select nm_memo nomemo from memo_h) nm left join (select nm_memo memo1, no_dn,tgl_dn,no_alk,tgl_alk from (select * from (select b.nm_memo, a.no_dn,a.tgl_dn from tbl_debitnote_h a INNER JOIN tbl_debitnote_det b on b.no_dn = a.no_dn where b.nm_memo like '%MEMO%' and a.status != 'CANCEL' GROUP BY b.nm_memo) a left JOIN
-// (select b.no_ref,a.no_alk,a.tgl_alk from tbl_alokasi a INNER JOIN tbl_alokasi_detail b on b.no_alk = a.no_alk where b.no_ref like '%DN%' and a.status != 'CANCEL' GROUP BY b.no_ref) b on b.no_ref = a.no_dn) a) a on a.memo1 = nm.nomemo LEFT JOIN
-// (select reff_doc memo2, no_pv,pv_date,no_bankout,bankout_date from (select * from (select b.reff_doc,a.no_pv,a.pv_date from tbl_pv_h a INNER JOIN tbl_pv b on b.no_pv =  a.no_pv where b.reff_doc like '%MEMO/%' and a.status != 'CANCEL' GROUP BY b.reff_doc) a LEFT JOIN
-// (select a.no_bankout,a.bankout_date,b.no_reff from b_bankout_h a INNER JOIN b_bankout_det b on b.no_bankout = a.no_bankout where b.no_reff like '%PV/%' and a.status != 'CANCEL') b on b.no_reff = a.no_pv) a) b on b.memo2 = nm.nomemo) b on b.nomemo = a.nm_memo $where");
 
 
           $query = mysql_query("select * from ((select * from (select id_det,id_h,id_supplier,id_buyer,nm_memo,tgl_memo,jns_inv,no_invoice, inv_buyer, kepada, jns_trans,jns_pengiriman,ditagihkan,curr,jatuh_tempo,dok_pendukung,supplier,buyer,nm_ctg,nm_sub_ctg,biaya, cancel,notes, status,user, date_input,approved_by,approved_date,nama_pc from (select * from (select mdet.id id_det,a.id_h,a.nm_memo,a.tgl_memo,a.jns_inv,IF(mdet.inv_vendor is null,'-',mdet.inv_vendor) inv_buyer,a.kepada,a.jns_trans,a.jns_pengiriman,IF(a.ditagihkan != 'Y','TIDAK','YA') ditagihkan,a.curr,a.jatuh_tempo, a.dok_pendukung, ms.supplier supplier, mb.supplier buyer,mdet.nm_ctg,mdet.nm_sub_ctg,format(round(sum(mdet.biaya),2),2) biaya,mdet.cancel, IF(a.no_aju is null,'-',a.no_aju) no_aju, IF(a.notes is null,'-',a.notes) notes,a.status,a.user,a.date_input,a.id_supplier,a.id_buyer,a.approved_by,a.approved_date,mp.nama_pc from memo_h a
@@ -245,7 +272,7 @@ $logo_company = $rscomp["logo_company"];
           inner join memo_det mdet on mdet.id_h = a.id_h
           left join master_pc mp on mp.kode_pc = a.profit_center
           where mdet.cancel != 'Y' GROUP BY mdet.id order by mdet.id_h asc) a left join      
-(select a.id_h idh, GROUP_CONCAT(b.no_invoice) no_invoice from memo_h a inner join memo_inv b on b.id_h = a.id_h GROUP BY a.id_h) b on b.idh = a.id_h) a) a inner join 
+(select a.id_h idh, GROUP_CONCAT(b.no_invoice SEPARATOR ', ') no_invoice from memo_h a inner join memo_inv b on b.id_h = a.id_h GROUP BY a.id_h) b on b.idh = a.id_h) a) a inner join 
 (select nm_memo nomemo, nm_memo memo1, no_dn,tgl_dn,'' no_alk, '' tgl_alk,nm_memo memo2, no_pv,tgl_pv pv_date, no_bankout, tgl_bankout bankout_date from dd_update_memo) b on b.nomemo = a.nm_memo) 
 UNION 
 (select * from (select id_det,id_h,id_supplier,id_buyer,nm_memo,tgl_memo,jns_inv,no_invoice, inv_buyer, kepada, jns_trans,jns_pengiriman,ditagihkan,curr,jatuh_tempo,dok_pendukung,supplier,buyer,nm_ctg,nm_sub_ctg,biaya, cancel,notes, status,user, date_input,approved_by,approved_date,nama_pc from (select * from (select mdet.id id_det,a.id_h,a.nm_memo,a.tgl_memo,a.jns_inv,IF(mdet.inv_vendor is null,'-',mdet.inv_vendor) inv_buyer,a.kepada,a.jns_trans,a.jns_pengiriman,IF(a.ditagihkan != 'Y','TIDAK','YA') ditagihkan,a.curr,a.jatuh_tempo, a.dok_pendukung, ms.supplier supplier, mb.supplier buyer,mdet.nm_ctg,mdet.nm_sub_ctg,format(round(sum(mdet.biaya),2),2) biaya,mdet.cancel, IF(a.no_aju is null,'-',a.no_aju) no_aju, IF(a.notes is null,'-',a.notes) notes,a.status,a.user,a.date_input,a.id_supplier,a.id_buyer,a.approved_by,a.approved_date,mp.nama_pc from memo_h a
@@ -254,11 +281,11 @@ UNION
           inner join memo_det mdet on mdet.id_h = a.id_h
           left join master_pc mp on mp.kode_pc = a.profit_center
           where mdet.cancel != 'Y' GROUP BY mdet.id order by mdet.id_h asc) a left join      
-(select a.id_h idh, GROUP_CONCAT(b.no_invoice) no_invoice from memo_h a inner join memo_inv b on b.id_h = a.id_h GROUP BY a.id_h) b on b.idh = a.id_h) a) a left join 
+(select a.id_h idh, GROUP_CONCAT(b.no_invoice SEPARATOR ', ') no_invoice from memo_h a inner join memo_inv b on b.id_h = a.id_h GROUP BY a.id_h) b on b.idh = a.id_h) a) a left join 
 (select * from (select nm_memo nomemo from memo_h) nm left join (select nm_memo memo1, no_dn,tgl_dn,no_alk,tgl_alk from (select * from (select b.nm_memo, a.no_dn,a.tgl_dn from tbl_debitnote_h a INNER JOIN tbl_debitnote_det b on b.no_dn = a.no_dn where b.nm_memo like '%MEMO%' and a.status != 'CANCEL' GROUP BY b.nm_memo) a left JOIN
 (select b.no_ref,a.no_alk,a.tgl_alk from tbl_alokasi a INNER JOIN tbl_alokasi_detail b on b.no_alk = a.no_alk where b.no_ref like '%DN%' and a.status != 'CANCEL' GROUP BY b.no_ref) b on b.no_ref = a.no_dn) a) a on a.memo1 = nm.nomemo LEFT JOIN
 (select reff_doc memo2, no_pv,pv_date,no_bankout,bankout_date from (select * from (select b.reff_doc,a.no_pv,a.pv_date from tbl_pv_h a INNER JOIN tbl_pv b on b.no_pv =  a.no_pv where b.reff_doc like '%MEMO/%' and a.status != 'CANCEL' GROUP BY b.reff_doc) a LEFT JOIN
-(select a.no_bankout,a.bankout_date,b.no_reff from b_bankout_h a INNER JOIN b_bankout_det b on b.no_bankout = a.no_bankout where b.no_reff like '%PV/%' and a.status != 'CANCEL') b on b.no_reff = a.no_pv) a) b on b.memo2 = nm.nomemo) b on b.nomemo = a.nm_memo where a.nm_memo >= 'MEMO/NAG/2310/01039')) a $where");
+(select a.no_bankout,a.bankout_date,b.no_reff from b_bankout_h a INNER JOIN b_bankout_det b on b.no_bankout = a.no_bankout where b.no_reff like '%PV/%' and a.status != 'CANCEL') b on b.no_reff = a.no_pv) a) b on b.memo2 = nm.nomemo) b on b.nomemo = a.nm_memo where a.nm_memo >= 'MEMO/NAG/2310/01039')) a left join (select nm_memo no_memo, status_transfer, COALESCE(tetm_by,'-') tetm_by, tetm_date, COALESCE(app_tetm_by,'-') app_tetm_by, app_tetm_date, COALESCE(tmte_by,'-') tmte_by, tmte_date, COALESCE(app_tmte_by,'-') app_tmte_by, app_tmte_date, COALESCE(tetf_by,'-') tetf_by, tetf_date, COALESCE(app_tetf_by,'-') app_tetf_by, app_tetf_date from memo_h) b on b.no_memo = a.nm_memo $where");
           
 
           $no = 1;
@@ -290,6 +317,44 @@ UNION
             }else{
               $tgl_dn = date('d M Y', strtotime($data[tgl_dn]));
             }
+
+            $tetmdate = $data[tetm_date];
+            if ($tetmdate == null || $tetmdate == '' ) {
+              $tetm_date = '-';
+            }else{
+              $tetm_date = date('d M Y', strtotime($data[tetm_date]));
+            }
+            $apptetm_date = $data[app_tetm_date];
+            if ($apptetm_date == null || $apptetm_date == '' ) {
+              $app_tetm_date = '-';
+            }else{
+              $app_tetm_date = date('d M Y', strtotime($data[app_tetm_date]));
+            }
+            $tmtedate = $data[tmte_date];
+            if ($tmtedate == null || $tmtedate == '' ) {
+              $tmte_date = '-';
+            }else{
+              $tmte_date = date('d M Y', strtotime($data[tmte_date]));
+            }
+            $apptmte_date = $data[app_tmte_date];
+            if ($apptmte_date == null || $apptmte_date == '' ) {
+              $app_tmte_date = '-';
+            }else{
+              $app_tmte_date = date('d M Y', strtotime($data[app_tmte_date]));
+            }
+            $tetfdate = $data[tetf_date];
+            if ($tetfdate == null || $tetfdate == '' ) {
+              $tetf_date = '-';
+            }else{
+              $tetf_date = date('d M Y', strtotime($data[tetf_date]));
+            }
+            $apptetf_date = $data[app_tetf_date];
+            if ($apptetf_date == null || $apptetf_date == '' ) {
+              $app_tetf_date = '-';
+            }else{
+              $app_tetf_date = date('d M Y', strtotime($data[app_tetf_date]));
+            }
+
             echo "<tr>";
             echo "<td>$no</td>";
             echo "<td>$data[nm_memo]</td>";
@@ -323,6 +388,19 @@ UNION
             echo "<td>$bankout_date</td>";
             echo "<td>$data[no_dn]</td>";
             echo "<td>$tgl_dn</td>";
+            echo "<td>$data[status_transfer]</td>";
+            echo "<td>$data[tetm_by]</td>";
+            echo "<td>$tetm_date</td>";
+            echo "<td>$data[app_tetm_by]</td>";
+            echo "<td>$app_tetm_date</td>";
+            echo "<td>$data[tmte_by]</td>";
+            echo "<td>$tmte_date</td>";
+            echo "<td>$data[app_tmte_by]</td>";
+            echo "<td>$app_tmte_date</td>";
+            echo "<td>$data[tetf_by]</td>";
+            echo "<td>$tetf_date</td>";
+            echo "<td>$data[app_tetf_by]</td>";
+            echo "<td>$app_tetf_date</td>";
             echo "</tr>";
             $no++; // menambah nilai nomor urut
           }
@@ -333,4 +411,6 @@ UNION
   </div>
   </form>
   </div>
-  </div><?php }
+  </div>
+
+<?php }
