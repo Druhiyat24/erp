@@ -516,7 +516,7 @@ if ($mod == "memo_list") {
   $row_cari = mysql_fetch_array($sql_clear_tmp);
 
   $sql_cek_data  = mysql_query("select * from memo_h a 
-    inner join (SELECT id_h,GROUP_CONCAT(DISTINCT(inv_vendor) SEPARATOR ' , ') inv_vendor FROM memo_det where id_h = '$id_h') b on a.id_h = b.id_h
+    left join (SELECT id_h,GROUP_CONCAT(DISTINCT(inv_vendor) SEPARATOR ' , ') inv_vendor FROM memo_det where id_h = '$id_h') b on a.id_h = b.id_h
     where a.id_h = '$id_h'");
   $datamemo = mysql_fetch_array($sql_cek_data);
   $nm_memo = $datamemo['nm_memo'];
