@@ -4080,3 +4080,12 @@
 [15-Apr-2026 03:07:33 Europe/Berlin] PHP Notice:  Undefined index: accountid in C:\xampp\htdocs\erp\pages\fin\module\cash\cashreport.php on line 23
 [15-Apr-2026 03:07:33 Europe/Berlin] PHP Notice:  Undefined index: accountid in C:\xampp\htdocs\erp\pages\fin\module\cash\cashreport.php on line 23
 [15-Apr-2026 03:07:33 Europe/Berlin] PHP Notice:  Undefined index: accountid in C:\xampp\htdocs\erp\pages\fin\module\cash\cashreport.php on line 23
+[05-May-2026 04:43:44 Europe/Berlin] PHP Notice:  Undefined index: nama_supp in C:\xampp\htdocs\erp\pages\fin\module\cash\petty-cashout.php on line 23
+[05-May-2026 04:43:44 Europe/Berlin] PHP Notice:  Undefined index: nama_supp in C:\xampp\htdocs\erp\pages\fin\module\cash\petty-cashout.php on line 23
+[05-May-2026 04:43:44 Europe/Berlin] PHP Notice:  Undefined index: nama_supp in C:\xampp\htdocs\erp\pages\fin\module\cash\petty-cashout.php on line 23
+[05-May-2026 04:44:09 Europe/Berlin] PHP Notice:  Undefined index: nama_supp in C:\xampp\htdocs\erp\pages\fin\module\cash\cash-out.php on line 35
+[05-May-2026 04:44:09 Europe/Berlin] PHP Notice:  Undefined index: nama_supp in C:\xampp\htdocs\erp\pages\fin\module\cash\cash-out.php on line 35
+[05-May-2026 04:44:09 Europe/Berlin] PHP Notice:  Undefined index: nama_supp in C:\xampp\htdocs\erp\pages\fin\module\cash\cash-out.php on line 35
+[05-May-2026 04:44:26 Europe/Berlin] PHP Notice:  Undefined index: nama_supp in C:\xampp\htdocs\erp\pages\fin\module\cash\petty-cashout.php on line 23
+[05-May-2026 04:44:26 Europe/Berlin] PHP Notice:  Undefined index: nama_supp in C:\xampp\htdocs\erp\pages\fin\module\cash\petty-cashout.php on line 23
+[05-May-2026 04:44:26 Europe/Berlin] PHP Notice:  Undefined index: nama_supp in C:\xampp\htdocs\erp\pages\fin\module\cash\petty-cashout.php on line 23
