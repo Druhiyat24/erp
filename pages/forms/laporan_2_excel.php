@@ -46,7 +46,7 @@ if ($mode=="In" OR $mode=="Detail_In")
   else if ($tipe=="Sample")
   { $fldnyacri=" bpbno_int like 'SMP%' and bpbdate "; $mod2=52; }
   else if ($tipe=="Barang Dalam Proses")
-  { $fldnyacri=" left(bpbno,1)='C' and bpbdate "; $mod2=54; }
+  { $fldnyacri=" (left(bpbno,1)='C' OR OR bpbno like 'SPCK%') and bpbdate "; $mod2=54; }
   else if ($tipe=="Item General")
   { $fldnyacri=" left(bpbno,1)='N' and bpbdate "; $mod2=54; }
   else 
@@ -67,7 +67,7 @@ else if ($mode=="Out" OR $mode=="Detail_Out")
   else if ($tipe=="Sample")
   { $fldnyacri=" bppbno like 'SMP%' and bppbdate "; $mod2=62; }
   else if ($tipe=="Barang Dalam Proses")
-  { $fldnyacri=" mid(bppbno,4,1)='C' and bppbdate "; $mod2=64; }
+  { $fldnyacri=" (mid(bppbno,4,1)='C' OR bppbno like 'SPCK%') and bppbdate "; $mod2=64; }
   else if ($tipe=="Item General")
   { $fldnyacri=" mid(bppbno,4,1)='N' and bppbdate "; $mod2=64; }
   else 

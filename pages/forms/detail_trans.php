@@ -208,8 +208,8 @@ $whereout=" mid(bppbno,4,1) in ('M') ";
 }
 else if ($tipenya=="Barang Dalam Proses")
 	{ $tbl="masteritem"; $fld="itemdesc"; 
-$where=" left(bpbno,1) in ('C') ";
-$whereout=" mid(bppbno,4,1) in ('C') "; 
+$where=" (left(bpbno,1) in ('C') OR bpbno_int like 'SPCK%') ";
+$whereout=" (mid(bppbno,4,1) in ('C') OR bppbno_int like 'SPCK%') "; 
 }
 else if ($tipenya=="Scrap")
 	{ $tbl="masteritem"; $fld="itemdesc"; 
