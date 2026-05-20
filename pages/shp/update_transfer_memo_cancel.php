@@ -11,6 +11,8 @@ $cancelIds = isset($_POST['cancel_ids']) ? $_POST['cancel_ids'] : array();
 $user      = isset($_SESSION['username']) ? $_SESSION['username'] : 'system';
 $now       = date("Y-m-d H:i:s");
 
+$status_cancel = (strpos($no_trans, 'TFTE') !== false) ? 'A-TETF' : 'A-TETM';
+
 if(empty($no_trans)){
     echo json_encode(array(
         'status' => 'error',
@@ -64,7 +66,7 @@ try {
             $updateMemo = "
                 UPDATE memo_h 
                 SET 
-                    status_transfer = 'A-TETM',
+                    status_transfer = '$status_cancel',
                     tetm_by = NULL,
                     tetm_date = NULL
                 WHERE id_h IN ($idList)

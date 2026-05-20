@@ -11,6 +11,8 @@ $cancelIds  = isset($_POST['cancel_ids']) ? $_POST['cancel_ids'] : array();
 $user = isset($_SESSION['username']) ? $_SESSION['username'] : 'SYSTEM';
 $now  = date("Y-m-d H:i:s");
 
+$status_approve = (strpos($no_trans, 'TFTE') !== false) ? 'A-TFTE' : 'A-TMTE';
+
 mysqli_autocommit($conn_li, FALSE);
 
 try {
@@ -27,8 +29,8 @@ try {
 
         $queryApprove = "
             UPDATE memo_h
-            SET 
-                status_transfer = 'A-TMTE',
+            SET
+                status_transfer = '$status_approve',
                 app_tmte_by = '$user',
                 app_tmte_date = '$now'
             WHERE id_h IN ($ids_str)
