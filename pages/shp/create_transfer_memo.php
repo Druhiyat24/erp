@@ -216,13 +216,13 @@ $logo_company = $rscomp["logo_company"];
                   if ($transfer_to == 'MARKETING') {
                     $query = mysql_query("select a.*, ms.supplier supplier, mb.supplier buyer from memo_h a
                     inner join mastersupplier ms on a.id_supplier = ms.id_supplier
-                    inner join mastersupplier mb on a.id_buyer = mb.id_supplier where tgl_memo between '$tglf' and '$tglt' and a.status != 'CANCEL' and a.status_transfer = 'PENDING' $addwhere order by id_h desc");
+                    inner join mastersupplier mb on a.id_buyer = mb.id_supplier where tgl_memo between '$tglf' and '$tglt' and a.status != 'CANCEL' and (a.status_transfer = 'PENDING' OR a.status_transfer = 'A-TFTE') $addwhere order by id_h desc");
                   }else{
                     $query = mysql_query("select a.*, ms.supplier supplier, mb.supplier buyer from memo_h a
                     inner join mastersupplier ms on a.id_supplier = ms.id_supplier
                     inner join mastersupplier mb on a.id_buyer = mb.id_supplier
                     INNER JOIN (select id_h, status from memo_file where status != 'CANCEL' GROUP BY id_h) fu on fu.id_h = a.id_h
-                    where tgl_memo between '$tglf' and '$tglt' and a.status != 'CANCEL' and (a.status_transfer = 'PENDING' OR a.status_transfer = 'A-TMTE') $addwhere order by id_h desc");
+                    where tgl_memo between '$tglf' and '$tglt' and a.status != 'CANCEL' and (a.status_transfer = 'PENDING' OR a.status_transfer = 'A-TMTE' OR a.status_transfer = 'A-TFTE') $addwhere order by id_h desc");
                   }
 
 
