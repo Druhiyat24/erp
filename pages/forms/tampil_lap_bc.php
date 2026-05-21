@@ -102,7 +102,7 @@ insert_log($sql, $user);
 						<th rowspan='2'>JUMLAH</th>
 						
                         ";
-                        if ($rpt == "bc30" ) {
+                        if ($rpt == "bc30" or $rpt == "bc33") {
                             echo "<th colspan='3'>NILAI BARANG</th>";                    
                         }else{
                             echo "<th colspan='2'>NILAI BARANG</th>"; 
@@ -110,7 +110,7 @@ insert_log($sql, $user);
                     echo "
 						<th rowspan='2'>RATE</th>
                         ";
-                        if ($rpt == "bc30" ) {
+                        if ($rpt == "bc30" or $rpt == "bc33") {
                             echo "<th colspan='2'>NILAI BARANG IDR</th>";                    
                         }else{
                             echo "<th rowspan='2'>NILAI BARANG IDR</th>"; 
@@ -124,13 +124,13 @@ insert_log($sql, $user);
 						<th>TANGGAL</th>	
 						<th>CURR</th>
                         ";
-                        if ($rpt == "bc30" ) {
+                        if ($rpt == "bc30" or $rpt == "bc33") {
                             echo "<th>FOB</th>";                    
                         }else{
                             echo "<th>NILAI</th>"; 
                         }
 
-                        if ($rpt == "bc30" ) {
+                        if ($rpt == "bc30" or $rpt == "bc33") {
                         echo "<th>CMT</th>";
                         echo "<th>FOB</th>";
                         echo "<th>CMT</th>";					
@@ -170,7 +170,7 @@ insert_log($sql, $user);
         ajaxUrl = ""; // fallback kalau tidak cocok
     <?php endif; ?>
 $(document).ready(function() {
-     <?php if ($rpt == 'bc30'): ?>
+     <?php if ($rpt == 'bc30' or $rpt == "bc33"): ?>
     $('#data_bc30').DataTable({
         "processing": true,
         "serverSide": true,
