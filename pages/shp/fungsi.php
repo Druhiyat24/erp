@@ -903,8 +903,19 @@ function unfn($angka)
 	return $format_angka;
 };
 
+function _upload_std_cleanup_once()
+{	static $done = false;
+	if ($done) return;
+	$done = true;
+	$col = mysql_query("SHOW COLUMNS FROM upload_standard LIKE 'created_at'");
+	if ($col && mysql_num_rows($col) > 0) {
+		mysql_query("DELETE FROM upload_standard WHERE created_at < DATE_SUB(NOW(), INTERVAL 24 HOUR)");
+	}
+}
+
 function insert_temp_perdok($query,$usernya,$sesinya,$deldulu)
-{	if ($deldulu=="Y") { mysql_query("delete from upload_standard where username='$usernya' and sesi='$sesinya'"); }
+{	_upload_std_cleanup_once();
+	if ($deldulu=="Y") { mysql_query("delete from upload_standard where username='$usernya' and sesi='$sesinya'"); }
 	$sqlnya = mysql_query($query);
 	if (!$sqlnya) { die($query. mysql_error()); }
 	while($data = mysql_fetch_array($sqlnya))
@@ -931,7 +942,8 @@ function insert_temp_perdok($query,$usernya,$sesinya,$deldulu)
 };
 
 function insert_temp_perdok_new($query,$usernya,$sesinya,$deldulu)
-{	if ($deldulu=="Y") { mysql_query("delete from upload_standard where username='$usernya' and sesi='$sesinya'"); }
+{	_upload_std_cleanup_once();
+	if ($deldulu=="Y") { mysql_query("delete from upload_standard where username='$usernya' and sesi='$sesinya'"); }
 	$sqlnya = mysql_query($query);
 	if (!$sqlnya) { die($query. mysql_error()); }
 	while($data = mysql_fetch_array($sqlnya))
@@ -958,7 +970,8 @@ function insert_temp_perdok_new($query,$usernya,$sesinya,$deldulu)
 };
 
 function insert_temp_perdok_rekap($query,$usernya,$sesinya,$deldulu)
-{	if ($deldulu=="Y") { mysql_query("delete from upload_standard where username='$usernya' and sesi='$sesinya'"); }
+{	_upload_std_cleanup_once();
+	if ($deldulu=="Y") { mysql_query("delete from upload_standard where username='$usernya' and sesi='$sesinya'"); }
 	$sqlnya = mysql_query($query);
 	while($data = mysql_fetch_array($sqlnya))
 	{	$jenis_dok = $data['jenis_dokumen'];

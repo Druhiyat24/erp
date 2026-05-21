@@ -2637,3 +2637,4 @@
 [29-Apr-2026 06:01:30 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
 [04-May-2026 03:03:41 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
 [04-May-2026 04:28:41 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
+[19-May-2026 08:34:48 Europe/Berlin] PHP Parse error:  syntax error, unexpected '?' in D:\xampp\htdocs\signalbit_erp\cleanup_upload_standard.php on line 12
