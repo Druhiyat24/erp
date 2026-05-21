@@ -19,8 +19,10 @@ $columns = array(
     10 => 'qty',
     11 => 'curr',
     12 => 'nilai_barang',
-    13 => 'rate',
-    14 => 'nilai_barang_idr'
+    13 => 'nilai_cmt',
+    14 => 'rate',
+    15 => 'nilai_barang_idr',
+    16 => 'nilai_cmt_idr'
 );
 
 $start = intval($_POST['start']);
@@ -66,7 +68,7 @@ if (!empty($searchValue)) {
 
 // QUERY UTAMA
 $sql_union = "
-SELECT x.*, COALESCE(mr.rate,1) rate, (nilai_barang * COALESCE(mr.rate,1)) nilai_barang_idr FROM (
+SELECT x.*, COALESCE(mr.rate,1) rate, (nilai_barang * COALESCE(mr.rate,1)) nilai_barang_idr, (nilai_cmt * COALESCE(mr.rate,1)) nilai_cmt_idr FROM (
     SELECT 'BC 3.0' jenis_dokumen,
         LPAD(a.bcno,6,'0') bcno,
         a.bcdate,
@@ -80,6 +82,7 @@ SELECT x.*, COALESCE(mr.rate,1) rate, (nilai_barang * COALESCE(mr.rate,1)) nilai
         ROUND(a.qty * IFNULL(a.price_bc, a.price), 2) nilai_barang,
         a.curr,
         IF(a.price_bc IS NULL OR a.price_bc = 0 OR a.price_bc = '', a.price, a.price_bc) price,
+        ROUND(a.qty*a.price,2) nilai_cmt,
         s.id_item,
         'BARANG JADI' matclass
     FROM bppb a
@@ -97,6 +100,7 @@ SELECT x.*, COALESCE(mr.rate,1) rate, (nilai_barang * COALESCE(mr.rate,1)) nilai
         ROUND(a.qty * IFNULL(a.price_bc, a.price), 2),
         a.curr,
         IF(a.price_bc IS NULL OR a.price_bc = 0 OR a.price_bc = '', a.price, a.price_bc),
+        ROUND(a.qty*a.price,2) nilai_cmt,
         s.id_item, 'FABRIC'
     FROM bppb a
     INNER JOIN masteritem s ON a.id_item = s.id_item
@@ -117,6 +121,7 @@ SELECT x.*, COALESCE(mr.rate,1) rate, (nilai_barang * COALESCE(mr.rate,1)) nilai
         ROUND(a.qty * IFNULL(a.price_bc, a.price), 2),
         a.curr,
         IF(a.price_bc IS NULL OR a.price_bc = 0 OR a.price_bc = '', a.price, a.price_bc),
+        ROUND(a.qty*a.price,2) nilai_cmt,
         s.id_item, s.matclass
     FROM bppb a
     INNER JOIN masteritem s ON a.id_item = s.id_item
@@ -165,8 +170,10 @@ while ($row = mysql_fetch_assoc($query)) {
         "qty" => number_format($row['qty'], 2),
         "curr" => $row['curr'],
         "nilai_barang" => number_format($row['nilai_barang'], 2),
+        "nilai_cmt" => number_format($row['nilai_cmt'], 2),
         "rate" => number_format($row['rate'], 2),
-        "nilai_barang_idr" => number_format($row['nilai_barang_idr'], 2)
+        "nilai_barang_idr" => number_format($row['nilai_barang_idr'], 2),
+        "nilai_cmt_idr" => number_format($row['nilai_cmt_idr'], 2)
     );
 }
 

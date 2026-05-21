@@ -49,9 +49,9 @@ echo "<thead>
 						<th rowspan='2'>NAMA BARANG</th>
 						<th rowspan='2'>SAT</th>
 						<th rowspan='2'>JUMLAH</th>
-						<th colspan='2'>NILAI BARANG</th>
+						<th colspan='3'>NILAI BARANG</th>
                         <th rowspan='2'>RATE</th>
-                        <th rowspan='2'>NILAI BARANG IDR</th>
+                        <th colspan='2'>NILAI BARANG IDR</th>
 					</tr>
 					<tr>
 						<th>NOMOR</th>
@@ -59,13 +59,16 @@ echo "<thead>
 						<th>NOMOR</th>
 						<th>TANGGAL</th>	
 						<th>CURR</th>
-						<th>NILAI</th>					
+						<th>FOB</th>	
+                        <th>CMT</th> 
+                        <th>FOB</th>    
+                        <th>CMT</th>  				
 					</tr>
 </thead><tbody>";
 
 // Gabungan SQL 3 UNION
 $sql = "
-SELECT a.*, COALESCE(mr.rate,1) rate, (nilai_barang * COALESCE(mr.rate,1)) nilai_barang_idr FROM (
+SELECT a.*, COALESCE(mr.rate,1) rate, (nilai_barang * COALESCE(mr.rate,1)) nilai_barang_idr, (nilai_cmt * COALESCE(mr.rate,1)) nilai_cmt_idr FROM (
     SELECT 'BC 3.0' jenis_dokumen, LPAD(a.bcno,6,'0') bcno, a.bcdate,
     IF(a.bppbno_int!='',a.bppbno_int,a.bppbno) trans_no,
     a.bppbno, a.bppbdate trans_date, d.supplier,
@@ -73,6 +76,7 @@ SELECT a.*, COALESCE(mr.rate,1) rate, (nilai_barang * COALESCE(mr.rate,1)) nilai
     s.itemname itemdesc, a.unit, a.qty,
     ROUND(a.qty*IFNULL(a.price_bc,a.price),2) nilai_barang,
     a.curr, IF(a.price_bc IS NULL OR a.price_bc='0', a.price, a.price_bc) price,
+    ROUND(a.qty*a.price,2) nilai_cmt,
     'FG' mattype, s.id_item, 'BARANG JADI' matclass
     FROM bppb a
     INNER JOIN masterstyle s ON a.id_item=s.id_item
@@ -89,6 +93,7 @@ SELECT a.*, COALESCE(mr.rate,1) rate, (nilai_barang * COALESCE(mr.rate,1)) nilai
     s.itemdesc, a.unit, a.qty,
     ROUND(a.qty*IFNULL(a.price_bc,a.price),2),
     a.curr, IF(a.price_bc IS NULL OR a.price_bc='0', a.price, a.price_bc),
+    ROUND(a.qty*a.price,2) nilai_cmt,
     'F', s.id_item, 'FABRIC'
     FROM bppb a
     INNER JOIN masteritem s ON a.id_item=s.id_item
@@ -109,6 +114,7 @@ SELECT a.*, COALESCE(mr.rate,1) rate, (nilai_barang * COALESCE(mr.rate,1)) nilai
     s.itemdesc, a.unit, a.qty,
     ROUND(a.qty*IFNULL(a.price_bc,a.price),2),
     a.curr, IF(a.price_bc IS NULL OR a.price_bc='0', a.price, a.price_bc),
+    ROUND(a.qty*a.price,2) nilai_cmt,
     'F', s.id_item, s.matclass
     FROM bppb a
     INNER JOIN masteritem s ON a.id_item=s.id_item
@@ -140,8 +146,10 @@ while ($row = mysql_fetch_assoc($query)) {
     echo "<td>{$row['qty']}</td>";
     echo "<td>{$row['curr']}</td>";
     echo "<td>{$row['nilai_barang']}</td>";
+    echo "<td>{$row['nilai_cmt']}</td>";
     echo "<td>{$row['rate']}</td>";
     echo "<td>{$row['nilai_barang_idr']}</td>";
+    echo "<td>{$row['nilai_cmt_idr']}</td>";
     echo "</tr>";
     $no++;
 }

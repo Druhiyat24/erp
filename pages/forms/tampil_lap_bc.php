@@ -100,9 +100,22 @@ insert_log($sql, $user);
 						<th rowspan='2'>NAMA BARANG</th>
 						<th rowspan='2'>SAT</th>
 						<th rowspan='2'>JUMLAH</th>
-						<th colspan='2'>NILAI BARANG</th>
+						
+                        ";
+                        if ($rpt == "bc30" ) {
+                            echo "<th colspan='3'>NILAI BARANG</th>";                    
+                        }else{
+                            echo "<th colspan='2'>NILAI BARANG</th>"; 
+                        }
+                    echo "
 						<th rowspan='2'>RATE</th>
-						<th rowspan='2'>NILAI BARANG IDR</th>
+                        ";
+                        if ($rpt == "bc30" ) {
+                            echo "<th colspan='2'>NILAI BARANG IDR</th>";                    
+                        }else{
+                            echo "<th rowspan='2'>NILAI BARANG IDR</th>"; 
+                        }
+                    echo "
 					</tr>
 					<tr>
 						<th>NOMOR</th>
@@ -110,8 +123,19 @@ insert_log($sql, $user);
 						<th>NOMOR</th>
 						<th>TANGGAL</th>	
 						<th>CURR</th>
-						<th>NILAI</th>					
-					</tr>
+                        ";
+                        if ($rpt == "bc30" ) {
+                            echo "<th>FOB</th>";                    
+                        }else{
+                            echo "<th>NILAI</th>"; 
+                        }
+
+                        if ($rpt == "bc30" ) {
+                        echo "<th>CMT</th>";
+                        echo "<th>FOB</th>";
+                        echo "<th>CMT</th>";					
+                        }
+					echo "</tr>
 					";
 					// }
 					?>
@@ -146,7 +170,41 @@ insert_log($sql, $user);
         ajaxUrl = ""; // fallback kalau tidak cocok
     <?php endif; ?>
 $(document).ready(function() {
+     <?php if ($rpt == 'bc30'): ?>
     $('#data_bc30').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "ajax": {
+            "url": ajaxUrl,
+            "type": "POST",
+            "data": {
+                tglfrom: "<?= $tglf ?>",
+                tglto: "<?= $tglt ?>"
+            }
+        },
+        "columns": [
+            { "data": "no" },
+            { "data": "jenis_dokumen" },
+            { "data": "matclass" },
+            { "data": "bcno" },
+            { "data": "bcdate" },
+            { "data": "trans_no" },
+            { "data": "trans_date" },
+            { "data": "supplier" },
+            { "data": "kode_brg" },
+            { "data": "itemdesc" },
+            { "data": "unit" },
+            { "data": "qty" },
+            { "data": "curr" },
+            { "data": "nilai_barang" },
+            { "data": "nilai_cmt" },
+            { "data": "rate" },
+            { "data": "nilai_barang_idr" },
+            { "data": "nilai_cmt_idr" }
+        ]
+    });
+    <?php else: ?>
+       $('#data_bc30').DataTable({
         "processing": true,
         "serverSide": true,
         "ajax": {
@@ -176,6 +234,7 @@ $(document).ready(function() {
             { "data": "nilai_barang_idr" }
         ]
     });
+    <?php endif; ?>
 });
 </script>		
 	</div>
