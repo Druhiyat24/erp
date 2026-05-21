@@ -47,7 +47,7 @@ $mode=$_GET['mode'];
 if ($mode=="In")
 
 {
-  if(substr($bppbno,0,1)=="C" || substr($bppbno,0,1)=="S"){
+  if(substr($bppbno,0,1)=="C" || strpos($bppbno, 'SPCK') === 0){
 
     $rstot=mysql_fetch_array(mysql_query("select count(*) jdata,sum(qty) tqty, sum(qty-qty_reject) tqtyg, sum(qty_reject) tqtyr from bpb where bpbno='$bppbno' 
 
@@ -626,7 +626,7 @@ $footernya =
       <?php echo $fld_add_fg; ?>
 
       <?php
-      if((substr($bppbno,0,1)=="C") || (substr($bppbno,0,1)=="N" || substr($bppbno,0,1)=="S"))
+      if((substr($bppbno,0,1)=="C") || (substr($bppbno,0,1)=="N" || strpos($bppbno, 'SPCK') === 0))
       {
         $jml_fld = 7;
         echo "
@@ -680,7 +680,7 @@ $footernya =
           where bpbno='$bppbno'",$jml_fld);
   }
 
-        if(substr($bppbno,0,1)=="C" || substr($bppbno,0,1)=="S")
+        if(substr($bppbno,0,1)=="C" || strpos($bppbno, 'SPCK') === 0)
         {
 
         echo "
