@@ -673,7 +673,8 @@ echo "<script type='text/javascript'>
 						{echo "<td></td>";}
 						if ($mod!="8d")
 						{	if ($data['username']==$user and $data['cancel']=="N")
-							{	echo "
+							{	
+								echo "
 								<td>
 									<a href='?mod=8&id=$id_so&idd=$data[id]'
 		              	data-toggle='tooltip' title='Ubah'><i class='fa fa-pencil'></i></a>
@@ -813,8 +814,9 @@ echo "<script type='text/javascript'>
           	else
           	{echo "<td></td>";}
           	echo "<td>";
-            	if ($data['username']==$user)
-            	{	echo "<a href='?mod=7&id=$data[id]'
+            	if ($user == 'indro' || $user == 'dewi')
+            	{	
+            		echo "<a href='?mod=7&id=$data[id]'
               	$tt_ubah</a> "; 
               }
             echo "</td>";
