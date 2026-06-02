@@ -347,7 +347,14 @@ order by draftdate desc
     //       on tmppoit.id_po=a.id where a.app='W' and jenis='N' and cancel = 'N' ORDER BY podate desc
     //       ";
 
-        $sql="select a.id,a.jenis, a.pono,a.revise,a.podate,ms.supplier,d.terms_pterms nama_pterms,ac.buyer, ac.kpno, ac.styleno, ac.deldate first_garment_delv, datediff(deldate, current_date()) balance_days  
+        $sql="select a.id,a.jenis, a.pono,a.revise,a.podate,ms.supplier,
+            CASE WHEN a.jenis = 'N' THEN '-' ELSE ac.buyer END          AS buyer,
+    CASE WHEN a.jenis = 'N' THEN '-' ELSE ac.kpno END           AS kpno,
+    CASE WHEN a.jenis = 'N' THEN '-' ELSE ac.styleno END        AS styleno,
+    CASE WHEN a.jenis = 'N' THEN '-' ELSE ac.deldate END        AS first_garment_delv,
+    CASE WHEN a.jenis = 'N' THEN '-' 
+         ELSE DATEDIFF(ac.deldate, CURRENT_DATE()) 
+    END                                                          AS balance_days
 from po_header a 
 inner join po_item s on a.id=s.id_po
 inner join mastersupplier ms on a.id_supplier = ms.id_supplier
