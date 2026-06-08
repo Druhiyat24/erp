@@ -17,6 +17,10 @@ $txtsize = nb($_POST['txtsize']);
 $txtjenisitem = nb($_POST['txtjenisitem']);
 $txtpersediaan = nb($_POST['txtpersediaan']);
 if(isset($_POST['txtjenismut'])) { $txtjenismut=$_POST['txtjenismut']; } else { $txtjenismut=""; }
+$coa_production     = isset($_POST['txt_coa_production'])     ? nb($_POST['txt_coa_production'])     : '';
+$coa_sup_production = isset($_POST['txt_coa_sup_production']) ? nb($_POST['txt_coa_sup_production']) : '';
+$coa_sup_gen_adm    = isset($_POST['txt_coa_sup_gen_adm'])    ? nb($_POST['txt_coa_sup_gen_adm'])    : '';
+$coa_sup_selling    = isset($_POST['txt_coa_sup_selling'])    ? nb($_POST['txt_coa_sup_selling'])    : '';
 if (isset($_FILES['txtfile']))
 {	$nama_file = $_FILES['txtfile']['name'];
 	$tmp_file = $_FILES['txtfile']['tmp_name'];
@@ -48,8 +52,8 @@ else
 	}
 }
 if ($cek=="0" and $id=="")
-{	$sql = "insert into masteritem (n_code_category,matclass,tipe_item,tipe_mut,mattype,goods_code,itemdesc,color,size,file_gambar)
-		values ('$txtpersediaan','-','$txtjenisitem','$txtjenismut','$txtmattype','$txtgoods_code','$txtitemdesc','$txtcolor','$txtsize','$nama_file')";
+{	$sql = "insert into masteritem (n_code_category,matclass,tipe_item,tipe_mut,mattype,goods_code,itemdesc,color,size,file_gambar,coa_production,coa_sup_production,coa_sup_gen_adm,coa_sup_selling)
+		values ('$txtpersediaan','-','$txtjenisitem','$txtjenismut','$txtmattype','$txtgoods_code','$txtitemdesc','$txtcolor','$txtsize','$nama_file','$coa_production','$coa_sup_production','$coa_sup_gen_adm','$coa_sup_selling')";
 	insert_log($sql,$user);
 	$_SESSION['msg'] = 'Data Berhasil Disimpan';
 	echo "<script>
@@ -58,8 +62,10 @@ if ($cek=="0" and $id=="")
 }
 else if ($cek=="0" and $id!="")
 {	$sql = "update masteritem set n_code_category='$txtpersediaan',tipe_item='$txtjenisitem',tipe_mut='$txtjenismut',goods_code='$txtgoods_code',
-		itemdesc='$txtitemdesc',color='$txtcolor',
-		size='$txtsize',file_gambar='$nama_file' where id_item='$id'";
+		itemdesc='$txtitemdesc',color='$txtcolor',size='$txtsize',file_gambar='$nama_file',
+		coa_production='$coa_production',coa_sup_production='$coa_sup_production',
+		coa_sup_gen_adm='$coa_sup_gen_adm',coa_sup_selling='$coa_sup_selling'
+		where id_item='$id'";
 	insert_log($sql,$user);
 	$_SESSION['msg'] = 'Data Berhasil Dirubah';
 	echo "<script>
@@ -67,8 +73,10 @@ else if ($cek=="0" and $id!="")
 	</script>";
 }
 else if ($cek!="0" and $id!="")
-{	$sql = "update masteritem set tipe_item='$txtjenisitem',color='$txtcolor',
-		size='$txtsize',file_gambar='$nama_file' where id_item='$id'";
+{	$sql = "update masteritem set tipe_item='$txtjenisitem',color='$txtcolor',size='$txtsize',file_gambar='$nama_file',
+		coa_production='$coa_production',coa_sup_production='$coa_sup_production',
+		coa_sup_gen_adm='$coa_sup_gen_adm',coa_sup_selling='$coa_sup_selling'
+		where id_item='$id'";
 	insert_log($sql,$user);
 	$_SESSION['msg'] = 'Data Berhasil Dirubah';
 	echo "<script>

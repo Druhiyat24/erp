@@ -7,16 +7,17 @@ if (empty($_SESSION['username'])) { header("location:../../index.php"); }
 $user=$_SESSION['username'];
 $mod=$_GET['mod'];
 
-$txtusername = $_POST['txtusername'];
-$txtFullName = nb($_POST['txtFullName']);
-$txtPassword = $_POST['txtPassword'];
-$txtnik = nb($_POST['txtnik']);
-$txtGroupp = nb($_POST['txtGroupp']);
-$txtkode_mkt = nb($_POST['txtkode_mkt']);
+$txtusername   = $_POST['txtusername'];
+$txtFullName   = nb($_POST['txtFullName']);
+$txtPassword   = $_POST['txtPassword'];
+$txtnik        = nb($_POST['txtnik']);
+$txtGroupp     = nb($_POST['txtGroupp']);
+$txtkode_mkt   = nb($_POST['txtkode_mkt']);
+$txtnoccenter  = isset($_POST['txtnoccenter']) ? nb($_POST['txtnoccenter']) : '';
 $cek = flookup("count(*)","userpassword","username='$txtusername'");
 if ($cek=="0")
-{	$sql = "insert into userpassword (username,FullName,Password,nik,Groupp,kode_mkt)
-		values ('$txtusername','$txtFullName','$txtPassword','$txtnik','$txtGroupp','$txtkode_mkt')";
+{	$sql = "insert into userpassword (username,FullName,Password,nik,Groupp,kode_mkt,no_cc)
+		values ('$txtusername','$txtFullName','$txtPassword','$txtnik','$txtGroupp','$txtkode_mkt','$txtnoccenter')";
 	insert_log($sql,$user);
 	$_SESSION['msg'] = 'Data Berhasil Disimpan';
 	echo "<script>
