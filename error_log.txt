@@ -2647,3 +2647,5 @@
 >>>>>>> cbe0c116fcc123a256c6fedc69bcf28ea2c88a5e
 [28-May-2026 08:31:39 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
 [30-May-2026 03:07:03 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
+[03-Jun-2026 08:16:36 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3
+[05-Jun-2026 02:26:06 Europe/Berlin] PHP Warning:  session_destroy(): Session object destruction failed in C:\xampp\htdocs\erp\index.php on line 3

@@ -814,9 +814,8 @@ echo "<script type='text/javascript'>
           	else
           	{echo "<td></td>";}
           	echo "<td>";
-            	if ($user == 'indro' || $user == 'dewi')
-            	{	
-            		echo "<a href='?mod=7&id=$data[id]'
+            	if ($data['username']==$user)
+            	{	echo "<a href='?mod=7&id=$data[id]'
               	$tt_ubah</a> "; 
               }
             echo "</td>";

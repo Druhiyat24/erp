@@ -14,20 +14,41 @@ $rscomp=mysql_fetch_array(mysql_query("select * from mastercompany"));
 if($auto_ap_ar=="Y") { include 'insert_ap_ar.php'; }
 $txtbppbno = nb($_POST['txtbppbno']);
 $txtbppbdate = fd($_POST['txtbppbdate']);
-if ($txtbppbno=="") 
-{ $txtbppbno = urutkan("Add_BPPB","FG"); 
+$txtbuyer = nb($_POST['txtbuyer']);
+
+if ($txtbppbno=="" && $txtbuyer!="1384") 
+{
+	$txtbppbno = urutkan("Add_BPPB","FG"); 
 	if($gen_nomor_int=="Y")
-	{	$cbomat="FG";
+	{	
+		$cbomat="FG";
 		$cbomat2=flookup("nama_pilihan","masterpilihan","kode_pilihan='MAP_MAT_".$cbomat."'");
 		$date=fd($txtbppbdate);
 		$cri2=$cbomat2."/OUT/".date('my',strtotime($date));
 		$txtbppbno2=urutkan_inq($cbomat2."-OUT-".date('Y',strtotime($date)),$cri2);
 	}
 	else
-	{ $txtbppbno2=""; }
+	{
+		$txtbppbno2="";
+	}
+}else
+{
+	$txtbppbno = urutkan("Add_RO","FG");
+	if($gen_nomor_int=="Y")
+	{
+		$cbomat="FG";
+		$cbomat2=flookup("nama_pilihan","masterpilihan","kode_pilihan='MAP_MAT_".$cbomat."'");
+		$date=fd($txtbppbdate);
+		$cri2=$cbomat2."/RO/".date('my',strtotime($date));
+		$txtbppbno2=urutkan_inq($cbomat2."-OUT-".date('Y',strtotime($date)),$cri2);
+	}
+	else
+	{
+		$txtbppbno2="";
+	}
 }
+
 $txtid_supplier = nb($_POST['txtid_supplier']);
-$txtbuyer = nb($_POST['txtbuyer']);
 $txtinvno = nb($_POST['txtinvno']);
 $txtjenis_dok = nb($_POST['txtjenis_dok']);
 if(isset($_POST['txttujuan'])) {$txttujuan = nb($_POST['txttujuan']);} else {$txttujuan = "";}

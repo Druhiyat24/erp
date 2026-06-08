@@ -52,7 +52,7 @@ if ($id_det=="")
 						{	$sql = "insert into so_det (id_so,deldate_det,dest,color,sku,notes,size,qty,unit,barcode,price,reff_no,styleno_prod,created_by,created_date)
 								values ('$id_so','$txtdeldate','$txtdest','$valuec','$txtsku','$txtnotes','$txtsize'
 								,'$txtqty','$txtunit','$barnya','$pxnya','$txtreffno','$txtstyleno_prod','$user','$now')";
-							insert_log($sql,$user);
+							insert_log($sql,$user);						
 						}
 						else
 						{	$_SESSION['msg'] = "XData Sudah Ada";
@@ -90,7 +90,7 @@ if ($id_det=="")
 								unit,barcode,price, reff_no, styleno_prod,created_by,created_date)
 								values ('$id_so','$txtdeldate','$txtdest','$txtcolor','$txtsku','$txtnotes','$txtsize'
 								,'$txtqty','$qtyaddnya','$txtunit','$barnya','$pxnya','$txtreffno','$txtstyleno_prod','$user','$now')";
-							insert_log($sql,$user);
+							insert_log($sql,$user);							
 						}
 						else
 						{	$_SESSION['msg'] = "XData Sudah Ada";
@@ -112,11 +112,16 @@ else
 	if ($cek!="0" and $cek2=="")
 	{	$_SESSION['msg'] = 'XData Tidak Bisa Dirubah Karena Sudah Dibuat Worksheet';	}
 	else
-	{	if (isset($_POST['txtqty'])) {$qty=$_POST['txtqty'];} else {$qty="0";}
-		if (isset($_POST['txtprice'])) {$price=$_POST['txtprice'];} else {$price="0";}
-		$sql = "update so_det set color='$txtcolor',deldate_det='$txtdeldate',dest='$txtdest',sku='$txtsku',notes='$txtnotes',barcode='$txtbarcode'
+	{	if (isset($_POST['txtqty'])) {$qty=$_POST['txtqty'];} else {$qty = "0";}
+		if (isset($_POST['txtprice'])) {$price=$_POST['txtprice'];} else {$price = "0";}
+		$insert_log_sql = "insert into so_det_log (id_so,deldate_det,dest,color,sku,notes,size,qty,qty_add,
+		unit,barcode,price, reff_no, styleno_prod,created_by,created_date)
+		values ('$id_so','$txtdeldate','$txtdest','$txtcolor','$txtsku','$txtnotes','$txtsize'
+		,'$txtqty','$qtyaddnya','$txtunit','$barnya','$pxnya','$txtreffno','$txtstyleno_prod','$user','$now')";		
+		insert_log($insert_log_sql, $user); // Jalankan dan log kueri INSERT
+		$update_sql = "update so_det set color='$txtcolor',deldate_det='$txtdeldate',dest='$txtdest',sku='$txtsku',notes='$txtnotes',barcode='$txtbarcode'
 			,qty='$qty',price='$price',reff_no='$txtreffno',styleno_prod='$txtstyleno_prod', updated_by='$user', updated_date='$now' where id='$id_det'";
-		insert_log($sql,$user);
+		insert_log($update_sql, $user); // Jalankan dan log kueri UPDATE
 		$_SESSION['msg'] = "Data Berhasil Dirubah";
 	}		
 	echo "<script>window.location.href='../marketting/?mod=7&id=$id_so';</script>";
