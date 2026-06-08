@@ -18,6 +18,10 @@ if ($id_item=="")
   $jenis_mut="";
   $color = "";
   $size = "";
+  $coa_production = "";
+  $coa_sup_production = "";
+  $coa_sup_gen_adm = "";
+  $coa_sup_selling = "";
 }
 else
 { $query = mysql_query("SELECT * FROM masteritem where id_item='$id_item' ");
@@ -30,6 +34,10 @@ else
   $color = $data['color'];
   $persediaan = $data['n_code_category'];
   $size = $data['size'];
+  $coa_production     = $data['coa_production'];
+  $coa_sup_production = $data['coa_sup_production'];
+  $coa_sup_gen_adm    = $data['coa_sup_gen_adm'];
+  $coa_sup_selling    = $data['coa_sup_selling'];
 }
 # END COPAS EDIT
 # COPAS VALIDASI BUANG ELSE di IF pertama
@@ -53,6 +61,10 @@ echo "<script type='text/javascript'>
     else if (itemdesc == '') { document.form.txtitemdesc.focus(); swal({ title: 'Description Tidak Boleh Kosong', $img_alert }); valid = false;}
     else if (color == '') { document.form.txtcolor.focus(); swal({ title: 'Color Tidak Boleh Kosong', $img_alert }); valid = false;}
     else if (size == '') { document.form.txtsize.focus(); swal({ title: 'Size Tidak Boleh Kosong', $img_alert }); valid = false;}
+    else if (document.form.txt_coa_production.value == '') { swal({ title: 'COA Production Tidak Boleh Kosong', $img_alert }); valid = false;}
+    else if (document.form.txt_coa_sup_production.value == '') { swal({ title: 'COA Supporting Production Tidak Boleh Kosong', $img_alert }); valid = false;}
+    else if (document.form.txt_coa_sup_gen_adm.value == '') { swal({ title: 'COA Supporting General & Adm Tidak Boleh Kosong', $img_alert }); valid = false;}
+    else if (document.form.txt_coa_sup_selling.value == '') { swal({ title: 'COA Supporting Selling Tidak Boleh Kosong', $img_alert }); valid = false;}
     else valid = true;
     return valid;
     exit;
@@ -127,6 +139,32 @@ if ($mod=="2") { ?>
             <input type='file' name='txtfile' accept='.jpg'>
           </div>
           <button type='submit' name='submit' class='btn btn-primary'>Simpan</button>
+        </div>
+        <div class='col-md-3'>
+          <div class='form-group'>
+            <label>Production</label>
+            <select class='form-control select2' style='width: 100%;' name='txt_coa_production'>
+              <?php IsiCombo("select no_coa isi, CONCAT(no_coa,' - ',nama_coa) tampil from mastercoa_v2 where no_coa like '5%' order by no_coa", $coa_production, 'Pilih COA'); ?>
+            </select>
+          </div>
+          <div class='form-group'>
+            <label>Supporting Production</label>
+            <select class='form-control select2' style='width: 100%;' name='txt_coa_sup_production'>
+              <?php IsiCombo("select no_coa isi, CONCAT(no_coa,' - ',nama_coa) tampil from mastercoa_v2 where no_coa like '5%' order by no_coa", $coa_sup_production, 'Pilih COA'); ?>
+            </select>
+          </div>
+          <div class='form-group'>
+            <label>Supporting Selling</label>
+            <select class='form-control select2' style='width: 100%;' name='txt_coa_sup_selling'>
+              <?php IsiCombo("select no_coa isi, CONCAT(no_coa,' - ',nama_coa) tampil from mastercoa_v2 where no_coa like '6%' order by no_coa", $coa_sup_selling, 'Pilih COA'); ?>
+            </select>
+          </div>
+          <div class='form-group'>
+            <label>Supporting General &amp; Administration</label>
+            <select class='form-control select2' style='width: 100%;' name='txt_coa_sup_gen_adm'>
+              <?php IsiCombo("select no_coa isi, CONCAT(no_coa,' - ',nama_coa) tampil from mastercoa_v2 where no_coa like '7%' order by no_coa", $coa_sup_gen_adm, 'Pilih COA'); ?>
+            </select>
+          </div>
         </div>
       </form>
     </div>
@@ -205,6 +243,7 @@ else
         <th></th>
         <th></th>
         <th></th>
+        <th></th>
       </tr>
       </thead>
       <tbody>
@@ -231,7 +270,126 @@ $(document).ready(function() {
 $('#persediaanfilter').change(function(){
     $('#data_masteritem').DataTable().ajax.reload();
 });
-</script>	
+</script>
+<script>
+$(document).on('click', '.coa-popup', function(e) {
+    e.preventDefault();
+    $('#coa_val_prod').text($(this).data('prod') || '-');
+    $('#coa_val_spr').text($(this).data('spr') || '-');
+    $('#coa_val_sga').text($(this).data('sga') || '-');
+    $('#coa_val_ssl').text($(this).data('ssl') || '-');
+    $('#coaModal').modal('show');
+});
+</script>
+  </div>
+</div>
+
+<!-- Modal COA -->
+<style>
+#coaModal .modal-header {
+  background: #3c8dbc;
+  color: #fff;
+  border-radius: 3px 3px 0 0;
+  padding: 12px 18px;
+}
+#coaModal .modal-header .close {
+  color: #fff;
+  opacity: 0.8;
+  font-size: 20px;
+  margin-top: 2px;
+}
+#coaModal .modal-title {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+#coaModal .modal-body {
+  padding: 20px;
+  background: #f9f9f9;
+}
+#coaModal .coa-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+#coaModal .coa-table tr {
+  border-bottom: 1px solid #e8e8e8;
+}
+#coaModal .coa-table tr:last-child {
+  border-bottom: none;
+}
+#coaModal .coa-table td {
+  padding: 10px 12px;
+  font-size: 13px;
+  vertical-align: middle;
+}
+#coaModal .coa-label {
+  width: 42%;
+  color: #555;
+  font-weight: 600;
+}
+#coaModal .coa-badge {
+  display: inline-block;
+  background: #fff;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  padding: 3px 10px;
+  font-size: 12px;
+  color: #333;
+  word-break: break-word;
+}
+#coaModal .coa-icon {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 11px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+#coaModal .icon-prod     { background: #3c8dbc; }
+#coaModal .icon-sup-prod { background: #00a65a; }
+#coaModal .icon-gen      { background: #f39c12; }
+#coaModal .icon-sell     { background: #dd4b39; }
+</style>
+<div class="modal fade" id="coaModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="border:none; box-shadow: 0 5px 20px rgba(0,0,0,.2); border-radius:4px;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+        <h4 class="modal-title"><i class="fa fa-book" style="margin-right:7px;"></i>COA Item</h4>
+      </div>
+      <div class="modal-body">
+        <table class="coa-table">
+          <tr>
+            <td class="coa-label">
+              <span class="coa-icon icon-prod"><i class="fa fa-industry"></i></span>Production
+            </td>
+            <td><span class="coa-badge" id="coa_val_prod">-</span></td>
+          </tr>
+          <tr>
+            <td class="coa-label">
+              <span class="coa-icon icon-sup-prod"><i class="fa fa-cogs"></i></span>Sup. Production
+            </td>
+            <td><span class="coa-badge" id="coa_val_spr">-</span></td>
+          </tr>
+          <tr>
+            <td class="coa-label">
+              <span class="coa-icon icon-gen"><i class="fa fa-building"></i></span>Sup. Gen. &amp; Adm.
+            </td>
+            <td><span class="coa-badge" id="coa_val_sga">-</span></td>
+          </tr>
+          <tr>
+            <td class="coa-label">
+              <span class="coa-icon icon-sell"><i class="fa fa-tag"></i></span>Sup. Selling
+            </td>
+            <td><span class="coa-badge" id="coa_val_ssl">-</span></td>
+          </tr>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 <?php } ?>

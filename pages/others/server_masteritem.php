@@ -55,10 +55,18 @@ if (!empty($request['search']['value'])) {
 }
 
 /* MAIN QUERY */
-$sql = "SELECT ITEM.*, MAPP.description 
-        FROM masteritem ITEM 
-        LEFT JOIN mapping_category MAPP ON MAPP.n_id = ITEM.n_code_category 
-        $where 
+$sql = "SELECT ITEM.*, MAPP.description,
+        CONCAT(IFNULL(C1.no_coa,''),IF(C1.nama_coa IS NOT NULL,CONCAT(' - ',C1.nama_coa),'')) as coa_prod_name,
+        CONCAT(IFNULL(C2.no_coa,''),IF(C2.nama_coa IS NOT NULL,CONCAT(' - ',C2.nama_coa),'')) as coa_sup_prod_name,
+        CONCAT(IFNULL(C3.no_coa,''),IF(C3.nama_coa IS NOT NULL,CONCAT(' - ',C3.nama_coa),'')) as coa_sup_gen_name,
+        CONCAT(IFNULL(C4.no_coa,''),IF(C4.nama_coa IS NOT NULL,CONCAT(' - ',C4.nama_coa),'')) as coa_sup_sell_name
+        FROM masteritem ITEM
+        LEFT JOIN mapping_category MAPP ON MAPP.n_id = ITEM.n_code_category
+        LEFT JOIN mastercoa_v2 C1 ON C1.no_coa = ITEM.coa_production
+        LEFT JOIN mastercoa_v2 C2 ON C2.no_coa = ITEM.coa_sup_production
+        LEFT JOIN mastercoa_v2 C3 ON C3.no_coa = ITEM.coa_sup_gen_adm
+        LEFT JOIN mastercoa_v2 C4 ON C4.no_coa = ITEM.coa_sup_selling
+        $where
         ORDER BY ".$columns[$request['order'][0]['column']]." ".$request['order'][0]['dir']."
         LIMIT ".$request['start']." ,".$request['length'];
 
@@ -92,6 +100,11 @@ while ($row = mysql_fetch_array($query)) {
 
     $nestedData[] = "<a href='#' class='img-prev' data-id=".$row['id_item']."><i class='fa fa-paperclip'></i></a>";
     $nestedData[] = "<a href='?mod=14&mode=General&id=".$row['id_item']."'><i class='fa fa-history'></i></a>";
+    $p1 = htmlspecialchars($row['coa_prod_name'],     ENT_QUOTES);
+    $p2 = htmlspecialchars($row['coa_sup_prod_name'], ENT_QUOTES);
+    $p3 = htmlspecialchars($row['coa_sup_gen_name'],  ENT_QUOTES);
+    $p4 = htmlspecialchars($row['coa_sup_sell_name'], ENT_QUOTES);
+    $nestedData[] = "<a href='#' class='coa-popup' data-prod='".$p1."' data-spr='".$p2."' data-sga='".$p3."' data-ssl='".$p4."' title='Lihat COA'><i class='fa fa-book'></i></a>";
 
     $data[] = $nestedData;
 }
