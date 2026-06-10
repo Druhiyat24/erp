@@ -81,9 +81,14 @@ else
 	if ($cek!="0" and $cek2=="")
 	{	$_SESSION['msg'] = 'XData Tidak Bisa Dirubah Karena Sudah Dibuat Worksheet';	}
 	else
-	{	$sql = "update so set buyerno='$txtbuyerno',
+	{	$insert_log_sql = "insert into so_log (id_cost,buyerno,so_no,so_date,qty,unit,curr,fob,nm_file,username,tax,id_season,id_terms,jml_pterms,jns_so,ket_blc)
+		values ('$txtid_cost','$txtbuyerno','$txtso_no','$txtso_date','$txtqty','$txtunit','$txtcurr','$txtfob',
+		'$nama_file','$user','$txttax','$txtseason','$txtterms','$txtdays','$txtjns_so','$txtket_blc')";
+		insert_log($insert_log_sql,$user);
+
+		$sql = "update so set buyerno='$txtbuyerno',
 			qty='$txtqty',unit='$txtunit',curr='$txtcurr',fob='$txtfob',username='$user',
-			tax='$txttax',id_season='$txtseason',id_terms='$txtterms',jml_pterms='$txtdays',jns_so='$txtjns_so',ket_blc='$txtket_blc'
+			tax='$txttax',id_season='$txtseason',id_terms='$txtterms',jml_pterms='$txtdays',jns_so='$txtjns_so',ket_blc='$txtket_blc', updated_by='$user', updated_date='$now'
 			where id='$id_so'";
 		insert_log($sql,$user);
 		$_SESSION['msg'] = 'Data Berhasil Dirubah';
