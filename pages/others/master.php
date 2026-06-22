@@ -44,7 +44,7 @@ else
 if($id_item !=''){
 	echo ';<script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>';
 	echo "<script type='text/javascript'>";
-	echo "setTimeout(function(){ $('#persediaan').val('".$persediaan."').trigger('change.select2')  }, 3000);";
+	echo "setTimeout(function(){ $('#persediaan').val('".$persediaan."').trigger('change.select2'); applyCoaLock(); }, 3000);";
 	//echo "$('#persediaan').val('".$persediaan."').trigger('change.select2')";
 	echo "</script>";
 	
@@ -56,15 +56,16 @@ echo "<script type='text/javascript'>
     var itemdesc = document.form.txtitemdesc.value;
     var color = document.form.txtcolor.value;
     var size = document.form.txtsize.value;
+    var persediaan = document.getElementById('persediaan').value;
     if (mattype == '') { document.form.txtmattype.focus(); swal({ title: 'Mat Type Tidak Boleh Kosong', $img_alert }); valid = false;}
     else if (goods_code == '') { document.form.txtgoods_code.focus(); swal({ title: 'Item Code Tidak Boleh Kosong', $img_alert }); valid = false;}
     else if (itemdesc == '') { document.form.txtitemdesc.focus(); swal({ title: 'Description Tidak Boleh Kosong', $img_alert }); valid = false;}
     else if (color == '') { document.form.txtcolor.focus(); swal({ title: 'Color Tidak Boleh Kosong', $img_alert }); valid = false;}
     else if (size == '') { document.form.txtsize.focus(); swal({ title: 'Size Tidak Boleh Kosong', $img_alert }); valid = false;}
-    else if (document.form.txt_coa_production.value == '') { swal({ title: 'COA Production Tidak Boleh Kosong', $img_alert }); valid = false;}
-    else if (document.form.txt_coa_sup_production.value == '') { swal({ title: 'COA Supporting Production Tidak Boleh Kosong', $img_alert }); valid = false;}
-    else if (document.form.txt_coa_sup_gen_adm.value == '') { swal({ title: 'COA Supporting General & Adm Tidak Boleh Kosong', $img_alert }); valid = false;}
-    else if (document.form.txt_coa_sup_selling.value == '') { swal({ title: 'COA Supporting Selling Tidak Boleh Kosong', $img_alert }); valid = false;}
+    else if (persediaan != '3' && document.form.txt_coa_production.value == '') { swal({ title: 'COA Production Tidak Boleh Kosong', $img_alert }); valid = false;}
+    else if (persediaan != '3' && document.form.txt_coa_sup_production.value == '') { swal({ title: 'COA Supporting Production Tidak Boleh Kosong', $img_alert }); valid = false;}
+    else if (persediaan != '3' && document.form.txt_coa_sup_gen_adm.value == '') { swal({ title: 'COA Supporting General & Adm Tidak Boleh Kosong', $img_alert }); valid = false;}
+    else if (persediaan != '3' && document.form.txt_coa_sup_selling.value == '') { swal({ title: 'COA Supporting Selling Tidak Boleh Kosong', $img_alert }); valid = false;}
     else valid = true;
     return valid;
     exit;
@@ -143,35 +144,59 @@ if ($mod=="2") { ?>
         <div class='col-md-3'>
           <div class='form-group'>
             <label>Production</label>
-            <select class='form-control select2' style='width: 100%;' name='txt_coa_production'>
-              <?php IsiCombo("select no_coa isi, CONCAT(no_coa,' - ',nama_coa) tampil from mastercoa_v2 where no_coa like '5%' order by no_coa", $coa_production, 'Pilih COA'); ?>
+            <select class='form-control select2' style='width: 100%;' id='coa_production' name='txt_coa_production'>
+              <option value='-'>-</option>
+              <?php IsiCombo("select no_coa isi, CONCAT(no_coa,' - ',nama_coa) tampil from mastercoa_v2 where no_coa like '5%' OR no_coa like '1%' order by no_coa", $coa_production, 'Pilih COA'); ?>
             </select>
           </div>
           <div class='form-group'>
             <label>Supporting Production</label>
-            <select class='form-control select2' style='width: 100%;' name='txt_coa_sup_production'>
-              <?php IsiCombo("select no_coa isi, CONCAT(no_coa,' - ',nama_coa) tampil from mastercoa_v2 where no_coa like '5%' order by no_coa", $coa_sup_production, 'Pilih COA'); ?>
+            <select class='form-control select2' style='width: 100%;' id='coa_sup_production' name='txt_coa_sup_production'>
+              <option value='-'>-</option>
+              <?php IsiCombo("select no_coa isi, CONCAT(no_coa,' - ',nama_coa) tampil from mastercoa_v2 where no_coa like '5%' OR no_coa like '1%' order by no_coa", $coa_sup_production, 'Pilih COA'); ?>
             </select>
           </div>
           <div class='form-group'>
             <label>Supporting Selling</label>
-            <select class='form-control select2' style='width: 100%;' name='txt_coa_sup_selling'>
-              <?php IsiCombo("select no_coa isi, CONCAT(no_coa,' - ',nama_coa) tampil from mastercoa_v2 where no_coa like '6%' order by no_coa", $coa_sup_selling, 'Pilih COA'); ?>
+            <select class='form-control select2' style='width: 100%;' id='coa_sup_selling' name='txt_coa_sup_selling'>
+              <option value='-'>-</option>
+              <?php IsiCombo("select no_coa isi, CONCAT(no_coa,' - ',nama_coa) tampil from mastercoa_v2 where no_coa like '6%' OR no_coa like '1%' order by no_coa", $coa_sup_selling, 'Pilih COA'); ?>
             </select>
           </div>
           <div class='form-group'>
             <label>Supporting General &amp; Administration</label>
-            <select class='form-control select2' style='width: 100%;' name='txt_coa_sup_gen_adm'>
-              <?php IsiCombo("select no_coa isi, CONCAT(no_coa,' - ',nama_coa) tampil from mastercoa_v2 where no_coa like '7%' order by no_coa", $coa_sup_gen_adm, 'Pilih COA'); ?>
+            <select class='form-control select2' style='width: 100%;' id='coa_sup_gen_adm' name='txt_coa_sup_gen_adm'>
+              <option value='-'>-</option>
+              <?php IsiCombo("select no_coa isi, CONCAT(no_coa,' - ',nama_coa) tampil from mastercoa_v2 where no_coa like '7%' OR no_coa like '1%' order by no_coa", $coa_sup_gen_adm, 'Pilih COA'); ?>
             </select>
           </div>
         </div>
       </form>
     </div>
   </div>
-</div><?php 
+</div>
+<script>
+function applyCoaLock() {
+    var $coaFields = $('#coa_production, #coa_sup_production, #coa_sup_selling, #coa_sup_gen_adm');
+    if (document.getElementById('persediaan').value == '3') {
+        $coaFields.each(function() {
+            if (!$(this).val()) { $(this).val('-'); }
+        });
+        $coaFields.prop('disabled', true).trigger('change');
+    } else {
+        $coaFields.each(function() {
+            if ($(this).val() === '-') { $(this).val(''); }
+        });
+        $coaFields.prop('disabled', false).trigger('change');
+    }
+}
+window.addEventListener('load', function() {
+    $('#persediaan').on('change', applyCoaLock);
+});
+</script>
+<?php
 # END COPAS ADD
-} else if ($id_item=="") { 
+} else if ($id_item=="") {
 
 
 
