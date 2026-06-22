@@ -228,7 +228,9 @@ class Model{
 
           "if(nama_sub_group regexp 'BARCODE' or nama_sub_group regexp 'STICKER',
 
-          concat($fld1,$fld2,$fld3,$fld4,$fld5,$fld6,$fld7,$fld8a,$fld9,IFNULL(k.sku,''),' ',IFNULL(k.barcode,''))
+          concat($fld1,$fld2,$fld3,$fld4,$fld5,$fld6,$fld7,$fld8a,$fld9,k.sku,' ',k.barcode),
+
+          
 
           if(nama_type='SKU',
 
