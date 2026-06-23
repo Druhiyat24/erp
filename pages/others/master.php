@@ -62,6 +62,7 @@ echo "<script type='text/javascript'>
     else if (itemdesc == '') { document.form.txtitemdesc.focus(); swal({ title: 'Description Tidak Boleh Kosong', $img_alert }); valid = false;}
     else if (color == '') { document.form.txtcolor.focus(); swal({ title: 'Color Tidak Boleh Kosong', $img_alert }); valid = false;}
     else if (size == '') { document.form.txtsize.focus(); swal({ title: 'Size Tidak Boleh Kosong', $img_alert }); valid = false;}
+    else if (persediaan == '') { swal({ title: 'Mapping Persediaan Tidak Boleh Kosong', $img_alert }); valid = false;}
     else if (persediaan != '3' && document.form.txt_coa_production.value == '') { swal({ title: 'COA Production Tidak Boleh Kosong', $img_alert }); valid = false;}
     else if (persediaan != '3' && document.form.txt_coa_sup_production.value == '') { swal({ title: 'COA Supporting Production Tidak Boleh Kosong', $img_alert }); valid = false;}
     else if (persediaan != '3' && document.form.txt_coa_sup_gen_adm.value == '') { swal({ title: 'COA Supporting General & Adm Tidak Boleh Kosong', $img_alert }); valid = false;}
@@ -99,7 +100,7 @@ if ($mod=="2") { ?>
             </select>
           </div>
           <div class='form-group'>
-            <label>Mapping Persediaan</label>
+            <label>Mapping Persediaan *</label>
             <select id='persediaan' class='form-control select2' style='width: 100%;' name='txtpersediaan'>
               <?php 
                 $sql = "select n_id isi,description tampil 

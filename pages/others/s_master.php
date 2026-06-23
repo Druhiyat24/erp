@@ -15,8 +15,16 @@ $txtitemdesc = nb($_POST['txtitemdesc']);
 $txtcolor = nb($_POST['txtcolor']);
 $txtsize = nb($_POST['txtsize']);
 $txtjenisitem = nb($_POST['txtjenisitem']);
-$txtpersediaan = nb($_POST['txtpersediaan']);
+$txtpersediaan = isset($_POST['txtpersediaan']) ? nb($_POST['txtpersediaan']) : '';
 if(isset($_POST['txtjenismut'])) { $txtjenismut=$_POST['txtjenismut']; } else { $txtjenismut=""; }
+
+if ($txtpersediaan == '')
+{	$_SESSION['msg'] = 'Mapping Persediaan Tidak Boleh Kosong';
+	echo "<script>
+		 window.location.href='../others/?mod=2&id=$id';
+	</script>";
+	exit;
+}
 $coa_production     = isset($_POST['txt_coa_production'])     ? nb($_POST['txt_coa_production'])     : '';
 $coa_sup_production = isset($_POST['txt_coa_sup_production']) ? nb($_POST['txt_coa_sup_production']) : '';
 $coa_sup_gen_adm    = isset($_POST['txt_coa_sup_gen_adm'])    ? nb($_POST['txt_coa_sup_gen_adm'])    : '';
