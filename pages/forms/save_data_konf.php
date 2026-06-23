@@ -177,16 +177,24 @@ if (!isset($_POST['itemchk'])) {
 			}
 		} else {
 			if ($n_code_category == '1') {
-				$kata1 = "PEMBELIAN PERSEDIAAN ATK";
-			} elseif ($n_code_category == '2') {
-				$kata1 = "PEMBELIAN PERSEDIAAN UMUM";
-			} elseif ($n_code_category == '3') {
-				$kata1 = "BIAYA PERSEDIAAN SPAREPARTS";
-			} elseif ($n_code_category == '4') {
-				$kata1 = "BIAYA MESIN";
-			} else {
-				$kata1 = "";
-			}
+							$kata1 = "PEMBELIAN PERSEDIAAN ATK";
+						} elseif ($n_code_category == '2') {
+							$kata1 = "PEMBELIAN PERSEDIAAN UMUM";
+						} elseif ($n_code_category == '3') {
+							$kata1 = "PEMBELIAN PERSEDIAAN SPAREPARTS";
+						} elseif ($n_code_category == '4') {
+							$kata1 = "PEMBELIAN MESIN";
+						} elseif ($n_code_category == '5') {
+							$kata1 = "PEMBELIAN PERALATAN";
+						} elseif ($n_code_category == '6') {
+							$kata1 = "SEWA MESIN";
+						} elseif ($n_code_category == '7') {
+							$kata1 = "PEMBELIAN PERANGKAT LUNAK";
+						} elseif ($n_code_category == '8') {
+							$kata1 = "SEWA PERALATAN";
+						} else {
+							$kata1 = "";
+						}
 		}
 
 		$kata2 = "DARI";
@@ -359,16 +367,24 @@ if (!isset($_POST['itemchk'])) {
 			}
 		} else {
 			if ($n_code_category == '1') {
-				$kata1 = "RETURN PEMBELIAN PERSEDIAAN ATK";
-			} elseif ($n_code_category == '2') {
-				$kata1 = "RETURN PEMBELIAN PERSEDIAAN UMUM";
-			} elseif ($n_code_category == '3') {
-				$kata1 = "RETURN BIAYA PERSEDIAAN SPAREPARTS";
-			} elseif ($n_code_category == '4') {
-				$kata1 = "RETURN BIAYA MESIN";
-			} else {
-				$kata1 = "";
-			}
+							$kata1 = "PEMBELIAN PERSEDIAAN ATK";
+						} elseif ($n_code_category == '2') {
+							$kata1 = "PEMBELIAN PERSEDIAAN UMUM";
+						} elseif ($n_code_category == '3') {
+							$kata1 = "PEMBELIAN PERSEDIAAN SPAREPARTS";
+						} elseif ($n_code_category == '4') {
+							$kata1 = "PEMBELIAN MESIN";
+						} elseif ($n_code_category == '5') {
+							$kata1 = "PEMBELIAN PERALATAN";
+						} elseif ($n_code_category == '6') {
+							$kata1 = "SEWA MESIN";
+						} elseif ($n_code_category == '7') {
+							$kata1 = "PEMBELIAN PERANGKAT LUNAK";
+						} elseif ($n_code_category == '8') {
+							$kata1 = "SEWA PERALATAN";
+						} else {
+							$kata1 = "";
+						}
 		}
 
 		$kata2 = "DARI";
