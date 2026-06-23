@@ -63,10 +63,10 @@ echo "<script type='text/javascript'>
     else if (color == '') { document.form.txtcolor.focus(); swal({ title: 'Color Tidak Boleh Kosong', $img_alert }); valid = false;}
     else if (size == '') { document.form.txtsize.focus(); swal({ title: 'Size Tidak Boleh Kosong', $img_alert }); valid = false;}
     else if (persediaan == '') { swal({ title: 'Mapping Persediaan Tidak Boleh Kosong', $img_alert }); valid = false;}
-    else if (persediaan != '3' && document.form.txt_coa_production.value == '') { swal({ title: 'COA Production Tidak Boleh Kosong', $img_alert }); valid = false;}
-    else if (persediaan != '3' && document.form.txt_coa_sup_production.value == '') { swal({ title: 'COA Supporting Production Tidak Boleh Kosong', $img_alert }); valid = false;}
-    else if (persediaan != '3' && document.form.txt_coa_sup_gen_adm.value == '') { swal({ title: 'COA Supporting General & Adm Tidak Boleh Kosong', $img_alert }); valid = false;}
-    else if (persediaan != '3' && document.form.txt_coa_sup_selling.value == '') { swal({ title: 'COA Supporting Selling Tidak Boleh Kosong', $img_alert }); valid = false;}
+    else if ((persediaan == '1' || persediaan == '2') && document.form.txt_coa_production.value == '') { swal({ title: 'COA Production Tidak Boleh Kosong', $img_alert }); valid = false;}
+    else if ((persediaan == '1' || persediaan == '2') && document.form.txt_coa_sup_production.value == '') { swal({ title: 'COA Supporting Production Tidak Boleh Kosong', $img_alert }); valid = false;}
+    else if ((persediaan == '1' || persediaan == '2') && document.form.txt_coa_sup_gen_adm.value == '') { swal({ title: 'COA Supporting General & Adm Tidak Boleh Kosong', $img_alert }); valid = false;}
+    else if ((persediaan == '1' || persediaan == '2') && document.form.txt_coa_sup_selling.value == '') { swal({ title: 'COA Supporting Selling Tidak Boleh Kosong', $img_alert }); valid = false;}
     else valid = true;
     return valid;
     exit;
@@ -179,7 +179,9 @@ if ($mod=="2") { ?>
 <script>
 function applyCoaLock() {
     var $coaFields = $('#coa_production, #coa_sup_production, #coa_sup_selling, #coa_sup_gen_adm');
-    if (document.getElementById('persediaan').value == '3') {
+    var persediaan = document.getElementById('persediaan').value;
+    var butuhCoa = (persediaan == '1' || persediaan == '2');
+    if (!butuhCoa) {
         $coaFields.each(function() {
             if (!$(this).val()) { $(this).val('-'); }
         });

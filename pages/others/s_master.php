@@ -30,8 +30,8 @@ $coa_sup_production = isset($_POST['txt_coa_sup_production']) ? nb($_POST['txt_c
 $coa_sup_gen_adm    = isset($_POST['txt_coa_sup_gen_adm'])    ? nb($_POST['txt_coa_sup_gen_adm'])    : '';
 $coa_sup_selling    = isset($_POST['txt_coa_sup_selling'])    ? nb($_POST['txt_coa_sup_selling'])    : '';
 
-// Mapping Persediaan = PERSEDIAAN SPAREPARTS - FACTORY SUPPLIES (n_id=3) tidak wajib COA, default strip
-if ($txtpersediaan == '3') {
+// COA hanya wajib untuk Mapping Persediaan ATK (n_id=1) dan UMUM (n_id=2), selain itu default strip
+if ($txtpersediaan != '1' && $txtpersediaan != '2') {
 	if ($coa_production == '')     { $coa_production = '-'; }
 	if ($coa_sup_production == '') { $coa_sup_production = '-'; }
 	if ($coa_sup_gen_adm == '')    { $coa_sup_gen_adm = '-'; }
