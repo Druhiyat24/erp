@@ -81,14 +81,14 @@ union
 select mi.id_item,'0' qty_awal,sum(qty)qty_in, '0' qty_out, unit from bpb 
 inner join masteritem mi on bpb.id_item = mi.id_item
 inner join mapping_category mc on mi.n_code_category = mc.n_id
-where bpb.bpbdate >= '2022-01-01' and mc.description in ('PERSEDIAAN SPAREPARTS - FACTORY SUPPLIES','PERSEDIAAN MESIN')   and mi.mattype = 'N' and bpb.bpbno like 'N%'  and bpb.id_item in 
+where bpb.bpbdate >= '2022-01-01' and mc.n_id in (3,4,6)   and mi.mattype = 'N' and bpb.bpbno like 'N%'  and bpb.id_item in 
 ($id_item)
 group by bpb.id_item, bpb.unit
 union
 select mi.id_item,'0' qty_awal,'0' qty_in,sum(qty)qty_out, unit from bppb 
 inner join masteritem mi on bppb.id_item = mi.id_item
 inner join mapping_category mc on mi.n_code_category = mc.n_id
-where bppb.bppbdate >= '2022-01-01' and mc.description in ('PERSEDIAAN SPAREPARTS - FACTORY SUPPLIES','PERSEDIAAN MESIN')  and mi.mattype = 'N' and bppb.bppbno like 'SJ-N%' and bppb.id_item in ($id_item)
+where bppb.bppbdate >= '2022-01-01' and mc.n_id in (3,4,6)  and mi.mattype = 'N' and bppb.bppbno like 'SJ-N%' and bppb.id_item in ($id_item)
 group by bppb.id_item, bppb.unit
 ) mutasi_a
 inner join masteritem mi on mutasi_a.id_item = mi.id_item
