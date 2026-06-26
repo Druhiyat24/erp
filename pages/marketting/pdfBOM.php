@@ -428,7 +428,7 @@ insert_log($sql,'TempTable');
 
 insert_log("delete from $tblbomjoit",'TempTable');
 
-$sql="select posno,rule_bom,id_item,nama_type 
+$sql="select posno,rule_bom,id_item,a.id_panel,nama_type 
 
   from bom_jo_item a inner join masterdesc md on a.id_item=md.id 
 
@@ -446,7 +446,7 @@ $sql="select posno,rule_bom,id_item,nama_type
 
   where id_jo='$id' and a.cancel='N' and a.status='M'
 
-  group by posno,rule_bom,id_item";
+  group by posno,rule_bom,id_item,a.id_panel";
 
 $rs1=mysql_query($sql);
 
@@ -460,11 +460,11 @@ while($row1 = mysql_fetch_array($rs1))
 
     if($row1['nama_type']=="SKU")
 
-    { $fldgrp=" group by l.sku,a.status,a.id_item "; }
+    { $fldgrp=" group by l.sku,a.status,a.id_item,a.id_panel "; }
 
     else
 
-    { $fldgrp=" group by a.status,a.id_item "; }
+    { $fldgrp=" group by a.status,a.id_item,a.id_panel "; }
 
   }
 
@@ -474,7 +474,7 @@ while($row1 = mysql_fetch_array($rs1))
 
     $fldsiz="l.size";
 
-    $fldgrp=" group by a.status,a.id_item,l.size";
+    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.size";
 
   }
 
@@ -484,7 +484,7 @@ while($row1 = mysql_fetch_array($rs1))
 
     $fldsiz="'All Size'";
 
-    $fldgrp=" group by a.status,a.id_item,l.color";
+    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.color";
 
   }
 
@@ -496,11 +496,13 @@ while($row1 = mysql_fetch_array($rs1))
 
     $fldsiz="l.size";
 
-    $fldgrp=" group by a.status,a.id_item,l.color,l.size";
+    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.color,l.size";
 
   }
 
   if ($row1['posno']==null) {$posno=" (posno is null or posno='')";} else {$posno=" posno='$row1[posno]'";}
+
+  if ($row1['id_panel']==null) {$panel_filter=" (a.id_panel is null or a.id_panel='')";} else {$panel_filter=" a.id_panel='$row1[id_panel]'";}
 
   $sql="insert into $tblbomjoit 
 
@@ -508,7 +510,7 @@ while($row1 = mysql_fetch_array($rs1))
 
     from bom_jo_item a INNER JOIN so_det l on a.id_so_det=l.id 
 
-    where a.id_jo='$id' and a.cancel='N' and l.cancel='N' and a.status='M' and a.id_item='$row1[id_item]' and $posno $fldgrp ";
+    where a.id_jo='$id' and a.cancel='N' and l.cancel='N' and a.status='M' and a.id_item='$row1[id_item]' and $posno and $panel_filter $fldgrp ";
 
   insert_log($sql,'TempTable');
 
@@ -516,13 +518,13 @@ while($row1 = mysql_fetch_array($rs1))
 
 }
 
-$sql_pro="select posno,if(rule_bom='','ALL COLOR ALL SIZE',rule_bom) rule_bom,md.id_item,md.matclass nama_type  
+$sql_pro="select posno,if(rule_bom='','ALL COLOR ALL SIZE',rule_bom) rule_bom,md.id_item,a.id_panel,md.matclass nama_type  
 
   from bom_jo_item a inner join masteritem md on a.id_item=md.id_item  
 
   where id_jo='$id' and a.cancel='N' and a.status='P'
 
-  group by posno,rule_bom,id_item";
+  group by posno,rule_bom,id_item,a.id_panel";
 
 $rs1_pro=mysql_query($sql_pro);
 
@@ -536,11 +538,11 @@ while($row1_pro = mysql_fetch_array($rs1_pro))
 
     if($row1_pro['nama_type']=="SKU")
 
-    { $fldgrp=" group by l.sku,a.status,a.id_item "; }
+    { $fldgrp=" group by l.sku,a.status,a.id_item,a.id_panel "; }
 
     else
 
-    { $fldgrp=" group by a.status,a.id_item "; }
+    { $fldgrp=" group by a.status,a.id_item,a.id_panel "; }
 
   }
 
@@ -550,7 +552,7 @@ while($row1_pro = mysql_fetch_array($rs1_pro))
 
     $fldsiz="l.size";
 
-    $fldgrp=" group by a.status,a.id_item,l.size";
+    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.size";
 
   }
 
@@ -560,7 +562,7 @@ while($row1_pro = mysql_fetch_array($rs1_pro))
 
     $fldsiz="'All Size'";
 
-    $fldgrp=" group by a.status,a.id_item,l.color";
+    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.color";
 
   }
 
@@ -572,11 +574,13 @@ while($row1_pro = mysql_fetch_array($rs1_pro))
 
     $fldsiz="l.size";
 
-    $fldgrp=" group by a.status,a.id_item,l.color,l.size";
+    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.color,l.size";
 
   }
 
   if ($row1_pro['posno']==null) {$posno=" (posno is null or posno='')";} else {$posno=" posno='$row1_pro[posno]'";}
+
+  if ($row1_pro['id_panel']==null) {$panel_filter=" (a.id_panel is null or a.id_panel='')";} else {$panel_filter=" a.id_panel='$row1_pro[id_panel]'";}
 
   $sql_pro="insert into $tblbomjoit 
 
@@ -586,7 +590,7 @@ while($row1_pro = mysql_fetch_array($rs1_pro))
 
     where a.id_jo='$id' and a.cancel='N' and l.cancel='N' and a.id_item='$row1_pro[id_item]' 
 
-    and a.status='P' and $posno $fldgrp ";
+    and a.status='P' and $posno and $panel_filter $fldgrp ";
 
   insert_log($sql_pro,'TempTable');
 
