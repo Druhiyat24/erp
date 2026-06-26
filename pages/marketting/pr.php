@@ -76,7 +76,7 @@ else
       d.nama_type,' ',e.nama_contents,' ',f.nama_width,' ',
       g.nama_length,' ',h.nama_weight,' ',i.nama_color,' ',j.nama_desc,' ',j.add_info) item,
       l.qty qty_gmt,k.cons,round(sum(l.qty*k.cons),2) qty_bom,
-      k.unit,k.id_supplier,k.id_supplier2,k.notes  
+      k.unit,k.id_supplier,k.id_supplier2,group_concat(distinct k.notes separator ', ') notes  
       from bom_jo_item k inner join so_det l on k.id_so_det=l.id inner join mastergroup a inner join mastersubgroup s on a.id=s.id_group
       inner join mastertype2 d on s.id=d.id_sub_group
       inner join mastercontents e on d.id=e.id_type
@@ -396,7 +396,7 @@ if ($mod=="15L" or $mod=="15aL" or $mod=="15bL" or $mod=="15LC") {
             d.nama_type,' ',e.nama_contents,' ',f.nama_width,' ',
             g.nama_length,' ',h.nama_weight,' ',i.nama_color,' ',j.nama_desc,' ',j.add_info) item,
             l.qty qty_gmt,k.cons,round(sum(l.qty*k.cons),2) qty_bom,
-            k.unit,m.supplier,m2.supplier supplier2,k.notes,if(jo.app='W','Waiting','Approved') status_app,
+            k.unit,m.supplier,m2.supplier supplier2,group_concat(distinct k.notes separator ', ') notes,if(jo.app='W','Waiting','Approved') status_app,
             k.id_supplier,k.id_supplier2,a.id nama_group  
             from bom_jo_item k inner join jo on k.id_jo=jo.id 
             inner join so_det l on k.id_so_det=l.id inner join mastergroup a inner join mastersubgroup s on a.id=s.id_group
@@ -413,7 +413,7 @@ if ($mod=="15L" or $mod=="15aL" or $mod=="15bL" or $mod=="15LC") {
             union all 
             select k.status,0 idsubgroup,k.id_item,l.color,l.size,concat(mi.matclass,' ',mi.goods_code,' ',mi.itemdesc) item,
             l.qty qty_gmt,k.cons,round(sum(l.qty*k.cons),2) qty_bom,
-            k.unit,m.supplier,m2.supplier supplier2,k.notes,if(jo.app='W','Waiting','Approved') status_app,
+            k.unit,m.supplier,m2.supplier supplier2,group_concat(distinct k.notes separator ', ') notes,if(jo.app='W','Waiting','Approved') status_app,
             k.id_supplier,k.id_supplier2,'999' nama_group  
             from bom_jo_item k inner join jo on k.id_jo=jo.id 
             inner join so_det l on k.id_so_det=l.id inner join 
