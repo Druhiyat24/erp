@@ -610,7 +610,115 @@ list($h, $d) = $m->get_report($id,$tblbomjoit);
 
 
 
-//echo '<pre>';print_r(array($h, $d));exit();
+echo "<div style='padding:20px; background:#f8f9fa; border:2px solid #007bff; font-family:sans-serif;'>";
+
+echo "<h2>🛑 DEBUGGING NAMA TABEL & QUERY LAPORAN 🛑</h2>";
+
+echo "<p>Nama Tabel di Navicat: <b><font size='+2' color='blue'>" . $tblbomjoit . "</font></b></p>";
+
+echo "<p>Tabel ini berisi data Job Order ID <b>" . $id . "</b> dan <b>TIDAK DIHAPUS</b> dari database.</p>";
+
+echo "<hr><p><b>📋 QUERY SQL GET LAPORAN (SIAP COPY-PASTE DI NAVICAT):</b></p>";
+
+
+
+$query_navicat = "SELECT * FROM 
+
+(
+
+    SELECT k.posno, k.id, mp.nama_panel, k.id_item, a.nama_group, s.nama_sub_group, k.color, k.size,
+
+           if(s.nama_sub_group regexp 'BARCODE' or s.nama_sub_group regexp 'STICKER',
+
+               concat(if(d.nama_type!='-',concat(d.nama_type,' '),''),if(e.nama_contents!='-',concat(e.nama_contents,' '),''),if(f.nama_width!='-',concat(f.nama_width,' '),''),if(g.nama_length!='-',concat(g.nama_length,' '),''),if(h.nama_weight!='-',concat(h.nama_weight,' '),''),if(i.nama_color!='-',concat(i.nama_color,' '),''),'',if(j.nama_desc!='-',concat(j.nama_desc,' '),''),if(j.add_info!='-' and j.add_info!='',j.add_info,''),IFNULL(k.sku,''),' ',IFNULL(k.barcode,'')),
+
+               if(d.nama_type='SKU',
+
+                   concat(if(d.nama_type!='-',concat(d.nama_type,' '),''),if(e.nama_contents!='-',concat(e.nama_contents,' '),''),if(f.nama_width!='-',concat(f.nama_width,' '),''),if(g.nama_length!='-',concat(g.nama_length,' '),''),if(h.nama_weight!='-',concat(h.nama_weight,' '),''),if(i.nama_color!='-',concat(i.nama_color,' '),''),'',if(j.nama_desc!='-',concat(j.nama_desc,' '),''),if(j.add_info!='-' and j.add_info!='',j.add_info,''),IFNULL(k.sku,'')),
+
+                   concat(if(d.nama_type!='-',concat(d.nama_type,' '),''),if(e.nama_contents!='-',concat(e.nama_contents,' '),''),if(f.nama_width!='-',concat(f.nama_width,' '),''),if(g.nama_length!='-',concat(g.nama_length,' '),''),if(h.nama_weight!='-',concat(h.nama_weight,' '),''),if(i.nama_color!='-',concat(i.nama_color,' '),''),'',if(j.nama_desc!='-',j.nama_desc,''),if(j.add_info!='-' and j.add_info!='',j.add_info,''))
+
+               )
+
+           ) AS item,
+
+           k.qty qty_gmt, k.cons, round(k.qty*k.cons,2) qty_bom,
+
+           k.unit, urut, k.notes  
+
+    FROM " . $tblbomjoit . " k 
+
+    INNER JOIN masterdesc j ON k.id_item=j.id
+
+    INNER JOIN mastercolor i ON i.id=j.id_color
+
+    INNER JOIN masterweight h ON h.id=i.id_weight
+
+    INNER JOIN masterlength g ON g.id=h.id_length
+
+    INNER JOIN masterwidth f ON f.id=g.id_width
+
+    INNER JOIN mastercontents e ON e.id=f.id_contents
+
+    INNER JOIN mastertype2 d ON d.id=e.id_type
+
+    INNER JOIN mastersubgroup s ON s.id=d.id_sub_group
+
+    INNER JOIN mastergroup a ON a.id=s.id_group 
+
+    LEFT JOIN mastersize msz ON k.size=msz.size
+
+    LEFT JOIN masterpanel mp ON k.id_panel=mp.id
+
+    WHERE k.id_jo = " . $id . " AND k.status = 'M'
+
+
+
+    UNION ALL 
+
+
+
+    SELECT k.posno, k.id, mp.nama_panel, k.id_item, j.matclass nama_group, concat(j.matclass,' ',j.goods_code, ' ' ,j.color) nama_sub_group,
+
+           k.color, k.size,
+
+           j.itemdesc item, k.qty qty_gmt, k.cons, round(k.qty*k.cons,2) qty_bom,
+
+           k.unit, urut, k.notes  
+
+    FROM " . $tblbomjoit . " k 
+
+    INNER JOIN masteritem j ON k.id_item=j.id_item 
+
+    LEFT JOIN mastersize msz ON k.size=msz.size
+
+    LEFT JOIN masterpanel mp ON k.id_panel=mp.id
+
+    WHERE k.id_jo = " . $id . " AND k.status = 'P' 
+
+) a
+
+ORDER BY 
+
+    CASE WHEN nama_group = 'FABRIC' THEN '1'
+
+         WHEN nama_group = 'ACCESORIES SEWING' THEN '2'
+
+         WHEN nama_group = 'ACCESORIES PACKING' THEN '3'
+
+         ELSE '4'
+
+    END,
+
+    id ASC;";
+
+
+
+echo "<textarea onclick='this.select()' style='width:100%; height:350px; font-family:monospace; font-size:13px; background:#fff; padding:10px; border:1px solid #ccc;'>" . htmlspecialchars($query_navicat) . "</textarea>";
+
+echo "</div>";
+
+exit();
 
 
 
