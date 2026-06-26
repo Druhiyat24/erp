@@ -11,6 +11,7 @@ header("Expires: 0");
 ?>
 <table>
   <thead>
+    <th>ID Supplier</th>
     <th>Kode Supplier</th>
     <th>Supplier</th>
     <th>Alamat</th>
@@ -22,11 +23,11 @@ header("Expires: 0");
     <th>Beneficiary Name</th>
   </thead>
   <tbody>
-    <?php 
-    $sql="SELECT supplier_code, supplier, alamat, if(area='I','Import/Export',
+    <?php
+    $sql="SELECT id_supplier, supplier_code, supplier, alamat, if(area='I','Import/Export',
       if(area='L','Lokal',if(area='F','Factory',area))) areanya , country, product_name, bank_name, bank_account, beneficiary_name
       FROM mastersupplier where tipe_sup='S' ORDER BY id_supplier desc";
-    tampil_data_tanpa_nourut($sql,9);
+    tampil_data_tanpa_nourut($sql,10);
     ?>
   </tbody>
-</table>  
+</table>
