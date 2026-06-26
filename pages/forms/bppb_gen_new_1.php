@@ -325,9 +325,9 @@ UNION
 select id_item isi, concat(id_item,' | ',goods_code,' | ', itemdesc ) tampil 
 from masteritem mi
 inner join mapping_category mc on mi.n_code_category = mc.n_id
-where mattype in ('N') and non_aktif = 'N' and mc.description in ('PERSEDIAAN SPAREPARTS - FACTORY SUPPLIES','PERSEDIAAN MESIN')
+where mattype in ('N') and non_aktif = 'N' and mc.n_id in (3,4,6)
 or
-mattype in ('N') and non_aktif = 'N' and tipe_item = 'ASSET'
+mattype in ('N') and non_aktif = 'N' and tipe_item IN ('ASSET','JASA')
 group by id_item ";
                 IsiCombo($sql, '', '');
                 ?>
