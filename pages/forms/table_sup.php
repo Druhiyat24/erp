@@ -2,6 +2,7 @@
   <thead>
     <tr>
         <th>No</th>
+        <th>ID Supplier</th>
         <th><?PHP echo "Kode ".$titlenya;?></th>
         <th><?PHP echo $titlenya;?></th>
         <th><?php echo $c28; ?></th>
@@ -30,6 +31,7 @@
     { echo "
       <tr>
         <td>$no</td>
+        <td>$data[Id_Supplier]</td>
         <td>$data[supplier_code]</td>
         <td>$data[Supplier]</td>
         <td>$data[alamat]</td>
