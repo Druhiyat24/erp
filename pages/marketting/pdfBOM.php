@@ -239,7 +239,10 @@ class Model{
           concat($fld1,$fld2,$fld3,$fld4,$fld5,$fld6,$fld7,$fld8,$fld9)))";
 
         $sql = "
-        select * from 
+        select posno, id, nama_panel, id_item, nama_group, nama_sub_group, color, size,
+               if(nama_sub_group regexp 'SIZE LABEL', substring_index(item, ' ', 1), item) as item,
+               qty_gmt, cons, qty_bom, unit, urut, notes 
+        from 
         (
         SELECT k.posno,k.id,mp.nama_panel,k.id_item,a.nama_group,s.nama_sub_group,k.color,k.size,
 
