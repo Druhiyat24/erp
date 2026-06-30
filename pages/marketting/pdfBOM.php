@@ -237,7 +237,7 @@ class Model{
           concat($fld1,$fld2,$fld3,$fld4,$fld5,$fld6,$fld7,$fld8a,$fld9,IFNULL(k.sku,'')),
 
           concat($fld1,$fld2,$fld3,$fld4,$fld5,$fld6,$fld7,$fld8,$fld9)))";
-
+          // 
         $sql = "
         select * from 
         (
@@ -428,7 +428,7 @@ insert_log($sql,'TempTable');
 
 insert_log("delete from $tblbomjoit",'TempTable');
 
-$sql="select posno,rule_bom,id_item,a.id_panel,nama_type 
+$sql="select MIN(posno) as posno,rule_bom,id_item,a.id_panel,nama_type 
   from bom_jo_item a inner join masterdesc md on a.id_item=md.id 
   inner join mastercolor mc on md.id_color=mc.id
   inner join masterweight mw on mc.id_weight=mw.id 
@@ -437,7 +437,7 @@ $sql="select posno,rule_bom,id_item,a.id_panel,nama_type
   inner join mastercontents mco on mwi.id_contents=mco.id 
   inner join mastertype2 mt on mco.id_type=mt.id 
   where id_jo='$id' and a.cancel='N' and a.status='M'
-  group by posno,rule_bom,id_item,a.id_panel";
+  group by rule_bom,id_item,a.id_panel";
 $rs1=mysql_query($sql);
 while($row1 = mysql_fetch_array($rs1))
 { if ($row1['rule_bom']=="ALL COLOR ALL SIZE")
@@ -464,19 +464,18 @@ while($row1 = mysql_fetch_array($rs1))
     $fldsiz="l.size";
     $fldgrp=" group by a.status,a.id_item,a.id_panel,l.color,l.size";
   }
-  if ($row1['posno']==null) {$posno=" (posno is null or posno='')";} else {$posno=" posno='$row1[posno]'";}
   if ($row1['id_panel']==null) {$panel_filter=" (a.id_panel is null or a.id_panel='')";} else {$panel_filter=" a.id_panel='$row1[id_panel]'";}
   $sql="insert into $tblbomjoit 
     select a.*,$fldcol,$fldsiz,sum(l.qty),l.sku,l.barcode,l.id_so 
     from bom_jo_item a INNER JOIN so_det l on a.id_so_det=l.id 
-    where a.id_jo='$id' and a.cancel='N' and l.cancel='N' and a.status='M' and a.id_item='$row1[id_item]' and $posno and $panel_filter $fldgrp ";
+    where a.id_jo='$id' and a.cancel='N' and l.cancel='N' and a.status='M' and a.id_item='$row1[id_item]' and $panel_filter $fldgrp ";
   insert_log($sql,'TempTable');
 //   echo "<br><br>".$sql."<br><br>";
 }
-$sql_pro="select posno,if(rule_bom='','ALL COLOR ALL SIZE',rule_bom) rule_bom,md.id_item,a.id_panel,md.matclass nama_type  
+$sql_pro="select MIN(posno) as posno,if(rule_bom='','ALL COLOR ALL SIZE',rule_bom) rule_bom,md.id_item,a.id_panel,md.matclass nama_type  
   from bom_jo_item a inner join masteritem md on a.id_item=md.id_item  
   where id_jo='$id' and a.cancel='N' and a.status='P'
-  group by posno,rule_bom,id_item,a.id_panel";
+  group by rule_bom,id_item,a.id_panel";
 $rs1_pro=mysql_query($sql_pro);
 while($row1_pro = mysql_fetch_array($rs1_pro))
 { if ($row1_pro['rule_bom']=="ALL COLOR ALL SIZE")
@@ -503,13 +502,12 @@ while($row1_pro = mysql_fetch_array($rs1_pro))
     $fldsiz="l.size";
     $fldgrp=" group by a.status,a.id_item,a.id_panel,l.color,l.size";
   }
-  if ($row1_pro['posno']==null) {$posno=" (posno is null or posno='')";} else {$posno=" posno='$row1_pro[posno]'";}
   if ($row1_pro['id_panel']==null) {$panel_filter=" (a.id_panel is null or a.id_panel='')";} else {$panel_filter=" a.id_panel='$row1_pro[id_panel]'";}
   $sql_pro="insert into $tblbomjoit 
     select a.*,$fldcol,$fldsiz,sum(l.qty),l.sku,l.barcode,l.id_so 
     from bom_jo_item a INNER JOIN so_det l on a.id_so_det=l.id 
     where a.id_jo='$id' and a.cancel='N' and l.cancel='N' and a.id_item='$row1_pro[id_item]' 
-    and a.status='P' and $posno and $panel_filter $fldgrp ";
+    and a.status='P' and $panel_filter $fldgrp ";
   insert_log($sql_pro,'TempTable');
   #echo "<br><br>".$sql_pro."<br><br>";
 }
