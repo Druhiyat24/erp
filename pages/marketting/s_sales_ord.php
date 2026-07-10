@@ -91,6 +91,11 @@ else
 			tax='$txttax',id_season='$txtseason',id_terms='$txtterms',jml_pterms='$txtdays',jns_so='$txtjns_so',ket_blc='$txtket_blc', updated_by='$user', updated_date='$now'
 			where id='$id_so'";
 		insert_log($sql,$user);
+
+		$log_activity_sql = "insert into tbl_log (nama,activity,tanggal_input,doc_number,tanggal_doc,keterangan)
+			values ('$user','Edit Sales Order','$now','$txtso_no','$txtso_date','id_so=$id_so')";
+		mysqli_query($conn_li,$log_activity_sql);
+
 		$_SESSION['msg'] = 'Data Berhasil Dirubah';
 	}
 	echo "<script>
