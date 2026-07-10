@@ -179,6 +179,11 @@ if ($akses == "0") {
                     <label>Notes</label>
                     <textarea row='2' style=" height:40px;" class='form-control' id="txtnotes" name='txtnotes' placeholder='Masukkan Notes'></textarea>
                 </div>
+                <div class='form-group'>
+                    <label>Job Order # *</label>
+                    <select class='form-control select2' multiple='multiple' style='width: 100%;' name='txtJOItem[]' id='cboJO' onchange='getJOGlobal()'>
+                    </select>
+                </div>
             </div>
             <div class='col-md-3'>
                 <input type="checkbox" onclick="checkpkp()" name="pkp" id="pkp" value="" />PKP
@@ -198,12 +203,12 @@ if ($akses == "0") {
                         <option value="BUYER">BUYER</option>
                     </select>
                 </div>
-            </div>
-
-            <div class='col-md-6'>
                 <div class='form-group'>
-                    <label>Job Order # *</label>
-                    <select class='form-control select2' multiple='multiple' style='width: 100%;' name='txtJOItem[]' id='cboJO' onchange='getJOGlobal()'>
+                    <label>Dasar Perhitungan Pembayaran *</label>
+                    <select class='form-control select2' style='width: 100%;' id="txt_tipetagihan" name='txt_tipetagihan'>
+                        <option value="">--- Pilih Dasar Perhitungan Pembayaran ---</option>
+                        <option value="FULL QTY">Full Qty</option>
+                        <option value="GOOD QTY">Good Qty</option>
                     </select>
                 </div>
             </div>

@@ -335,6 +335,11 @@ $html= '
                 <td style="border-collapse: collapse; border-bottom:solid 2px black; padding:5px;text-align:right;"><p style="text-align:right;">'.$currency.' '.number_format(($bunga - $tot_ppn),$decim).'</p></td>
             </tr>';
 
+            $sql_tagih = mysql_query("select tipe_tagihan from po_header a inner join po_header_draft b on b.id = a.id_draft where a.id = '$_GET[id]'");
+            // echo $sqlsaldo;
+        $data_tagih= mysql_fetch_array($sql_tagih);
+        $tipe_tagihan = $data_tagih['tipe_tagihan'];
+
             $html .= '<tr>
                 <td style="padding:5px; "><p style="font-weight:bold">Total</p></td>
                 <td style="padding:5px;text-align:right "><p style="text-align:right; font-size:12px; font-weight:bold">'.$currency.' '.number_format(($subnya + ($bunga - $tot_ppn)),$decim).'</p></td>
@@ -342,7 +347,8 @@ $html= '
     </table>
     <div style="width:100%; margin-top:20px;font-size:12px;">
     <p>Created By : '.$createby.'</p>
-    <p>Notes : '.$notes.'</p>';
+    <p>Notes : '.$notes.'</p>
+    <p>Dasar Perhitungan Pembayaran : '.$tipe_tagihan.'</p>';
     if($jenis_company=="VENDOR LG")
     { $html = $html.'<p>JO : <b>'.$wsdet.'</b></p>'; }
     else

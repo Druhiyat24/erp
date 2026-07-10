@@ -166,9 +166,9 @@ return $hasil;
 
 public function insert_header($header,$username){
 	$insert = "insert into po_header_draft (username,draftno,draftdate,etd,eta,expected_date,id_supplier,id_terms,
-	notes,n_kurs,ppn,tax,discount,pph,jenis,jml_pterms,fg_pkp,id_dayterms,tipe_com)
+	notes,n_kurs,ppn,tax,discount,pph,jenis,jml_pterms,fg_pkp,id_dayterms,tipe_com,tipe_tagihan)
 	values ('{$username}','{$header['txtdraftpo']}','{$header['txtdrafpodate']}','{$header['txtetddate']}','{$header['txtetadate']}','{$header['txtexpdate']}','{$header['cbosupp']}','{$header['txtid_terms']}',
-	'{$header['txtnotes']}','{$header['n_kurs']}','{$header['ppn_nya']}','{$header['ppn_nya']}','{$header['txtdisc']}','{$header['txtdisc']}','{$header['jenis_item']}','{$header['txtdays']}','{$header['pkp']}','{$header['txtid_dayterms']}','{$header['txt_tipecom']}')";
+	'{$header['txtnotes']}','{$header['n_kurs']}','{$header['ppn_nya']}','{$header['ppn_nya']}','{$header['txtdisc']}','{$header['txtdisc']}','{$header['jenis_item']}','{$header['txtdays']}','{$header['pkp']}','{$header['txtid_dayterms']}','{$header['txt_tipecom']}','{$header['txt_tipetagihan']}')";
 /* 			echo $insert;
 die();  */
 $this->eksekusi_query_insert_update($insert,'insert_header');	
@@ -189,6 +189,7 @@ public function update_header($my_header){
 	,notes        		=  	'{$my_header['txtnotes']}'
 	,jml_pterms         =  	'{$my_header['txtdays']}'
 	,tipe_com           =  	'{$my_header['txt_tipecom']}'
+	,tipe_tagihan       =  	'{$my_header['txt_tipetagihan']}'
 	WHERE id = '{$my_header['id']}'
 	";
 /* 						echo $update;
