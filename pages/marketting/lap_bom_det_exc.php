@@ -112,8 +112,7 @@ mi.id_item,
 mi.itemdesc, sd.qty qty_gmt,k.cons,round(sd.qty*k.cons,2) qty_bom, k.unit,up.fullname,k.cancel,k.rule_bom,k.posno,mpan.nama_panel,k.dest, 'Material' as status, so.so_no, ac.kpno, ac.styleno , mp.product_group, mp.product_item, ms.supplier, 
 ac.deldate,
 sd.color,
-sd.size,
-ac.deldate
+sd.size
 from bom_jo_item k
 inner join so_det sd on k.id_so_det = sd.id
 inner join so on sd.id_so  = so.id
@@ -131,8 +130,7 @@ mi.id_item,
 mi.itemdesc, sd.qty qty_gmt,k.cons,round(sd.qty*k.cons,2) qty_bom, k.unit,up.fullname,k.cancel,k.rule_bom,k.posno,mpan.nama_panel,k.dest, 'Manufacturing' as status, so.so_no, ac.kpno, ac.styleno , mp.product_group, mp.product_item, ms.supplier, 
 ac.deldate,
 sd.color,
-sd.size,
-ac.deldate
+sd.size
 from bom_jo_item k
 inner join so_det sd on k.id_so_det = sd.id
 inner join so on sd.id_so  = so.id
@@ -159,8 +157,8 @@ ORDER by deldate asc, supplier asc, kpno asc,
         echo "<tr>"; 
         echo "<td>$no</td>";
         echo "<td>$data[so_no]</td>";
-        echo "<td>$data[deldate]</td>";
         echo "<td>$data[kpno]</td>";
+        echo "<td>$data[deldate]</td>";
         echo "<td>$data[supplier]</td>";
         echo "<td>$data[styleno]</td>";
         echo "<td>$data[product_group]</td>";

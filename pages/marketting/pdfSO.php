@@ -14,7 +14,7 @@ $sqlSo = "select buyerno, so_date, qty, unit, fob from so where so_no ='".$SONO.
 
 $sqlFinalSO =  "SELECT supplier,act_costing.username,so.buyerno, so.so_date, so.fob, 
 so_det.dest, so_det.reff_no, so_det.color, so_det.size, so_det.qty, so_det.unit, 
-act_costing.deldate, act_costing.curr, masterproduct.product_item, masterproduct.product_group, 
+act_costing.deldate, so.curr, masterproduct.product_item, masterproduct.product_group, 
 so_det.price price, act_costing.styleno ,mastersupplier.Phone, mastersupplier.Attn, mastersupplier.alamat, mastersupplier.zip_code,
 so_det.price * so_det.qty AS hasilkali,so.tax,jns_so,season, concat(nama_pterms, ' (' ,so.jml_pterms, ' days - After',' ', mp.kode_pterms,')') ket_terms
 from 

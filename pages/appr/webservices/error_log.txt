@@ -178,3 +178,5 @@
 [17-Apr-2026 03:28:48 Europe/Berlin] PHP Notice:  Undefined variable: respon in C:\xampp\htdocs\erp\pages\appr\webservices\save_draft_po.php on line 7
 [13-May-2026 10:57:05 Europe/Berlin] PHP Notice:  Undefined index: username in C:\xampp\htdocs\erp\pages\appr\webservices\save_draft_po.php on line 5
 [13-May-2026 10:57:05 Europe/Berlin] PHP Notice:  Undefined variable: respon in C:\xampp\htdocs\erp\pages\appr\webservices\save_draft_po.php on line 7
+[09-Jul-2026 10:24:26 Europe/Berlin] PHP Notice:  Undefined index: username in C:\xampp\htdocs\erp\pages\appr\webservices\save_draft_po.php on line 5
+[09-Jul-2026 10:24:26 Europe/Berlin] PHP Notice:  Undefined variable: respon in C:\xampp\htdocs\erp\pages\appr\webservices\save_draft_po.php on line 7
