@@ -444,25 +444,25 @@ while($row1 = mysql_fetch_array($rs1))
   { $fldcol="'All Color'";
     $fldsiz="'All Size'";
     if($row1['nama_type']=="SKU")
-    { $fldgrp=" group by l.sku,a.status,a.id_item,a.id_panel "; }
+    { $fldgrp=" group by l.sku,a.status,a.id_item,a.id_panel, a.cons "; }
     else
-    { $fldgrp=" group by a.status,a.id_item,a.id_panel "; }
+    { $fldgrp=" group by a.status,a.id_item,a.id_panel, a.cons "; }
   }
   else if ($row1['rule_bom']=="ALL COLOR RANGE SIZE")
   { $fldcol="concat('All Color - ',l.size)";
     $fldsiz="l.size";
-    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.size";
+    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.size, a.cons";
   }
   else if ($row1['rule_bom']=="PER COLOR ALL SIZE")
   { $fldcol="l.color";
     $fldsiz="'All Size'";
-    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.color";
+    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.color, a.cons";
   }
   else 
   { #PER COLOR RANGE SIZE
     $fldcol="l.color";
     $fldsiz="l.size";
-    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.color,l.size";
+    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.color,l.size, a.cons";
   }
   if ($row1['id_panel']==null) {$panel_filter=" (a.id_panel is null or a.id_panel='')";} else {$panel_filter=" a.id_panel='$row1[id_panel]'";}
   $sql="insert into $tblbomjoit 
@@ -482,25 +482,25 @@ while($row1_pro = mysql_fetch_array($rs1_pro))
   { $fldcol="'All Color'";
     $fldsiz="'All Size'";
     if($row1_pro['nama_type']=="SKU")
-    { $fldgrp=" group by l.sku,a.status,a.id_item,a.id_panel "; }
+    { $fldgrp=" group by l.sku,a.status,a.id_item,a.id_panel, a.cons "; }
     else
-    { $fldgrp=" group by a.status,a.id_item,a.id_panel "; }
+    { $fldgrp=" group by a.status,a.id_item,a.id_panel, a.cons "; }
   }
   else if ($row1_pro['rule_bom']=="ALL COLOR RANGE SIZE")
   { $fldcol="'All Color'";
     $fldsiz="l.size";
-    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.size";
+    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.size, a.cons";
   }
   else if ($row1_pro['rule_bom']=="PER COLOR ALL SIZE")
   { $fldcol="l.color";
     $fldsiz="'All Size'";
-    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.color";
+    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.color, a.cons";
   }
   else 
   { #PER COLOR RANGE SIZE
     $fldcol="l.color";
     $fldsiz="l.size";
-    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.color,l.size";
+    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.color,l.size , a.cons";
   }
   if ($row1_pro['id_panel']==null) {$panel_filter=" (a.id_panel is null or a.id_panel='')";} else {$panel_filter=" a.id_panel='$row1_pro[id_panel]'";}
   $sql_pro="insert into $tblbomjoit 
