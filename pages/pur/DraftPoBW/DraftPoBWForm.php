@@ -217,15 +217,23 @@ name='txtJOItem[]' id='cboJO' onchange='getJO()'>
 <label>Kurs *</label> 
 <input type='text' class='form-control' id='n_kurs' name='n_kurs' placeholder='Masukkan Kurs' value='' > <label>Tipe Commercial *</label> 
 
-<select class='form-control select2' style='width: 100%;' id="txt_tipecom" name='txt_tipecom'> 
+<select class='form-control select2' style='width: 100%;' id="txt_tipecom" name='txt_tipecom'>
 
 <option value="">--- Pilih Tipe Commersial PO ---</option>
     <option value="REGULAR">REGULAR</option>
     <option value="FOC">FOC</option>
     <option value="BUYER">BUYER</option>
   </select>
-    
-</div> 
+
+</div>
+<div class='form-group'>
+<label>Dasar Perhitungan Pembayaran *</label>
+<select class='form-control select2' style='width: 100%;' id="txt_tipetagihan" name='txt_tipetagihan'>
+<option value="">--- Pilih Dasar Perhitungan Pembayaran ---</option>
+    <option value="FULL QTY">Full Qty</option>
+    <option value="GOOD QTY">Good Qty</option>
+  </select>
+</div>
 </div>
 
 

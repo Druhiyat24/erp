@@ -122,6 +122,12 @@ else
 		$update_sql = "update so_det set color='$txtcolor',deldate_det='$txtdeldate',dest='$txtdest',sku='$txtsku',notes='$txtnotes',barcode='$txtbarcode'
 			,qty='$qty',price='$price',reff_no='$txtreffno',styleno_prod='$txtstyleno_prod', updated_by='$user', updated_date='$now' where id='$id_det'";
 		insert_log($update_sql, $user); // Jalankan dan log kueri UPDATE
+
+		$so_no_log = flookup("so_no","so","id='$id_so'");
+		$log_activity_sql = "insert into tbl_log (nama,activity,tanggal_input,doc_number,tanggal_doc,keterangan)
+			values ('$user','Edit Sales Order Detail','$now','$so_no_log','$now','id_so=$id_so;id_det=$id_det')";
+		mysqli_query($conn_li,$log_activity_sql);
+
 		$_SESSION['msg'] = "Data Berhasil Dirubah";
 	}		
 	echo "<script>window.location.href='../marketting/?mod=7&id=$id_so';</script>";

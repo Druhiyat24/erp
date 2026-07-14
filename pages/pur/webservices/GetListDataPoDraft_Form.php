@@ -45,6 +45,8 @@ class getListData {
 		,A.fg_pkp
 		,A.po_over
 		,A.po_close
+		,A.tipe_com
+		,A.tipe_tagihan
 			FROM po_header_draft A
 			LEFT JOIN(SELECT id,id_po_draft,MAX(id_jo)id_jo,id_gen,curr FROM po_item_draft WHERE cancel = 'N' GROUP BY id_po_draft)B ON A.id = B.id_po_draft
 			LEFT JOIN(SELECT * FROM jo_det WHERE cancel = 'N')C ON B.id_jo = C.id_jo
@@ -74,7 +76,9 @@ class getListData {
 			$outp .= '"tax":"'. rawurlencode($row["tax"]). '",';
 			$outp .= '"notes":"'. rawurlencode($row["notes"]). '",';
 			$outp .= '"fg_pkp":"'. rawurlencode($row["fg_pkp"]). '",';
-			$outp .= '"kurs":"'. rawurlencode($row["n_kurs"]). '"}'; 
+			$outp .= '"kurs":"'. rawurlencode($row["n_kurs"]). '",';
+			$outp .= '"tipe_com":"'. rawurlencode($row["tipe_com"]). '",';
+			$outp .= '"tipe_tagihan":"'. rawurlencode($row["tipe_tagihan"]). '"}';
 		}	
 		//POPULASI ID JO
 		

@@ -1,4 +1,4 @@
-$(document ).ready(function() {
+﻿$(document ).ready(function() {
 $("#myOverlay").css("display","block");
 $("#txtpono").css("color","#EEE");
 	$data = {
@@ -23,6 +23,7 @@ $("#txtpono").css("color","#EEE");
 		triger_ppn :'',
 		n_kurs :'',
 		tipe_com :'',
+		txt_tipetagihan :'',
 	}
 
 
@@ -88,7 +89,9 @@ function inejectHeaderToHtml(json,kondisi){
 		$("#txtnotes").val(decodeURIComponent(json.records[0].notes)),
 		//$("#id_coa").val(decodeURIComponent(json.records[0].jenis_item).trigger("change"),
 		$("#n_kurs").val(decodeURIComponent(json.records[0].kurs)),
-		
+		$("#txt_tipecom").val(decodeURIComponent(json.records[0].tipe_com)).trigger("change"),
+		$("#txt_tipetagihan").val(decodeURIComponent(json.records[0].tipe_tagihan)).trigger("change"),
+
 		setTimeout(function(){
 			console.log(json.records[0].fg_pkp);
 			if(decodeURIComponent(json.records[0].fg_pkp) == '1' ){
@@ -413,15 +416,15 @@ function getListDataHeader($id) {
 
 
 function Save(){
-		$data.mod 			=$mod;	
+		$data.mod 			=$mod;
 		$data.txtdraftpo    =$('#txtdraftpo').val();
-		$data.txtdrafpodate =$('#datepicker1').val(); 
+		$data.txtdrafpodate =$('#datepicker1').val();
 		$data.jenis_item    =$('#jenis_item').val();
 		$data.cbosupp       =$('#cbosupp').val();
 		$data.curr          =$('#curr').val();
 		$data.txtid_terms   =$('#txtid_terms').val();
 		$data.txtdays       =$('#txtdays').val();
-		$data.txtid_dayterms=$('#txtid_dayterms').val(); 
+		$data.txtid_dayterms=$('#txtid_dayterms').val();
 		$data.txtetddate    =$('#datepicker2').val();
 		$data.txtetadate    =$('#datepicker3').val();
 		$data.txtexpdate    =$('#datepicker4').val();
@@ -432,7 +435,8 @@ function Save(){
 		$data.pkp           =$('#pkp').val();
 		$data.triger_ppn    =$('#triger_ppn').val();
 		$data.n_kurs        =$('#n_kurs').val();
-		$data.txt_tipecom   =$('#txt_tipecom').val();		
+		$data.txt_tipecom   =$('#txt_tipecom').val();
+		$data.txt_tipetagihan =$('#txt_tipetagihan').val();
 
 var unitkos = 0;
     var qtykos 		= 0;
@@ -503,6 +507,9 @@ var unitkos = 0;
 	if($data.txt_tipecom ==''){
 		swal({ title: 'Tipe Commersial Tidak Boleh Kosong', imageUrl: '../../images/error.jpg' }); return false;;
 	}				
+	if($data.txt_tipetagihan ==''){
+		swal({ title: 'Dasar Perhitungan Pembayaran Tidak Boleh Kosong', imageUrl: '../../images/error.jpg' }); return false;;
+	}
 	
 	if(!$split_nya[2]){
 		
@@ -582,25 +589,25 @@ var unitkos = 0;
 				}
 				setTimeout(function(){
 					$("#myOverlay").css("display","none");
-					window.location.href="./?mod=3L";	
+					window.location.href="./?mod=po_header";
 				},3000)
 			},
 			error: function (data) {
 				alert("Error req");
 			}
-		});	
+		});
 }
 
 function Save_global(){
-		$data.mod 			=$mod;	
+		$data.mod 			=$mod;
 		$data.txtdraftpo    =$('#txtdraftpo').val();
-		$data.txtdrafpodate =$('#datepicker1').val(); 
+		$data.txtdrafpodate =$('#datepicker1').val();
 		$data.jenis_item    =$('#jenis_item').val();
 		$data.cbosupp       =$('#cbosupp').val();
 		$data.curr          =$('#curr').val();
 		$data.txtid_terms   =$('#txtid_terms').val();
 		$data.txtdays       =$('#txtdays').val();
-		$data.txtid_dayterms=$('#txtid_dayterms').val(); 
+		$data.txtid_dayterms=$('#txtid_dayterms').val();
 		$data.txtetddate    =$('#datepicker2').val();
 		$data.txtetadate    =$('#datepicker3').val();
 		$data.txtexpdate    =$('#datepicker4').val();
@@ -611,7 +618,8 @@ function Save_global(){
 		$data.pkp           =$('#pkp').val();
 		$data.triger_ppn    =$('#triger_ppn').val();
 		$data.n_kurs        =$('#n_kurs').val();
-		$data.txt_tipecom   =$('#txt_tipecom').val();		
+		$data.txt_tipecom   =$('#txt_tipecom').val();
+		$data.txt_tipetagihan =$('#txt_tipetagihan').val();
 
 var unitkos = 0;
     var qtykos 		= 0;
@@ -682,6 +690,9 @@ var unitkos = 0;
 	if($data.txt_tipecom ==''){
 		swal({ title: 'Tipe Commersial Tidak Boleh Kosong', imageUrl: '../../images/error.jpg' }); return false;;
 	}				
+	if($data.txt_tipetagihan ==''){
+		swal({ title: 'Dasar Perhitungan Pembayaran Tidak Boleh Kosong', imageUrl: '../../images/error.jpg' }); return false;;
+	}
 	
 	if(!$split_nya[2]){
 		
