@@ -455,11 +455,11 @@ while($row1 = mysql_fetch_array($rs1))
 
     if($row1['nama_type']=="SKU")
 
-    { $fldgrp=" group by l.sku,a.status,a.id_item "; }
+    { $fldgrp=" group by l.sku,a.status,a.id_item,a.id_panel, a.cons "; }
 
     else
 
-    { $fldgrp=" group by a.status,a.id_item "; }
+    { $fldgrp=" group by a.status,a.id_item ,a.id_panel, a.cons"; }
 
   }
 
@@ -469,7 +469,7 @@ while($row1 = mysql_fetch_array($rs1))
 
     $fldsiz="l.size";
 
-    $fldgrp=" group by a.status,a.id_item,l.size";
+    $fldgrp=" group by a.status,a.id_item,l.size,a.id_panel, a.cons";
 
   }
 
@@ -479,7 +479,7 @@ while($row1 = mysql_fetch_array($rs1))
 
     $fldsiz="'All Size'";
 
-    $fldgrp=" group by a.status,a.id_item,l.color";
+    $fldgrp=" group by a.status,a.id_item,l.color,a.id_panel, a.cons";
 
   }
 
@@ -491,7 +491,7 @@ while($row1 = mysql_fetch_array($rs1))
 
     $fldsiz="l.size";
 
-    $fldgrp=" group by a.status,a.id_item,l.color,l.size";
+    $fldgrp=" group by a.status,a.id_item,l.color,l.size, a.cons";
 
   }
 
@@ -517,7 +517,7 @@ $sql_pro="select posno,if(rule_bom='','ALL COLOR ALL SIZE',rule_bom) rule_bom,md
 
   where id_jo='$id' and a.cancel='N' and a.status='P'
 
-  group by posno,rule_bom,id_item";
+  group by posno,rule_bom,id_item,id_panel";
 
 $rs1_pro=mysql_query($sql_pro);
 
@@ -531,11 +531,11 @@ while($row1_pro = mysql_fetch_array($rs1_pro))
 
     if($row1_pro['nama_type']=="SKU")
 
-    { $fldgrp=" group by l.sku,a.status,a.id_item "; }
+    { $fldgrp=" group by l.sku,a.status,a.id_item, a.id_panel, a.cons "; }
 
     else
 
-    { $fldgrp=" group by a.status,a.id_item "; }
+    { $fldgrp=" group by a.status,a.id_item, a.id_panel, a.cons"; }
 
   }
 
@@ -545,7 +545,7 @@ while($row1_pro = mysql_fetch_array($rs1_pro))
 
     $fldsiz="l.size";
 
-    $fldgrp=" group by a.status,a.id_item,l.size";
+    $fldgrp=" group by a.status,a.id_item,l.size, a.id_panel, a.cons";
 
   }
 
@@ -555,7 +555,7 @@ while($row1_pro = mysql_fetch_array($rs1_pro))
 
     $fldsiz="'All Size'";
 
-    $fldgrp=" group by a.status,a.id_item,l.color";
+    $fldgrp=" group by a.status,a.id_item,l.color, a.id_panel, a.cons";
 
   }
 
@@ -567,7 +567,7 @@ while($row1_pro = mysql_fetch_array($rs1_pro))
 
     $fldsiz="l.size";
 
-    $fldgrp=" group by a.status,a.id_item,l.color,l.size";
+    $fldgrp=" group by a.status,a.id_item,l.color,l.size , a.id_panel, a.cons";
 
   }
 
