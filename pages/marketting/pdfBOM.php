@@ -241,60 +241,42 @@ class Model{
         $sql = "
         select * from 
         (
-        SELECT k.posno,k.id,mp.nama_panel,k.id_item,a.nama_group,s.nama_sub_group,k.color,k.size,
-
+            SELECT k.posno,k.id,mp.nama_panel,k.id_item,a.nama_group,s.nama_sub_group,k.color,k.size,
                 $fld_item item,k.qty qty_gmt,k.cons,round(k.qty*k.cons,2) qty_bom,
-
-                k.unit,urut,k.notes  
-
+                k.unit,urut,
+                (SELECT GROUP_CONCAT(DISTINCT notes SEPARATOR ', ') FROM bom_jo_item WHERE id_jo = $jo_id AND id_item = k.id_item AND cancel='N' AND notes IS NOT NULL AND notes != '') as notes 
             From $tblbomjoit k INNER JOIN masterdesc j on k.id_item=j.id
-
             INNER JOIN mastercolor i on i.id=j.id_color
-
             INNER JOIN masterweight h on h.id=i.id_weight
-
             INNER JOIN masterlength g on g.id=h.id_length
-
             INNER JOIN masterwidth f on f.id=g.id_width
-
             INNER JOIN mastercontents e on e.id=f.id_contents
-
             INNER JOIN mastertype2 d on d.id=e.id_type
-
             INNER JOIN mastersubgroup s on s.id=d.id_sub_group
-
             INNER JOIN mastergroup a on a.id=s.id_group 
-
             left join mastersize msz on k.size=msz.size
-
             left join masterpanel mp on k.id_panel=mp.id
-
             WHERE k.id_jo= $jo_id and k.status='M'
 
             union all 
 
             SELECT k.posno,k.id,mp.nama_panel,k.id_item,j.matclass nama_group,concat(j.matclass,' ',j.goods_code, ' ' ,j.color) nama_sub_group,
-
                 k.color,k.size,
-
                 j.itemdesc item,k.qty qty_gmt,k.cons,round(k.qty*k.cons,2) qty_bom,
-
-                k.unit,urut,k.notes  
-
+                k.unit,urut,
+                (SELECT GROUP_CONCAT(DISTINCT notes SEPARATOR ', ') FROM bom_jo_item WHERE id_jo = $jo_id AND id_item = k.id_item AND cancel='N' AND notes IS NOT NULL AND notes != '') as notes 
             From $tblbomjoit k INNER JOIN masteritem j on k.id_item=j.id_item 
-
             left join mastersize msz on k.size=msz.size
-
             left join masterpanel mp on k.id_panel=mp.id
-
-            WHERE k.id_jo= $jo_id and k.status='P' ) a
-            order by case when nama_group = 'FABRIC' THEN '1'
-            WHEN nama_group = 'ACCESORIES SEWING' THEN '2'
-            WHEN nama_group = 'ACCESORIES PACKING' THEN '3'
-            ELSE '4'
-END,
-id ASC; 
-            ";
+            WHERE k.id_jo= $jo_id and k.status='P' 
+        ) a
+        order by case when nama_group = 'FABRIC' THEN '1'
+        WHEN nama_group = 'ACCESORIES SEWING' THEN '2'
+        WHEN nama_group = 'ACCESORIES PACKING' THEN '3'
+        ELSE '4'
+        END,
+        id ASC; 
+        ";
 
         #echo $sql;
         // console.log(".$sql_pro.");
@@ -905,11 +887,17 @@ ob_start();
 
                 </tr>
 
+             <?php 
+                // Simpan hasil trim ke dalam variabel dulu agar PHP versi lama tidak protes
+                $notes_clean = trim($l->notesnya); 
+                
+                // Cek apakah variabelnya tidak kosong dan bukan tanda strip
+                if($notes_clean != '' && $notes_clean != '-'): 
+            ?>
                 <tr>
-
-                    <td colspan="13">Notes : <?php echo $l->notesnya;?></td>
-
+                    <td colspan="13"><b>Notes :</b> <?php echo $notes_clean; ?></td>
                 </tr>
+            <?php endif; ?>
 
                 <tr>
 
