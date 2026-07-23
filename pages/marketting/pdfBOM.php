@@ -450,7 +450,7 @@ while($row1 = mysql_fetch_array($rs1))
   $sql="insert into $tblbomjoit 
     select a.*,$fldcol,$fldsiz,sum(l.qty),l.sku,l.barcode,l.id_so 
     from bom_jo_item a INNER JOIN so_det l on a.id_so_det=l.id 
-    where a.id_jo='$id' and a.cancel='N' and l.cancel='N' and a.status='M' and a.id_item='$row1[id_item]' and $panel_filter $fldgrp ";
+    where a.id_jo='$id' and a.cancel='N' and l.cancel='N' and a.status='M' and a.id_item='$row1[id_item]' and if(a.rule_bom='','ALL COLOR ALL SIZE',a.rule_bom)='$row1[rule_bom]' and $panel_filter $fldgrp ";
   insert_log($sql,'TempTable');
 //   echo "<br><br>".$sql."<br><br>";
 }
@@ -489,7 +489,7 @@ while($row1_pro = mysql_fetch_array($rs1_pro))
     select a.*,$fldcol,$fldsiz,sum(l.qty),l.sku,l.barcode,l.id_so 
     from bom_jo_item a INNER JOIN so_det l on a.id_so_det=l.id 
     where a.id_jo='$id' and a.cancel='N' and l.cancel='N' and a.id_item='$row1_pro[id_item]' 
-    and a.status='P' and $panel_filter $fldgrp ";
+    and a.status='P' and if(a.rule_bom='','ALL COLOR ALL SIZE',a.rule_bom)='$row1_pro[rule_bom]' and $panel_filter $fldgrp ";
   insert_log($sql_pro,'TempTable');
   #echo "<br><br>".$sql_pro."<br><br>";
 }
