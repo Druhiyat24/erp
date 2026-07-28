@@ -1116,8 +1116,8 @@ insert_log($sql,$user);
 				if(d.status_kb='KITTE' and d.area='L','BC 2.4 KITTE',jenis_dok)))))))))) jenis_dokumen,
 				lpad(a.bcno,6,'0') bcno,if(isnull(a.bcdate),a.bpbdate,a.bcdate) bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,a.bpbdate trans_date,d.supplier,
 				if(s.goods_code='' OR s.goods_code='-' OR s.goods_code='0',concat(s.mattype,' ',a.id_item),s.goods_code) kode_brg,
-				concat(s.itemdesc,' ',s.color,' ',s.size,' ',s.add_info) itemdesc,a.unit,a.qty,a.curr,round(ifnull(a.price_bc,a.price)*a.qty,2) nilai_barang,
-				berat_bersih,berat_kotor,right(nomor_aju,6) nomor_aju,tujuan 
+				concat_ws(' ',s.itemdesc,' ',s.color,' ',s.size,' ',s.add_info) itemdesc,a.unit,a.qty,a.curr,round(ifnull(a.price_bc,a.price)*a.qty,2) nilai_barang,
+				berat_bersih,berat_kotor,right(nomor_aju,6) nomor_aju,tujuan, a.id_item 
 				from bpb a inner join masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
 				where a.cancel='N' and bpbdate between '$tglf' and '$tglt'  and left(bpbno,2)<>'FG' and jenis_dok!='INHOUSE' order by bcdate,bcno,bpbno ";
 			insert_temp_perdok_rekap($sqlk,$user,$sesi,"Y");
@@ -1135,10 +1135,11 @@ insert_log($sql,$user);
 				lpad(a.bcno,6,'0') bcno,a.bcdate,if(a.bpbno_int!='',a.bpbno_int,a.bpbno) trans_no,a.bpbdate trans_date,d.supplier,
 				if(s.goods_code='' OR s.goods_code='-' OR s.goods_code='0',concat('FG ',a.id_item),s.goods_code) kode_brg,
 				s.itemname itemdesc,a.unit,a.qty,a.curr,round(ifnull(a.price_bc,a.price)*a.qty,2) nilai_barang,
-				berat_bersih,berat_kotor,right(nomor_aju,6) nomor_aju 
+				berat_bersih,berat_kotor,right(nomor_aju,6) nomor_aju, a.id_item 
 				from bpb a inner join masterstyle s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
 				where a.cancel='N' and bpbdate between '$tglf' and '$tglt'  and left(bpbno,2)='FG' and jenis_dok!='INHOUSE' order by bcdate,bcno,bpbno ";
 			insert_temp_perdok_rekap($sqlk,$user,$sesi,"N");
+			// echo $sqlk;
 		} elseif ($rpt=='outrekap')
 		{	$sqlk = "SELECT 
 				if(jenis_dok='BC 3.0','BC 3.0',
@@ -1153,7 +1154,7 @@ insert_log($sql,$user);
 				lpad(a.bcno,6,'0') bcno,a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,
 				if(s.goods_code='' OR s.goods_code='-' OR s.goods_code='0',concat(s.mattype,' ',a.id_item),s.goods_code) kode_brg,
 				s.itemdesc,a.unit,a.qty,a.curr,round(ifnull(a.price_bc,a.price)*a.qty,2) nilai_barang,ifnull(a.price_bc,a.price),
-				berat_bersih,berat_kotor,right(nomor_aju,6) nomor_aju,tujuan
+				berat_bersih,berat_kotor,right(nomor_aju,6) nomor_aju,tujuan, a.id_item 
 				from bppb a inner join masteritem s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
 				where bppbdate between '$tglf' and '$tglt' and mid(bppbno,4,2)<>'FG' and jenis_dok!='INHOUSE' order by bcdate,bcno,bppbno";
 				// and d.area<>'F'
@@ -1172,7 +1173,7 @@ insert_log($sql,$user);
 				a.bcdate,$vtrans_no trans_no,a.bppbdate trans_date,d.supplier,
 				if(s.goods_code='' OR s.goods_code='-' OR s.goods_code='0',concat('FG ',a.id_item),s.goods_code) kode_brg,
 				s.itemname itemdesc,a.unit,a.qty,a.curr,round(ifnull(a.price_bc,a.price)*a.qty,2) nilai_barang,ifnull(a.price_bc,a.price),
-				berat_bersih,berat_kotor,right(nomor_aju,6) nomor_aju,tujuan 
+				berat_bersih,berat_kotor,right(nomor_aju,6) nomor_aju,tujuan, a.id_item  
 				from bppb a inner join masterstyle s on a.id_item=s.id_item inner join mastersupplier d on a.id_supplier=d.id_supplier 
 				where bppbdate between '$tglf' and '$tglt' and mid(bppbno,4,2)='FG' and jenis_dok!='INHOUSE' order by bcdate,bcno,bppbno";
 			#and d.area<>'F'
@@ -1251,7 +1252,7 @@ else
 			$no_trans = $data['JENIS_BARANG'];
 			$tgl_trans = MiddleDate($data['PODATE']);
 			$nm_sup = $data['SUPPLIER'];
-			$kode_barang = $data['ID_ITEM']; #dapatkan id mahasiswa dari data array (row) 'id'
+			$kode_barang = $data['KODE_BARANG']; #dapatkan id mahasiswa dari data array (row) 'id'
 			$nm_barang = $data['ITEMDESC']; #dapatkan nama mahasiswa dari data array (row) 'nama'
 			$satuan = $data['UNIT']; #dapatkan jurusan mahasiswa dari data array (row) 'jurusan' 
 			$jml = number_format($data['QTY'],2);

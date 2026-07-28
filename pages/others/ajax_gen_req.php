@@ -42,7 +42,7 @@ $all_dept = flookup("username", "userpassword", "username='$user' AND all_dept='
 
 if ($all_dept == "") {
     $user_group = flookup("kode_mkt", "userpassword", "username='$user'");
-    $filter_user = "WHERE up.kode_mkt='$user_group'";
+    $filter_user = "WHERE a.reqno LIKE '%$user_group%'";
     $filter_date = "";
 } else {
     $filter_user = "";

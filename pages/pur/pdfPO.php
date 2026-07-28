@@ -93,7 +93,7 @@ if ($status=="P")
   concat(masteritem.matclass," ",masteritem.itemdesc) itemdesc,po_header.eta from po_header INNER JOIN po_item 
   on po_header.id=po_item.id_po inner join 
   masteritem ON po_item.id_gen = masteritem.id_item
-  WHERE po_header.pono = "'.$PONO.'" and po_item.cancel="N" group by masteritem.id_item';
+  WHERE po_header.pono = "'.$PONO.'" and po_item.cancel="N" group by masteritem.id_item,po_item.price';
 }
 else
 { if ($jenis_company=="VENDOR LG") 
