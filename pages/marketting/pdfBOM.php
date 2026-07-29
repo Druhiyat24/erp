@@ -244,7 +244,7 @@ class Model{
             SELECT k.posno,k.id,mp.nama_panel,k.id_item,a.nama_group,s.nama_sub_group,k.color,k.size,
                 $fld_item item,k.qty qty_gmt,k.cons,round(k.qty*k.cons,2) qty_bom,
                 k.unit,urut,
-                (SELECT GROUP_CONCAT(DISTINCT notes SEPARATOR ', ') FROM bom_jo_item WHERE id_jo = $jo_id AND id_item = k.id_item AND cancel='N' AND notes IS NOT NULL AND notes != '') as notes 
+                (SELECT GROUP_CONCAT(DISTINCT notes SEPARATOR ', ') FROM bom_jo_item WHERE id_jo = $jo_id AND id_item = k.id_item AND cons = k.cons AND cancel='N' AND notes IS NOT NULL AND notes != '') as notes
             From $tblbomjoit k INNER JOIN masterdesc j on k.id_item=j.id
             INNER JOIN mastercolor i on i.id=j.id_color
             INNER JOIN masterweight h on h.id=i.id_weight
@@ -264,7 +264,7 @@ class Model{
                 k.color,k.size,
                 j.itemdesc item,k.qty qty_gmt,k.cons,round(k.qty*k.cons,2) qty_bom,
                 k.unit,urut,
-                (SELECT GROUP_CONCAT(DISTINCT notes SEPARATOR ', ') FROM bom_jo_item WHERE id_jo = $jo_id AND id_item = k.id_item AND cancel='N' AND notes IS NOT NULL AND notes != '') as notes 
+                (SELECT GROUP_CONCAT(DISTINCT notes SEPARATOR ', ') FROM bom_jo_item WHERE id_jo = $jo_id AND id_item = k.id_item AND cons = k.cons AND cancel='N' AND notes IS NOT NULL AND notes != '') as notes 
             From $tblbomjoit k INNER JOIN masteritem j on k.id_item=j.id_item 
             left join mastersize msz on k.size=msz.size
             left join masterpanel mp on k.id_panel=mp.id
