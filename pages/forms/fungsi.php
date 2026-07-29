@@ -1016,7 +1016,7 @@ function insert_temp_perdok_rekap($query,$usernya,$sesinya,$deldulu)
 		$no_trans = $data['trans_no'];
 		$tgl_trans = $data['trans_date'];
 		$nm_sup = $data['supplier'];
-		$kode_barang = $data['kode_brg']; #dapatkan id mahasiswa dari data array (row) 'id'
+		$kode_barang = $data['id_item']; #dapatkan id mahasiswa dari data array (row) 'id'
 		$nm_barang = $data['itemdesc']; #dapatkan nama mahasiswa dari data array (row) 'nama'
 		$satuan = $data['unit']; #dapatkan jurusan mahasiswa dari data array (row) 'jurusan' 
 		$jml = $data['qty'];

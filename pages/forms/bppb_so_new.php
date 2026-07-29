@@ -387,7 +387,27 @@ function startCalcBpb(){
 
           </select>
 
-        </div>        
+        </div>    
+
+        <div class='form-group'>
+
+                    <label>Jenis Pengeluaran *</label>
+
+                    <select class='form-control select2' style='width: 100%;' name='txtjenis_trans' required>
+
+                      <?php
+
+                      $sql = "select nama_trans isi,nama_trans tampil from mastertransaksi where
+
+                      jenis_trans='OUT' and jns_gudang='FG' order by id";
+
+                      IsiCombo($sql,'','Pilih Jenis Pengeluaran');
+
+                      ?>
+
+                    </select>
+
+                  </div>    
 
       </div>
 
@@ -483,7 +503,9 @@ function startCalcBpb(){
 
                     </select>
 
-                  </div>                     
+                  </div>
+
+                  
 
                 </div>
 
@@ -735,6 +757,7 @@ function startCalcBpb(){
         $jenis_dok_h  =$databppb_h['jenis_dok'];
         $id_supplier_h  =$databppb_h['id_supplier'];
         $grade_h  =$databppb_h['grade'];
+        $jenis_trans_h  =$databppb_h['jenis_trans'];
 
         $querytotal = mysql_query("SELECT sum(qty) total from bppb where bppbno = '$id_bppb'");
         $datatotal = mysql_fetch_array($querytotal);
@@ -784,7 +807,27 @@ function startCalcBpb(){
 
                     </select>
 
-                  </div>                        
+                  </div>   
+
+                  <div class='form-group'>
+
+                    <label>Grade *</label>
+
+                    <select class='form-control select2' style='width: 100%;' name='txtgrade' required>
+
+                      <?php 
+
+                      $sql = "select nama_pilihan isi,nama_pilihan tampil from masterpilihan where 
+
+                      kode_pilihan='GRADE_FG' order by nama_pilihan";
+
+                      IsiCombo($sql,$grade_h,'Pilih Grade');
+
+                      ?>
+
+                    </select>
+
+                  </div>                     
 
                 </div>
 
@@ -850,19 +893,21 @@ function startCalcBpb(){
                   </div> 
 
 
+                  
+
                   <div class='form-group'>
 
-                    <label>Grade *</label>
+                    <label>Jenis Pengeluaran *</label>
 
-                    <select class='form-control select2' style='width: 100%;' name='txtgrade' required>
+                    <select class='form-control select2' style='width: 100%;' name='txtjenis_trans' required>
 
-                      <?php 
+                      <?php
 
-                      $sql = "select nama_pilihan isi,nama_pilihan tampil from masterpilihan where 
+                      $sql = "select nama_trans isi,nama_trans tampil from mastertransaksi where
 
-                      kode_pilihan='GRADE_FG' order by nama_pilihan";
+                      jenis_trans='OUT' and jns_gudang='FG' order by id";
 
-                      IsiCombo($sql,$grade_h,'Pilih Grade');
+                      IsiCombo($sql,$jenis_trans_h,'Pilih Jenis Pengeluaran');
 
                       ?>
 
