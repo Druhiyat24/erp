@@ -243,7 +243,7 @@ class Model{
 
                 $fld_item item,k.qty qty_gmt,k.cons,round(k.qty*k.cons,2) qty_bom,
 
-                k.unit,urut,k.notes  
+                k.unit,urut,(SELECT GROUP_CONCAT(DISTINCT notes SEPARATOR ', ') FROM bom_jo_item WHERE id_jo = $jo_id AND id_item = k.id_item AND cons = k.cons AND cancel='N' AND notes IS NOT NULL AND notes != '') as notes  
 
             From $tblbomjoit k INNER JOIN masterdesc j on k.id_item=j.id
 
@@ -277,7 +277,7 @@ class Model{
 
                 j.itemdesc item,k.qty qty_gmt,k.cons,round(k.qty*k.cons,2) qty_bom,
 
-                k.unit,urut,k.notes  
+                k.unit,urut,(SELECT GROUP_CONCAT(DISTINCT notes SEPARATOR ', ') FROM bom_jo_item WHERE id_jo = $jo_id AND id_item = k.id_item AND cons = k.cons AND cancel='N' AND notes IS NOT NULL AND notes != '') as notes  
 
             From $tblbomjoit k INNER JOIN masteritem j on k.id_item=j.id_item 
 
