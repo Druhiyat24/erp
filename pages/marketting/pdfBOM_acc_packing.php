@@ -228,11 +228,13 @@ class Model{
 
           "if(nama_sub_group regexp 'BARCODE' or nama_sub_group regexp 'STICKER',
 
-          concat($fld1,$fld2,$fld3,$fld4,$fld5,$fld6,$fld7,$fld8a,$fld9,k.sku,' ',k.barcode),
+          concat($fld1,$fld2,$fld3,$fld4,$fld5,$fld6,$fld7,$fld8a,$fld9,IFNULL(k.sku,''),' ',IFNULL(k.barcode,'')),
+
+          
 
           if(nama_type='SKU',
 
-          concat($fld1,$fld2,$fld3,$fld4,$fld5,$fld6,$fld7,$fld8a,$fld9,k.sku),
+          concat($fld1,$fld2,$fld3,$fld4,$fld5,$fld6,$fld7,$fld8a,$fld9,IFNULL(k.sku,'')),
 
           concat($fld1,$fld2,$fld3,$fld4,$fld5,$fld6,$fld7,$fld8,$fld9)))";
 
@@ -240,54 +242,33 @@ class Model{
         select * from 
         (
         SELECT k.posno,k.id,mp.nama_panel,k.id_item,a.nama_group,s.nama_sub_group,k.color,k.size,
-
-                COALESCE(NULLIF(TRIM($fld_item), ''), j2.itemdesc) item ,k.qty qty_gmt,k.cons,round(k.qty*k.cons,2) qty_bom,
-
-                k.unit,urut,k.notes  
-
+                $fld_item item,k.qty qty_gmt,k.cons,round(k.qty*k.cons,2) qty_bom,
+                k.unit,urut,
+                (SELECT GROUP_CONCAT(DISTINCT notes SEPARATOR ', ') FROM bom_jo_item WHERE id_jo = $jo_id AND id_item = k.id_item AND cons = k.cons AND cancel='N' AND notes IS NOT NULL AND notes != '') as notes
             From $tblbomjoit k INNER JOIN masterdesc j on k.id_item=j.id
-
             INNER JOIN mastercolor i on i.id=j.id_color
-
             INNER JOIN masterweight h on h.id=i.id_weight
-
             INNER JOIN masterlength g on g.id=h.id_length
-
             INNER JOIN masterwidth f on f.id=g.id_width
-
             INNER JOIN mastercontents e on e.id=f.id_contents
-
             INNER JOIN mastertype2 d on d.id=e.id_type
-
             INNER JOIN mastersubgroup s on s.id=d.id_sub_group
-
             INNER JOIN mastergroup a on a.id=s.id_group 
-
             left join mastersize msz on k.size=msz.size
-
             left join masterpanel mp on k.id_panel=mp.id
-
-            left join masteritem j2 on k.id_item=j2.id_gen
-
             WHERE k.id_jo= $jo_id and k.status='M'
 
             union all 
 
             SELECT k.posno,k.id,mp.nama_panel,k.id_item,j.matclass nama_group,concat(j.matclass,' ',j.goods_code, ' ' ,j.color) nama_sub_group,
-
                 k.color,k.size,
-
                 j.itemdesc item,k.qty qty_gmt,k.cons,round(k.qty*k.cons,2) qty_bom,
-
-                k.unit,urut,k.notes  
-
+                k.unit,urut,
+                (SELECT GROUP_CONCAT(DISTINCT notes SEPARATOR ', ') FROM bom_jo_item WHERE id_jo = $jo_id AND id_item = k.id_item AND cons = k.cons AND cancel='N' AND notes IS NOT NULL AND notes != '') as notes 
             From $tblbomjoit k INNER JOIN masteritem j on k.id_item=j.id_item 
-
             left join mastersize msz on k.size=msz.size
-
             left join masterpanel mp on k.id_panel=mp.id
-
-            WHERE k.id_jo= $jo_id and k.status='P'
+            WHERE k.id_jo= $jo_id and k.status='P' 
 
             ORDER BY posno,nama_group,color,urut,size ) a
             WHERE nama_group ='ACCESORIES PACKING'
