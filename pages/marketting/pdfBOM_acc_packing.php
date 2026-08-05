@@ -267,7 +267,7 @@ class Model{
 
             left join masterpanel mp on k.id_panel=mp.id
 
-            left join masteritem j2 on k.id_item=j2.id_item
+            left join masteritem j2 on k.id_item=j2.id_gen
 
             WHERE k.id_jo= $jo_id and k.status='M'
 
