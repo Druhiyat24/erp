@@ -241,9 +241,9 @@ class Model{
         (
         SELECT k.posno,k.id,mp.nama_panel,k.id_item,a.nama_group,s.nama_sub_group,k.color,k.size,
 
-                $fld_item item,k.qty qty_gmt,k.cons,round(k.qty*k.cons,2) qty_bom,
+                COALESCE(NULLIF(TRIM($fld_item), ''), j2.itemdesc) item ,k.qty qty_gmt,k.cons,round(k.qty*k.cons,2) qty_bom,
 
-                k.unit,urut,(SELECT GROUP_CONCAT(DISTINCT notes SEPARATOR ', ') FROM bom_jo_item WHERE id_jo = $jo_id AND id_item = k.id_item AND cons = k.cons AND cancel='N' AND notes IS NOT NULL AND notes != '') as notes  
+                k.unit,urut,k.notes  
 
             From $tblbomjoit k INNER JOIN masterdesc j on k.id_item=j.id
 
@@ -267,6 +267,8 @@ class Model{
 
             left join masterpanel mp on k.id_panel=mp.id
 
+            left join masteritem j2 on k.id_item=j2.id_item
+
             WHERE k.id_jo= $jo_id and k.status='M'
 
             union all 
@@ -277,7 +279,7 @@ class Model{
 
                 j.itemdesc item,k.qty qty_gmt,k.cons,round(k.qty*k.cons,2) qty_bom,
 
-                k.unit,urut,(SELECT GROUP_CONCAT(DISTINCT notes SEPARATOR ', ') FROM bom_jo_item WHERE id_jo = $jo_id AND id_item = k.id_item AND cons = k.cons AND cancel='N' AND notes IS NOT NULL AND notes != '') as notes  
+                k.unit,urut,k.notes  
 
             From $tblbomjoit k INNER JOIN masteritem j on k.id_item=j.id_item 
 
