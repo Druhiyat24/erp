@@ -243,8 +243,7 @@ class Model{
         (
             SELECT k.posno,k.id,mp.nama_panel,k.id_item,a.nama_group,s.nama_sub_group,k.color,k.size,
                 $fld_item item,k.qty qty_gmt,k.cons,round(k.qty*k.cons,2) qty_bom,
-                k.unit,urut,
-                (SELECT GROUP_CONCAT(DISTINCT notes SEPARATOR ', ') FROM bom_jo_item WHERE id_jo = $jo_id AND id_item = k.id_item AND cons = k.cons AND cancel='N' AND notes IS NOT NULL AND notes != '') as notes
+                k.unit,urut, k.notes
             From $tblbomjoit k INNER JOIN masterdesc j on k.id_item=j.id
             INNER JOIN mastercolor i on i.id=j.id_color
             INNER JOIN masterweight h on h.id=i.id_weight
@@ -263,8 +262,7 @@ class Model{
             SELECT k.posno,k.id,mp.nama_panel,k.id_item,j.matclass nama_group,concat(j.matclass,' ',j.goods_code, ' ' ,j.color) nama_sub_group,
                 k.color,k.size,
                 j.itemdesc item,k.qty qty_gmt,k.cons,round(k.qty*k.cons,2) qty_bom,
-                k.unit,urut,
-                (SELECT GROUP_CONCAT(DISTINCT notes SEPARATOR ', ') FROM bom_jo_item WHERE id_jo = $jo_id AND id_item = k.id_item AND cons = k.cons AND cancel='N' AND notes IS NOT NULL AND notes != '') as notes 
+                k.unit,urut, k.notes
             From $tblbomjoit k INNER JOIN masteritem j on k.id_item=j.id_item 
             left join mastersize msz on k.size=msz.size
             left join masterpanel mp on k.id_panel=mp.id
@@ -426,25 +424,25 @@ while($row1 = mysql_fetch_array($rs1))
   { $fldcol="'All Color'";
     $fldsiz="'All Size'";
     if($row1['nama_type']=="SKU")
-    { $fldgrp=" group by l.sku,a.status,a.id_item,a.id_panel, a.cons "; }
+    { $fldgrp=" group by l.sku,a.status,a.id_item,a.id_panel, a.cons, a.notes "; }
     else
-    { $fldgrp=" group by a.status,a.id_item,a.id_panel, a.cons "; }
+    { $fldgrp=" group by a.status,a.id_item,a.id_panel, a.cons, a.notes "; }
   }
   else if ($row1['rule_bom']=="ALL COLOR RANGE SIZE")
   { $fldcol="concat('All Color - ',l.size)";
     $fldsiz="l.size";
-    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.size, a.cons";
+    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.size, a.cons, a.notes";
   }
   else if ($row1['rule_bom']=="PER COLOR ALL SIZE")
   { $fldcol="l.color";
     $fldsiz="'All Size'";
-    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.color, a.cons";
+    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.color, a.cons, a.notes";
   }
   else 
   { #PER COLOR RANGE SIZE
     $fldcol="l.color";
     $fldsiz="l.size";
-    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.color,l.size, a.cons";
+    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.color,l.size, a.cons, a.notes";
   }
   if ($row1['id_panel']==null) {$panel_filter=" (a.id_panel is null or a.id_panel='')";} else {$panel_filter=" a.id_panel='$row1[id_panel]'";}
   $sql="insert into $tblbomjoit 
@@ -464,25 +462,25 @@ while($row1_pro = mysql_fetch_array($rs1_pro))
   { $fldcol="'All Color'";
     $fldsiz="'All Size'";
     if($row1_pro['nama_type']=="SKU")
-    { $fldgrp=" group by l.sku,a.status,a.id_item,a.id_panel, a.cons "; }
+    { $fldgrp=" group by l.sku,a.status,a.id_item,a.id_panel, a.cons, a.notes "; }
     else
-    { $fldgrp=" group by a.status,a.id_item,a.id_panel, a.cons "; }
+    { $fldgrp=" group by a.status,a.id_item,a.id_panel, a.cons, a.notes "; }
   }
   else if ($row1_pro['rule_bom']=="ALL COLOR RANGE SIZE")
   { $fldcol="'All Color'";
     $fldsiz="l.size";
-    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.size, a.cons";
+    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.size, a.cons, a.notes";
   }
   else if ($row1_pro['rule_bom']=="PER COLOR ALL SIZE")
   { $fldcol="l.color";
     $fldsiz="'All Size'";
-    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.color, a.cons";
+    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.color, a.cons, a.notes";
   }
   else 
   { #PER COLOR RANGE SIZE
     $fldcol="l.color";
     $fldsiz="l.size";
-    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.color,l.size , a.cons";
+    $fldgrp=" group by a.status,a.id_item,a.id_panel,l.color,l.size , a.cons, a.notes";
   }
   if ($row1_pro['id_panel']==null) {$panel_filter=" (a.id_panel is null or a.id_panel='')";} else {$panel_filter=" a.id_panel='$row1_pro[id_panel]'";}
   $sql_pro="insert into $tblbomjoit 
