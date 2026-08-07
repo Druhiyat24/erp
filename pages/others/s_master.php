@@ -4,6 +4,23 @@ include '../forms/fungsi.php';
 session_start();
 if (empty($_SESSION['username'])) { header("location:../../index.php"); }
 
+// ===== FUNGSI HAPUS GAMBAR (DELETE IMAGE) =====
+if (isset($_GET['act']) && $_GET['act'] == 'del_img' && isset($_GET['id'])) {
+    $id  = $_GET['id'];
+    $mod = isset($_GET['mod']) ? $_GET['mod'] : '2';
+    // Hapus file fisik jika ada
+    $nm_file = flookup("file_gambar", "masteritem", "id_item='$id'");
+    if (!empty($nm_file)) {
+        $path_file = "upload_files/".$nm_file;
+        if (file_exists($path_file)) { @unlink($path_file); }
+    }
+    $sql = "update masteritem set file_gambar='' where id_item='$id'";
+    insert_log($sql, $_SESSION['username']);
+    $_SESSION['msg'] = 'Gambar Berhasil Dihapus';
+    echo "<script>window.location.href='../others/?mod=2L';</script>";
+    exit;
+}
+
 $goods_code_only=flookup("goods_code_only","mastercompany","company!=''");
 $user=$_SESSION['username'];
 $mod=$_GET['mod'];

@@ -21,13 +21,17 @@ echo "<div class='box'>";
           }
           echo "<th>Kategori</th>";
           echo "<th style='width: 10%;'>Kode Barang</th>";
-          echo "<th>Nama Barang</th>";
+          if($mode!="FG")
+          { echo "<th>Nama Barang</th>"; }
           echo "<th>Warna</th>"; 
           echo "<th>Ukuran</th>";
           if($mode!="FG" and $nm_company=="PT. Sandrafine Garment")
           { echo "<th>Stock Card</th>"; }
-          echo "<th>Kode Odo</th>";
-          echo "<th>Item Odo</th>";
+          if($mode!="FG")
+          { 
+            echo "<th>Kode Odo</th>";
+            echo "<th>Item Odo</th>";
+          }
           echo "<th style='width: 15%;'>Stock</th>";
           echo "<th>Riwayat</th>";
         echo "</tr>";
