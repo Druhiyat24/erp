@@ -65,7 +65,7 @@ if ($mod=="1a") { ?>
     <div class='row'>
       <form method='post' name='form' action='s_reqno_d.php?mod=<?php echo $mod; ?>&id=<?php echo $id_reqno; ?>&idd=<?php echo $id_item; ?>' onsubmit='return validasi()'>
         <div class='col-md-3'>                
-          <img id="output" width="270px" height="500px">  
+          <img id="output" style="width:100%; height:300px; object-fit:contain; border:1px solid #ddd; border-radius:4px; background:#f8f8f8;">  
           <script>
             var loadFile = function(event) 
             { var id_itemnya = document.form.txtid_item.value;

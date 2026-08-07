@@ -1,6 +1,12 @@
 <?php 
 if (empty($_SESSION['username'])) { header("location:../../index.php"); }
 
+$user = $_SESSION['username'];
+$sql="SELECT m_general_req, edit_m_general_req FROM userpassword  WHERE username ='$user'";
+$hsl=mysqli_fetch_array(mysqli_query($conn_li,$sql));
+$m_general_req=$hsl['m_general_req'];
+$edit_m_general_req=$hsl['edit_m_general_req'];
+
 # START CEK HAK AKSES KEMBALI
 $akses = flookup("m_general_req","userpassword","username='$user'");
 if ($akses=="0") 
@@ -22,6 +28,7 @@ if ($id_item=="")
   $coa_sup_production = "";
   $coa_sup_gen_adm = "";
   $coa_sup_selling = "";
+  $file_gambar = "";
 }
 else
 { $query = mysql_query("SELECT * FROM masteritem where id_item='$id_item' ");
@@ -38,17 +45,18 @@ else
   $coa_sup_production = $data['coa_sup_production'];
   $coa_sup_gen_adm    = $data['coa_sup_gen_adm'];
   $coa_sup_selling    = $data['coa_sup_selling'];
+  $file_gambar        = $data['file_gambar'];
 }
 # END COPAS EDIT
 # COPAS VALIDASI BUANG ELSE di IF pertama
 if($id_item !=''){
-	echo ';<script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>';
+	echo '<script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>';
 	echo "<script type='text/javascript'>";
-	echo "setTimeout(function(){ $('#persediaan').val('".$persediaan."').trigger('change.select2'); applyCoaLock(); }, 3000);";
-	//echo "$('#persediaan').val('".$persediaan."').trigger('change.select2')";
+	echo "$(function(){ $('#persediaan').val('".$persediaan."').trigger('change.select2'); applyCoaLock(); });";
 	echo "</script>";
 	
 }
+
 echo "<script type='text/javascript'>
   function validasi()
   { var mattype = document.form.txtmattype.value;
@@ -74,24 +82,32 @@ echo "<script type='text/javascript'>
 </script>";
 # END COPAS VALIDASI
 # COPAS ADD
-if ($mod=="2") { ?>
+if ($mod=="2") {
+    $is_upload_only = ($m_general_req == "1" && $edit_m_general_req == "0");
+    $ro = $is_upload_only ? " readonly" : "";
+    $dis = $is_upload_only ? " disabled" : "";
+    $onsubmit = $is_upload_only ? "" : " onsubmit='return validasi()'";
+    $btn_label = $is_upload_only ? "Upload" : "Simpan";
+    $btn_name = $is_upload_only ? "upload" : "submit";
+?>
+
 <div class='box'>
   <div class='box-body'>
     <div class='row'>
-      <form method='post' name='form' enctype='multipart/form-data' action='s_master.php?mod=<?php echo $mod; ?>&id=<?php echo $id_item; ?>' onsubmit='return validasi()'>
+      <form method='post' name='form' enctype='multipart/form-data' action='<?php echo $is_upload_only ? "s_master_upload.php" : "s_master.php"; ?>?mod=<?php echo $mod; ?>&id=<?php echo $id_item; ?>'<?php echo $onsubmit; ?>>
         <div class='col-md-3'>              
           <div class='form-group'>
-            <input type='hidden' class='form-control' name='txtmattype' placeholder='Masukkan Mat Type' value='<?php echo $mattype;?>' >
+            <input type='hidden' class='form-control' name='txtmattype' value='<?php echo $mattype;?>' >
             <label>Item Code *</label>
-            <input type='text' class='form-control' name='txtgoods_code' placeholder='Masukkan Item Code' value='<?php echo $goods_code;?>' >
+            <input type='text' class='form-control' name='txtgoods_code' value='<?php echo $goods_code;?>'<?php echo $ro;?> >
           </div>        
           <div class='form-group'>
             <label>Description *</label>
-            <input type='text' class='form-control' name='txtitemdesc' placeholder='Masukkan Description' value='<?php echo $itemdesc;?>' >
+            <input type='text' class='form-control' name='txtitemdesc' value='<?php echo $itemdesc;?>'<?php echo $ro;?> >
           </div>
           <div class='form-group'>
             <label>Item Type</label>
-            <select class='form-control select2' style='width: 100%;' name='txtjenisitem'>
+            <select class='form-control select2' style='width: 100%;' name='txtjenisitem'<?php echo $dis;?>>
               <?php 
                 $sql = "select nama_pilihan isi,nama_pilihan tampil 
                   from masterpilihan where kode_pilihan='J_Item'";
@@ -100,8 +116,8 @@ if ($mod=="2") { ?>
             </select>
           </div>
           <div class='form-group'>
-            <label>Mapping Persediaan *</label>
-            <select id='persediaan' class='form-control select2' style='width: 100%;' name='txtpersediaan'>
+            <label>Mapping Persediaan</label>
+            <select id='persediaan' class='form-control select2' style='width: 100%;' name='txtpersediaan'<?php echo $dis;?>>
               <?php 
                 $sql = "select n_id isi,description tampil 
                   from mapping_category ";
@@ -115,19 +131,19 @@ if ($mod=="2") { ?>
             <div class='col-md-6'>        
               <div class='form-group'>
                 <label>Color *</label>
-                <input type='text' class='form-control' name='txtcolor' placeholder='Masukkan Color' value='<?php echo $color;?>' >
+                <input type='text' class='form-control' name='txtcolor' value='<?php echo $color;?>'<?php echo $ro;?> >
               </div>
             </div>
             <div class='col-md-6'>        
               <div class='form-group'>
                 <label>Size *</label>
-                <input type='text' class='form-control' name='txtsize' placeholder='Masukkan Size' value='<?php echo $size;?>' >
+                <input type='text' class='form-control' name='txtsize' value='<?php echo $size;?>'<?php echo $ro;?> >
               </div>
             </div>
           </div>
           <div class='form-group'>
             <label>Mutation Type</label>
-            <select class='form-control select2' style='width: 100%;' name='txtjenismut'>
+            <select class='form-control select2' style='width: 100%;' name='txtjenismut'<?php echo $dis;?>>
               <?php 
                 $sqlsel=" and nama_pilihan='Mesin'";
                 $sql = "select nama_pilihan isi,if(nama_pilihan='Mesin','Barang Modal',nama_pilihan) tampil 
@@ -139,9 +155,18 @@ if ($mod=="2") { ?>
           <div class='form-group'>
             <label for='exampleInputFile'>Image File</label>
             <input type='file' name='txtfile' accept='.jpg'>
+            <?php if (!empty($file_gambar)) { ?>
+              <p class="help-block" style="margin-top:5px; font-size:12px; color:#777;">
+                <i class='fa fa-paperclip'></i> File terupload: <strong><?php echo htmlspecialchars($file_gambar); ?></strong>
+                <a href="s_master.php?mod=<?php echo $mod; ?>&id=<?php echo $id_item; ?>&act=del_img" class="btn btn-xs btn-danger" title="Hapus Gambar" onclick="return confirm('Apakah Anda yakin ingin menghapus gambar ini?')">
+                  <i class="fa fa-trash"></i>
+                </a>                
+              </p>
+            <?php } ?>
           </div>
-          <button type='submit' name='submit' class='btn btn-primary'>Simpan</button>
+          <button type='submit' name='<?php echo $btn_name; ?>' class='btn btn-primary'><?php echo $btn_label; ?></button>
         </div>
+        <?php if (!$is_upload_only) { ?>
         <div class='col-md-3'>
           <div class='form-group'>
             <label>Production</label>
@@ -172,6 +197,7 @@ if ($mod=="2") { ?>
             </select>
           </div>
         </div>
+        <?php } ?>
       </form>
     </div>
   </div>
@@ -223,9 +249,11 @@ else
 <div class="box">
   <div class="box-header">
     <h3 class="box-title">List Master Non Production</h3>
+    <?php if (!($m_general_req == "1" && $edit_m_general_req == "0")) { ?>
     <a href='../others/?mod=2' class='btn btn-primary btn-s'>
       <i class='fa fa-plus'></i> New
     </a>
+    <?php } ?>
   </div>
 
 <div class='row'>
@@ -272,6 +300,7 @@ else
         <th></th>
         <th></th>
         <th></th>
+        <th></th>
       </tr>
       </thead>
       <tbody>
@@ -284,11 +313,15 @@ $(document).ready(function() {
         "processing": true,
         "serverSide": true,
         "order": [[0, "desc"]],
+        "columnDefs": [
+            { "orderable": false, "targets": "_all" } // Matikan sorting untuk SEMUA kolom
+        ],        
         "ajax": {
             "url": "server_masteritem.php",
             "type": "POST",
             "data": function(d) {
                 d.persediaan = $('#persediaanfilter').val();
+                d.user = '<?php echo $user; ?>';
             }
         }
     });
@@ -309,6 +342,21 @@ $(document).on('click', '.coa-popup', function(e) {
     $('#coaModal').modal('show');
 });
 </script>
+  </div>
+</div>
+
+<!-- Modal Preview Gambar -->
+<div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="imgModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="imgModalLabel">Preview Gambar</h4>
+      </div>
+      <div class="modal-body text-center">
+        <img id="imgPreview" src="" style="max-width:100%; max-height:80vh; object-fit:contain;">
+      </div>
+    </div>
   </div>
 </div>
 
