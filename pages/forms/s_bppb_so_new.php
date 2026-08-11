@@ -68,7 +68,7 @@ if ($cek=="0")
 	$UnitArr = $_POST['itemunit'];
 	$CurrArr = $_POST['itemcurr'];
 	$PriceArr = $_POST['itemprice'];
-	foreach ($QtyArr as $key => $value) 
+	foreach ($QtyArr as $key => $value)
 	{	if ($value>0)
 		{	$id_so_det=$key;
 			$qty=$QtyArr[$key];
@@ -97,7 +97,7 @@ if ($cek=="0")
 			// 	$cek=$cekarr[0];
 			// 	$cekdt=$cekarr[1];
 			// 	if ($cek<0)
-			// 	{	$sql="delete from bppb where id_item='$txtid_item' and 
+			// 	{	$sql="delete from bppb where id_item='$txtid_item' and
 			// 			bppbno='$txtbppbno' ";
 			// 		insert_log($sql,$user);
 			// 		calc_stock($cbomat,$txtid_item);
@@ -108,8 +108,8 @@ if ($cek=="0")
 			// }
 		}
 	}
-	// if($auto_ap_ar=="Y") 
-	// { insert_data_ap_ar("AR",$txtbppbno,$user); 
+	// if($auto_ap_ar=="Y")
+	// { insert_data_ap_ar("AR",$txtbppbno,$user);
 	// 	insert_jurnal("AR",$txtbppbno,$user);
 	// }
 	$_SESSION['msg'] = 'Data Berhasil Disimpan. Nomor BKB : '.$txtbppbno2;

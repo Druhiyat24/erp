@@ -62,14 +62,54 @@ if (!isset($_POST['itemchk'])) {
 	echo "<script>window.location.href='index.php?mod=$mod';</script>";
 } else {
 	$ItemArray = $_POST['itemchk'];
+	// Buat log perubahan data (dashboard) - cuma buat konfirmasi/approve bppb FG/OUT.
+	// Di-grup per (bppbno_int + so_number + product item), bukan digabung jadi 1 baris
+	// per SJ - biar tiap kombinasi SO/item punya baris log sendiri.
+	$fgout_grup_qty = array();
+	$fgout_grup_total = array();
+	$fgout_grup_price = array();
 	foreach ($ItemArray as $key => $value) {
 		$chk = $value;
 		$id_item = $key;
 		if ($chk == "on") {
+			if ($nm_tbl == "bppb") {
+				$cekfg = mysql_query("
+					SELECT c.bppbno_int, c.qty, c.price, a.so_no, e.product_item
+					FROM bppb c
+					INNER JOIN so_det b ON b.id = c.id_so_det
+					INNER JOIN so a ON a.id = b.id_so
+					INNER JOIN act_costing d ON d.id = a.id_cost
+					INNER JOIN masterproduct e ON e.id = d.id_product
+					WHERE c.bppbno = '$txtbppbno' AND c.id_item = '$id_item'
+				");
+				while ($datafg = mysql_fetch_array($cekfg)) {
+					if (substr($datafg['bppbno_int'], 0, 6) == 'FG/OUT') {
+						$grup_key = $datafg['bppbno_int'].'|'.$datafg['so_no'].'|'.$datafg['product_item'];
+						if (!isset($fgout_grup_total[$grup_key])) { $fgout_grup_qty[$grup_key] = 0; $fgout_grup_total[$grup_key] = 0; }
+						$fgout_grup_qty[$grup_key] += $datafg['qty'];
+						$fgout_grup_total[$grup_key] += $datafg['qty'] * $datafg['price'];
+						$fgout_grup_price[$grup_key] = $datafg['price']; // ambil yang terakhir sebagai referensi
+					}
+				}
+			}
+
 			$sql = "update $nm_tbl set confirm_by='$user',confirm='Y',confirm_date='$tgl_cfm' $qty_temp
 			where $nm_fld='$txtbppbno' and id_item='$id_item'";
 			insert_log($sql, $user);
 		}
+	}
+	foreach ($fgout_grup_total as $grup_key => $total_grup) {
+		$grup_parts = explode('|', $grup_key, 3);
+		$docnum_log       = $grup_parts[0];
+		$so_number_log    = nb($grup_parts[1]);
+		$product_item_log = nb($grup_parts[2]);
+		$qty_grup   = $fgout_grup_qty[$grup_key];
+		$price_grup = $fgout_grup_price[$grup_key];
+
+		$log_created_at = date('Y-m-d H:i:s');
+		$sql_log = "INSERT INTO tbl_data_change_log (doc_number,so_number,product_item,source_table,action,field_name,qty_old,qty_new,price_old,price_new,total_old,total_new,profit_center,created_by,created_at)
+			VALUES ('$docnum_log','$so_number_log','$product_item_log','bppb','Confirm SJ FG/OUT','total','0','$qty_grup','0','$price_grup','0','$total_grup','NAG','$user','$log_created_at')";
+		mysql_query($sql_log);
 	}
 	if ($nm_tbl == "bpb") {
 		$bpbno_int = flookup("bpbno_int", "bpb", "bpbno='$txtbppbno'");
