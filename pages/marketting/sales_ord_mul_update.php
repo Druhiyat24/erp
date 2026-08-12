@@ -103,7 +103,38 @@ echo "<script type='text/javascript'>
 </script>";
 # END COPAS VALIDASI
 # COPAS ADD
+// Cek apakah SO ini sudah punya Surat Jalan (FG/OUT), buat konfirmasi sebelum simpan perubahan price.
+$has_fgout_warn = ($id_so!="") ? mysql_result(mysql_query("
+	SELECT COUNT(*) FROM bppb b
+	INNER JOIN so_det c ON c.id = b.id_so_det
+	WHERE c.id_so = '$id_so' AND b.bppbno_int LIKE 'FG/OUT%'
+"), 0) : 0;
+$has_fgout_warn_js = ($has_fgout_warn > 0) ? 'true' : 'false';
 ?>
+<script type="text/javascript">
+	var hasFgOutWarnMul = <?php echo $has_fgout_warn_js; ?>;
+	var fgOutConfirmedMul = false;
+	function validasiMul()
+	{
+		if (hasFgOutWarnMul && !fgOutConfirmedMul) {
+			swal({
+				title: 'Perhatian',
+				text: 'SO ini sudah memiliki Surat Jalan (FG/OUT). Yakin mau menyimpan perubahan?',
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonText: 'Ya, Simpan',
+				cancelButtonText: 'Batal'
+			}, function (isConfirm) {
+				if (isConfirm) {
+					fgOutConfirmedMul = true;
+					HTMLFormElement.prototype.submit.call(document.getElementById('formSoMul'));
+				}
+			});
+			return false;
+		}
+		return true;
+	}
+</script>
 <script type="text/javascript">
   function getActCost()
   { var actcostid = document.form.txtid_cost.value;
@@ -132,7 +163,7 @@ echo "<script type='text/javascript'>
 <?php } ?>
 <!--END COPAS ADD-->
 <?php if ($id_so!="") { ?>
-<form method='post' action='upd_so_mul.php?mod=7&id=<?php echo $id_so;?>'>
+<form method='post' id='formSoMul' action='upd_so_mul.php?mod=7&id=<?php echo $id_so;?>' onsubmit='return validasiMul()'>
 <div class="box">
   <div class="box-header">
     <h3 class="box-title">Sales Order Detail</h3>

@@ -86,11 +86,48 @@ else
 		'$nama_file','$user','$txttax','$txtseason','$txtterms','$txtdays','$txtjns_so','$txtket_blc')";
 		insert_log($insert_log_sql,$user);
 
+		// Ambil curr & fob (price) yang lama dulu sebelum ditimpa, buat log perubahan
+		// data (dashboard) - cuma dicatat kalau beneran ada yang berubah.
+		// PENTING: koneksi di modul ini adalah $con (dari include/conn.php), BUKAN $conn2
+		// ($conn2 cuma didefinisikan di modul finance, beda scope, jadi undefined di sini
+		// dan bikin query gagal diam-diam).
+		$old_so = mysql_fetch_array(mysql_query("SELECT curr, fob FROM so WHERE id='$id_so'", $con));
+		$old_curr = $old_so ? $old_so['curr'] : null;
+		$old_fob  = $old_so ? $old_so['fob']  : null;
+
+		$prod_info = mysql_fetch_array(mysql_query("
+			SELECT e.product_item FROM so a
+			INNER JOIN act_costing d ON d.id = a.id_cost
+			INNER JOIN masterproduct e ON e.id = d.id_product
+			WHERE a.id = '$id_so'
+		", $con));
+		$product_item_log = $prod_info ? mysql_real_escape_string($prod_info['product_item'], $con) : '';
+
+		// Log perubahan data (dashboard) cuma buat SO yang udah punya FG/OUT dan sudah approved.
+		$has_fgout_approved = mysql_result(mysql_query("
+			SELECT COUNT(*) FROM bppb b
+			INNER JOIN so_det c ON c.id = b.id_so_det
+			WHERE c.id_so = '$id_so' AND b.bppbno_int LIKE 'FG/OUT%' AND b.confirm = 'Y'
+		", $con), 0);
+
 		$sql = "update so set buyerno='$txtbuyerno',
 			qty='$txtqty',unit='$txtunit',curr='$txtcurr',fob='$txtfob',username='$user',
 			tax='$txttax',id_season='$txtseason',id_terms='$txtterms',jml_pterms='$txtdays',jns_so='$txtjns_so',ket_blc='$txtket_blc', updated_by='$user', updated_date='$now'
 			where id='$id_so'";
 		insert_log($sql,$user);
+
+		if ($has_fgout_approved > 0) {
+			if ((string)$old_curr !== (string)$txtcurr) {
+				$sql_log_curr = "INSERT INTO tbl_data_change_log (doc_number,so_number,product_item,source_table,action,field_name,old_value,new_value,profit_center,created_by,created_at)
+					VALUES ('$txtso_no','$txtso_no','$product_item_log','so','Edit Sales Order','curr','$old_curr','$txtcurr','NAG','$user','$now')";
+				mysql_query($sql_log_curr, $con);
+			}
+			if ((string)$old_fob !== (string)$txtfob) {
+				$sql_log_fob = "INSERT INTO tbl_data_change_log (doc_number,so_number,product_item,source_table,action,field_name,price_old,price_new,profit_center,created_by,created_at)
+					VALUES ('$txtso_no','$txtso_no','$product_item_log','so','Edit Sales Order','fob','$old_fob','$txtfob','NAG','$user','$now')";
+				mysql_query($sql_log_fob, $con);
+			}
+		}
 
 		$log_activity_sql = "insert into tbl_log (nama,activity,tanggal_input,doc_number,tanggal_doc,keterangan)
 			values ('$user','Edit Sales Order','$now','$txtso_no','$txtso_date','id_so=$id_so')";

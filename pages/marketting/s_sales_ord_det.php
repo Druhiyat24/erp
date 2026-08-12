@@ -114,22 +114,56 @@ else
 	else
 	{	if (isset($_POST['txtqty'])) {$qty=$_POST['txtqty'];} else {$qty = "0";}
 		if (isset($_POST['txtprice'])) {$price=$_POST['txtprice'];} else {$price = "0";}
+
+		// Ambil qty & price lama dulu sebelum ditimpa, buat log perubahan data (dashboard).
+		// PENTING: koneksi di modul ini adalah $con (dari include/conn.php), BUKAN $conn2
+		// ($conn2 cuma didefinisikan di modul finance, beda scope, jadi undefined di sini
+		// dan bikin query gagal diam-diam).
+		$old_det = mysql_fetch_array(mysql_query("SELECT qty, price FROM so_det WHERE id='$id_det'", $con));
+		$old_qty   = $old_det ? $old_det['qty']   : null;
+		$old_price = $old_det ? $old_det['price'] : null;
+
 		$insert_log_sql = "insert into so_det_log (id_so,deldate_det,dest,color,sku,notes,size,qty,qty_add,
 		unit,barcode,price, reff_no, styleno_prod,created_by,created_date)
 		values ('$id_so','$txtdeldate','$txtdest','$txtcolor','$txtsku','$txtnotes','$txtsize'
-		,'$txtqty','$qtyaddnya','$txtunit','$barnya','$pxnya','$txtreffno','$txtstyleno_prod','$user','$now')";		
+		,'$txtqty','$qtyaddnya','$txtunit','$barnya','$pxnya','$txtreffno','$txtstyleno_prod','$user','$now')";
 		insert_log($insert_log_sql, $user); // Jalankan dan log kueri INSERT
 		$update_sql = "update so_det set color='$txtcolor',deldate_det='$txtdeldate',dest='$txtdest',sku='$txtsku',notes='$txtnotes',barcode='$txtbarcode'
 			,qty='$qty',price='$price',reff_no='$txtreffno',styleno_prod='$txtstyleno_prod', updated_by='$user', updated_date='$now' where id='$id_det'";
 		insert_log($update_sql, $user); // Jalankan dan log kueri UPDATE
 
 		$so_no_log = flookup("so_no","so","id='$id_so'");
+
+		// Log perubahan data (dashboard) - cuma kalau qty atau price beneran berubah.
+		if ((string)$old_qty !== (string)$qty || (string)$old_price !== (string)$price) {
+			// Log perubahan data (dashboard) cuma buat SO yang udah punya FG/OUT dan sudah approved.
+			$has_fgout_approved = mysql_result(mysql_query("
+				SELECT COUNT(*) FROM bppb b
+				INNER JOIN so_det c ON c.id = b.id_so_det
+				WHERE c.id_so = '$id_so' AND b.bppbno_int LIKE 'FG/OUT%' AND b.confirm = 'Y'
+			", $con), 0);
+			if ($has_fgout_approved > 0) {
+				$old_total = ($old_qty !== null && $old_price !== null) ? ($old_qty * $old_price) : null;
+				$new_total = $qty * $price;
+				$prod_info = mysql_fetch_array(mysql_query("
+					SELECT e.product_item FROM so a
+					INNER JOIN act_costing d ON d.id = a.id_cost
+					INNER JOIN masterproduct e ON e.id = d.id_product
+					WHERE a.id = '$id_so'
+				", $con));
+				$product_item_log = $prod_info ? mysql_real_escape_string($prod_info['product_item'], $con) : '';
+				$sql_log_price = "INSERT INTO tbl_data_change_log (doc_number,so_number,product_item,source_table,action,field_name,qty_old,qty_new,price_old,price_new,total_old,total_new,profit_center,created_by,created_at)
+					VALUES ('$so_no_log','$so_no_log','$product_item_log','so_det','Edit Sales Order Detail','price','$old_qty','$qty','$old_price','$price','$old_total','$new_total','NAG','$user','$now')";
+				mysql_query($sql_log_price, $con);
+			}
+		}
+
 		$log_activity_sql = "insert into tbl_log (nama,activity,tanggal_input,doc_number,tanggal_doc,keterangan)
 			values ('$user','Edit Sales Order Detail','$now','$so_no_log','$now','id_so=$id_so;id_det=$id_det')";
 		mysqli_query($conn_li,$log_activity_sql);
 
 		$_SESSION['msg'] = "Data Berhasil Dirubah";
-	}		
+	}
 	echo "<script>window.location.href='../marketting/?mod=7&id=$id_so';</script>";
 }
 ?>

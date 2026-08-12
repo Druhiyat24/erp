@@ -35,7 +35,16 @@ else
 $cek_jo=flookup("count(*)","jo_det","id_so='$id_item'");
 $dateskrg=date('Y-m-d');
 $cek2=flookup("so_no","unlock_so","id_so='$id_item' and DATE_ADD(unlock_date, INTERVAL 2 DAY)>'$dateskrg'");
+// Cek apakah SO ini sudah punya Surat Jalan (FG/OUT), buat konfirmasi sebelum simpan perubahan price.
+$has_fgout_warn = ($id_det!="") ? mysql_result(mysql_query("
+	SELECT COUNT(*) FROM bppb b
+	INNER JOIN so_det c ON c.id = b.id_so_det
+	WHERE c.id_so = '$id_item' AND b.bppbno_int LIKE 'FG/OUT%'
+"), 0) : 0;
+$has_fgout_warn_js = ($has_fgout_warn > 0) ? 'true' : 'false';
 echo "<script type='text/javascript'>";
+  echo "var hasFgOutWarn = $has_fgout_warn_js;";
+  echo "var fgOutConfirmed = false;";
   echo "function validasi()";
   echo "{";
     echo "
@@ -83,6 +92,23 @@ echo "<script type='text/javascript'>";
         { swal({ title: 'Qty Tidak Boleh Kosong', $img_alert }); valid = false;}";
     }
     echo "else {valid = true;}";
+    echo "
+    if (valid && hasFgOutWarn && !fgOutConfirmed) {
+      swal({
+        title: 'Perhatian',
+        text: 'SO ini sudah memiliki Surat Jalan (FG/OUT). Yakin mau menyimpan perubahan?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, Simpan',
+        cancelButtonText: 'Batal'
+      }, function (isConfirm) {
+        if (isConfirm) {
+          fgOutConfirmed = true;
+          HTMLFormElement.prototype.submit.call(document.form);
+        }
+      });
+      return false;
+    }";
     echo "return valid;";
     echo "exit;";
   echo "}";

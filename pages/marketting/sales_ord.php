@@ -50,6 +50,13 @@ else
 {	$query = mysql_query("SELECT * FROM so where id='$id_so' ");
 	$data = mysql_fetch_array($query);
 	$id_cost = $data['id_cost'];
+	// Cek apakah SO ini sudah punya Surat Jalan (FG/OUT), approved atau belum,
+	// buat kasih peringatan ke user sebelum dia edit currency/harga.
+	$has_fgout_warn = mysql_result(mysql_query("
+		SELECT COUNT(*) FROM bppb b
+		INNER JOIN so_det c ON c.id = b.id_so_det
+		WHERE c.id_so = '$id_so' AND b.bppbno_int LIKE 'FG/OUT%'
+	"), 0);
 	$sql="select d.supplier,f.product_group,f.product_item,styleno
 		,g.kpno,g.deldate 
 		from act_costing g 
@@ -336,7 +343,10 @@ if (isset($_POST['submitfilter']))
 }
 # END COPAS EDIT
 # COPAS VALIDASI BUANG ELSE di IF pertama
+$has_fgout_warn_js = ($id_so!="" && $pro!="Copy" && $has_fgout_warn > 0) ? 'true' : 'false';
 echo "<script type='text/javascript'>
+	var hasFgOutWarn = $has_fgout_warn_js;
+	var fgOutConfirmed = false;
 	function validasi()
 	{	var id_cost = document.form.txtid_cost.value;
 		var buyerno = document.form.txtbuyerno.value;
@@ -345,7 +355,7 @@ echo "<script type='text/javascript'>
 		var qty = document.form.txtqty.value;
 		var unit = document.form.txtunit.value;
 		var fob = document.form.txtfob.value;
- 		
+
  		if (id_cost == '') { document.form.txtid_cost.focus(); swal({ title: 'Costing # Tidak Boleh Kosong', $img_alert }); valid = false;}
 		else if (buyerno == '') { document.form.txtbuyerno.focus(); swal({ title: 'PO Buyer # Tidak Boleh Kosong', $img_alert }); valid = false;}
 		else if (so_date == '') { document.form.txtso_date.focus(); swal({ title: 'SO Date Tidak Boleh Kosong', $img_alert }); valid = false;}
@@ -353,6 +363,24 @@ echo "<script type='text/javascript'>
 		else if (unit == '') { document.form.txtunit.focus(); swal({ title: 'Unit Tidak Boleh Kosong', $img_alert }); valid = false;}
 		else if (fob == '') { document.form.txtfob.focus(); swal({ title: 'FOB Tidak Boleh Kosong', $img_alert }); valid = false;}
 		else valid = true;
+
+		if (valid && hasFgOutWarn && !fgOutConfirmed) {
+			swal({
+				title: 'Perhatian',
+				text: 'SO ini sudah memiliki Surat Jalan (FG/OUT). Yakin mau menyimpan perubahan?',
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonText: 'Ya, Simpan',
+				cancelButtonText: 'Batal'
+			}, function (isConfirm) {
+				if (isConfirm) {
+					fgOutConfirmed = true;
+					HTMLFormElement.prototype.submit.call(document.form);
+				}
+			});
+			return false;
+		}
+
 		return valid;
 		exit;
 	}
