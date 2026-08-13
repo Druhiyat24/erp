@@ -677,13 +677,14 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
               $akses = $rsUser["mnuPAdjust"];
               if ($akses == "1") {
                 echo "<li><a href='?mode=Add_Adj'><span>Adjustment</span></a></li>";
-                echo "<li><a href='?mod=8&mode=Bahan_Baku'><span>Stock Bahan Baku</span></a></li>";
+                // echo "<li><a href='?mod=8&mode=Bahan_Baku'><span>Stock Bahan Baku</span></a></li>";
                 // echo "<li><a href='?mod=8&mode=General'><span>Stock Item General</span></a></li>";
               }
 
               $akses = $rsUser["mnuPStockOpname"];
               if ($akses == "1") {
-                echo "<li><a href='?mod=8&mode=Bahan_Baku'><span>Stock Non FG</span></a></li>";
+                echo "<li><a href='?mod=8&mode=Bahan_Baku'><span>Stock Bahan Baku</span></a></li>";
+                echo "<li><a href='?mod=8&mode=General'><span>Stock General</span></a></li>";
                 echo "<li><a href='?mod=8&mode=FG'><span>Stock FG</span></a></li>";
               }
               if ($user != "bc") {
