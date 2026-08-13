@@ -69,6 +69,7 @@ if ($mod == 'update_status') {
 		$sql_cari_output_rft  		= mysql_query("select COUNT(*) as total_rft from output_rfts where master_plan_id = '$id' group by master_plan_id");
 		$sql_cari_output_defect  	= mysql_query("select COUNT(*) as total_defect from output_defects where master_plan_id = '$id' group by master_plan_id");
 		$sql_cari_output_reject  	= mysql_query("select COUNT(*) as total_reject from output_rejects where master_plan_id = '$id' group by master_plan_id");
+		
 		$row_cari_output_rft 		= mysql_fetch_array($sql_cari_output_rft);
 		$row_cari_output_defect 	= mysql_fetch_array($sql_cari_output_defect);
 		$row_cari_output_reject 	= mysql_fetch_array($sql_cari_output_reject);
@@ -77,7 +78,33 @@ if ($mod == 'update_status') {
 		$s_total_defect = isset($row_cari_output_defect['total_defect']) ? $row_cari_output_defect['total_defect'] : 0;
 		$s_total_reject = isset($row_cari_output_reject['total_reject']) ? $row_cari_output_reject['total_reject'] : 0;
 
-		if ($s_total_rft + $s_total_defect + $s_total_reject > 0) {
+		// Check Total Output Finishing
+		$sql_cari_output_rft_finishing 		= mysql_query("select COUNT(*) as total_rft from output_rfts_packing where master_plan_id = '$id' group by master_plan_id");
+		$sql_cari_output_defect_finishing 	= mysql_query("select COUNT(*) as total_defect from output_defects_packing where master_plan_id = '$id' group by master_plan_id");
+		$sql_cari_output_reject_finishing 	= mysql_query("select COUNT(*) as total_reject from output_rejects_packing where master_plan_id = '$id' group by master_plan_id");
+
+		$row_cari_output_rft_finishing 		= mysql_fetch_array($sql_cari_output_rft_finishing);
+		$row_cari_output_defect_finishing 	= mysql_fetch_array($sql_cari_output_defect_finishing);
+		$row_cari_output_reject_finishing 	= mysql_fetch_array($sql_cari_output_reject_finishing);
+
+		$s_total_rft_finishing = isset($row_cari_output_rft_finishing['total_rft']) ? $row_cari_output_rft_finishing['total_rft'] : 0;
+		$s_total_defect_finishing = isset($row_cari_output_defect_finishing['total_defect']) ? $row_cari_output_defect_finishing['total_defect'] : 0;
+		$s_total_reject_finishing = isset($row_cari_output_reject_finishing['total_reject']) ? $row_cari_output_reject_finishing['total_reject'] : 0;
+
+		// Check Total Output Packing
+		$sql_cari_output_rft_packing  		= mysql_query("select COUNT(*) as total_rft from output_rfts_packing_po where master_plan_id = '$id' group by master_plan_id");
+		$sql_cari_output_defect_packing  	= mysql_query("select COUNT(*) as total_defect from output_defects_packing_po where master_plan_id = '$id' group by master_plan_id");
+		$sql_cari_output_reject_packing  	= mysql_query("select COUNT(*) as total_reject from output_rejects_packing_po where master_plan_id = '$id' group by master_plan_id");
+
+		$row_cari_output_rft_packing 		= mysql_fetch_array($sql_cari_output_rft_packing);
+		$row_cari_output_defect_packing 	= mysql_fetch_array($sql_cari_output_defect_packing);
+		$row_cari_output_reject_packing 	= mysql_fetch_array($sql_cari_output_reject_packing);
+
+		$s_total_rft_packing = isset($row_cari_output_rft_packing['total_rft']) ? $row_cari_output_rft_packing['total_rft'] : 0;
+		$s_total_defect_packing = isset($row_cari_output_defect_packing['total_defect']) ? $row_cari_output_defect_packing['total_defect'] : 0;
+		$s_total_reject_packing = isset($row_cari_output_reject_packing['total_reject']) ? $row_cari_output_reject_packing['total_reject'] : 0;
+
+		if ($s_total_rft + $s_total_defect + $s_total_reject + $s_total_rft_finishing + $s_total_defect_finishing + $s_total_reject_finishing + $s_total_rft_packing + $s_total_defect_packing + $s_total_reject_packing  > 0) {
 			// If Master Plan has Output
 			$_SESSION['msg'] = "X Master Plan Sudah Memiliki Output.";
 		} else {
