@@ -68,13 +68,14 @@ if (!isset($_POST['itemchk'])) {
 	$fgout_grup_qty = array();
 	$fgout_grup_total = array();
 	$fgout_grup_price = array();
+	$fgout_grup_curr = array();
 	foreach ($ItemArray as $key => $value) {
 		$chk = $value;
 		$id_item = $key;
 		if ($chk == "on") {
 			if ($nm_tbl == "bppb") {
 				$cekfg = mysql_query("
-					SELECT c.bppbno_int, c.qty, c.price, a.so_no, e.product_item
+					SELECT c.bppbno_int, c.qty, c.price, a.so_no, a.curr, e.product_item
 					FROM bppb c
 					INNER JOIN so_det b ON b.id = c.id_so_det
 					INNER JOIN so a ON a.id = b.id_so
@@ -89,6 +90,7 @@ if (!isset($_POST['itemchk'])) {
 						$fgout_grup_qty[$grup_key] += $datafg['qty'];
 						$fgout_grup_total[$grup_key] += $datafg['qty'] * $datafg['price'];
 						$fgout_grup_price[$grup_key] = $datafg['price']; // ambil yang terakhir sebagai referensi
+						$fgout_grup_curr[$grup_key] = $datafg['curr'];
 					}
 				}
 			}
@@ -105,10 +107,11 @@ if (!isset($_POST['itemchk'])) {
 		$product_item_log = nb($grup_parts[2]);
 		$qty_grup   = $fgout_grup_qty[$grup_key];
 		$price_grup = $fgout_grup_price[$grup_key];
+		$curr_grup  = $fgout_grup_curr[$grup_key];
 
 		$log_created_at = date('Y-m-d H:i:s');
-		$sql_log = "INSERT INTO tbl_data_change_log (doc_number,so_number,product_item,source_table,action,field_name,qty_old,qty_new,price_old,price_new,total_old,total_new,profit_center,created_by,created_at)
-			VALUES ('$docnum_log','$so_number_log','$product_item_log','bppb','Confirm SJ FG/OUT','total','0','$qty_grup','0','$price_grup','0','$total_grup','NAG','$user','$log_created_at')";
+		$sql_log = "INSERT INTO tbl_data_change_log (doc_number,so_number,product_item,source_table,action,field_name,qty_old,qty_new,price_old,price_new,total_old,total_new,curr,profit_center,created_by,created_at)
+			VALUES ('$docnum_log','$so_number_log','$product_item_log','bppb','Confirm SJ FG/OUT','total','0','$qty_grup','0','$price_grup','0','$total_grup','$curr_grup','NAG','$user','$log_created_at')";
 		mysql_query($sql_log);
 	}
 	if ($nm_tbl == "bpb") {

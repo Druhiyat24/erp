@@ -134,26 +134,34 @@ else
 
 		$so_no_log = flookup("so_no","so","id='$id_so'");
 
-		// Log perubahan data (dashboard) - cuma kalau qty atau price beneran berubah.
-		if ((string)$old_qty !== (string)$qty || (string)$old_price !== (string)$price) {
-			// Log perubahan data (dashboard) cuma buat SO yang udah punya FG/OUT dan sudah approved.
-			$has_fgout_approved = mysql_result(mysql_query("
-				SELECT COUNT(*) FROM bppb b
-				INNER JOIN so_det c ON c.id = b.id_so_det
-				WHERE c.id_so = '$id_so' AND b.bppbno_int LIKE 'FG/OUT%' AND b.confirm = 'Y'
-			", $con), 0);
-			if ($has_fgout_approved > 0) {
-				$old_total = ($old_qty !== null && $old_price !== null) ? ($old_qty * $old_price) : null;
-				$new_total = $qty * $price;
-				$prod_info = mysql_fetch_array(mysql_query("
-					SELECT e.product_item FROM so a
-					INNER JOIN act_costing d ON d.id = a.id_cost
-					INNER JOIN masterproduct e ON e.id = d.id_product
-					WHERE a.id = '$id_so'
-				", $con));
-				$product_item_log = $prod_info ? mysql_real_escape_string($prod_info['product_item'], $con) : '';
-				$sql_log_price = "INSERT INTO tbl_data_change_log (doc_number,so_number,product_item,source_table,action,field_name,qty_old,qty_new,price_old,price_new,total_old,total_new,profit_center,created_by,created_at)
-					VALUES ('$so_no_log','$so_no_log','$product_item_log','so_det','Edit Sales Order Detail','price','$old_qty','$qty','$old_price','$price','$old_total','$new_total','NAG','$user','$now')";
+		// Log perubahan data (dashboard) - cuma kalau price beneran berubah, dan cuma
+		// buat FG/OUT yang: (a) sudah approved (SJ beneran jalan), (b) BELUM diinvoice
+		// (price_invoice/total_invoice masih NULL) - FG/OUT yang sudah diinvoice
+		// nilainya sudah terkunci dan tidak boleh ikut kehitung berubah lagi.
+		// Yang dicatat adalah dampak ke tiap FG/OUT itu sendiri (bukan SO/item-nya),
+		// karena itu yang beneran nentuin naik/turunnya AR.
+		if ((string)$old_price !== (string)$price) {
+			$prod_info = mysql_fetch_array(mysql_query("
+				SELECT e.product_item, a.curr FROM so a
+				INNER JOIN act_costing d ON d.id = a.id_cost
+				INNER JOIN masterproduct e ON e.id = d.id_product
+				WHERE a.id = '$id_so'
+			", $con));
+			$product_item_log = $prod_info ? mysql_real_escape_string($prod_info['product_item'], $con) : '';
+			$curr_log = $prod_info ? mysql_real_escape_string($prod_info['curr'], $con) : '';
+
+			$cekfg = mysql_query("
+				SELECT bppbno_int, qty FROM bppb
+				WHERE id_so_det = '$id_det' AND bppbno_int LIKE 'FG/OUT%' AND confirm = 'Y'
+				  AND price_invoice IS NULL AND total_invoice IS NULL
+			", $con);
+			while ($datafg = mysql_fetch_array($cekfg)) {
+				$fgout_no  = mysql_real_escape_string($datafg['bppbno_int'], $con);
+				$fgout_qty = $datafg['qty'];
+				$old_total = $fgout_qty * $old_price;
+				$new_total = $fgout_qty * $price;
+				$sql_log_price = "INSERT INTO tbl_data_change_log (doc_number,ref_number,so_number,product_item,source_table,action,field_name,qty_old,qty_new,price_old,price_new,total_old,total_new,curr,profit_center,created_by,created_at)
+					VALUES ('$fgout_no','$fgout_no','$so_no_log','$product_item_log','bppb','Edit Sales Order Detail','price','$fgout_qty','$fgout_qty','$old_price','$price','$old_total','$new_total','$curr_log','NAG','$user','$now')";
 				mysql_query($sql_log_price, $con);
 			}
 		}

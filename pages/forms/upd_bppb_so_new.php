@@ -36,6 +36,7 @@ if ($mod == 'update')
    $grup_total_lama = array();
    $grup_total_baru = array();
    $grup_price = array();
+   $grup_curr = array();
 
    for ($i = 0; $i < count($idbppbs); $i++) {
      $idbppb = nb($idbppbs[$i]);
@@ -43,7 +44,7 @@ if ($mod == 'update')
 
      // Ambil qty & price lama dulu sebelum ditimpa, sekalian so_number & product item-nya.
      $rowlama = mysql_fetch_array(mysql_query("
-       SELECT c.qty, c.price, a.so_no, e.product_item
+       SELECT c.qty, c.price, a.so_no, a.curr, e.product_item
        FROM bppb c
        INNER JOIN so_det b ON b.id = c.id_so_det
        INNER JOIN so a ON a.id = b.id_so
@@ -55,6 +56,7 @@ if ($mod == 'update')
      $price    = $rowlama['price'];
      $so_no    = $rowlama['so_no'];
      $itemdesc = $rowlama['product_item'];
+     $curr     = $rowlama['curr'];
      $grup_key = $so_no.'|'.$itemdesc;
 
      if (!isset($grup_qty_lama[$grup_key])) {
@@ -66,6 +68,7 @@ if ($mod == 'update')
      $grup_total_lama[$grup_key] += $qty_lama * $price;
      $grup_total_baru[$grup_key] += $qty_baru * $price;
      $grup_price[$grup_key] = $price; // price tidak berubah di form ini, ambil yang terakhir
+     $grup_curr[$grup_key] = $curr;
 
      $sql_det = "UPDATE bppb SET qty = '$qty_baru' WHERE id = '$idbppb'";
      insert_log($sql_det, $user);
@@ -80,12 +83,13 @@ if ($mod == 'update')
       $so_number_log    = nb($grup_parts[0]);
       $product_item_log = nb($grup_parts[1]);
       $price_log = $grup_price[$grup_key];
+      $curr_log  = $grup_curr[$grup_key];
       $tl = $grup_total_lama[$grup_key];
       $tb = $grup_total_baru[$grup_key];
 
       $log_created_at = date('Y-m-d H:i:s');
-      $sql_log = "INSERT INTO tbl_data_change_log (doc_number,so_number,product_item,source_table,action,field_name,qty_old,qty_new,price_old,price_new,total_old,total_new,profit_center,created_by,created_at)
-        VALUES ('$bppbno_int','$so_number_log','$product_item_log','bppb','Edit SJ FG/OUT','qty','$ql','$qb','$price_log','$price_log','$tl','$tb','NAG','$user','$log_created_at')";
+      $sql_log = "INSERT INTO tbl_data_change_log (doc_number,so_number,product_item,source_table,action,field_name,qty_old,qty_new,price_old,price_new,total_old,total_new,curr,profit_center,created_by,created_at)
+        VALUES ('$bppbno_int','$so_number_log','$product_item_log','bppb','Edit SJ FG/OUT','qty','$ql','$qb','$price_log','$price_log','$tl','$tb','$curr_log','NAG','$user','$log_created_at')";
       mysql_query($sql_log);
     }
   }

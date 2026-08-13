@@ -103,29 +103,29 @@ else
 		", $con));
 		$product_item_log = $prod_info ? mysql_real_escape_string($prod_info['product_item'], $con) : '';
 
-		// Log perubahan data (dashboard) cuma buat SO yang udah punya FG/OUT dan sudah approved.
-		$has_fgout_approved = mysql_result(mysql_query("
-			SELECT COUNT(*) FROM bppb b
-			INNER JOIN so_det c ON c.id = b.id_so_det
-			WHERE c.id_so = '$id_so' AND b.bppbno_int LIKE 'FG/OUT%' AND b.confirm = 'Y'
-		", $con), 0);
-
 		$sql = "update so set buyerno='$txtbuyerno',
 			qty='$txtqty',unit='$txtunit',curr='$txtcurr',fob='$txtfob',username='$user',
 			tax='$txttax',id_season='$txtseason',id_terms='$txtterms',jml_pterms='$txtdays',jns_so='$txtjns_so',ket_blc='$txtket_blc', updated_by='$user', updated_date='$now'
 			where id='$id_so'";
 		insert_log($sql,$user);
 
-		if ($has_fgout_approved > 0) {
-			if ((string)$old_curr !== (string)$txtcurr) {
-				$sql_log_curr = "INSERT INTO tbl_data_change_log (doc_number,so_number,product_item,source_table,action,field_name,old_value,new_value,profit_center,created_by,created_at)
-					VALUES ('$txtso_no','$txtso_no','$product_item_log','so','Edit Sales Order','curr','$old_curr','$txtcurr','NAG','$user','$now')";
+		// Log perubahan data (dashboard) - currency SO berubah -> nilai valuasi semua
+		// FG/OUT terhubung yang sudah approved tapi BELUM diinvoice ikut berubah (yang
+		// sudah diinvoice terkunci, tidak ikut kehitung). fob tidak dicatat di sini
+		// karena fob readonly dan bukan yang beneran nentuin harga per FG/OUT (itu dari
+		// so_det.price, sudah di-log terpisah di halaman edit price).
+		if ((string)$old_curr !== (string)$txtcurr) {
+			$cekfg = mysql_query("
+				SELECT b.bppbno_int, b.qty
+				FROM bppb b INNER JOIN so_det c ON c.id = b.id_so_det
+				WHERE c.id_so = '$id_so' AND b.bppbno_int LIKE 'FG/OUT%' AND b.confirm = 'Y'
+				  AND b.price_invoice IS NULL AND b.total_invoice IS NULL
+			", $con);
+			while ($datafg = mysql_fetch_array($cekfg)) {
+				$fgout_no = mysql_real_escape_string($datafg['bppbno_int'], $con);
+				$sql_log_curr = "INSERT INTO tbl_data_change_log (doc_number,ref_number,so_number,product_item,source_table,action,field_name,old_value,new_value,curr,profit_center,created_by,created_at)
+					VALUES ('$fgout_no','$fgout_no','$txtso_no','$product_item_log','bppb','Edit Sales Order','curr','$old_curr','$txtcurr','$txtcurr','NAG','$user','$now')";
 				mysql_query($sql_log_curr, $con);
-			}
-			if ((string)$old_fob !== (string)$txtfob) {
-				$sql_log_fob = "INSERT INTO tbl_data_change_log (doc_number,so_number,product_item,source_table,action,field_name,price_old,price_new,profit_center,created_by,created_at)
-					VALUES ('$txtso_no','$txtso_no','$product_item_log','so','Edit Sales Order','fob','$old_fob','$txtfob','NAG','$user','$now')";
-				mysql_query($sql_log_fob, $con);
 			}
 		}
 
