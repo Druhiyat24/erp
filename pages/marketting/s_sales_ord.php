@@ -116,17 +116,22 @@ else
 		// so_det.price, sudah di-log terpisah di halaman edit price).
 		if ((string)$old_curr !== (string)$txtcurr) {
 			$cekfg = mysql_query("
-				SELECT b.bppbno_int, b.qty
+				SELECT b.bppbno_int, b.qty, c.price
 				FROM bppb b INNER JOIN so_det c ON c.id = b.id_so_det
 				WHERE c.id_so = '$id_so' AND b.bppbno_int LIKE 'FG/OUT%' AND b.confirm = 'Y'
 				  AND b.price_invoice IS NULL AND b.total_invoice IS NULL
 			", $con);
 			while ($datafg = mysql_fetch_array($cekfg)) {
-				$fgout_no = mysql_real_escape_string($datafg['bppbno_int'], $con);
-				$sql_log_curr = "INSERT INTO tbl_data_change_log (doc_number,ref_number,so_number,product_item,source_table,action,field_name,old_value,new_value,curr,profit_center,created_by,created_at)
-					VALUES ('$fgout_no','$fgout_no','$txtso_no','$product_item_log','bppb','Edit Sales Order','curr','$old_curr','$txtcurr','$txtcurr','NAG','$user','$now')";
+				$fgout_no    = mysql_real_escape_string($datafg['bppbno_int'], $con);
+				$fgout_qty   = $datafg['qty'];
+				$fgout_price = $datafg['price'];
+				$fgout_total = $fgout_qty * $fgout_price;
+				// qty/price/total tidak berubah (yang berubah cuma curr), jadi old=new -
+				// diisi biar dashboard tidak nampilin baris kosong.
+				$sql_log_curr = "INSERT INTO tbl_data_change_log (doc_number,ref_number,so_number,product_item,source_table,action,field_name,qty_old,qty_new,price_old,price_new,total_old,total_new,old_value,new_value,curr,profit_center,created_by,created_at)
+					VALUES ('$fgout_no','$fgout_no','$txtso_no','$product_item_log','bppb','Edit Sales Order','curr','$fgout_qty','$fgout_qty','$fgout_price','$fgout_price','$fgout_total','$fgout_total','$old_curr','$txtcurr','$txtcurr','NAG','$user','$now')";
 				mysql_query($sql_log_curr, $con);
-			}
+				}
 		}
 
 		$log_activity_sql = "insert into tbl_log (nama,activity,tanggal_input,doc_number,tanggal_doc,keterangan)
