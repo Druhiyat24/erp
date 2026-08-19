@@ -179,6 +179,8 @@ if (isset($_POST['submit']))
 
     var gradenya = document.form.txtgrade.value;
 
+    var jenis_trans = document.form.txtjenis_trans.value;
+
     var qtyo = document.form.getElementsByClassName('qtyclass');
 
     var balo = document.form.getElementsByClassName('sisaclass');
@@ -226,6 +228,8 @@ if (isset($_POST['submit']))
     else if (jenis_dok !== 'INHOUSE' && tgl_fp == '') { document.form.txttgl_fp.focus(); swal({ title: 'Tgl. Faktur Pajak Tidak Boleh Kosong', <?php echo $img_alert; ?> }); valid = false;}
 
     else if (gradenya == '') { swal({ title: 'Grade Tidak Boleh Kosong', <?php echo $img_alert; ?> }); valid = false;}
+
+    else if (jenis_trans == '') { document.form.txtjenis_trans.focus(); swal({ title: 'Jenis Pemasukan Tidak Boleh Kosong', <?php echo $img_alert; ?> }); valid = false;}
 
     else if (nodata == 0) { swal({ title: 'Tidak Ada Data', <?php echo $img_alert; ?> }); valid = false;}
 
@@ -605,7 +609,7 @@ if (isset($_POST['submit']))
 
                 <label>Nomor KK</label>
 
-                <input type='text' class='form-control' name='txtkkbc' 
+                <input type='text' class='form-control' name='txtkkbc'
 
                   placeholder='<?php echo $cmas." KK"; ?>' value='<?=$kkbc?>'>
 
@@ -613,7 +617,27 @@ if (isset($_POST['submit']))
 
             </div>
 
-          </div>        
+          </div>
+
+          <div class='form-group'>
+
+            <label>Jenis Pemasukan *</label>
+
+            <select class='form-control select2' style='width: 100%;' name='txtjenis_trans' required>
+
+              <?php
+
+                $sql = "select nama_trans isi,nama_trans tampil from mastertransaksi where
+
+                      jenis_trans='IN' and jns_gudang='FG' order by id";
+
+                IsiCombo($sql,'','Pilih Jenis Pemasukan');
+
+              ?>
+
+            </select>
+
+          </div>
 
         </div>
 

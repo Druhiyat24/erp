@@ -35,6 +35,7 @@ $txtbcdate = nb($_POST['txtbcdate']);
 $txtno_fp = nb($_POST['txtno_fp']);
 $txttgl_fp = nb($_POST['txttgl_fp']);
 $txtkkbc = $_POST['txtkkbc'];
+$txtjenis_trans = trim(str_replace("'","",$_POST['txtjenis_trans']));
 $cek = flookup("count(*)","bpb","bpbno='$txtbpbno'");
 if ($cek=="0")
 {	$QtyArr = $_POST['itemqty'];
@@ -51,11 +52,11 @@ if ($cek=="0")
 			$id_item=cek_masterstyle($id_so_det);
 			$sql = "insert into bpb (bpbno,bpbno_int,bpbdate,id_supplier,grade,invno,jenis_dok,tujuan,
 				subtujuan,nomor_aju,tanggal_aju,bcno,bcdate,no_fp,tgl_fp,nomor_kk_bc,id_item,id_so_det,
-				qty,unit,curr,price,username,reffno)
+				qty,unit,curr,price,username,reffno,jenis_trans)
 				values ('$txtbpbno','$txtbpbno2','$txtbpbdate','$txtid_supplier','$txtgrade','$txtinvno','$txtjenis_dok',
 				'$txttujuan','$txtsubtujuan','$txtnomor_aju','$txttanggal_aju','$txtbcno',
 				'$txtbcdate','$txtno_fp','$txttgl_fp','$txtkkbc','$id_item','$id_so_det','$qty','$unit',
-				'$curr','$price','$user','$txtreffno')";
+				'$curr','$price','$user','$txtreffno','$txtjenis_trans')";
 			insert_log($sql,$user);
 		}
 	}
