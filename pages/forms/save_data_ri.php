@@ -118,6 +118,11 @@ $txtbcdate = fd($_POST['txtbcdate']);
 $txtbcaju = "";
 $txttglaju = "";
 if ($mode == "FG") {
+	$txtjenis_trans = trim(str_replace("'", "", $_POST['txtjenis_trans']));
+} else {
+	$txtjenis_trans = "";
+}
+if ($mode == "FG") {
 	$cbomat = substr($txtbppbno_ri, 3, 2);
 } else {
 	$cbomat = substr($txtbppbno_ri, 3, 1);
@@ -178,11 +183,11 @@ if (!isset($_POST['item'])) {
 			}
 			$sql = "insert into bpb (id_item,id_item_fg,qty,qty_temp,unit,curr,price,remark,jam_masuk,berat_bersih,berat_kotor,nomor_mobil,pono,id_supplier,
 				invno,bcno,bcdate,bpbno,bpbno_int,bpbdate,jenis_dok,tujuan,username,use_kite,nomor_aju,tanggal_aju,
-				kpno,id_gudang,nomor_rak,status_retur,bppbno_ri,bppbno,id_jo,id_so_det,profit_center)
+				kpno,id_gudang,nomor_rak,status_retur,bppbno_ri,bppbno,id_jo,id_so_det,profit_center,jenis_trans)
 				values ('$id_item','$txtid_item_fg','$qty_fix','$qty_temp_fix','$txtunit','$txtcurr','$txtprice','$txtremark','$txtjam_masuk','$txtberat_bersih',
 				'$txtberat_kotor','$txtnomor_mobil','$txtpono','$txtid_supplier','$txtinvno','$txtbcno','$txtbcdate',
 				'$txtrino','$txtrino2','$tgl_ri','$jenis_dok','$txttujuan','$user','1','$txtbcaju','$txttglaju','$txtkpno',
-				'$txtid_gudang','$txtnomor_rak','$retur','$txtbppbno_ri','$txtbppbno_ri','$id_jo','$txtid_so_det','$profit_center')";
+				'$txtid_gudang','$txtnomor_rak','$retur','$txtbppbno_ri','$txtbppbno_ri','$id_jo','$txtid_so_det','$profit_center','$txtjenis_trans')";
 			insert_log($sql, $user);
 			calc_stock($cbomat, $id_item);
 		}
