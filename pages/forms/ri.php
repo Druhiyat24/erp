@@ -88,7 +88,9 @@ function validasi()
 
   var bcdate = document.form.txtbcdate.value;
 
-  for (var i = 0; i < qtyo.length; i++) 
+  var jenis_trans = document.form.txtjenis_trans ? document.form.txtjenis_trans.value : '';
+
+  for (var i = 0; i < qtyo.length; i++)
 
   { if (Number(qtyo[i].value) > 0)
 
@@ -147,6 +149,11 @@ function validasi()
    //echo "else if (jendok !== 'INHOUSE' && bcno == '') { document.form.txtbcno.focus();swal({ title: 'Nomor Daftar Tidak Boleh Kosong', $img_alert });valid = false;}";
 
   echo "else if (jendok !== 'INHOUSE' && bcdate == '') { document.form.txtbcdate.focus();swal({ title: 'Tgl. Daftar Tidak Boleh Kosong', $img_alert });valid = false;}";
+
+  if ($mode=="FG")
+  {
+    echo "else if (jenis_trans == '') { swal({ title: 'Jenis Pemasukan Tidak Boleh Kosong', $img_alert });valid = false;}";
+  }
 
   echo "
 
@@ -439,6 +446,20 @@ placeholder='Masukkan Tgl. Daftar'>
 </div>";
 
 echo "</div>";
+
+if ($mode=="FG")
+{
+	echo "<div class='col-md-3'>";
+	echo "<div class='form-group'>";
+	echo "<label>Jenis Pemasukan *</label>";
+	echo "<select class='form-control select2' style='width: 100%;' name='txtjenis_trans' required>";
+	$sql = "select nama_trans isi,nama_trans tampil from mastertransaksi where
+		jenis_trans='IN' and jns_gudang='FG' order by id";
+	IsiCombo($sql,'','Pilih Jenis Pemasukan');
+	echo "</select>";
+	echo "</div>";
+	echo "</div>";
+}
 
 echo "<div class='box-body'>";
 

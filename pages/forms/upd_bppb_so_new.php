@@ -15,6 +15,7 @@ if ($mod == 'update')
    $queryheader = mysql_query("SELECT * from bppb where bppbno = '$id_bppb' limit 1");
    $databppb    = mysql_fetch_array($queryheader);
    $bppbno_int  =$databppb['bppbno_int'];
+   $old_jenis_trans = $databppb['jenis_trans'];
 
    $txtgrade = nb($_POST['txtgrade']);
    $txtbppbdate = fd($_POST['txtbppbdate']);
@@ -38,13 +39,20 @@ if ($mod == 'update')
    $grup_price = array();
    $grup_curr = array();
 
+   // Grup khusus buat log perubahan jenis_trans ("Type SJ") di bawah - cuma baris
+   // yang sudah approved (confirm='Y') dan BELUM diinvoice yang boleh ikut kehitung
+   // sebagai penambah/pengurang nilai sales, sama seperti aturan logging FG/OUT lain.
+   $grup_qty_eligible = array();
+   $grup_price_eligible = array();
+   $grup_curr_eligible = array();
+
    for ($i = 0; $i < count($idbppbs); $i++) {
      $idbppb = nb($idbppbs[$i]);
      $qty_baru = nb($qtys[$i]);
 
      // Ambil qty & price lama dulu sebelum ditimpa, sekalian so_number & product item-nya.
      $rowlama = mysql_fetch_array(mysql_query("
-       SELECT c.qty, c.price, a.so_no, a.curr, e.product_item
+       SELECT c.qty, c.price, c.confirm, c.price_invoice, c.total_invoice, a.so_no, a.curr, e.product_item
        FROM bppb c
        INNER JOIN so_det b ON b.id = c.id_so_det
        INNER JOIN so a ON a.id = b.id_so
@@ -70,6 +78,13 @@ if ($mod == 'update')
      $grup_price[$grup_key] = $price; // price tidak berubah di form ini, ambil yang terakhir
      $grup_curr[$grup_key] = $curr;
 
+     if ($rowlama['confirm'] == 'Y' && $rowlama['price_invoice'] === null && $rowlama['total_invoice'] === null) {
+       if (!isset($grup_qty_eligible[$grup_key])) { $grup_qty_eligible[$grup_key] = 0; }
+       $grup_qty_eligible[$grup_key] += $qty_baru;
+       $grup_price_eligible[$grup_key] = $price;
+       $grup_curr_eligible[$grup_key] = $curr;
+     }
+
      $sql_det = "UPDATE bppb SET qty = '$qty_baru' WHERE id = '$idbppb'";
      insert_log($sql_det, $user);
   }
@@ -90,6 +105,41 @@ if ($mod == 'update')
       $log_created_at = date('Y-m-d H:i:s');
       $sql_log = "INSERT INTO tbl_data_change_log (doc_number,so_number,product_item,source_table,action,field_name,qty_old,qty_new,price_old,price_new,total_old,total_new,curr,profit_center,created_by,created_at)
         VALUES ('$bppbno_int','$so_number_log','$product_item_log','bppb','Edit SJ FG/OUT','qty','$ql','$qb','$price_log','$price_log','$tl','$tb','$curr_log','NAG','$user','$log_created_at')";
+      mysql_query($sql_log);
+    }
+  }
+
+  // Log perubahan data (dashboard) kalau klasifikasi Penjualan/Bukan Penjualan
+  // (field jenis_trans / "Type SJ") berubah - dampaknya ke nilai sales sama besar
+  // seperti perubahan qty/price di atas (dari kehitung jadi tidak kehitung, atau
+  // sebaliknya), jadi harus ikut ke-log. "Penjualan" = jenis_trans diawali kata
+  // "Penjualan" (Penjualan Ekspor/Penjualan Lokal) - selain itu (Pengiriman
+  // Sample, Pengiriman Hasil Perbaikan, Retur ke Produksi, dst) dianggap bukan
+  // penjualan.
+  $was_sale = (strpos((string) $old_jenis_trans, 'Penjualan') === 0);
+  $is_sale  = (strpos((string) $txtjenis_trans, 'Penjualan') === 0);
+  if ($was_sale !== $is_sale) {
+    foreach ($grup_qty_eligible as $grup_key => $qty_elig) {
+      if ($qty_elig == 0) continue;
+      $grup_parts = explode('|', $grup_key, 2);
+      $so_number_log    = nb($grup_parts[0]);
+      $product_item_log = nb($grup_parts[1]);
+      $price_log  = $grup_price_eligible[$grup_key];
+      $curr_log   = $grup_curr_eligible[$grup_key];
+      $total_elig = $qty_elig * $price_log;
+
+      $qty_old_j   = $was_sale ? $qty_elig   : 0;
+      $qty_new_j   = $is_sale  ? $qty_elig   : 0;
+      $price_old_j = $was_sale ? $price_log  : 0;
+      $price_new_j = $is_sale  ? $price_log  : 0;
+      $total_old_j = $was_sale ? $total_elig : 0;
+      $total_new_j = $is_sale  ? $total_elig : 0;
+      $old_value_j = mysql_real_escape_string((string) $old_jenis_trans);
+      $new_value_j = mysql_real_escape_string((string) $txtjenis_trans);
+
+      $log_created_at = date('Y-m-d H:i:s');
+      $sql_log = "INSERT INTO tbl_data_change_log (doc_number,so_number,product_item,source_table,action,field_name,qty_old,qty_new,price_old,price_new,total_old,total_new,old_value,new_value,curr,profit_center,created_by,created_at)
+        VALUES ('$bppbno_int','$so_number_log','$product_item_log','bppb','Edit Type SJ','jenis_trans','$qty_old_j','$qty_new_j','$price_old_j','$price_new_j','$total_old_j','$total_new_j','$old_value_j','$new_value_j','$curr_log','NAG','$user','$log_created_at')";
       mysql_query($sql_log);
     }
   }

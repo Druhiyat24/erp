@@ -165,6 +165,7 @@ if (($mode=="Detail_In") and ($tipenya=="Barang Jadi"))
 {
 	echo "<th>Switch In</th>";
 	echo "<th>Ref #</th>";
+	echo "<th>Jenis Penerimaan</th>";
 }
 if (($mode=="Detail_In") and ($tipenya=="Bahan Baku"))
 {
@@ -184,6 +185,7 @@ if (($mode=="Detail_Out") and ($tipenya=="Barang Jadi"))
 	echo "<th>Invoice</th>";
 	echo "<th>Switch Out</th>";
 	echo "<th>No. SO</th>";
+	echo "<th>Jenis Pengeluaran</th>";
 }
 if (($mode=="Detail_Out") and ($tipenya=="Bahan Baku"))
 {
@@ -310,7 +312,7 @@ $id_contents ="id_contents";
 		$sql = "select if(bppbno_int!='',bppbno_int,bppbno) bppbno,bppbdate,ifnull(mp.nama_pc, 'NIRWANA ALABARE GARMENT') profit_center,invno,jenis_dok,right(nomor_aju,6) aju,tanggal_aju,
 		lpad(bcno,6,'0') bcno,bcdate,supplier,a.id_item,goods_code,$fld itemdesc,s.color,s.size,s.country,
 		a.qty,0 as qty_good,0 as qty_reject,
-		a.unit,berat_bersih,remark,$flduser,a.confirm_by,ac.kpno ws,ac.styleno,a.curr,a.price,inv.v_noinvoicecommercial,a.switch_out,so.so_no  
+		a.unit,berat_bersih,remark,$flduser,a.confirm_by,ac.kpno ws,ac.styleno,a.curr,a.price,inv.v_noinvoicecommercial,a.switch_out,so.so_no,a.jenis_trans
 		from bppb a inner join $tbl s on a.id_item=s.id_item
 		LEFT join master_pc mp on mp.kode_pc = a.profit_center
 		inner join mastersupplier d on a.id_supplier=d.id_supplier 
@@ -362,11 +364,12 @@ $id_contents ="id_contents";
 			<td>$data[v_noinvoicecommercial]</td>
 			<td>$data[switch_out]</td>
 			<td>$data[so_no]</td>
+			<td>$data[jenis_trans]</td>
 
 			";
 			echo "</tr>";
           $no++; // menambah nilai nomor urut
-        }														
+        }
 
 
       } else if ($tipenya == "Barang Jadi" && $classnya = "BARANG JADI STOK"){
@@ -401,7 +404,8 @@ $id_contents ="id_contents";
 				sd.price,
 				'' as v_noinvoicecommercial,
 				'' switch_out,
-				so.so_no
+				so.so_no,
+				'' jenis_trans
         from laravel_nds.fg_stok_bppb a
         inner join so_det sd on a.id_so_det = sd.id
 				inner join so on sd.id_so = so.id
@@ -452,11 +456,12 @@ $id_contents ="id_contents";
 			<td>$data[v_noinvoicecommercial]</td>
 			<td>$data[switch_out]</td>
 			<td>$data[so_no]</td>
+			<td>$data[jenis_trans]</td>
 
 			";
 			echo "</tr>";
           $no++; // menambah nilai nomor urut
-        }	
+        }
 
 
       }
@@ -710,7 +715,7 @@ else
 			if(a.invno !='--',a.invno,tmpout.bppbno_int) as invno,a.id_item,
 			goods_code,$fld itemdesc,s.color,s.size,s.country,a.grade,
 			a.qty,(a.qty-coalesce(a.qty_reject,0)) as qty_good,coalesce(a.qty_reject,0) as qty_reject,
-			a.unit,a.berat_bersih,a.remark,$flduser,a.confirm_by,tmpjo.kpno ws,tmpjo.styleno,a.curr,a.price,a.switch_in,a.reffno 
+			a.unit,a.berat_bersih,a.remark,$flduser,a.confirm_by,tmpjo.kpno ws,tmpjo.styleno,a.curr,a.price,a.switch_in,a.reffno,a.jenis_trans
 			from bpb a inner join $tbl s on a.id_item=s.id_item
 			inner join mastersupplier d on a.id_supplier=d.id_supplier
 			LEFT join (select pono,tipe_com from po_header_draft inner join po_header on po_header_draft.id = po_header.id_draft) z  on a.pono = z.pono														 
@@ -762,6 +767,7 @@ else
 				<td>$data[price]</td>
 				<td>$data[switch_in]</td>
 				<td>$data[reffno]</td>
+				<td>$data[jenis_trans]</td>
 
 				";
 				echo "</tr>";
@@ -802,7 +808,8 @@ else
 				so.curr,
 				sd.price,
 				'' switch_in,
-				sd.reff_no 
+				sd.reff_no,
+				'' jenis_trans
         from laravel_nds.fg_stok_bpb a
 				inner join so_det sd on a.id_so_det = sd.id
 				inner join so on sd.id_so = so.id
@@ -856,13 +863,14 @@ else
 				<td>$data[price]</td>
 				<td>$data[switch_in]</td>
 				<td>$data[reffno]</td>
+				<td>$data[jenis_trans]</td>
 
 				";
 				echo "</tr>";
           $no++; // menambah nilai nomor urut
         }
 
-      } 
+      }
       else
       {
       	if ($classnya == 'FABRIC' && $from >= '2025-01-01' && $from < '2026-01-01') {

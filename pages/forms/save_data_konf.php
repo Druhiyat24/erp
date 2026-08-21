@@ -75,7 +75,7 @@ if (!isset($_POST['itemchk'])) {
 		if ($chk == "on") {
 			if ($nm_tbl == "bppb") {
 				$cekfg = mysql_query("
-					SELECT c.bppbno_int, c.qty, c.price, a.so_no, a.curr, e.product_item
+					SELECT c.bppbno_int, c.qty, c.price, a.so_no, a.curr, e.product_item, c.jenis_trans
 					FROM bppb c
 					INNER JOIN so_det b ON b.id = c.id_so_det
 					INNER JOIN so a ON a.id = b.id_so
@@ -84,7 +84,12 @@ if (!isset($_POST['itemchk'])) {
 					WHERE c.bppbno = '$txtbppbno' AND c.id_item = '$id_item'
 				");
 				while ($datafg = mysql_fetch_array($cekfg)) {
-					if (substr($datafg['bppbno_int'], 0, 6) == 'FG/OUT') {
+					// Cuma FG/OUT dengan jenis_trans "Penjualan ..." (Ekspor/Lokal) yang
+					// dianggap penjualan beneran dan ikut ke-log ke dashboard - shipment
+					// lain (Pengiriman Sample, Pengiriman Hasil Perbaikan, Retur ke
+					// Produksi, dll) bukan penjualan jadi tidak boleh kehitung sebagai
+					// penambah nilai sales.
+					if (substr($datafg['bppbno_int'], 0, 6) == 'FG/OUT' && strpos((string) $datafg['jenis_trans'], 'Penjualan') === 0) {
 						$grup_key = $datafg['bppbno_int'].'|'.$datafg['so_no'].'|'.$datafg['product_item'];
 						if (!isset($fgout_grup_total[$grup_key])) { $fgout_grup_qty[$grup_key] = 0; $fgout_grup_total[$grup_key] = 0; }
 						$fgout_grup_qty[$grup_key] += $datafg['qty'];
