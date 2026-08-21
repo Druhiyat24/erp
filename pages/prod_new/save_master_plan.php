@@ -10,6 +10,37 @@ $user = $_SESSION['username'];
 $sesi = $_SESSION['sesi'];
 $mod = $_GET['mod'];
 
+function getMasterPlan($id) {
+	// Get current master plan
+	$sql_current_masterplan = mysql_query("select * from master_plan where id = '$id'");
+	$row_current_masterplan = mysql_fetch_array($sql_current_masterplan);
+	$current_tgl_plan = isset($row_current_masterplan['tgl_plan']) ? $row_current_masterplan['tgl_plan'] : 0;
+	$current_id_ws = isset($row_current_masterplan['id_ws']) ? $row_current_masterplan['id_ws'] : 0;
+	$current_color = isset($row_current_masterplan['color']) ? $row_current_masterplan['color'] : 0;
+	$current_sewing_line = isset($row_current_masterplan['sewing_line']) ? $row_current_masterplan['sewing_line'] : 0;
+
+	return [
+		"tgl_plan" => $current_tgl_plan,
+		"id_ws" => $current_id_ws,
+		"color" => $current_color,
+		"sewing_line" => $current_sewing_line,
+	];
+}
+
+function masterPlanExist($tgl_plan, $id_ws, $color, $sewing_line) {
+	if ($tgl_plan && $id_ws && $color && $sewing_line) {
+		// Get identical master plan
+		$sql_current_masterplan = mysql_query("select * from master_plan where tgl_plan = '$tgl_plan' and id_ws = '$id_ws' and color = '$color' and sewing_line = '$sewing_line'");
+		$row_current_masterplan = mysql_fetch_array($sql_current_masterplan);
+		
+		if ($row_current_masterplan) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 if ($mod == 'simpan') {
 	$cbows				= nb($_POST['cbows']);
 	$txtsmv				= nb($_POST['txtsmv']);
@@ -34,25 +65,35 @@ if ($mod == 'simpan') {
 		$nama_file = "";
 	}
 
-
 	// $cboline			= nb($_POST['cboline']);
 
 	$usernameArray = $_POST['username_arr'];
 
+	$_SESSION['msg'] = "";
 	foreach ($usernameArray as $key_1 => $value_1) {
 
-		$username = $usernameArray[$key_1];
+		$username = $usernameArray[$key_1]; 
 
-		$sql = "insert into master_plan (id_plan,id,tgl_plan,sewing_line,id_ws,color,create_by,
-				smv,jam_kerja,man_power,plan_target,target_effy,set_target,jam_kerja_awal,tgl_input,cancel,gambar)
-				values ('$id_plan','','$tanggal','$username','$cbows','$cbocolor',
-				'$user','$txtsmv','$txtjamkerja','$txtmpwr','$txt_plan_target','$txt_target_eff','$txt_set_target','$jam_awal',
-				'$dateinput','N','$nama_file')";
-		insert_log($sql, $user); {
-			$_SESSION['msg'] = "Data Berhasil Disimpan";
+		$masterPlanExist = masterPlanExist($tanggal, $cbows, $cbocolor, $username);
+
+		if ($masterPlanExist) {
+			if ($_SESSION['msg'] == '') {
+				$_SESSION['msg'] = 'X';
+			}
+			$_SESSION['msg'] .= "Master Plan ".($username)." sudah ada </br>";
+		} else {
+			$sql = "insert into master_plan (id_plan,id,tgl_plan,sewing_line,id_ws,color,create_by,
+					smv,jam_kerja,man_power,plan_target,target_effy,set_target,jam_kerja_awal,tgl_input,cancel,gambar)
+					values ('$id_plan',null,'$tanggal','$username','$cbows','$cbocolor',
+					'$user','$txtsmv','$txtjamkerja','$txtmpwr','$txt_plan_target','$txt_target_eff','$txt_set_target','$jam_awal',
+					'$dateinput','N','$nama_file')";
+			insert_log($sql, $user); {
+				$_SESSION['msg'] .= "Master Plan ".($username)." Berhasil Disimpan </br>";
+			}
 		}
-		echo "<script>window.location.href='../prod_new/?mod=master_plan_new';</script>";
 	}
+
+	echo "<script>window.location.href='../prod_new/?mod=master_plan_new';</script>";
 }
 
 if ($mod == 'update_status') {
