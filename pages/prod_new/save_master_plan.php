@@ -18,19 +18,21 @@ function getMasterPlan($id) {
 	$current_id_ws = isset($row_current_masterplan['id_ws']) ? $row_current_masterplan['id_ws'] : 0;
 	$current_color = isset($row_current_masterplan['color']) ? $row_current_masterplan['color'] : 0;
 	$current_sewing_line = isset($row_current_masterplan['sewing_line']) ? $row_current_masterplan['sewing_line'] : 0;
+	$current_cancel = isset($row_current_masterplan['cancel']) ? $row_current_masterplan['cancel'] : 0;
 
 	return [
 		"tgl_plan" => $current_tgl_plan,
 		"id_ws" => $current_id_ws,
 		"color" => $current_color,
 		"sewing_line" => $current_sewing_line,
+		"cancel" => $current_cancel,
 	];
 }
 
 function masterPlanExist($tgl_plan, $id_ws, $color, $sewing_line) {
 	if ($tgl_plan && $id_ws && $color && $sewing_line) {
 		// Get identical master plan
-		$sql_current_masterplan = mysql_query("select * from master_plan where tgl_plan = '$tgl_plan' and id_ws = '$id_ws' and color = '$color' and sewing_line = '$sewing_line'");
+		$sql_current_masterplan = mysql_query("select * from master_plan where tgl_plan = '$tgl_plan' and id_ws = '$id_ws' and color = '$color' and sewing_line = '$sewing_line' and (cancel != 'Y' OR cancel IS NULL)");
 		$row_current_masterplan = mysql_fetch_array($sql_current_masterplan);
 		
 		if ($row_current_masterplan) {
@@ -150,10 +152,24 @@ if ($mod == 'update_status') {
 			$_SESSION['msg'] = "X Master Plan Sudah Memiliki Output.";
 		} else {
 			// If Master Plan has no Output
-			$sql = "update master_plan set cancel = case when cancel = 'Y' then'N' else 'Y' end
-			where id = '$id'";
-			insert_log($sql, $user); {
-				$_SESSION['msg'] = "Data Berhasil Diubah.";
+
+			// Check identical master plan
+			$current_masterplan = getMasterPlan($id);
+			$current_cancel = isset($current_masterplan['cancel']) ? $current_masterplan['cancel'] : null;
+			$current_tgl_plan = isset($current_masterplan['tgl_plan']) ? $current_masterplan['tgl_plan'] : null;
+			$current_id_ws = isset($current_masterplan['id_ws']) ? $current_masterplan['id_ws'] : null;
+			$current_color = isset($current_masterplan['color']) ? $current_masterplan['color'] : null;
+			$current_sewing_line = isset($current_masterplan['sewing_line']) ? $current_masterplan['sewing_line'] : null;
+			$masterPlanExist = masterPlanExist($current_tgl_plan, $current_id_ws, $current_color, $current_sewing_line);
+
+			if ($current_cancel == 'Y' && $masterPlanExist) {
+				$_SESSION['msg'] = "X Master Plan Sudah Ada.";
+			} else {
+				$sql = "update master_plan set cancel = case when cancel = 'Y' then'N' else 'Y' end
+				where id = '$id'";
+				insert_log($sql, $user); {
+					$_SESSION['msg'] = "Data Berhasil Diubah.";
+				}
 			}
 		}
 	}
