@@ -161,9 +161,9 @@ $tt_attach = "data-toggle='tooltip' title='Attachment'><i class='fa fa-paperclip
       } else {
         if (substr($msgtext, 0, 1) == "X") {
           $msgtext = substr($msgtext, 1, 111);
-          echo "<script>swal({ title: '$msgtext',timer: 1000,showConfirmButton: false, imageUrl: '../../images/error.jpg' });</script>";
+          echo "<script>swal({ title: 'Gagal',text: '$msgtext', html: true, timer: 3000,showConfirmButton: true, imageUrl: '../../images/error.jpg' });</script>";
         } else {
-          echo "<script>swal({ title: '$msgtext',timer: 1000,showConfirmButton: false, imageUrl: '../../images/success.jpg' });</script>";
+          echo "<script>swal({ title: 'Berhasil',text: '$msgtext', html: true, timer: 1000,showConfirmButton: false, imageUrl: '../../images/success.jpg' });</script>";
         }
       }
       $_SESSION['msg'] = "";
