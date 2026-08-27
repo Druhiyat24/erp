@@ -6,6 +6,11 @@ include '../../include/conn.php';
 
 include 'fungsi.php';
 
+require_once '../wh/phpqrcode-master/qrlib.php';
+
+$qr_penyimpanan = "temp_qr/";
+if (!file_exists($qr_penyimpanan)) { mkdir($qr_penyimpanan); }
+
 
 
 ob_start();
@@ -87,18 +92,18 @@ else
 }
 
 if ($jdata>=1 and $jdata<8)
-{ 
+{
   if(substr($bppbno,-1,1)=="R")
   {
-    $space_head=55;  
+    $space_head=60;
   }
   else
   {
-    $space_head=52;  
+    $space_head=57;
   }
 }
 else
-{ $space_head=55; }
+{ $space_head=64; }
 
 if (substr($bppbno,0,2)=="FG" OR substr($bppbno,3,2)=="FG")
 { 
@@ -380,6 +385,11 @@ left join so_det sd on a.id_so_det = sd.id
 inner join so on so.id = sd.id_so where a.bppbno='$bppbno'";
     $rsh = mysql_fetch_array(mysql_query($sql));
 
+  $bppbno_int_qr = flookup("bppbno_int","bppb","bppbno='$bppbno'");
+  $qr_content = ($bppbno_int_qr!="") ? $bppbno_int_qr : $bppbno;
+  $qr_simpan = preg_replace('/[^A-Za-z0-9]/','',$qr_content);
+  QRcode::png($qr_content, $qr_penyimpanan.$qr_simpan.".png", QR_ECLEVEL_L, 8, 3);
+
   $head_data = '
   <table width="100%" style="border:none; font-size:10pt">
     <tr>
@@ -387,6 +397,7 @@ inner join so on so.id = sd.id_so where a.bppbno='$bppbno'";
       <td></td>
       <td width="20%"></td>
       <td></td>
+      <td rowspan="3" style="text-align:right; padding-right:8px;"><img src="'.$qr_penyimpanan.$qr_simpan.'.png" alt="" height="70" width="70"></td>
     </tr>
     <tr>
       <td>SJ # / Inv #</td>

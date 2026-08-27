@@ -8,6 +8,11 @@ include '../../include/conn.php';
 
 include 'fungsi.php';
 
+require_once '../wh/phpqrcode-master/qrlib.php';
+
+$qr_penyimpanan = "temp_qr/";
+if (!file_exists($qr_penyimpanan)) { mkdir($qr_penyimpanan); }
+
 
 
 ob_start();
@@ -93,11 +98,11 @@ else
 
 if ($jdata>=1 and $jdata<8)
 
-{ $space_head=65; }
+{ $space_head=72; }
 
 else
 
-{ $space_head=65; }
+{ $space_head=72; }
 
 if (substr($bppbno,0,2)=="FG" OR substr($bppbno,3,2)=="FG")
 
@@ -267,6 +272,12 @@ if ($mode=="In")
     a.invno,a.bpbdate from bpb a left join jo_det jod on a.id_jo=jod.id_jo 
     left join so on jod.id_so=so.id left join act_costing ac on so.id_cost=ac.id  
     where a.bpbno='$bppbno' limit 1"));
+
+  $bpbno_int_qr = flookup("bpbno_int","bpb","bpbno='$bppbno'");
+  $qr_content = ($bpbno_int_qr!="") ? $bpbno_int_qr : $bppbno;
+  $qr_simpan = preg_replace('/[^A-Za-z0-9]/','',$qr_content);
+  QRcode::png($qr_content, $qr_penyimpanan.$qr_simpan.".png", QR_ECLEVEL_L, 8, 3);
+
   $head_data = '
 
   <table width="100%" style="border:none; font-family: Helvetica, Arial, sans-serif;">
@@ -275,6 +286,7 @@ if ($mode=="In")
       <td></td>
       <td width="10%">SJ # / Inv #</td>
       <td> : '.$rsh['invno'].'</td>
+      <td rowspan="2" style="text-align:right; padding-right:8px;"><img src="'.$qr_penyimpanan.$qr_simpan.'.png" alt="" height="70" width="70"></td>
     </tr>
     <tr>
       <td>No PO</td>
@@ -326,7 +338,12 @@ else
     left join po_header POH ON POH.id = POI.id_po
     left join so on jod.id_so=so.id left join act_costing ac on so.id_cost=ac.id  
     left join bppb_req AS br ON a.bppbno_req=br.bppbno
-    where a.bppbno='$bppbno' and a.cancel='N' limit 1"));  
+    where a.bppbno='$bppbno' and a.cancel='N' limit 1"));
+
+  $bppbno_int_qr = flookup("bppbno_int","bppb","bppbno='$bppbno'");
+  $qr_content = ($bppbno_int_qr!="") ? $bppbno_int_qr : $bppbno;
+  $qr_simpan = preg_replace('/[^A-Za-z0-9]/','',$qr_content);
+  QRcode::png($qr_content, $qr_penyimpanan.$qr_simpan.".png", QR_ECLEVEL_L, 8, 3);
 
   $head_data = '<table width="100%" style="border:none; font-size:10pt">
     <tr>
@@ -334,6 +351,7 @@ else
       <td></td>
       <td width="11%">SJ # / Inv #</td>
       <td> : '.$rsh['invno'].'</td>
+      <td rowspan="4" style="text-align:right; padding-right:8px;"><img src="'.$qr_penyimpanan.$qr_simpan.'.png" alt="" height="70" width="70"></td>
     </tr>
     <tr>
       <td>No PO</td>
