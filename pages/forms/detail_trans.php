@@ -880,19 +880,35 @@ else
         left join (select no_dok,id_jo,id_item, GROUP_CONCAT(DISTINCT CONCAT(kode_lok,' FABRIC WAREHOUSE RACK')) rak from whs_lokasi_inmaterial  where status = 'Y' group by no_dok,id_jo,id_item) lr on b.no_dok = lr.no_dok and b.id_item = lr.id_item and b.id_jo = lr.id_jo
         left join po_header po on po.pono = a.no_po
         left join po_header_draft z on z.id = po.id_draft
-        where a.tgl_dok BETWEEN  '$from' and '$to' and b.status != 'N' and a.status != 'cancel'
+        where a.tgl_dok BETWEEN '$from' and '$to' and b.status != 'N' and a.status != 'cancel'
         UNION
-        select s.id_gen,a.no_mut bpbno,a.tgl_mut bpbdate,a.type_bc jenis_dok,right(a.no_aju,6) no_aju,a.tgl_aju, lpad(a.no_daftar,6,'0') bcno,a.tgl_daftar bcdate,a.supplier,a.no_po pono,z.tipe_com,a.no_invoice invno,a.id_item,goods_code,concat(itemdesc,' ',add_info) itemdesc,s.color,s.size, qty,qty_good, qty_reject, a.unit,'' berat_bersih,a.deskripsi remark,a.username,a.confirm_by,a.curr,if(z.tipe_com !='Regular','0',a.price)price, a.type_pch jenis_trans,'' reffno,lr.rak,a.id_jo,a.no_ws, 'Mutasi Lokasi' from (select mut.no_ws,a.no_mut,a.tgl_mut,c.type_bc,c.no_aju,c.tgl_aju, c.no_daftar,c.tgl_daftar,c.supplier,c.no_po,c.no_invoice,b.id_item, sum(qty_mutasi) qty,sum(qty_mutasi) as qty_good,'0' as qty_reject, a.unit,mut.deskripsi,CONCAT(mut.created_by,' (',mut.created_at, ') ') username,CONCAT(mut.approved_by,' (',mut.approved_date, ') ') confirm_by,b.curr,b.price, c.type_pch,b.id_jo from whs_mut_lokasi a
+      select s.id_gen, a.no_mut bpbno, a.tgl_mut bpbdate, 'INHOUSE' jenis_dok, '-' no_aju, a.tgl_aju,
+       '-' bcno, a.tgl_daftar bcdate, 'Mutasi Lokasi' supplier, a.no_po pono, z.tipe_com, a.no_invoice invno,
+       a.id_item, goods_code, concat(itemdesc,' ',add_info) itemdesc, s.color, s.size, qty, qty_good, qty_reject,
+       a.unit, '' berat_bersih, a.deskripsi remark, a.username, a.confirm_by, a.curr,
+       if(z.tipe_com !='Regular','0',a.price) price, '-' jenis_trans, '' reffno,
+       (select GROUP_CONCAT(DISTINCT CONCAT(li.kode_lok,' FABRIC WAREHOUSE RACK'))
+          from whs_lokasi_inmaterial li
+         where li.status = 'Y' and li.no_mut is not null and li.no_dok = a.no_mut) rak,
+       a.id_jo, a.no_ws, 'Mutasi Lokasi'
+from (
+    select mut.no_ws, a.no_mut, a.tgl_mut, c.type_bc, c.no_aju, c.tgl_aju, c.no_daftar, c.tgl_daftar,
+           c.supplier, c.no_po, c.no_invoice, a.id_item,
+           sum(qty_mutasi) qty, sum(qty_mutasi) qty_good, '0' qty_reject,
+           a.unit, mut.deskripsi,
+           CONCAT(mut.created_by,' (',mut.created_at,') ') username,
+           CONCAT(mut.approved_by,' (',mut.approved_date,') ') confirm_by,
+           '' curr, '' price, c.type_pch, a.id_jo
+    from whs_mut_lokasi a
         inner join whs_mut_lokasi_h mut on mut.no_mut = a.no_mut
         left join whs_inmaterial_fabric c on c.no_dok = a.no_bpb
-        left join (select no_dok,id_jo,id_item,'-' curr, '0' price,satuan unit FROM whs_lokasi_inmaterial GROUP BY no_dok,id_item,id_jo
-        UNION
-        select no_bpb,id_jo,id_item,'-' curr, '0' price,unit FROM whs_sa_fabric GROUP BY no_bpb,id_item) b on b.no_dok = a.no_mut and a.id_item = b.id_item and a.id_jo = b.id_jo where a.status = 'Y' GROUP BY a.no_mut,id_item,id_jo,unit) a
-        inner join masteritem s on a.id_item=s.id_item
-        left join (select no_dok no_mut,id_jo,id_item, GROUP_CONCAT(DISTINCT CONCAT(kode_lok,' FABRIC WAREHOUSE RACK')) rak from whs_lokasi_inmaterial  where status = 'Y' and no_mut is not null group by no_dok) lr on a.no_mut = lr.no_mut
-        left join po_header po on po.pono = a.no_po
-        left join po_header_draft z on z.id = po.id_draft
-        where a.tgl_mut BETWEEN  '$from' and '$to') a
+    where a.status = 'Y'
+      and a.tgl_mut between '$from' and '$to'
+    group by a.no_mut, id_item, id_jo, unit
+) a
+    inner join masteritem s on a.id_item = s.id_item
+    left join po_header po on po.pono = a.no_po
+    left join po_header_draft z on z.id = po.id_draft) a
 				left join 
 								(
 								select a.id as id_gen ,e.id_contents from masterdesc a 
@@ -1001,12 +1017,10 @@ else
       		UNION
       		select bpbno,bpbdate,'NIRWANA ALABARE GARMENT' profit_center, invno,jenis_dok,no_aju,tgl_aju, bcno, bcdate,supplier,pono,tipe_com,invno,a.id_item,id_contents,goods_code,itemdesc,color,size, qty, qty_good,qty_reject, unit,berat_bersih, remark,username,confirm_by, if(bpbno like '%MT%',a.no_ws,tmpjo.kpno) ws,tmpjo.styleno,curr,price, price price_act, jenis_trans,reffno,rak,cp.nama_panel,cc.color_gmt 
       			from (
-        select s.id_gen,a.no_mut bpbno,a.tgl_mut bpbdate,'INHOUSE' jenis_dok,'' no_aju,'' tgl_aju, '' bcno,'' bcdate,a.supplier,a.no_po pono,z.tipe_com,a.no_invoice invno,a.id_item,id_contents,goods_code,concat(itemdesc,' ',add_info) itemdesc,s.color,s.size, qty,qty_good, qty_reject, a.unit,'' berat_bersih,a.deskripsi remark,a.username,a.confirm_by,a.curr,if(z.tipe_com !='Regular','0',a.price)price, a.type_pch jenis_trans,'' reffno,lr.rak,a.id_jo,a.no_ws, 'Mutasi Lokasi' from (select mut.no_ws,a.no_mut,a.tgl_mut,c.type_bc,c.no_aju,c.tgl_aju, c.no_daftar,c.tgl_daftar,c.supplier,c.no_po,c.no_invoice,b.id_item, sum(qty_mutasi) qty,sum(qty_mutasi) as qty_good,'0' as qty_reject, a.unit,mut.deskripsi,CONCAT(mut.created_by,' (',mut.created_at, ') ') username,CONCAT(mut.approved_by,' (',mut.approved_date, ') ') confirm_by,b.curr,b.price, c.type_pch,b.id_jo from whs_mut_lokasi a
+        select s.id_gen,a.no_mut bpbno,a.tgl_mut bpbdate,'INHOUSE' jenis_dok,'-' no_aju,'' tgl_aju, '-' bcno,'' bcdate, 'Mutasi Lokasi' supplier,a.no_po pono,z.tipe_com,a.no_invoice invno,a.id_item,id_contents,goods_code,concat(itemdesc,' ',add_info) itemdesc,s.color,s.size, qty,qty_good, qty_reject, a.unit,'' berat_bersih,a.deskripsi remark,a.username,a.confirm_by,a.curr,if(z.tipe_com !='Regular','0',a.price)price, a.type_pch jenis_trans,'' reffno,lr.rak,a.id_jo,a.no_ws, 'Mutasi Lokasi' from (select mut.no_ws,a.no_mut,a.tgl_mut,c.type_bc,c.no_aju,c.tgl_aju, c.no_daftar,c.tgl_daftar,c.supplier,c.no_po,c.no_invoice,a.id_item, sum(qty_mutasi) qty,sum(qty_mutasi) as qty_good,'0' as qty_reject, a.unit,mut.deskripsi,CONCAT(mut.created_by,' (',mut.created_at, ') ') username,CONCAT(mut.approved_by,' (',mut.approved_date, ') ') confirm_by,'' curr,'' price, c.type_pch,a.id_jo from whs_mut_lokasi a
         inner join whs_mut_lokasi_h mut on mut.no_mut = a.no_mut
         left join whs_inmaterial_fabric c on c.no_dok = a.no_bpb
-        left join (select no_dok,id_jo,id_item,'-' curr, '0' price,satuan unit FROM whs_lokasi_inmaterial GROUP BY no_dok,id_item
-        UNION
-        select no_bpb,id_jo,id_item,'-' curr, '0' price,unit FROM whs_sa_fabric GROUP BY no_bpb,id_item) b on b.no_dok = a.no_mut and a.id_item = b.id_item where a.status = 'Y' GROUP BY a.no_mut,id_item,unit) a
+     ) a
         inner join masteritem s on a.id_item=s.id_item
                 left join 
 								(
