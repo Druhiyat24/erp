@@ -189,6 +189,7 @@ $has_fgout_warn_js = ($has_fgout_warn > 0) ? 'true' : 'false';
 				<th>Price</th>
 				<th>SKU</th>
 				<th>Barcode</th>
+				<th>FOB</th>
 				<th>Notes</th>
 			</tr>
       </thead>
@@ -251,6 +252,10 @@ $has_fgout_warn_js = ($has_fgout_warn > 0) ? 'true' : 'false';
 				    <td>
 				    	<input type='text' class='form-control barcodecl' size='4' name='barcodear[$idcri]' 
 				    		value='$data[barcode]'>
+				    </td>
+				    <td>
+				    	<input type='text' class='form-control fobl' size='4' name='fob[$idcri]' 
+				    		value='$data[fob]'>
 				    </td>
 				    <td>
 				    	<input type='text' class='form-control notescl' size='4' name='notesar[$idcri]' 

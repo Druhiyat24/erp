@@ -14,6 +14,7 @@ $txtdest = nb($_POST['txtdest']);
 $txtcolor = nb($_POST['txtcolor']);
 $txtreffno = nb($_POST['txtreffno']);
 $txtstyleno_prod = nb($_POST['txtstyleno_prod']);
+// $fob = nb($_POST['fob']);
 $now = date("Y-m-d H:i:s");
 if ($nm_company=="PT. Bintang Mandiri Hanafindo" and 
 	strpos($txtcolor,";")<>0) 
@@ -38,20 +39,22 @@ if ($id_det=="")
 				$NoArray = $_POST['no_roll'];
 				$BarArr = $_POST['barcode'];
 				$PxArr = $_POST['pxdet'];
+				$FobArr = $_POST['fobdet'];
 				foreach ($JmlArray as $key => $value) 
 				{	if (is_numeric($value))
 					{	$txtsize = nb($NoArray[$key]);
 				    $txtqty = $JmlArray[$key];
 				    $barnya = $BarArr[$key];
 				    $pxnya = $PxArr[$key];
+				    $fobnya = nb($FobArr[$key]);
 				    $cek = flookup("count(*)","so_det","id_so='$id_so' and 
 							dest='$txtdest' and deldate_det='$txtdeldate' and 
 							color='$valuec' and reff_no='$txtreffno' and styleno_prod='$txtstyleno_prod'
 							and sku='$txtsku' and size='$txtsize' and cancel='N'");
 						if ($cek=="0")
-						{	$sql = "insert into so_det (id_so,deldate_det,dest,color,sku,notes,size,qty,unit,barcode,price,reff_no,styleno_prod,created_by,created_date)
+						{	$sql = "insert into so_det (id_so,deldate_det,dest,color,sku,notes,size,qty,unit,barcode,price,reff_no,styleno_prod,created_by,created_date, fob)
 								values ('$id_so','$txtdeldate','$txtdest','$valuec','$txtsku','$txtnotes','$txtsize'
-								,'$txtqty','$txtunit','$barnya','$pxnya','$txtreffno','$txtstyleno_prod','$user','$now')";
+								,'$txtqty','$txtunit','$barnya','$pxnya','$txtreffno','$txtstyleno_prod','$user','$now','$fobnya')";
 							insert_log($sql,$user);						
 						}
 						else
@@ -75,6 +78,7 @@ if ($id_det=="")
 				$BarArr = $_POST['barcode'];
 				$AddArr = $_POST['addqty'];
 				$PxArr = $_POST['pxdet'];
+				$FobArr = $_POST['fobdet']; 
 				foreach ($JmlArray as $key => $value) 
 				{	if (is_numeric($value))
 					{	$txtsize = nb($NoArray[$key]);
@@ -82,14 +86,15 @@ if ($id_det=="")
 				    $barnya = $BarArr[$key];
 				    $qtyaddnya = $AddArr[$key];
 				    $pxnya = $PxArr[$key];
+				    $fobnya = nb($FobArr[$key]);  
 				    $cek = flookup("count(*)","so_det","id_so='$id_so' and 
 							dest='$txtdest' and deldate_det='$txtdeldate' and color='$txtcolor' 
 							and sku='$txtsku' and size='$txtsize' and reff_no='$txtreffno' and styleno_prod='$txtstyleno_prod' and cancel='N' ");
 						if ($cek=="0")
 						{	$sql = "insert into so_det (id_so,deldate_det,dest,color,sku,notes,size,qty,qty_add,
-								unit,barcode,price, reff_no, styleno_prod,created_by,created_date)
+								unit,barcode,price, reff_no, styleno_prod,created_by,created_date, fob)
 								values ('$id_so','$txtdeldate','$txtdest','$txtcolor','$txtsku','$txtnotes','$txtsize'
-								,'$txtqty','$qtyaddnya','$txtunit','$barnya','$pxnya','$txtreffno','$txtstyleno_prod','$user','$now')";
+								,'$txtqty','$qtyaddnya','$txtunit','$barnya','$pxnya','$txtreffno','$txtstyleno_prod','$user','$now', '$fobnya')";
 							insert_log($sql,$user);							
 						}
 						else
@@ -114,6 +119,7 @@ else
 	else
 	{	if (isset($_POST['txtqty'])) {$qty=$_POST['txtqty'];} else {$qty = "0";}
 		if (isset($_POST['txtprice'])) {$price=$_POST['txtprice'];} else {$price = "0";}
+		if (isset($_POST['txtfob'])) {$fob=$_POST['txtfob'];} else {$fob = "0";}
 
 		// Ambil qty & price lama dulu sebelum ditimpa, buat log perubahan data (dashboard).
 		// PENTING: koneksi di modul ini adalah $con (dari include/conn.php), BUKAN $conn2
@@ -122,14 +128,15 @@ else
 		$old_det = mysql_fetch_array(mysql_query("SELECT qty, price FROM so_det WHERE id='$id_det'", $con));
 		$old_qty   = $old_det ? $old_det['qty']   : null;
 		$old_price = $old_det ? $old_det['price'] : null;
+		$old_fob   = $old_det ? $old_det['fob']   : null;
 
 		$insert_log_sql = "insert into so_det_log (id_so,deldate_det,dest,color,sku,notes,size,qty,qty_add,
-		unit,barcode,price, reff_no, styleno_prod,created_by,created_date)
+		unit,barcode,price, reff_no, styleno_prod,created_by,created_date, fob)
 		values ('$id_so','$txtdeldate','$txtdest','$txtcolor','$txtsku','$txtnotes','$txtsize'
-		,'$txtqty','$qtyaddnya','$txtunit','$barnya','$pxnya','$txtreffno','$txtstyleno_prod','$user','$now')";
+		,'$txtqty','$qtyaddnya','$txtunit','$barnya','$pxnya','$txtreffno','$txtstyleno_prod','$user','$now', '$fob')";
 		insert_log($insert_log_sql, $user); // Jalankan dan log kueri INSERT
 		$update_sql = "update so_det set color='$txtcolor',deldate_det='$txtdeldate',dest='$txtdest',sku='$txtsku',notes='$txtnotes',barcode='$txtbarcode'
-			,qty='$qty',price='$price',reff_no='$txtreffno',styleno_prod='$txtstyleno_prod', updated_by='$user', updated_date='$now' where id='$id_det'";
+			,qty='$qty',price='$price',reff_no='$txtreffno',styleno_prod='$txtstyleno_prod', updated_by='$user', updated_date='$now' , fob ='$fob' where id='$id_det'";
 		insert_log($update_sql, $user); // Jalankan dan log kueri UPDATE
 
 		$so_no_log = flookup("so_no","so","id='$id_so'");

@@ -25,6 +25,7 @@ $reff_no_ar=$_POST['reff_no'];
 $styleno_prod_ar=$_POST['styleno_prod'];
 $now = date("Y-m-d H:i:s");
 $so_no_log = flookup("so_no","so","id='$id_so'");
+$fob_ar=$_POST['fob'];
 // PENTING: $con dari include/conn.php (lihat catatan di dalam loop soal $conn2).
 $prod_info = mysql_fetch_array(mysql_query("
 	SELECT e.product_item, a.curr FROM so a
@@ -56,7 +57,7 @@ foreach ($deldate_ar as $key => $value)
 		$sql = "update so_det set deldate_det='$deldate_ar[$key]',dest='$dest_ar[$key]',color='$color_ar[$key]'
 			,size='$size_ar[$key]',qty='$qty_ar[$key]',qty_add='$qtyadd_ar[$key]',unit='$unit_ar[$key]'
 			,price='$price_ar[$key]',sku='$sku_ar[$key]',barcode='$barcode_ar[$key]'
-			,notes='$notes_ar[$key]',reff_no='$reff_no_ar[$key]',styleno_prod='$styleno_prod_ar[$key]' where id_so='$id_so'
+			,notes='$notes_ar[$key]',reff_no='$reff_no_ar[$key]',styleno_prod='$styleno_prod_ar[$key]',fob='$fob_ar[$key]' where id_so='$id_so'
 			and id='$id_so_det'";
 		insert_log($sql,$user);
 

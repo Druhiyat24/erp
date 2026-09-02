@@ -16,6 +16,7 @@ if ($id_det=="")
   $price="";
   $reffno="";
   $styleno_prod="";
+  $fob="";
 }
 else
 { $rs=mysql_fetch_array(mysql_query("select * from so_det where id='$id_det'"));
@@ -29,6 +30,7 @@ else
   $price=$rs['price'];
   $reffno=$rs['reff_no'];
   $styleno_prod=$rs['styleno_prod'];
+  $fob=$rs['fob'];
 }
 # END COPAS EDIT
 # COPAS VALIDASI BUANG ELSE di IF pertama
@@ -55,8 +57,10 @@ echo "<script type='text/javascript'>";
     var cek_unlock = '".$cek2."';
     var szkos = 0;
     var qtykos = 0;
+    var fobkos = 0;
     var szs = document.form.getElementsByClassName('rollclass');
     var qtys = document.form.getElementsByClassName('jmlclass');
+    var fobs = document.form.getElementsByClassName('fobclass');
     for (var i = 0; i < qtys.length; i++) 
     { if (qtys[i].value == '')
       { qtykos = qtykos + 1; }
@@ -64,6 +68,10 @@ echo "<script type='text/javascript'>";
     for (var i = 0; i < szs.length; i++) 
     { if (szs[i].value == '')
       { szkos = szkos + 1; }
+    }
+    for (var i = 0; i < fobs.length; i++) 
+    { if (fobs[i].value == '')
+      { fobkos = fobkos + 1; }
     }";
     if ($id_det=="") 
     { echo "var jmlsize = document.form.txtroll.value;"; 
@@ -89,7 +97,10 @@ echo "<script type='text/javascript'>";
       else if (szkos > 0) 
         { swal({ title: 'Size Tidak Boleh Kosong', $img_alert }); valid = false;}
       else if (qtykos > 0) 
-        { swal({ title: 'Qty Tidak Boleh Kosong', $img_alert }); valid = false;}";
+        { swal({ title: 'Qty Tidak Boleh Kosong', $img_alert }); valid = false;}
+      else if (fobkos > 0) 
+        { swal({ title: 'FOB Tidak Boleh Kosong', $img_alert }); valid = false;}";
+
     }
     echo "else {valid = true;}";
     echo "
@@ -226,7 +237,15 @@ echo "<div class='box'>";
             echo "<label>Style No Production</label>";
             echo "<input type='text' class='form-control' name='txtstyleno_prod' value = '$styleno_prod' required 
             placeholder='Masukkan No Style Production'>";
-          echo "</div>";          
+          echo "</div>";
+          if($id_det!="")
+          {
+            echo "<div class='form-group'>";
+              echo "<label>FOB</label>";
+              echo "<input type='text' class='form-control' name='txtfob' value = '$fob' required 
+              placeholder='Masukkan FOB'>";
+            echo "</div>"; 
+          }             
           echo "</div>";       
         echo "<div class='box-body'>";
          echo "<div id='detail_item'></div>";
