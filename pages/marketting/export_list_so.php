@@ -1,6 +1,5 @@
 <?php
-include '../../include/conn.php'; // pastikan koneksi aktif
-
+include '../../include/conn.php';
 $tglsoawal = isset($_GET['from']) ? $_GET['from'] : '';
 $tglsoakhir = isset($_GET['to']) ? $_GET['to'] : '';
 $status_close = isset($_GET['status']) ? $_GET['status'] : '';
