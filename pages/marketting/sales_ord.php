@@ -828,8 +828,8 @@ echo "<script type='text/javascript'>
         <?php
         # QUERY TABLE
         $query = mysql_query("select a.id_cost,cancel_h,a.username,a.id,so_no,buyerno,kpno,cost_no,
-          supplier,product_group,product_item,styleno,a.qty,a.unit, a.close_order,
-          deldate,fullname,a.so_date, a.jns_so, round(a.fob,2) fob, ms.season, concat(nama_pterms, ' (' ,a.jml_pterms, ' days - After',' ', mp.kode_pterms,')') ket_terms
+          supplier,product_group,product_item,styleno,a.qty,a.unit, s.close_order,
+          deldate,fullname,a.so_date, a.jns_so, round(a.fob,2) fob, ms.season, concat(nama_pterms, ' (' ,a.jml_pterms, ' days - After',' ', mp.kode_pterms,')') ket_terms, s.id as id_costing
           from so a inner join act_costing s on 
           a.id_cost=s.id inner join mastersupplier g on 
           s.id_buyer=g.id_supplier inner join masterproduct h 
@@ -842,6 +842,7 @@ echo "<script type='text/javascript'>
         $no = 1; 
         while($data = mysql_fetch_array($query))
         { $id=$data['id'];
+    		$id_costing = $data['id_costing'];
     			$cekjo = flookup("id_jo","jo_det","id_so='$id'");
           if($data['cancel_h']=="Y") { $bgcol=" style='color: red; font-weight:bold;'"; } else { $bgcol=""; }
           echo "<tr $bgcol>";
@@ -903,13 +904,13 @@ echo "<script type='text/javascript'>
 
             if($access_close_order == 1 && $data['cancel_h']!="Y"){
             	if ($data['close_order']=="Y")
-		        {   echo "<a href='d_open_order.php?mod=$mod&id=$data[id]'
+		        {   echo "<a href='d_open_order.php?mod=$mod&id=$id_costing'
 		                data-toggle='tooltip' title='Open Order'
 		                onclick=\"return confirm('Apakah Kamu Yakin Open Order SO ini ?')\">
 		                <i class='fa fa-unlock'></i></a>";
 		        }
 		        else
-		        {   echo "<a href='d_close_order.php?mod=$mod&id=$data[id]'
+		        {   echo "<a href='d_close_order.php?mod=$mod&id=$id_costing'
 		                data-toggle='tooltip' title='Close Order'
 		                onclick=\"return confirm('Apakah Anda Yakin Close Order SO ini ?')\">
 		                <i class='fa fa-lock'></i></a>";
