@@ -544,11 +544,11 @@ while($row1_pro = mysql_fetch_array($rs1_pro))
 
     if($row1_pro['nama_type']=="SKU")
 
-    { $fldgrp=" group by l.sku,a.status,a.id_item,a.id_panel, a.cons "; }
+    { $fldgrp=" group by l.sku,a.status,a.id_item,a.id_panel "; }
 
     else
 
-    { $fldgrp=" group by a.status,a.id_item,a.id_panel, a.cons "; }
+    { $fldgrp=" group by a.status,a.id_item,a.id_panel "; }
 
   }
 
@@ -558,7 +558,7 @@ while($row1_pro = mysql_fetch_array($rs1_pro))
 
     $fldsiz="l.size";
 
-    $fldgrp=" group by a.status,a.id_item,l.size,a.id_panel, a.cons";
+    $fldgrp=" group by a.status,a.id_item,l.size,a.id_panel";
 
   }
 
@@ -568,7 +568,7 @@ while($row1_pro = mysql_fetch_array($rs1_pro))
 
     $fldsiz="'All Size'";
 
-    $fldgrp=" group by a.status,a.id_item,l.color,a.id_panel, a.cons";
+    $fldgrp=" group by a.status,a.id_item,l.color,a.id_panel";
 
   }
 
@@ -580,7 +580,7 @@ while($row1_pro = mysql_fetch_array($rs1_pro))
 
     $fldsiz="l.size";
 
-    $fldgrp=" group by a.status,a.id_item,l.color,l.size,a.id_panel, a.cons";
+    $fldgrp=" group by a.status,a.id_item,l.color,l.size,a.id_panel";
 
   }
 
