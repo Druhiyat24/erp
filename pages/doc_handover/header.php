@@ -21,7 +21,7 @@
           <a href="" class="dropdown-toggle" data-toggle="dropdown">Proses<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <?php 
-            echo "<li><a href='?mod=trans_bpb'>Transfer BPB</a></li>";
+            echo "<li><a href='?mod=trans_bpb'>Transfer Document</a></li>";
             echo "<li><a href='?mod=maintain_bpb'>Reverse BPB</a></li>";	
             ?>
           </ul>

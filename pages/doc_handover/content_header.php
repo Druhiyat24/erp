@@ -22,6 +22,8 @@ else if ($mod=="5")
 {	echo "Master Route"; }
 else if ($mod=="memo_list" )
 {	echo "List Memo"; }
+else if ($mod=="trans_bpb" )
+{	echo "TRANSFER DOCUMENT"; }
 else if ($mod=="memo_new" or $mod=="memo_edit" )
 {	echo "Memo Permintaan Pembayaran Exim"; }
 else if ($mod=="memo_list_non_inv" )
