@@ -454,7 +454,7 @@ $sql="select posno,rule_bom,id_item,nama_type
 
   where id_jo='$id' and a.cancel='N' and a.status='M'
 
-  group by posno,rule_bom,id_item";
+  group by rule_bom,id_item";
 
 $rs1=mysql_query($sql);
 
