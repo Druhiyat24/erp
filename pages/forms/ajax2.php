@@ -312,30 +312,156 @@ if ($modenya=="cari_list_bppb")
 	}
 }
 
+// if ($modenya=="view_list_roll" OR $modenya=="view_list_detail" OR $modenya=="view_list_size")
+// {	$crinya = $_REQUEST['cri_item'];
+// 	if (isset($_REQUEST['sat_nya'])) { $defsat=$_REQUEST['sat_nya']; } else { $defsat=""; }
+// 	if ($crinya!="")
+// 	{	echo "<table style='width: 100%;'class='display responsive'>";
+// 			echo "<thead>";
+// 				echo "<tr>";
+// 					if ($modenya=="view_list_size") 
+// 					{	$id_so=$_REQUEST['id_so'];
+// 						$cnya="Size"; $ket="S:".$id_so;
+// 						echo "
+// 						<th width='auto'>No.</th>
+// 						<th width='auto'>$cnya</th>
+// 						<th width='auto'>Qty</th>
+// 						<th hidden>Add</th>
+// 						<th hidden>Barcode</th>
+// 						<th width='auto'>Price</th>
+// ";
+// 						// echo "<th width='15%'>$cnya &nbsp &nbsp &nbsp &nbsp &nbsp Qty &nbsp &nbsp &nbsp Add &nbsp &nbsp &nbsp Barcode &nbsp &nbsp &nbsp Price</th>";
+// 						// echo "<th width='15%'>$cnya &nbsp &nbsp &nbsp &nbsp &nbsp Qty &nbsp &nbsp &nbsp Add &nbsp &nbsp &nbsp Barcode &nbsp &nbsp &nbsp Price</th>";
+// 						// echo "<th width='15%'>$cnya &nbsp &nbsp &nbsp &nbsp &nbsp Qty &nbsp &nbsp &nbsp Add &nbsp &nbsp &nbsp Barcode &nbsp &nbsp &nbsp Price</th>";
+// 						// echo "<th width='15%'>$cnya &nbsp &nbsp &nbsp &nbsp &nbsp Qty &nbsp &nbsp &nbsp Add &nbsp &nbsp &nbsp Barcode &nbsp &nbsp &nbsp Price</th>";
+// 						// echo "<th width='15%'>$cnya &nbsp &nbsp &nbsp &nbsp &nbsp Qty &nbsp &nbsp &nbsp Add &nbsp &nbsp &nbsp Barcode &nbsp &nbsp &nbsp Price</th>";
+// 					} 
+// 					else if ($modenya=="view_list_detail") 
+// 					{	$cnya="Qty"; $ket="D";
+// 						echo "<th width='10%'>$cnya &nbsp &nbsp &nbsp &nbsp &nbsp Item</th>";
+// 						echo "<th width='10%'>$cnya &nbsp &nbsp &nbsp &nbsp &nbsp Item</th>";
+// 						echo "<th width='10%'>$cnya &nbsp &nbsp &nbsp &nbsp &nbsp Item</th>";
+// 						echo "<th width='10%'>$cnya &nbsp &nbsp &nbsp &nbsp &nbsp Item</th>";
+// 						echo "<th width='10%'>$cnya &nbsp &nbsp &nbsp &nbsp &nbsp Item</th>";
+// 					} 
+// 					else 
+// 					{	$cnya=$defsat; $ket="R";
+// 						echo "
+// 						<th width='4%'>No.</th>
+// 						<th width='4%'>Lot #</th>
+// 						<th width='4%'>Actual</th>
+// 						<th width='4%'>Konv</th>
+// 						<th width='4%'>FOC</th>
+// 						<th width='8%'>Barcode</th>
+// 						<th width='8%'>No. Rak</th>
+						
+// 						<th width='4%'>No.</th>
+// 						<th width='4%'>Lot #</th>
+// 						<th width='4%'>Actual</th>
+// 						<th width='4%'>Konv</th>
+// 						<th width='4%'>FOC</th>
+// 						<th width='8%'>Barcode</th>
+// 						<th width='8%'>No. Rak</th>";
+// 					}
+// 				echo "</tr>";
+// 			echo "</thead>";
+// 			if ($modenya=="view_list_size")
+// 			{	echo "<tr>"; show_roll_size_new(1,1,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(2,2,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(3,3,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(4,4,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(5,5,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(6,6,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(7,7,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(8,8,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(9,9,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(10,10,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(11,11,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(12,12,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(13,13,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(14,14,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(15,15,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(16,16,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(17,17,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(18,18,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(19,19,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(20,20,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(21,21,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(22,22,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(23,23,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(24,24,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(25,25,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(26,26,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(27,27,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(28,28,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(29,29,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll_size_new(30,30,$crinya,$ket); echo "</tr>";
+// 			}
+// 			else if ($modenya=="view_list_detail")
+// 			{	echo "<tr>"; show_roll(1,5,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll(6,10,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll(11,15,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll(16,20,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll(21,25,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll(26,30,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll(31,35,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll(36,40,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll(41,45,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll(46,50,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll(51,55,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll(56,60,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll(61,65,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll(66,70,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll(71,75,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll(76,80,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll(81,85,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll(86,90,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll(91,95,$crinya,$ket); echo "</tr>";
+// 				echo "<tr>"; show_roll(96,100,$crinya,$ket); echo "</tr>";
+// 			}
+// 			else
+// 			{	for ($x = 1; $x <= 200; $x++) 
+//       	{ echo "<tr>"; show_roll($x,$x+1,$crinya,$ket); echo "</tr>"; 
+//       		$x = $x + 1;
+//       	}
+//     	}
+// 		echo "</table>";
+// 	}
+// }
+
 if ($modenya=="view_list_roll" OR $modenya=="view_list_detail" OR $modenya=="view_list_size")
-{	$crinya = $_REQUEST['cri_item'];
+{	
+	$crinya = $_REQUEST['cri_item'];
 	if (isset($_REQUEST['sat_nya'])) { $defsat=$_REQUEST['sat_nya']; } else { $defsat=""; }
 	if ($crinya!="")
-	{	echo "<table style='width: 100%;'class='display responsive'>";
+	{	$table_class = ($modenya=="view_list_size") ? "table table-bordered table-condensed" : "display responsive";
+
+		echo "<table style='width: 100%;' class='$table_class'>";
 			echo "<thead>";
 				echo "<tr>";
 					if ($modenya=="view_list_size") 
 					{	$id_so=$_REQUEST['id_so'];
 						$cnya="Size"; $ket="S:".$id_so;
 						echo "
-						<th width='auto'>No.</th>
-						<th width='auto'>$cnya</th>
-						<th width='auto'>Qty</th>
+						<style>
+							.table-size-fob { border-collapse: collapse; }
+							.table-size-fob th, .table-size-fob td { 
+								border: 1px solid #666 !important; 
+								padding: 6px 8px;
+							}
+							.table-size-fob thead th { 
+								border-bottom: 2px solid #333 !important; 
+								background-color: #f4f4f4;
+							}
+						</style>
+						<th style='width:8%;'>No.</th>
+						<th style='width:20%;'>$cnya</th>
+						<th style='width:18%;'>Qty</th>
 						<th hidden>Add</th>
 						<th hidden>Barcode</th>
-						<th width='auto'>Price</th>
-";
-						// echo "<th width='15%'>$cnya &nbsp &nbsp &nbsp &nbsp &nbsp Qty &nbsp &nbsp &nbsp Add &nbsp &nbsp &nbsp Barcode &nbsp &nbsp &nbsp Price</th>";
-						// echo "<th width='15%'>$cnya &nbsp &nbsp &nbsp &nbsp &nbsp Qty &nbsp &nbsp &nbsp Add &nbsp &nbsp &nbsp Barcode &nbsp &nbsp &nbsp Price</th>";
-						// echo "<th width='15%'>$cnya &nbsp &nbsp &nbsp &nbsp &nbsp Qty &nbsp &nbsp &nbsp Add &nbsp &nbsp &nbsp Barcode &nbsp &nbsp &nbsp Price</th>";
-						// echo "<th width='15%'>$cnya &nbsp &nbsp &nbsp &nbsp &nbsp Qty &nbsp &nbsp &nbsp Add &nbsp &nbsp &nbsp Barcode &nbsp &nbsp &nbsp Price</th>";
-						// echo "<th width='15%'>$cnya &nbsp &nbsp &nbsp &nbsp &nbsp Qty &nbsp &nbsp &nbsp Add &nbsp &nbsp &nbsp Barcode &nbsp &nbsp &nbsp Price</th>";
-					} 
+						<th style='width:18%;'>Price SO</th>
+						<th style='width:18%;'>FOB Price</th>";
+					}
 					else if ($modenya=="view_list_detail") 
 					{	$cnya="Qty"; $ket="D";
 						echo "<th width='10%'>$cnya &nbsp &nbsp &nbsp &nbsp &nbsp Item</th>";
@@ -366,36 +492,10 @@ if ($modenya=="view_list_roll" OR $modenya=="view_list_detail" OR $modenya=="vie
 				echo "</tr>";
 			echo "</thead>";
 			if ($modenya=="view_list_size")
-			{	echo "<tr>"; show_roll_size_new(1,1,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(2,2,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(3,3,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(4,4,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(5,5,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(6,6,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(7,7,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(8,8,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(9,9,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(10,10,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(11,11,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(12,12,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(13,13,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(14,14,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(15,15,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(16,16,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(17,17,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(18,18,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(19,19,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(20,20,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(21,21,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(22,22,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(23,23,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(24,24,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(25,25,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(26,26,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(27,27,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(28,28,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(29,29,$crinya,$ket); echo "</tr>";
-				echo "<tr>"; show_roll_size_new(30,30,$crinya,$ket); echo "</tr>";
+			{	echo "<tbody>";
+					for ($x = 1; $x <= 30; $x++) 
+					{	echo "<tr>"; show_roll_size_new($x, $x, $crinya, $ket, true); echo "</tr>"; }
+				echo "</tbody>";
 			}
 			else if ($modenya=="view_list_detail")
 			{	echo "<tr>"; show_roll(1,5,$crinya,$ket); echo "</tr>";

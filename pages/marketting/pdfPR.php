@@ -1,5 +1,6 @@
 <?php
-
+ini_set('memory_limit', '1024M');
+set_time_limit(0);
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -402,11 +403,16 @@ if(!isset($_GET['id'])){
 
 $id = $_GET['id'];
 
-$cekerr=flookup("posno","(select posno,count(distinct cons) jcons from bom_jo_item where 
+// $cekerr=flookup("posno","(select posno,count(distinct cons) jcons from bom_jo_item where 
 
-    id_jo='$id' and rule_bom='ALL COLOR ALL SIZE' and cancel='N' 
+//     id_jo='$id' and rule_bom='ALL COLOR ALL SIZE' and cancel='N' 
 
-    group by posno) tmpjo","jcons>1");
+//     group by posno) tmpjo","jcons>1");
+
+$cekerr=flookup("posno","(select posno,id_item,count(distinct cons) jcons from bom_jo_item where 
+    id_jo='$id' and rule_bom='ALL COLOR ALL SIZE' and cancel='N'
+    group by posno,id_item) tmpjo","jcons>1");
+
 
 if($cekerr!=''){
 
@@ -1082,6 +1088,8 @@ ob_start();
 <?php
 
 $html = ob_get_clean();
+
+
 
 include("../../mpdf57/mpdf.php");
 

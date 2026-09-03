@@ -1545,7 +1545,7 @@ function show_roll_size($from,$to,$bts,$ket)
 	}
 };
 
-function show_roll_size_new($from,$to,$bts,$ket)
+function show_roll_size_new($from,$to,$bts,$ket, $show_fob = false)
 {	if (substr($ket,0,1)=="S")
 	{ $id_so_arr=explode(":",$ket);
 		$id_so=$id_so_arr[1];
@@ -1589,6 +1589,9 @@ function show_roll_size_new($from,$to,$bts,$ket)
 			{	echo "<input type ='hidden' $stra4 name ='addqty[$x]' id='addqtyajax' class='form-control addqtyclass'>";	
 				echo "<input type ='hidden' $stra4 name ='barcode[$x]' id='barajax' class='form-control barclass'>";	
 				echo "<td><input type ='$type' $stra4 name ='pxdet[$x]' id='pxdetajax' class='form-control pxdetclass' value='$price_so'></td>";
+				if ($show_fob) {
+					echo "<td><input type='text' $styleQty name='fobdet[$x]' id='fobajax' class='form-control fobclass' value='$fob_so'></td>";
+				}
 			}
 		}
 	}

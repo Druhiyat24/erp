@@ -10,6 +10,9 @@ if ($akses=="0")
 # END CEK HAK AKSES KEMBALI
 $nm_company = flookup("company","mastercompany","company!=''");
 
+$access_close_order = flookup("edit_close_order","userpassword","username='$user'");
+
+
 $cprodgr="Product Group"; 
 $cprodit="Product Item";
 $cstyle="Style #";
@@ -335,11 +338,18 @@ else
 
 $tglsoawal = date('Y-m-d');
 $tglsoakhir = date('Y-m-d');
+$statusClose = "";
+$pilih_status = "";
 
 if (isset($_POST['submitfilter']))
 {
   $tglsoawal = $_POST['tglsoawal'];
   $tglsoakhir = $_POST['tglsoakhir'];
+  $pilih_status = $_POST['status_close'];
+  if ($pilih_status != "")
+  {
+    $statusClose = "AND close_order = '".$pilih_status."'";
+  }
 }
 # END COPAS EDIT
 # COPAS VALIDASI BUANG ELSE di IF pertama
@@ -654,6 +664,7 @@ echo "<script type='text/javascript'>
 				<th>Price</th>
 				<th>SKU</th>
 				<th>Barcode</th>
+				<th>FOB</th>
 				<th>Notes</th>
 				<th>Status</th>
 				<?php if ($mod!="8d") { ?>
@@ -694,6 +705,7 @@ echo "<script type='text/javascript'>
 				    <td>$data[px_det]</td>
 				    <td>$data[sku]</td>
 				    <td>$data[barcode]</td>
+				    <td>$data[fob]</td>
 				    <td>$data[notes]</td>";
 						if($data['cancel']=="Y")
 						{echo "<td>Cancelled</td>";}
@@ -752,11 +764,23 @@ echo "<script type='text/javascript'>
       <div class='col-md-2'>                            
         <label>Tgl So (Akhir) : </label>
         <input type='date' class='form-control' id='tglsoakhir' name='tglsoakhir' placeholder='Masukkan Tgl SO' value='<?php echo $tglsoakhir;?>' >             
+      </div>
+      <div class="col-md-2">
+      	<label>Status Close : </label>
+      	<select id="status_close" class="form-control" name="status_close">
+		    <option value="" <?php if($pilih_status=="") echo "selected"; ?>>Semua</option>
+		    <option value="Y" <?php if($pilih_status=="Y") echo "selected"; ?>>Close</option>
+		    <option value="N" <?php if($pilih_status=="N") echo "selected"; ?>>Open</option>
+		</select>
       </div>      
       <div class='col-md-3'>
           <div>
           <br>
-              <button type='submit' name='submitfilter' class='btn btn-primary'>Tampilkan</button>              
+              <button type='submit' name='submitfilter' class='btn btn-primary'>Tampilkan</button>
+              <?php
+				echo "<a href='export_list_so.php?from=$tglsoawal&to=$tglsoakhir&status=$pilih_status&dest=excel' class='btn btn-success'>
+				<i class='fa fa-file-excel-o'></i> Export Excel</a>";
+				?>	            
           </div>         
       </div>
 
@@ -791,6 +815,8 @@ echo "<script type='text/javascript'>
         <th>Jenis SO</th>
         <th>Season</th>
         <th>Status</th>
+        <th>Close Order</th>
+        <th></th>
         <th></th>
         <th></th>
         <th></th>
@@ -802,8 +828,8 @@ echo "<script type='text/javascript'>
         <?php
         # QUERY TABLE
         $query = mysql_query("select a.id_cost,cancel_h,a.username,a.id,so_no,buyerno,kpno,cost_no,
-          supplier,product_group,product_item,styleno,a.qty,a.unit,
-          deldate,fullname,a.so_date, a.jns_so, round(a.fob,2) fob, ms.season, concat(nama_pterms, ' (' ,a.jml_pterms, ' days - After',' ', mp.kode_pterms,')') ket_terms
+          supplier,product_group,product_item,styleno,a.qty,a.unit, s.close_order,
+          deldate,fullname,a.so_date, a.jns_so, round(a.fob,2) fob, ms.season, concat(nama_pterms, ' (' ,a.jml_pterms, ' days - After',' ', mp.kode_pterms,')') ket_terms, s.id as id_costing
           from so a inner join act_costing s on 
           a.id_cost=s.id inner join mastersupplier g on 
           s.id_buyer=g.id_supplier inner join masterproduct h 
@@ -811,11 +837,12 @@ echo "<script type='text/javascript'>
           inner join userpassword up on a.username=up.username
           left join masterseason ms on a.id_season = ms.id_season 
           left join masterpterms mp on a.id_terms = mp.id
-          where so_type='B' and a.so_date >= '$tglsoawal' and a.so_date <= '$tglsoakhir' order by a.so_date desc"); 
+          where so_type='B' and a.so_date >= '$tglsoawal' and a.so_date <= '$tglsoakhir' $statusClose order by a.so_date desc"); 
         if (!$query) {die(mysql_error());}
         $no = 1; 
         while($data = mysql_fetch_array($query))
         { $id=$data['id'];
+    		$id_costing = $data['id_costing'];
     			$cekjo = flookup("id_jo","jo_det","id_so='$id'");
           if($data['cancel_h']=="Y") { $bgcol=" style='color: red; font-weight:bold;'"; } else { $bgcol=""; }
           echo "<tr $bgcol>";
@@ -841,6 +868,10 @@ echo "<script type='text/javascript'>
             {echo "<td>Cancelled</td>";}
           	else
           	{echo "<td></td>";}
+          	if($data['close_order']=="Y")
+			{ echo "<td><span style='background-color:#dc3545; color:#fff; padding:4px 10px; border-radius:12px; font-size:11px; font-weight:bold;'>Close</span></td>"; }
+			else
+			{ echo "<td><span style='background-color:#155724; color:#fff; padding:4px 10px; border-radius:12px; font-size:11px; font-weight:bold;'>Open</span></td>"; }
           	echo "<td>";
             	if ($data['username']==$user)
             	{	echo "<a href='?mod=7&id=$data[id]'
@@ -869,6 +900,24 @@ echo "<script type='text/javascript'>
             	echo "<td>";
 	           	echo "</td>";
             }
+            echo "<td>";
+
+            if($access_close_order == 1 && $data['cancel_h']!="Y"){
+            	if ($data['close_order']=="Y")
+		        {   echo "<a href='d_open_order.php?mod=$mod&id=$id_costing'
+		                data-toggle='tooltip' title='Open Order'
+		                onclick=\"return confirm('Apakah Kamu Yakin Open Order SO ini ?')\">
+		                <i class='fa fa-unlock'></i></a>";
+		        }
+		        else
+		        {   echo "<a href='d_close_order.php?mod=$mod&id=$id_costing'
+		                data-toggle='tooltip' title='Close Order'
+		                onclick=\"return confirm('Apakah Anda Yakin Close Order SO ini ?')\">
+		                <i class='fa fa-lock'></i></a>";
+		        }
+            }
+		        
+			echo "</td>";
             echo "<td>";
             	if ($data['username']==$user)
             	{	echo "
