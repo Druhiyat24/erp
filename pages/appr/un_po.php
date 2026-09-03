@@ -35,13 +35,8 @@ echo "<div class='box'>";
           ?>
           <div class='form-group'>
             <label>PO # *</label>
-            <select class='form-control select2' style='width: 100%;' name='txtid_cost'>
-              <?php
-                $sql = "select concat(a.id,':',a.pono) isi,concat(a.pono,' - ',s.supplier) tampil from 
-                  po_header a inner join mastersupplier s on a.id_supplier=s.id_supplier 
-                  where a.app='A' and a.podate >= '2023-01-01' group by a.id";
-                IsiCombo($sql,$id_cost,'Pilih PO #');
-              ?>
+            <select class='form-control select2po' style='width: 100%;' name='txtid_cost' id='txtid_cost'>
+              <option></option>
             </select>
           </div>
           <div class='form-group'>
@@ -56,4 +51,46 @@ echo "<div class='box'>";
   echo "</div>";
 echo "</div>";
 # END COPAS ADD
+
+# Combo PO # server-side (Select2 AJAX)
+$tampil_cost = "";
+if (!empty($id_cost))
+{ $cri_cost = explode(':', $id_cost);
+  $rs_cost = mysql_fetch_array(mysql_query("select concat(a.pono,' - ',s.supplier) tampil
+    from po_header a inner join mastersupplier s on a.id_supplier=s.id_supplier
+    where a.id='".mysql_real_escape_string($cri_cost[0])."'"));
+  if ($rs_cost) { $tampil_cost = $rs_cost['tampil']; }
+}
+?>
+<script type='text/javascript'>
+  function initComboPO()
+  { if (window.jQuery && jQuery.fn.select2)
+    { jQuery('#txtid_cost').select2(
+      { placeholder: 'Pilih PO #',
+        allowClear: true,
+        minimumInputLength: 0,
+        ajax:
+        { url: 'ajax_po_list.php',
+          dataType: 'json',
+          delay: 250,
+          data: function (params)
+          { return { q: params.term || '', page: params.page || 1 }; },
+          processResults: function (data, params)
+          { params.page = params.page || 1;
+            return { results: data.results, pagination: { more: data.pagination.more } };
+          },
+          cache: true
+        }
+      });
+      <?php if ($id_cost != "") { ?>
+      var pre = new Option(<?php echo json_encode($tampil_cost); ?>, <?php echo json_encode($id_cost); ?>, true, true);
+      jQuery('#txtid_cost').append(pre).trigger('change');
+      <?php } ?>
+    }
+    else
+    { setTimeout(initComboPO, 100); }
+  }
+  initComboPO();
+</script>
+<?php
 ?>

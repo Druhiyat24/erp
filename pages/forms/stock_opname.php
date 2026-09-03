@@ -50,7 +50,7 @@ echo "<div class='box'>";
       { 
         $qry="select styleno,kpno,goods_code,itemname,color,size,stock,a.id_item 
           from stock a inner join masterstyle s on a.mattype='FG'
-          and a.id_item=s.id_item where stock<>0";
+          and a.id_item=s.id_item";
         $query = mysql_query($qry);
         if (!$query) { die($qry. mysql_error()); }
         $jumrowdata=mysql_num_rows($query);
@@ -76,17 +76,16 @@ echo "<div class='box'>";
       else 
       { 
         if($mode=="General") 
-        { $sql_cri = " and s.mattype='N'"; } 
+        { $sql_cri = "s.mattype='N'"; } 
         else if($mode=="Bahan_Baku") 
-        { $sql_cri = " and s.mattype in ('A','F')"; } 
+        { $sql_cri = "s.mattype in ('A','F')"; } 
         else 
-        { $sql_cri = " and s.mattype not in ('N','A','F')"; }
+        { $sql_cri = "s.mattype not in ('N','A','F')"; }
 		    $qry="select s.matclass,if(s.goods_code='-' or s.goods_code='',concat(s.mattype,' ',s.id_item),s.goods_code) goods_code,
           s.itemdesc,s.color,s.size,odo.goods_code kode_odo,odo.itemdesc item_odo,round(a.stock,2) stock,a.id_item 
           from stock a inner join masteritem s on a.mattype=s.mattype
           and a.id_item=s.id_item 
-          left join masteritem_odo odo on s.id_item_odo=odo.id_item_odo 
-          where a.stock<>0 $sql_cri ";
+          left join masteritem_odo odo on s.id_item_odo=odo.id_item_odo where $sql_cri ";
         $query = mysql_query($qry);
         if (!$query) { die($qry. mysql_error()); }
         $jumrowdata=mysql_num_rows($query);

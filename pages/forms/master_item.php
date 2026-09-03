@@ -292,6 +292,11 @@ echo "</div>";
     <a href='../forms/?mod=2&mode=<?php echo $mode; ?>' class='btn btn-primary btn-s'>
       <i class='fa fa-plus'></i> New
     </a>
+    <?php if($mode=="Mesin" || $mode=="Sparepart" || $mode=="Alat") { ?>
+    <a href='export_mesin.php?mode=<?php echo $mode; ?>' class='btn btn-success btn-s' style='margin-left:5px;'>
+      <i class='fa fa-file-excel-o'></i> Export Excel
+    </a>
+    <?php } ?>    
     <?php if($mode!="Mesin") { ?>
       <select class='form-control select2' style='width: 30%;' name='txtgrp' onchange='getItem(this.value)'>
         <?php 
