@@ -530,7 +530,7 @@ $sql_pro="select posno,if(rule_bom='','ALL COLOR ALL SIZE',rule_bom) rule_bom,md
 
   where id_jo='$id' and a.cancel='N' and a.status='P'
 
-  group by posno,rule_bom,id_item,a.id_panel";
+  group by rule_bom,id_item,a.id_panel";
 
 $rs1_pro=mysql_query($sql_pro);
 
