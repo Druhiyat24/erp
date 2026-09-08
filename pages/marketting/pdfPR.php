@@ -508,7 +508,7 @@ while($row1 = mysql_fetch_array($rs1))
 
   }
 
-  if ($row1['id_panel']==null) {$panel_filter=" (a.id_panel is null or a.id_panel='')";} else {$panel_filter=" a.id_panel='$row1[id_panel]'";}
+  if ($row1['posno']==null) {$posno=" (posno is null or posno='')";} else {$posno=" posno='$row1[posno]'";}
 
   $sql="insert into $tblbomjoit 
 
@@ -584,7 +584,7 @@ while($row1_pro = mysql_fetch_array($rs1_pro))
 
   }
 
-  if ($row1_pro['id_panel']==null) {$panel_filter=" (a.id_panel is null or a.id_panel='')";} else {$panel_filter=" a.id_panel='$row1_pro[id_panel]'";}
+  if ($row1_pro['posno']==null) {$posno=" (posno is null or posno='')";} else {$posno=" posno='$row1_pro[posno]'";}
 
   $sql_pro="insert into $tblbomjoit 
 
