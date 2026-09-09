@@ -154,7 +154,8 @@ class Model{
             WHEN nama_group = 'ACCESORIES SEWING' THEN '2'
             WHEN nama_group = 'ACCESORIES PACKING' THEN '3'
             ELSE '4'
-            END
+            END,
+            id ASC
         ";
 
         #echo $sql;
