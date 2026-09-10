@@ -215,13 +215,13 @@ if(!isset($_GET['id'])){
 
 $id = $_GET['id'];
 
-$cekerr=flookup("posno","(select posno,id_item,count(distinct cons) jcons from bom_jo_item where 
-    id_jo='$id' and rule_bom='ALL COLOR ALL SIZE' and cancel='N'
-    group by posno,id_item) tmpjo","jcons>1");
+// $cekerr=flookup("posno","(select posno,id_item,count(distinct cons) jcons from bom_jo_item where 
+//     id_jo='$id' and rule_bom='ALL COLOR ALL SIZE' and cancel='N'
+//     group by id_item) tmpjo","jcons>1");
 
-if($cekerr!=''){
-    exit('Ada Kesalahan Di PNo '.$cekerr);
-}
+// if($cekerr!=''){
+//     exit('Ada Kesalahan Di PNo '.$cekerr);
+// }
 
 $sql="drop table if exists $tblbomjoit";
 insert_log($sql,'TempTable');
