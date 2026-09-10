@@ -132,15 +132,15 @@ if ($modenya == "get_list_supp") {
   }
   $sql = "select isi,tampil from  
 	(
-	  select d.id_supplier isi,supplier tampil from 
+	  select d.id_supplier isi,supplier tampil from
 	  jo a inner join bom_jo_item s on a.id=s.id_jo
-	  inner join mastersupplier d on s.id_supplier=d.id_supplier 
-	  where tipe_sup='S' and s.status='$jenis_item' $sql_app group by supplier 
-	  union all 
-	  select d.id_supplier isi,supplier tampil from 
+	  inner join mastersupplier d on s.id_supplier=d.id_supplier
+	  where tipe_sup='S' and d.non_aktif='0' and s.status='$jenis_item' $sql_app group by supplier
+	  union all
+	  select d.id_supplier isi,supplier tampil from
 	  jo a inner join bom_jo_item s on a.id=s.id_jo
-	  inner join mastersupplier d on s.id_supplier2=d.id_supplier 
-	  where tipe_sup='S' and s.status='$jenis_item' $sql_app group by supplier
+	  inner join mastersupplier d on s.id_supplier2=d.id_supplier
+	  where tipe_sup='S' and d.non_aktif='0' and s.status='$jenis_item' $sql_app group by supplier
 	) 
 	as tmptbl group by isi";
   IsiCombo($sql, '', 'Pilih Supplier');
