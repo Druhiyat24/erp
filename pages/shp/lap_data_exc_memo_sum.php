@@ -52,6 +52,7 @@ header("Expires: 0");
             <th>Jenis Invoice</th>
             <th>No Invoice</th>
             <th>No Invoice Buyer</th>
+            <th>No Faktur</th>
             <th>kepada</th>
             <th>Jenis Transaksi</th>
             <th>Jenis Pengiriman</th>
@@ -114,7 +115,7 @@ header("Expires: 0");
           }else{
           $where = "where a.jns_inv = '$tipe_inv' and a.id_supplier = '$nama_supp' and a.id_buyer = '$nama_buyer' and a.tgl_memo >= '$fromcri' and a.tgl_memo <= '$tocri'"; 
         }
-          $sql = "select * from ((select * from (select id_h,id_supplier,id_buyer,nm_memo,tgl_memo,jns_inv, no_invoice, inv_buyer, kepada, jns_trans,jns_pengiriman,ditagihkan,curr,jatuh_tempo,dok_pendukung,supplier,buyer,nm_ctg,nm_sub_ctg,biaya, cancel,notes, status,user, date_input, approved_date,approved_by,nama_pc from (select * from (select a.id_h,a.nm_memo,a.tgl_memo,a.jns_inv,IF(mdet.inv_vendor is null,'-',mdet.inv_vendor) inv_buyer,a.kepada,a.jns_trans,a.jns_pengiriman,IF(a.ditagihkan != 'Y','TIDAK','YA') ditagihkan,a.curr,a.jatuh_tempo, a.dok_pendukung, ms.supplier supplier, mb.supplier buyer,mdet.nm_ctg,mdet.nm_sub_ctg,format(round(sum(mdet.biaya),2),2) biaya,mdet.cancel, IF(a.no_aju is null,'-',a.no_aju) no_aju, IF(a.notes is null,'-',a.notes) notes,a.status,a.user,a.date_input,a.id_supplier,a.id_buyer,a.approved_by, a.approved_date,mp.nama_pc from memo_h a
+          $sql = "select * from ((select * from (select id_h,id_supplier,id_buyer,nm_memo,tgl_memo,jns_inv, no_invoice, inv_buyer, faktur_pajak, kepada, jns_trans,jns_pengiriman,ditagihkan,curr,jatuh_tempo,dok_pendukung,supplier,buyer,nm_ctg,nm_sub_ctg,biaya, cancel,notes, status,user, date_input, approved_date,approved_by,nama_pc from (select * from (select a.id_h,a.nm_memo,a.tgl_memo,a.jns_inv,IF(mdet.inv_vendor is null,'-',mdet.inv_vendor) inv_buyer,COALESCE(GROUP_CONCAT(DISTINCT NULLIF(NULLIF(TRIM(mdet.faktur_pajak),''),'-') SEPARATOR ', '),'-') faktur_pajak,a.kepada,a.jns_trans,a.jns_pengiriman,IF(a.ditagihkan != 'Y','TIDAK','YA') ditagihkan,a.curr,a.jatuh_tempo, a.dok_pendukung, ms.supplier supplier, mb.supplier buyer,mdet.nm_ctg,mdet.nm_sub_ctg,format(round(sum(mdet.biaya),2),2) biaya,mdet.cancel, IF(a.no_aju is null,'-',a.no_aju) no_aju, IF(a.notes is null,'-',a.notes) notes,a.status,a.user,a.date_input,a.id_supplier,a.id_buyer,a.approved_by, a.approved_date,mp.nama_pc from memo_h a
           inner join mastersupplier ms on a.id_supplier = ms.id_supplier
           inner join mastersupplier mb on a.id_buyer = mb.id_supplier
           inner join memo_det mdet on mdet.id_h = a.id_h
@@ -123,7 +124,7 @@ header("Expires: 0");
 (select a.id_h idh, GROUP_CONCAT(b.no_invoice) no_invoice from memo_h a inner join memo_inv b on b.id_h = a.id_h GROUP BY a.id_h) b on b.idh = a.id_h) a) a inner join 
 (select nm_memo nomemo, nm_memo memo1, no_dn,tgl_dn,'' no_alk, '' tgl_alk, '' bill_to, nm_memo memo2, no_pv,tgl_pv pv_date, no_bankout, tgl_bankout bankout_date from dd_update_memo) b on b.nomemo = a.nm_memo)
 UNION 
-(select * from (select id_h,id_supplier,id_buyer,nm_memo,tgl_memo,jns_inv, no_invoice, inv_buyer, kepada, jns_trans,jns_pengiriman,ditagihkan,curr,jatuh_tempo,dok_pendukung,supplier,buyer,nm_ctg,nm_sub_ctg,biaya, cancel,notes, status,user, date_input, approved_date,approved_by,nama_pc from (select * from (select a.id_h,a.nm_memo,a.tgl_memo,a.jns_inv,IF(mdet.inv_vendor is null,'-',mdet.inv_vendor) inv_buyer,a.kepada,a.jns_trans,a.jns_pengiriman,IF(a.ditagihkan != 'Y','TIDAK','YA') ditagihkan,a.curr,a.jatuh_tempo, a.dok_pendukung, ms.supplier supplier, mb.supplier buyer,mdet.nm_ctg,mdet.nm_sub_ctg,format(round(sum(mdet.biaya),2),2) biaya,mdet.cancel, IF(a.no_aju is null,'-',a.no_aju) no_aju, IF(a.notes is null,'-',a.notes) notes,a.status,a.user,a.date_input,a.id_supplier,a.id_buyer,a.approved_by, a.approved_date,mp.nama_pc from memo_h a
+(select * from (select id_h,id_supplier,id_buyer,nm_memo,tgl_memo,jns_inv, no_invoice, inv_buyer, faktur_pajak, kepada, jns_trans,jns_pengiriman,ditagihkan,curr,jatuh_tempo,dok_pendukung,supplier,buyer,nm_ctg,nm_sub_ctg,biaya, cancel,notes, status,user, date_input, approved_date,approved_by,nama_pc from (select * from (select a.id_h,a.nm_memo,a.tgl_memo,a.jns_inv,IF(mdet.inv_vendor is null,'-',mdet.inv_vendor) inv_buyer,COALESCE(GROUP_CONCAT(DISTINCT NULLIF(NULLIF(TRIM(mdet.faktur_pajak),''),'-') SEPARATOR ', '),'-') faktur_pajak,a.kepada,a.jns_trans,a.jns_pengiriman,IF(a.ditagihkan != 'Y','TIDAK','YA') ditagihkan,a.curr,a.jatuh_tempo, a.dok_pendukung, ms.supplier supplier, mb.supplier buyer,mdet.nm_ctg,mdet.nm_sub_ctg,format(round(sum(mdet.biaya),2),2) biaya,mdet.cancel, IF(a.no_aju is null,'-',a.no_aju) no_aju, IF(a.notes is null,'-',a.notes) notes,a.status,a.user,a.date_input,a.id_supplier,a.id_buyer,a.approved_by, a.approved_date,mp.nama_pc from memo_h a
           inner join mastersupplier ms on a.id_supplier = ms.id_supplier
           inner join mastersupplier mb on a.id_buyer = mb.id_supplier
           inner join memo_det mdet on mdet.id_h = a.id_h
@@ -230,6 +231,7 @@ UNION
             echo "<td>$data[jns_inv]</td>";
             echo "<td>$data[no_invoice]</td>";
             echo "<td>$data[inv_buyer]</td>";
+            echo "<td>$data[faktur_pajak]</td>";
             echo "<td>$data[kepada]</td>";
             echo "<td>$data[jns_trans]</td>";
             echo "<td>$data[jns_pengiriman]</td>";
