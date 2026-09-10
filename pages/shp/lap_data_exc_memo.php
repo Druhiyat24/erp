@@ -235,7 +235,7 @@ UNION
             echo "<td>$data[jns_inv]</td>";
             echo "<td>$data[no_invoice]</td>";
             echo "<td>$data[inv_buyer]</td>";
-            echo "<td>$data[faktur_pajak]</td>";
+            echo "<td style=\"mso-number-format:'\@'\">$data[faktur_pajak]</td>";
             echo "<td>$data[kepada]</td>";
             echo "<td>$data[jns_trans]</td>";
             echo "<td>$data[jns_pengiriman]</td>";
