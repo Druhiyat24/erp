@@ -521,7 +521,7 @@ select k.id,k.id_jo, k.id_item from bom_jo_item k
 inner join jo on k.id_jo = jo.id
 where jo_date >= '2023-01-01'
 group by id_jo, id_item
-) k on jo.id = k.id_jo and mi.id_gen = k.id_item
+) k on jo.id = k.id_jo and IF(mi.matclass = 'PRINTING',mi.id_item,mi.id_gen) = k.id_item
 where a.id_po_draft = '$id_po' and if(k.id is null,'Check BOM','Ok') = 'Check BOM'
 group by if(k.id is null,'Check BOM','Ok')     
     
