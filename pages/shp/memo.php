@@ -1,33 +1,56 @@
 <style type="text/css">
+/* BARIS TOMBOL AKSI DI KOLOM TERAKHIR */
+.memo-action-bar {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+.memo-action-bar > * {
+    margin-right: 4px;
+}
+.memo-action-bar > *:last-child {
+    margin-right: 0;
+}
+
   /* ITEM FILE */
 .file-item-clean {
     background: #ffffff;
-    border-radius: 8px;
-    padding: 10px 14px;
-    margin: 4px 8px;
+    padding: 8px 12px;
     font-size: 13px;
     color: #334155;
-    display: block;
-    text-decoration: none;
-    transition: all 0.25s ease;
-    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    transition: background 0.2s ease;
 }
 
 /* HOVER EFFECT */
 .file-item-clean:hover {
     background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    transform: translateX(4px);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     color: #0f172a;
 }
 
 /* NAMA FILE */
 .file-name {
+    flex: 1 1 auto;
+    min-width: 0;            /* wajib, kalau tidak nama panjang menjebol dropdown */
     display: block;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    color: #334155;
+    text-decoration: none;
+}
+.file-name:hover,
+.file-name:focus {
+    color: #0f172a;
+    text-decoration: underline;
+}
+
+/* TOMBOL CANCEL */
+.file-item-clean .btn-cancel-file {
+    flex: 0 0 auto;
+    margin-left: 10px;
+    line-height: 1;
 }
 
 /* GARIS ANTAR ITEM */
@@ -35,26 +58,33 @@
     border-bottom: 1px dashed #f1f5f9;
 }
 
-/* EFEK KLIK */
-.file-item-clean:active {
-    transform: scale(0.98);
-}
-
-/* DROPDOWN CONTAINER BIAR LEBIH RAPI */
 .dropdown-menu {
     border-radius: 10px;
     padding: 6px 0;
     border: 1px solid #e5e7eb;
 }
 
+/* DROPDOWN CONTAINER BIAR LEBIH RAPI */
 .custom-dropdown {
     border: 1px solid #dee2e6;
     border-radius: 10px;
-    padding: 8px 0;
-    min-width: 280px;
+    padding: 6px 0;
+    min-width: 340px;
+    max-width: 520px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+.custom-dropdown .dropdown-header {
+    padding: 4px 12px 8px;
 }
 
-
+/* Dropdown dipindah ke <body> saat dibuka supaya tidak terpotong
+   oleh .dataTables_scrollBody (scrollX/scrollY milik DataTables) */
+.file-dropdown-floating {
+    position: fixed;
+    display: block;
+    margin: 0;
+    z-index: 1060;
+}
 </style>
 <?php
 if (empty($_SESSION['username'])) {
@@ -175,66 +205,59 @@ if ($mod == "memo_list") {
 $qfile = mysql_query("SELECT  a.*, REGEXP_REPLACE(file_name, '^[0-9]+_', '') AS clean_name FROM memo_file a WHERE id_h = '$data[id_h]' and status != 'CANCEL'");
 ?>
 
-<div class="d-flex align-items-center gap-2">
+<div class="memo-action-bar">
 
     <!-- EDIT -->
     <?php if ($data['status'] == 'DRAFT') { ?>
-        <a href="../shp/?mod=memo_edit&id_h=<?php echo $data['id_h']; ?>" 
+        <a href="../shp/?mod=memo_edit&id_h=<?php echo $data['id_h']; ?>"
            class="btn btn-sm btn-warning" title="Edit">
             <i class="fa fa-pencil"></i>
         </a>
     <?php } ?>
 
-    <!-- PRINT + FILE -->
-    <div class="btn-group">
+    <!-- PRINT -->
+    <a href="cetak_memo.php?id_h=<?php echo $data['id_h']; ?>"
+       class="btn btn-sm btn-primary" title="Print">
+        <i class="fa fa-print"></i>
+    </a>
 
-        <!-- PRINT BUTTON -->
-        <a style="margin-right: 3px;" href="cetak_memo.php?id_h=<?php echo $data['id_h']; ?>" 
-           class="btn btn-sm btn-primary" title="Print">
-            <i class="fa fa-print"></i>
-        </a>
+    <!-- DROPDOWN FILE -->
+    <?php if(mysql_num_rows($qfile) > 0){ ?>
+    <div class="btn-group file-dd">
 
-        <!-- DROPDOWN FILE -->
-        <?php if(mysql_num_rows($qfile) > 0){ ?>
-        <button type="button" 
-        class="btn btn-sm btn-info dropdown-toggle" 
-        data-toggle="dropdown">
-    <i class="fa fa-paperclip"></i> 
-    <?php echo mysql_num_rows($qfile); ?>
-</button>
+        <button type="button"
+            class="btn btn-sm btn-info dropdown-toggle"
+            data-toggle="dropdown">
+            <i class="fa fa-paperclip"></i>
+            <?php echo mysql_num_rows($qfile); ?>
+        </button>
 
-
-        <div class="dropdown-menu dropdown-menu-right custom-dropdown shadow">
-
+        <div class="dropdown-menu dropdown-menu-right custom-dropdown">
 
             <h6 class="dropdown-header">File Upload</h6>
 
             <?php while($f = mysql_fetch_array($qfile)){ ?>
-              <a class="dropdown-item file-item-clean d-flex align-items-center"
-   target="_blank"
-   href="upload/<?php echo $f['file_name']; ?>">
+            <div class="file-item-clean">
 
-    <span class="file-name text-truncate">
-        <?php echo $f['clean_name']; ?>
-    </span>
+                <a class="file-name"
+                   target="_blank"
+                   title="<?php echo htmlspecialchars($f['clean_name'], ENT_QUOTES); ?>"
+                   href="upload/<?php echo rawurlencode($f['file_name']); ?>"><?php echo htmlspecialchars($f['clean_name']); ?></a>
 
-    <button type="button"
-        class="btn btn-sm btn-danger ms-auto btn-cancel-file"
-        data-id="<?php echo $f['id']; ?>"
-        title="Cancel file">
-        &times;
-    </button>
+                <button type="button"
+                    class="btn btn-xs btn-danger btn-cancel-file"
+                    data-id="<?php echo $f['id']; ?>"
+                    title="Cancel file">
+                    &times;
+                </button>
 
-</a>
-
-
-
+            </div>
             <?php } ?>
 
         </div>
-        <?php } ?>
 
     </div>
+    <?php } ?>
 
     <!-- UPLOAD -->
     <button type="button"
@@ -1143,3 +1166,79 @@ $qfile = mysql_query("SELECT  a.*, REGEXP_REPLACE(file_name, '^[0-9]+_', '') AS 
     </div>
   </div>
 </div>
+<script type='text/javascript'>
+/* ------------------------------------------------------------------
+   Dropdown attachment ada di dalam .dataTables_scrollBody yang
+   overflow-nya auto (karena scrollX/scrollY), jadi menu-nya terpotong.
+   Solusi: saat dibuka, menu dipindah sementara ke <body> dan diposisikan
+   fixed mengikuti tombolnya. Saat ditutup, dikembalikan ke tempat semula.
+------------------------------------------------------------------- */
+$(function () {
+
+  var $menu = null;   // menu yang sedang mengambang
+  var $home = null;   // parent aslinya
+
+  function placeMenu($btn) {
+    if (!$menu) return;
+
+    var r  = $btn[0].getBoundingClientRect();
+    var mw = $menu.outerWidth();
+    var mh = $menu.outerHeight();
+    var pad = 8;
+
+    // rata kanan terhadap tombol, lalu jaga tetap di dalam layar
+    var left = r.right - mw;
+    if (left + mw > window.innerWidth - pad) left = window.innerWidth - mw - pad;
+    if (left < pad) left = pad;
+
+    // buka ke bawah; kalau tidak muat, balik ke atas
+    var top = r.bottom + 2;
+    if (top + mh > window.innerHeight - pad) {
+      var up = r.top - mh - 2;
+      top = (up >= pad) ? up : Math.max(pad, window.innerHeight - mh - pad);
+    }
+
+    $menu.css({ top: top + 'px', left: left + 'px' });
+  }
+
+  function restoreMenu() {
+    if (!$menu) return;
+    if ($home && $home.length) {
+      $menu.removeClass('file-dropdown-floating').css({ top: '', left: '' }).appendTo($home);
+    } else {
+      $menu.remove();
+    }
+    $menu = null;
+    $home = null;
+  }
+
+  $(document).on('show.bs.dropdown', '.file-dd', function () {
+    restoreMenu(); // jaga-jaga kalau ada sisa yang belum tertutup
+
+    var $grp = $(this);
+    $home = $grp;
+    $menu = $grp.children('.custom-dropdown');
+    $menu.addClass('file-dropdown-floating').appendTo('body');
+    placeMenu($grp.children('[data-toggle="dropdown"]'));
+  });
+
+  $(document).on('hide.bs.dropdown', '.file-dd', function () {
+    restoreMenu();
+  });
+
+  // posisi fixed tidak ikut bergeser saat di-scroll, jadi tutup saja
+  function closeOpenMenu() {
+    if (!$menu) return;
+    $('.file-dd.open').removeClass('open')
+                      .find('[data-toggle="dropdown"]').attr('aria-expanded', 'false');
+    restoreMenu();
+  }
+
+  // scroll tidak bubble, jadi pakai listener fase capture supaya
+  // scroll di .dataTables_scrollBody ikut tertangkap
+  document.addEventListener('scroll', closeOpenMenu, true);
+  $(window).on('resize', closeOpenMenu);
+  $(document).on('draw.dt', closeOpenMenu);
+
+});
+</script>
