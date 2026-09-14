@@ -23,6 +23,8 @@ else if ($mod=="5" or $mod=="5L")
 {	echo "Booking Stock"; }
 else if (($mod=="6" or $mod=="7") and $mode=="PO")
 {	echo "Laporan Purchase Order"; }
+else if (($mod=="6" or $mod=="lap_gen") and $mode=="General")
+{	echo "Laporan Purchase Order General"; }
 else if (($mod=="6" or $mod=="12") and $mode=="BPB")
 {	echo "Laporan Penasukan Barang"; }
 else if (($mod=="6" or $mod=="8") and $mode=="MCC")

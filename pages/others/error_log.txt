@@ -101,3 +101,15 @@
 [02-Sep-2026 04:23:17 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\others\pdfReq.php on line 3
 [02-Sep-2026 04:23:19 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\others\pdfReq.php on line 3
 [02-Sep-2026 04:23:21 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\others\pdfReq.php on line 3
+[09-Sep-2026 11:36:49 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\others\pdfReq.php on line 3
+[09-Sep-2026 11:36:53 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\others\pdfReq.php on line 3
+[09-Sep-2026 11:36:53 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\others\pdfReq.php on line 3
+[09-Sep-2026 11:36:54 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\others\pdfReq.php on line 3
+[09-Sep-2026 11:39:16 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\others\pdfReq.php on line 3
+[09-Sep-2026 11:39:17 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\others\pdfReq.php on line 3
+[09-Sep-2026 11:39:17 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\others\pdfReq.php on line 3
+[09-Sep-2026 11:39:17 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\others\pdfReq.php on line 3
+[09-Sep-2026 11:39:17 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\others\pdfReq.php on line 3
+[09-Sep-2026 11:39:20 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\others\pdfReq.php on line 3
+[09-Sep-2026 11:40:03 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\others\pdfReq.php on line 3
+[09-Sep-2026 11:40:43 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\others\pdfReq.php on line 3

@@ -48,6 +48,8 @@ if ($mode!="Out_Prob")
       echo "<div class='row'>";
       if ($mode=="PO")
       { echo "<form method='post' name='form' action='?mod=7&mode=PO' onsubmit='return validasi()'>"; }
+      else if ($mode=="General")
+      { echo "<form method='post' name='form' action='?mod=lap_gen&mode=General' onsubmit='return validasi()'>"; }      
       else if ($mode=="MCC")
       { echo "<form method='post' name='form' action='?mod=8&mode=MCC' onsubmit='return validasi()'>"; }
       else if ($mode=="BPB")
