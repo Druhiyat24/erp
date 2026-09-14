@@ -1052,6 +1052,80 @@ $(document).on('click', '.btn-cancel-file', function(e){
 
 
 
+/* ------------------------------------------------------------------
+   Dropdown attachment ada di dalam .dataTables_scrollBody yang
+   overflow-nya auto (karena scrollX/scrollY), jadi menu-nya terpotong.
+   Solusi: saat dibuka, menu dipindah sementara ke <body> dan diposisikan
+   fixed mengikuti tombolnya. Saat ditutup, dikembalikan ke tempat semula.
+------------------------------------------------------------------- */
+$(function () {
+
+  var $menu = null;   // menu yang sedang mengambang
+  var $home = null;   // parent aslinya
+
+  function placeMenu($btn) {
+    if (!$menu) return;
+
+    var r  = $btn[0].getBoundingClientRect();
+    var mw = $menu.outerWidth();
+    var mh = $menu.outerHeight();
+    var pad = 8;
+
+    // rata kanan terhadap tombol, lalu jaga tetap di dalam layar
+    var left = r.right - mw;
+    if (left + mw > window.innerWidth - pad) left = window.innerWidth - mw - pad;
+    if (left < pad) left = pad;
+
+    // buka ke bawah; kalau tidak muat, balik ke atas
+    var top = r.bottom + 2;
+    if (top + mh > window.innerHeight - pad) {
+      var up = r.top - mh - 2;
+      top = (up >= pad) ? up : Math.max(pad, window.innerHeight - mh - pad);
+    }
+
+    $menu.css({ top: top + 'px', left: left + 'px' });
+  }
+
+  function restoreMenu() {
+    if (!$menu) return;
+    if ($home && $home.length) {
+      $menu.removeClass('file-dropdown-floating').css({ top: '', left: '' }).appendTo($home);
+    } else {
+      $menu.remove();
+    }
+    $menu = null;
+    $home = null;
+  }
+
+  $(document).on('show.bs.dropdown', '.file-dd', function () {
+    restoreMenu(); // jaga-jaga kalau ada sisa yang belum tertutup
+
+    var $grp = $(this);
+    $home = $grp;
+    $menu = $grp.children('.custom-dropdown');
+    $menu.addClass('file-dropdown-floating').appendTo('body');
+    placeMenu($grp.children('[data-toggle="dropdown"]'));
+  });
+
+  $(document).on('hide.bs.dropdown', '.file-dd', function () {
+    restoreMenu();
+  });
+
+  // posisi fixed tidak ikut bergeser saat di-scroll, jadi tutup saja
+  function closeOpenMenu() {
+    if (!$menu) return;
+    $('.file-dd.open').removeClass('open')
+                      .find('[data-toggle="dropdown"]').attr('aria-expanded', 'false');
+    restoreMenu();
+  }
+
+  // scroll tidak bubble, jadi pakai listener fase capture supaya
+  // scroll di .dataTables_scrollBody ikut tertangkap
+  document.addEventListener('scroll', closeOpenMenu, true);
+  $(window).on('resize', closeOpenMenu);
+  $(document).on('draw.dt', closeOpenMenu);
+
+});
     </script>
 
     <script>
