@@ -143,12 +143,12 @@ $logo_company = $rscomp["logo_company"];
               echo "<td><a id='showdet'><button type='button' class='btn btn-xs btn-info'><i class='fa fa-eye' aria-hidden='true' > Show</i></button></a>
              </td>";
            }elseif ($data[status] == 'APPROVED') {
-             echo "<td><a href='http://10.10.5.60/ap/module/AP/pdf_maintain_bpb.php?doc_number=".$data[id]."' target='_blank'><button type='button' class='btn btn-xs btn-success'><i class='fa fa-print '> Print</i></button></a>
+             echo "<td><a href='http://nag.ddns.net/ap/module/AP/pdf_maintain_bpb.php?doc_number=".$data[id]."' target='_blank'><button type='button' class='btn btn-xs btn-success'><i class='fa fa-print '> Print</i></button></a>
              <a id='showdet'><button type='button' class='btn btn-xs btn-info'><i class='fa fa-eye' aria-hidden='true' > Show</i></button></a>
              </td>";
            }else{
 
-            echo "<td><a href='http://10.10.5.60/ap/module/AP/pdf_maintain_bpb.php?doc_number=".$data[id]."' target='_blank'><button type='button' class='btn btn-xs btn-success'><i class='fa fa-print '> Print</i></button></a>
+            echo "<td><a href='http://nag.ddns.net/ap/module/AP/pdf_maintain_bpb.php?doc_number=".$data[id]."' target='_blank'><button type='button' class='btn btn-xs btn-success'><i class='fa fa-print '> Print</i></button></a>
             <a id='showdet'><button type='button' class='btn btn-xs btn-info'><i class='fa fa-eye' aria-hidden='true' > Show</i></button></a>
             <a id='cancel_maintain'><button type='button' class='btn btn-xs btn-danger cancel_maintain'><i class='fa fa-trash' aria-hidden='true' > Cancel</i></button></a>
             </td>";

@@ -142,11 +142,11 @@ $logo_company = $rscomp["logo_company"];
             echo "<td>$data[create_user]</td>";
             echo "<td>$data[status]</td>";
             if ($data[status] == 'Cancel' OR $data[status] == 'Approved') {
-               echo "<td><a href='http://10.10.5.60/ap/module/AP/pdf_transf_bpb.php?doc_number=".$data[no_transfer]."' target='_blank'><button type='button' class='btn btn-xs btn-success'><i class='fa fa-print '> Print</i></button></a>
+               echo "<td><a href='http://nag.ddns.net/ap/module/AP/pdf_transf_bpb.php?doc_number=".$data[no_transfer]."' target='_blank'><button type='button' class='btn btn-xs btn-success'><i class='fa fa-print '> Print</i></button></a>
             </td>";
             }else{
 
-            echo "<td><a href='http://10.10.5.60/ap/module/AP/pdf_transf_bpb.php?doc_number=".$data[no_transfer]."' target='_blank'><button type='button' class='btn btn-xs btn-success'><i class='fa fa-print '> Print</i></button></a>
+            echo "<td><a href='http://nag.ddns.net/ap/module/AP/pdf_transf_bpb.php?doc_number=".$data[no_transfer]."' target='_blank'><button type='button' class='btn btn-xs btn-success'><i class='fa fa-print '> Print</i></button></a>
             <a id='cancel_trf'><button type='button' class='btn btn-xs btn-danger'><i class='fa fa-trash' aria-hidden='true' > Cancel</i></button></a>
             </td>";
             }
