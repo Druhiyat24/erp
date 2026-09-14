@@ -75,6 +75,7 @@
             echo "
             <li><a href='?mod=10'>Master Bahan Baku</a></li>
             <li><a href='?mod=6&mode=PO'>Purchase Order</a></li>
+            <li><a href='?mod=6&mode=General'>Purchase Order General</a></li>            
             <li><a href='?mod=6mcc&mode=MCC'>MCC</a></li>
             <li><a href='?mod=6&mode=BPB'>Pemasukan Barang</a></li>
             <li><a href='?mod=lap_gen_req'>General Request</a></li>";

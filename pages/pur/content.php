@@ -71,6 +71,10 @@ else if ($mod=="7")
 
 {	include "lap_po.php"; }
 
+else if ($mod=="lap_gen")
+
+{	include "lap_gen.php"; }
+
 else if ($mod=="8")
 
 {	include "lap_mcc.php"; }
