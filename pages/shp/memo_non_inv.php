@@ -1,60 +1,164 @@
 <style type="text/css">
-  /* ITEM FILE */
-.file-item-clean {
-    background: #ffffff;
-    border-radius: 8px;
-    padding: 10px 14px;
-    margin: 4px 8px;
-    font-size: 13px;
-    color: #334155;
-    display: block;
-    text-decoration: none;
-    transition: all 0.25s ease;
-    border: 1px solid transparent;
-}
-
-/* HOVER EFFECT */
-.file-item-clean:hover {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    transform: translateX(4px);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    color: #0f172a;
-}
-
-/* NAMA FILE */
-.file-name {
-    display: block;
-    overflow: hidden;
+/* BARIS TOMBOL AKSI DI KOLOM TERAKHIR */
+.memo-action-bar {
+    display: flex;
+    align-items: center;
     white-space: nowrap;
-    text-overflow: ellipsis;
+}
+.memo-action-bar > * {
+    margin-right: 4px;
+}
+.memo-action-bar > *:last-child {
+    margin-right: 0;
 }
 
-/* GARIS ANTAR ITEM */
-.file-item-clean:not(:last-child) {
-    border-bottom: 1px dashed #f1f5f9;
-}
-
-/* EFEK KLIK */
-.file-item-clean:active {
-    transform: scale(0.98);
-}
-
-/* DROPDOWN CONTAINER BIAR LEBIH RAPI */
 .dropdown-menu {
     border-radius: 10px;
     padding: 6px 0;
     border: 1px solid #e5e7eb;
 }
 
+/* ================= DROPDOWN FILE ================= */
 .custom-dropdown {
-    border: 1px solid #dee2e6;
-    border-radius: 10px;
-    padding: 8px 0;
-    min-width: 280px;
+    min-width: 360px;
+    max-width: 520px;
+    padding: 0;
+    overflow: hidden;               /* supaya baris tidak melewati sudut membulat */
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 12px 28px rgba(15,23,42,0.16), 0 2px 6px rgba(15,23,42,0.06);
 }
 
+/* --- JUDUL --- */
+.file-dd-head {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    background: #f8fafc;
+    border-bottom: 1px solid #eef2f7;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+    color: #64748b;
+}
+.file-dd-head .fa {
+    margin-right: 7px;
+    color: #94a3b8;
+}
+.file-dd-count {
+    margin-left: auto;
+    background: #e2e8f0;
+    color: #475569;
+    border-radius: 10px;
+    padding: 2px 8px;
+    font-size: 10px;
+    letter-spacing: .3px;
+}
 
+/* --- SATU BARIS FILE --- */
+.file-item-clean {
+    display: flex;
+    align-items: center;
+    padding: 9px 12px 9px 14px;
+    background: #ffffff;
+    transition: background .15s ease;
+}
+.file-item-clean + .file-item-clean {
+    border-top: 1px solid #f1f5f9;
+}
+.file-item-clean:hover {
+    background: #f8fafc;
+}
+
+/* ikon jenis file */
+.file-ico {
+    flex: 0 0 auto;
+    width: 32px;
+    height: 32px;
+    margin-right: 11px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    background: #f1f5f9;
+    color: #64748b;
+}
+.file-ico.is-pdf   { background:#fee2e2; color:#dc2626; }
+.file-ico.is-img   { background:#ede9fe; color:#7c3aed; }
+.file-ico.is-excel { background:#dcfce7; color:#16a34a; }
+.file-ico.is-word  { background:#dbeafe; color:#2563eb; }
+.file-ico.is-zip   { background:#fef3c7; color:#d97706; }
+
+/* teks: nama + keterangan */
+.file-meta {
+    flex: 1 1 auto;
+    min-width: 0;            /* wajib, kalau tidak nama panjang menjebol dropdown */
+    text-decoration: none;
+    display: block;
+}
+.file-name {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 13px;
+    font-weight: 500;
+    color: #1e293b;
+    line-height: 1.35;
+}
+.file-sub {
+    display: block;
+    font-size: 11px;
+    color: #94a3b8;
+    line-height: 1.35;
+    margin-top: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.file-meta:hover .file-name,
+.file-meta:focus .file-name {
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+/* tombol hapus: samar, jadi merah saat disentuh */
+.file-item-clean .btn-cancel-file {
+    flex: 0 0 auto;
+    cursor: pointer;
+    margin-left: 10px;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    border: 0;
+    border-radius: 7px;
+    background: transparent;
+    color: #cbd5e1;
+    font-size: 16px;
+    line-height: 26px;
+    text-align: center;
+    transition: background .15s ease, color .15s ease;
+}
+.file-item-clean:hover .btn-cancel-file {
+    color: #94a3b8;
+}
+.file-item-clean .btn-cancel-file:hover,
+.file-item-clean .btn-cancel-file:focus {
+    background: #fee2e2;
+    color: #dc2626;
+    outline: none;
+}
+
+/* Dropdown dipindah ke <body> saat dibuka supaya tidak terpotong
+   oleh .dataTables_scrollBody (scrollX/scrollY milik DataTables) */
+.file-dropdown-floating {
+    position: fixed;
+    display: block;
+    margin: 0;
+    z-index: 1060;
+}
 </style>
 
 <?php
@@ -64,6 +168,20 @@ if (empty($_SESSION['username'])) {
 $rscomp = mysql_fetch_array(mysql_query("select * from mastercompany"));
 $st_company = $rscomp["status_company"];
 $logo_company = $rscomp["logo_company"];
+
+/* ikon + warna sesuai jenis file, untuk dropdown attachment */
+if (!function_exists('file_ico_class')) {
+  function file_ico_class($filename)
+  {
+    $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+    if ($ext == 'pdf')                                                { return array('is-pdf',   'fa-file-pdf-o'); }
+    if (in_array($ext, array('jpg','jpeg','png','gif','bmp','webp'))) { return array('is-img',   'fa-file-image-o'); }
+    if (in_array($ext, array('xls','xlsx','csv')))                    { return array('is-excel', 'fa-file-excel-o'); }
+    if (in_array($ext, array('doc','docx')))                          { return array('is-word',  'fa-file-word-o'); }
+    if (in_array($ext, array('zip','rar','7z')))                      { return array('is-zip',   'fa-file-archive-o'); }
+    return array('', 'fa-file-o');
+  }
+}
 ?>
 <?php
 if ($mod == "memo_list_non_inv") {
@@ -175,66 +293,73 @@ if ($mod == "memo_list_non_inv") {
               $qfile = mysql_query("SELECT  a.*, REGEXP_REPLACE(file_name, '^[0-9]+_', '') AS clean_name FROM memo_file a WHERE id_h = '$data[id_h]' and status != 'CANCEL'");
 ?>
 
-<div class="d-flex align-items-center gap-2">
+<div class="memo-action-bar">
 
     <!-- EDIT -->
     <?php if ($data['status'] == 'DRAFT') { ?>
-        <a href="../shp/?mod=memo_edit_non_inv&id_h=<?php echo $data['id_h']; ?>" 
+        <a href="../shp/?mod=memo_edit_non_inv&id_h=<?php echo $data['id_h']; ?>"
            class="btn btn-sm btn-warning" title="Edit">
             <i class="fa fa-pencil"></i>
         </a>
     <?php } ?>
 
-    <!-- PRINT + FILE -->
-    <div class="btn-group">
+    <!-- PRINT -->
+    <a href="cetak_memo_non_inv.php?id_h=<?php echo $data['id_h']; ?>"
+       class="btn btn-sm btn-primary" title="Print">
+        <i class="fa fa-print"></i>
+    </a>
 
-        <!-- PRINT BUTTON -->
-        <a style="margin-right: 3px;" href="cetak_memo_non_inv.php?id_h=<?php echo $data['id_h']; ?>" 
-           class="btn btn-sm btn-primary" title="Print">
-            <i class="fa fa-print"></i>
-        </a>
+    <!-- DROPDOWN FILE -->
+    <?php if(mysql_num_rows($qfile) > 0){ ?>
+    <div class="btn-group file-dd">
 
-        <!-- DROPDOWN FILE -->
-        <?php if(mysql_num_rows($qfile) > 0){ ?>
-        <button type="button" 
-        class="btn btn-sm btn-info dropdown-toggle" 
-        data-toggle="dropdown">
-    <i class="fa fa-paperclip"></i> 
-    <?php echo mysql_num_rows($qfile); ?>
-</button>
+        <button type="button"
+            class="btn btn-sm btn-info dropdown-toggle"
+            data-toggle="dropdown">
+            <i class="fa fa-paperclip"></i>
+            <?php echo mysql_num_rows($qfile); ?>
+        </button>
 
+        <div class="dropdown-menu dropdown-menu-right custom-dropdown">
 
-        <div class="dropdown-menu dropdown-menu-right custom-dropdown shadow">
+            <div class="file-dd-head">
+                <i class="fa fa-paperclip"></i> File Upload
+                <span class="file-dd-count"><?php echo mysql_num_rows($qfile); ?> file</span>
+            </div>
 
+            <?php while($f = mysql_fetch_array($qfile)){
+                  list($ico_cls, $ico_fa) = file_ico_class($f['file_name']);
+                  $sub = htmlspecialchars(trim($f['created_by']));
+                  if (!empty($f['created_date'])) {
+                    $sub = ($sub === '' ? '' : $sub . ' &middot; ') . date('d M Y', strtotime($f['created_date']));
+                  }
+            ?>
+            <div class="file-item-clean">
 
-            <h6 class="dropdown-header">File Upload</h6>
+                <span class="file-ico <?php echo $ico_cls; ?>"><i class="fa <?php echo $ico_fa; ?>"></i></span>
 
-            <?php while($f = mysql_fetch_array($qfile)){ ?>
-              <a class="dropdown-item file-item-clean d-flex align-items-center"
-   target="_blank"
-   href="upload/<?php echo $f['file_name']; ?>">
+                <a class="file-meta"
+                   target="_blank"
+                   title="<?php echo htmlspecialchars($f['clean_name'], ENT_QUOTES); ?>"
+                   href="upload/<?php echo rawurlencode($f['file_name']); ?>">
+                    <span class="file-name"><?php echo htmlspecialchars($f['clean_name']); ?></span>
+                    <?php if ($sub !== '') { ?><span class="file-sub"><?php echo $sub; ?></span><?php } ?>
+                </a>
 
-    <span class="file-name text-truncate">
-        <?php echo $f['clean_name']; ?>
-    </span>
+                <button type="button"
+                    class="btn-cancel-file"
+                    data-id="<?php echo $f['id']; ?>"
+                    title="Cancel file">
+                    &times;
+                </button>
 
-    <button type="button"
-        class="btn btn-sm btn-danger ms-auto btn-cancel-file"
-        data-id="<?php echo $f['id']; ?>"
-        title="Cancel file">
-        &times;
-    </button>
-
-</a>
-
-
-
+            </div>
             <?php } ?>
 
         </div>
-        <?php } ?>
 
     </div>
+    <?php } ?>
 
     <!-- UPLOAD -->
     <button type="button"
