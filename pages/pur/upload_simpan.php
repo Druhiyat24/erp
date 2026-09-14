@@ -18,7 +18,7 @@ mysql_query("INSERT INTO po_item_draft (id_po_draft, id_jo, id_gen, qty, unit, c
 SELECT  
 a.id_po_draft,
 jo.id id_jo,
-mi.id_gen,
+IF(mi.matclass = 'PRINTING',mi.id_item,mi.id_gen) id_gen,
 a.qty,
 a.unit,
 pr.curr,
