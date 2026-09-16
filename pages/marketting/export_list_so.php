@@ -8,7 +8,7 @@ $dest = isset($_GET['dest']) ? $_GET['dest'] : '';
 $statusClose = "";
 if ($status_close != "")
 {
-    $statusClose = "AND a.close_order = '".$status_close."'";
+    $statusClose = "AND s.close_order = '".$status_close."'";
 }
 
 // jika export ke Excel
@@ -20,7 +20,7 @@ if ($dest == 'excel') {
 }
 
 $query = "select a.id_cost,cancel_h,a.username,a.id,so_no,buyerno,kpno,cost_no,
-    supplier,product_group,product_item,styleno,a.qty,a.unit, a.close_order,
+    supplier,product_group,product_item,styleno,a.qty,a.unit, s.close_order,
     deldate,fullname,a.so_date, a.jns_so, round(a.fob,2) fob, ms.season, concat(nama_pterms, ' (' ,a.jml_pterms, ' days - After',' ', mp.kode_pterms,')') ket_terms
     from so a inner join act_costing s on 
     a.id_cost=s.id inner join mastersupplier g on 

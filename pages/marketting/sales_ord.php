@@ -822,6 +822,7 @@ echo "<script type='text/javascript'>
         <th></th>
         <th></th>
         <th></th>
+        <th></th>
       </tr>
       </thead>
       <tbody>
@@ -927,6 +928,17 @@ echo "<script type='text/javascript'>
 	                <?php echo $tt_hapus2."</a>";
               }
             echo "</td>";
+             echo "<td>";
+            
+	           echo "<a href='javascript:void(0)' 
+				        data-toggle='tooltip' 
+				        title='History Close Order'
+				        onclick='show_modal_history($id_costing)'>
+				        <i class='fa fa-history'></i>
+				      </a>";
+		       
+		        
+			echo "</td>";
           echo "</tr>";
           $no++; // menambah nilai nomor urut
         }
@@ -934,7 +946,64 @@ echo "<script type='text/javascript'>
       </tbody>
     </table>
   </div>
+
+	<div class="modal fade" id="modal_history" tabindex="-1" role="dialog" aria-labelledby="modal_history_label" aria-hidden="true">
+	    <div class="modal-dialog modal-lg" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title" id="modal_history_label"><i class="fa fa-history"></i> History Close Order</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">&times;</span>
+	                </button>
+	            </div>
+	            <div class="modal-body" id="list_history">
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 </div>
 <?php } ?>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script src="js/SalesOrder.js"></script>
+<script>
+	function show_modal_history(id_costing) {
+	    $('#modal_history').modal('show');
+	    
+	    $('#list_history').html(`
+	        <div class="text-center py-4">
+	            <i class="fa fa-spinner fa-spin fa-2x"></i>
+	            <p class="mt-2 mb-0">Memuat data histori...</p>
+	        </div>
+	    `);
+
+	    $.ajax({
+	        url: 'get_history_close.php',
+	        type: 'GET',
+	        data: { id: id_costing },
+	        success: function(response) {
+	            $('#list_history').html(response);
+	            
+	            $('#table_history').DataTable({
+	                "pageLength": 10,          
+	                "lengthChange": true,      
+	                "searching": true,         
+	                "ordering": false,          
+	                "info": true,               
+	                "language": {
+	                    "paginate": {
+	                        "previous": "&laquo;",
+	                        "next": "&raquo;"
+	                    },
+	                    "info": "Menampilkan _START_ - _END_ dari _TOTAL_ data"
+	                }
+	            });
+	        },
+	        error: function() {
+	            $('#list_history').html('<div class="alert alert-danger">Gagal mengambil data riwayat.</div>');
+	        }
+	    });
+	}
+</script>
