@@ -3,9 +3,9 @@ include '../../include/conn.php';
 include '../forms/fungsi.php';
 session_start();
 
-if (empty($_SESSION['username'])) { 
-    exit('Akses ditolak.'); 
-}
+// if (empty($_SESSION['username'])) { 
+//     exit('Akses ditolak.'); 
+// }
 
 $id_costing = isset($_GET['id']) ? $_GET['id'] : 0;
 
