@@ -675,69 +675,89 @@ echo "<script type='text/javascript'>
       </thead>
       <tbody>
         <?php
-        # QUERY TABLE
-		    $query = mysql_query("SELECT sod.*,so.username,sod.price px_det from so_det sod inner join so on sod.id_so=so.id 
-		    	where sod.id_so='$id_so'"); 
+        $query = mysql_query("SELECT sod.*, so.username, sod.price px_det,
+                             (SELECT COUNT(so_det_id) FROM laravel_nds.marker_input_detail WHERE so_det_id = sod.id) as cek_marker
+                             FROM so_det sod 
+                             INNER JOIN so ON sod.id_so=so.id 
+                             WHERE sod.id_so='$id_so'"); 
         $no = 1;
         $tot_qty=0; 
-				while($data = mysql_fetch_array($query))
-			  { if($data['cancel']=="Y") { $bgcol=" style='color: red; font-weight:bold;'"; } else { $bgcol=""; }
+                while($data = mysql_fetch_array($query))
+              { if($data['cancel']=="Y") { $bgcol=" style='color: red; font-weight:bold;'"; } else { $bgcol=""; }
           echo "<tr $bgcol>";
-				    if ($mod!="8d") 
-				    	{	echo "<td>$no</td>"; } 
-				    	else 
-				    	{ echo "
-				    		<td>
-				    			<input type ='hidden' name='chkhide[$data[id]]' value='$data[id]'>
-                  <input type ='checkbox' name='itemchk[$data[id]]' class='chkclass'>
-               	</td>"; 
-              }
-				    echo "
-				    <td>".fd_view($data['deldate_det'])."</td>
-				    <td>$data[dest]</td>
-				    <td>$data[color]</td>
-				    <td>$data[size]</td>
-					<td>$data[reff_no]</td>
-					<td>$data[styleno_prod]</td>
-				    <td>".fn($data['qty'],0)."</td>
-				    <td>".fn($data['qty_add'],0)."</td>
-				    <td>$data[unit]</td>
-				    <td>$data[px_det]</td>
-				    <td>$data[sku]</td>
-				    <td>$data[barcode]</td>
-				    <td>$data[fob]</td>
-				    <td>$data[notes]</td>";
-						if($data['cancel']=="Y")
-						{echo "<td>Cancelled</td>";}
-						else
-						{echo "<td></td>";}
-						if ($mod!="8d")
-						{	if ($data['username']==$user and $data['cancel']=="N")
-							{	
-								echo "
-								<td>
-									<a href='?mod=8&id=$id_so&idd=$data[id]'
-		              	data-toggle='tooltip' title='Ubah'><i class='fa fa-pencil'></i></a>
-	              </td>";
-								echo "
-								<td>
-									<a href='d_so.php?mod=$mod&id=$id_so&idd=$data[id]&mod=$mod'
-			            	$tt_cancel";?> 
-			            	onclick="return confirm('Apakah anda yakin akan dicancel ?')">
-			            	<?php echo $tt_hapus2."</a>
-			          </td>";
-			       	}
-			       	else
-			       	{ echo "<td></td>"; 
-			       		echo "<td></td>";
-			     		}
+                    if ($mod!="8d") 
+                        {    echo "<td>$no</td>"; } 
+                        else 
+                        { 
+                        	echo "<td>";
+                        
+	                        if ($data['cek_marker'] == 0) {
+	                            echo "
+	                                <input type='hidden' name='chkhide[$data[id]]' value='$data[id]'>
+	                                <input type='checkbox' name='itemchk[$data[id]]' class='chkclass'>
+	                            ";
+	                        } else {
+	                            echo "
+	                                <input type='checkbox' disabled title='Data sudah ada di Marker'>
+	                            ";
+	                        }
+	                        
+	                        echo "</td>";
+              			}
+                    echo "
+                    <td>".fd_view($data['deldate_det'])."</td>
+                    <td>$data[dest]</td>
+                    <td>$data[color]</td>
+                    <td>$data[size]</td>
+                    <td>$data[reff_no]</td>
+                    <td>$data[styleno_prod]</td>
+                    <td>".fn($data['qty'],0)."</td>
+                    <td>".fn($data['qty_add'],0)."</td>
+                    <td>$data[unit]</td>
+                    <td>$data[px_det]</td>
+                    <td>$data[sku]</td>
+                    <td>$data[barcode]</td>
+                    <td>$data[fob]</td>
+                    <td>$data[notes]</td>";
+                        if($data['cancel']=="Y")
+                        {echo "<td>Cancelled</td>";}
+                        else
+                        {echo "<td></td>";}
 
-						}
-					echo "</tr>";
-				  $tot_qty = $tot_qty + $data['qty'];
-				  $no++; // menambah nilai nomor urut
-				}
-			  ?>
+                        if ($mod!="8d")
+                        {    
+                            if ($data['username']==$user and $data['cancel']=="N")
+                            {    
+                                // TOMBOL EDIT
+                                echo "
+                                <td>
+                                    <a href='?mod=8&id=$id_so&idd=$data[id]'
+                          data-toggle='tooltip' title='Ubah'><i class='fa fa-pencil'></i></a>
+                  </td>";
+                                
+                                if ($data['cek_marker'] == 0) {
+                                    echo "
+                                    <td>
+                                        <a href='d_so.php?mod=$mod&id=$id_so&idd=$data[id]&mod=$mod'
+                                $tt_cancel";?> 
+                                onclick="return confirm('Apakah anda yakin akan dicancel ?')">
+                                <?php echo $tt_hapus2."</a>
+                                  </td>";
+                                } else {
+                                    echo "<td></td>";
+                                }
+                           }
+                           else
+                           { 
+                               echo "<td></td>"; 
+                               echo "<td></td>";
+                           }
+                        }
+                    echo "</tr>";
+                  $tot_qty = $tot_qty + $data['qty'];
+                  $no++; // menambah nilai nomor urut
+                }
+              ?>
       </tbody>
     </table>
     Total : <?php echo fn($tot_qty,0); ?> 
