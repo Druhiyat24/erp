@@ -747,7 +747,7 @@ if ($mod=="37v_bppb_po")
               </td>"; 
             }
             else
-            { echo "<td><a href='?mod=edit_bppb&bppbno=$data[bppbno]' target='_blank'
+            { echo "<td><a href='?mod=edit_bppb&bppbno=$data[bppbno]&mode=$mode' target='_blank'
               data-toggle='tooltip' title='Edit New'><i class='fa fa-pencil-square-o text-success' aria-hidden='true'></i>
               </a></td>"; }
           echo "</tr>";

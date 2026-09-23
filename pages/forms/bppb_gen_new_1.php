@@ -490,7 +490,7 @@ group by id_item ";
 
               </a>
 
-              <a href='?mod=edit_bppb&bppbno=$data[bppbno]' target='_blank'
+              <a href='?mod=edit_bppb&bppbno=$data[bppbno]&mode=ATKUMUM' target='_blank'
           data-toggle='tooltip' title='Edit New'><i class='fa fa-pencil-square-o text-success' aria-hidden='true'></i>
           </a>
 
