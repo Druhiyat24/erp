@@ -358,6 +358,8 @@ echo "<script type='text/javascript'>";
 
     var status_kb = document.form.txtstatus_kb.value;
 
+    var jenis_trans = (document.form.txtjenis_trans ? document.form.txtjenis_trans.value : '');
+
     var bppbdate = document.form.txtbppbdate.value;
 
     var qtykos = 0;
@@ -401,6 +403,11 @@ echo "<script type='text/javascript'>";
     echo "else if (qtykos == 0) { swal({ title: 'Tidak Ada Data', $img_alert }); valid = false; }";
 
     echo "else if (qtyover > 0) { swal({ title: 'Stock Tidak Cukup', $img_alert }); valid = false; }";
+
+    if ($mode=="WIP")
+    {
+      echo "else if (jenis_trans == '') { swal({ title: 'Jenis Pengeluaran Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
+    }
 
     echo "else if (id_supplier == '') { swal({ title: 'Dikirim Ke Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
 

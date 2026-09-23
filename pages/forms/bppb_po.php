@@ -194,6 +194,7 @@ echo "<script type='text/javascript'>";
     var bcno = document.form.txtbcno.value;
     var bcdate = document.form.txtbcdate.value;
     var status_kb = document.form.txtstatus_kb.value;
+    var jenis_trans = (document.form.txtjenis_trans ? document.form.txtjenis_trans.value : '');
     var bppbdate = document.form.txtbppbdate.value;
     var qtykos = 0;
     var qtyover = 0;
@@ -216,6 +217,10 @@ echo "<script type='text/javascript'>";
     echo "if (reqno == '') { swal({ title: 'JO # Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
     echo "else if (qtykos == 0) { swal({ title: 'Tidak Ada Data', $img_alert }); valid = false; }";
     echo "else if (qtyover > 0) { swal({ title: 'Stock Tidak Cukup', $img_alert }); valid = false; }";
+    if ($mode=="WIP")
+    {
+      echo "else if (jenis_trans == '') { swal({ title: 'Jenis Pengeluaran Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
+    }
     echo "else if (id_supplier == '') { swal({ title: 'Dikirim Ke Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
     echo "else if (invno == '') { document.form.txtinvno.focus();swal({ title: 'Nomor Inv/SJ Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
     echo "else if (status_kb == '') { swal({ title: 'Jenis Dokumen Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";

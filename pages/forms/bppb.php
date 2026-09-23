@@ -394,9 +394,11 @@ echo "<script type='text/javascript'>";
 
     echo "var bppbdate = document.form.txtbppbdate.value;";
 
-    
+    echo "var jenis_trans = (document.form.txtjenis_trans ? document.form.txtjenis_trans.value : '');";
 
-    $img_alert = "imageUrl: '../../images/error.jpg'";    
+
+
+    $img_alert = "imageUrl: '../../images/error.jpg'";
 
     echo "if (id_item == '') 
 
@@ -422,6 +424,8 @@ echo "<script type='text/javascript'>";
 
     #echo "else if (Number(qty) > Number(sisa)) { document.form.txtqty.focus();swal({ title: 'Jumlah Tidak Mencukupi', imageUrl: $img_err });valid = false;}";
 
+    if ($mode=="WIP")
+    { echo "else if (jenis_trans == '') { swal({ title: 'Jenis Pengeluaran Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}"; }
     echo "else if (id_supplier == '') { swal({ title: 'Dikirim Ke Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
 
     echo "else if (invno == '') { document.form.txtinvno.focus();swal({ title: 'Nomor Inv/SJ Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
