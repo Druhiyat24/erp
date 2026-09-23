@@ -97,15 +97,18 @@ $logo_company = $rscomp["logo_company"];
       intervalBpb = setInterval('findTotalBpb()', 1);
     }
 
-    function findTotalBpb() {
-      var arr = document.getElementsByClassName('form-control qtybpbclass');
-      var tot = 0;
-      for (var i = 0; i < arr.length; i++) {
-        if (parseFloat(arr[i].value))
-          tot += parseFloat(arr[i].value);
-      }
-      document.getElementById('total_qty_chk').value = tot;
+function findTotalBpb() {
+  var arr = document.getElementsByClassName('form-control qtybpbclass');
+  var tot = 0;
+  for (var i = 0; i < arr.length; i++) {
+    var val = parseFloat(arr[i].value);
+    if (!isNaN(val)) {
+      tot += val;
     }
+  }
+  // Pembulatan 2 angka di belakang koma (misal: 24 atau 24.00)
+  document.getElementById('total_qty_chk').value = parseFloat(tot.toFixed(2));
+}
 
     function stopCalcBpb() {
       clearInterval(intervalBpb);
