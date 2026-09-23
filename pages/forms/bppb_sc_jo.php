@@ -189,6 +189,7 @@ if ($bppbno=="" AND $id_item=="")
   $bppbdate = date('d M Y');
 
   $status_kb = "";
+  $txtjenis_trans_h = "";
 
   $txttujuan = "";
 
@@ -243,6 +244,7 @@ else if ($bppbno<>"" AND $id_item=="")
   $bppbdate = date('d M Y',strtotime($data['bppbdate']));
 
   $status_kb = $data['jenis_dok'];
+  $txtjenis_trans_h = $data['jenis_trans'];
 
   $txttujuan = $data['tujuan'];
 
@@ -299,6 +301,7 @@ else
   $bppbdate = date('d M Y',strtotime($data['bppbdate']));
 
   $status_kb = $data['jenis_dok'];
+  $txtjenis_trans_h = $data['jenis_trans'];
 
   $txttujuan = $data['tujuan'];
 
@@ -619,6 +622,26 @@ if($mode = "Scrap"){
             echo "</select>";
 
           echo "</div>";
+
+          if ($mode=="WIP")
+          {
+
+            echo "<div class='form-group'>";
+
+              echo "<label>Jenis Pengeluaran *</label>";
+
+              echo "<select class='form-control select2' style='width: 100%;' name='txtjenis_trans' required>";
+
+              $sql = "select nama_trans isi,nama_trans tampil from mastertransaksi where
+                jenis_trans='OUT' and jns_gudang='WIP' order by id";
+
+              IsiCombo($sql,$txtjenis_trans_h,'Pilih Jenis Pengeluaran');
+
+              echo "</select>";
+
+            echo "</div>";
+
+          }
 
           echo "
 

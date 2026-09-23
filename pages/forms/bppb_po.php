@@ -96,6 +96,7 @@ if ($bppbno=="" AND $id_item=="")
   $tglaju = date('d M Y');
   $bppbdate = date('d M Y');
   $status_kb = "";
+  $txtjenis_trans_h = "";
   $txttujuan = "";
   $txtsubtujuan = "";
   $last_date_bppb = date('d M Y');
@@ -123,6 +124,7 @@ else if ($bppbno<>"" AND $id_item=="")
   $bppbno = $data['bppbno'];
   $bppbdate = date('d M Y',strtotime($data['bppbdate']));
   $status_kb = $data['jenis_dok'];
+  $txtjenis_trans_h = $data['jenis_trans'];
   $txttujuan = $data['tujuan'];
   $txtsubtujuan = $data['subtujuan'];
   $last_date_bppb = date('d M Y',strtotime($data['last_date_bppb']));
@@ -151,6 +153,7 @@ else
   $bppbno = $data['bppbno'];
   $bppbdate = date('d M Y',strtotime($data['bppbdate']));
   $status_kb = $data['jenis_dok'];
+  $txtjenis_trans_h = $data['jenis_trans'];
   $txttujuan = $data['tujuan'];
   $txtsubtujuan = $data['subtujuan'];
   $last_date_bppb = date('d M Y',strtotime($data['last_date_bppb']));
@@ -459,6 +462,17 @@ echo "<div class='box'>";
             echo "<label>$c50</label>";
             echo "<input type='text' class='form-control' name='txtnomor_mobil' placeholder='$cmas $c50' value='$nomor_mobil'>";
           echo "</div>";
+          if ($mode=="WIP")
+          {
+            echo "<div class='form-group'>";
+              echo "<label>Jenis Pengeluaran *</label>";
+              echo "<select class='form-control select2' style='width: 100%;' name='txtjenis_trans' required>";
+              $sql = "select nama_trans isi,nama_trans tampil from mastertransaksi where
+                jenis_trans='OUT' and jns_gudang='WIP' order by id";
+              IsiCombo($sql,$txtjenis_trans_h,'Pilih Jenis Pengeluaran');
+              echo "</select>";
+            echo "</div>";
+          }
           echo "
             <button type='submit' name='submit' class='btn btn-primary'>$csim</button>
             <a href='?mod=$mod&mode=$mode'>Baru</a>";

@@ -60,6 +60,7 @@ if (isset($_POST['txtcurr'])) { $txtcurr=nb($_POST['txtcurr']); } else { $txtcur
 if (isset($_POST['txtparitem']) and $mod=="61a") { $txtid_item_fg = $_POST['txtparitem']; } else { $txtid_item_fg = ""; }
 $txtremark=nb($_POST['txtremark']);
 $txtnomor_mobil=nb($_POST['txtnomor_mobil']);
+if (isset($_POST['txtjenis_trans'])) { $txtjenis_trans = trim(str_replace("'","",$_POST['txtjenis_trans'])); } else { $txtjenis_trans = ""; }
 $txtid_supplier=nb($_POST['txtid_supplier']);
 $txtinvno=nb($_POST['txtinvno']);
 if (isset($_POST['txtbcno'])) { $txtbcno=nb($_POST['txtbcno']); } else { $txtbcno = ""; } 
@@ -137,12 +138,12 @@ if (($bppbno=="" AND $id_item=="") OR ($bppbno<>"" AND $id_item==""))
 					if ($cek=="0")
 					{	$sql = "insert into $nm_tbl (id_item_bb,id_item,id_item_fg,qty,unit,curr,price,remark,berat_bersih,berat_kotor,nomor_mobil,id_supplier,invno,bcno,bcdate,
 							bppbno,bppbno_int,bppbno_req,bppbdate,jenis_dok,username,use_kite,nomor_aju,tanggal_aju,kpno,
-							nomor_rak,status_retur,tujuan,subtujuan,id_jo) values ('$txtid_item_bb','$txtid_item','$txtid_item_fg',
+							nomor_rak,status_retur,tujuan,subtujuan,id_jo,jenis_trans) values ('$txtid_item_bb','$txtid_item','$txtid_item_fg',
 							'$txtqty','$txtunit','$txtcurr','$txtprice','$txtremark','$txtberat_bersih','$txtberat_kotor',
 							'$txtnomor_mobil','$txtid_supplier','$txtinvno','$txtbcno','$txtbcdate',
 							'$txtbppbno','$txtbppbno2','$txtreqno',
 							'$txtbppbdate','$status_kb','$user','1','$txtbcaju','$txttglaju',
-							'$txtkpno','$txtnomor_rak','$retur','$txttujuan','$txtsubtujuan','$txtid_jo')";
+							'$txtkpno','$txtnomor_rak','$retur','$txttujuan','$txtsubtujuan','$txtid_jo','$txtjenis_trans')";
 						insert_log($sql,$user);
 						#echo $sql;
 						calc_stock($cbomat,$txtid_item);
@@ -201,8 +202,10 @@ else if ($bppbno<>"" AND $id_item<>"")
 		invno='$txtinvno',
 		bcno='$txtbcno',
 		bcdate='$txtbcdate',nomor_aju='$txtbcaju',tanggal_aju='$txttglaju',
-		bppbdate='$txtbppbdate',tujuan='$txttujuan',subtujuan='$txtsubtujuan',username='$user' 
-		where bppbno='$bppbno'";
+		bppbdate='$txtbppbdate',tujuan='$txttujuan',subtujuan='$txtsubtujuan',username='$user'";
+	if ($mode=="WIP")
+	{ $sql .= ",jenis_trans='$txtjenis_trans'"; }
+	$sql .= " where bppbno='$bppbno'";
 	insert_log($sql,$user);
 	if ($cbomat=="FG")
 	{ gen_kartu_stock($user,$sesi,$txtid_item,"bpbno like 'FG%'","bppbno like 'SJ-FG%'"); }
