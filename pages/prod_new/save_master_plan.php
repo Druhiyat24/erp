@@ -165,7 +165,7 @@ if ($mod == 'update_status') {
 			if ($current_cancel == 'Y' && $masterPlanExist) {
 				$_SESSION['msg'] = "X Master Plan Sudah Ada.";
 			} else {
-				$sql = "update master_plan set cancel = case when cancel = 'Y' then'N' else 'Y' end
+				$sql = "update master_plan set cancel = case when cancel = 'Y' then 'N' else 'Y' end
 				where id = '$id'";
 				insert_log($sql, $user); {
 					$_SESSION['msg'] = "Data Berhasil Diubah.";
