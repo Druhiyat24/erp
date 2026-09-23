@@ -102,8 +102,13 @@ $supplier = $databpb['supplier'];
             <div class='form-group'>
               <label>Jenis Transaksi *</label>
               <select class='form-control select2' style='width: 100%;' name='jenis_trans' id='jenis_trans'>
-                <?php 
-                $sql = "select upper(nama_trans) isi, upper(nama_trans) tampil from mastertransaksi where jenis_trans='OUT' and jns_gudang = 'FACC' order by id";
+                <?php
+                if (isset($_GET['mode']) and $_GET['mode']=='WIP')
+                { $sql = "select nama_trans isi, nama_trans tampil from mastertransaksi where jenis_trans='OUT' and jns_gudang = 'WIP' order by id"; }
+                else if (isset($_GET['mode']) and $_GET['mode']=='ATKUMUM')
+                { $sql = "select nama_trans isi, nama_trans tampil from mastertransaksi where jenis_trans='OUT' and jns_gudang = 'ATKUMUM' order by id"; }
+                else
+                { $sql = "select upper(nama_trans) isi, upper(nama_trans) tampil from mastertransaksi where jenis_trans='OUT' and jns_gudang = 'FACC' order by id"; }
                 IsiCombo($sql, $jenis_trans, 'Pilih Jenis Transaksi');
                 ?>
               </select>

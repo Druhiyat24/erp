@@ -16,6 +16,7 @@ if ($mod == 'simpan')
 	$txtnomor_rak	=nb($_POST['txtnomor_rak']);
 	$txtinvno		=nb($_POST['txtinvno']);
 	$cbokb			=nb($_POST['cbokb']);
+	$txtjenis_trans	=trim(str_replace("'","",$_POST['cbojenis_trans']));
 	$txtremark		=nb($_POST['txtremark']);
 	$dateinput		=date('Y-m-d H:i:s');
 
@@ -37,9 +38,9 @@ if ($mod == 'simpan')
 			$txtqty	 	= $JmlArray[$key];
 			$txtunit	= $UnitArray[$key];
 
-		    {	$sql = "insert into bppb (bppbno,bppbno_int, bppbdate, id_item, qty, price, remark, username, unit, bcdate, invno, id_supplier, print, bulat, tanggal_aju, status_retur, jenis_dok, confirm, nomor_rak, dateinput, cancel)
+		    {	$sql = "insert into bppb (bppbno,bppbno_int, bppbdate, id_item, qty, price, remark, username, unit, bcdate, invno, id_supplier, print, bulat, tanggal_aju, status_retur, jenis_dok, confirm, nomor_rak, dateinput, cancel, jenis_trans)
 				values ('$txtbppbno','$txtbppbno2','$txtbppbdate','$txtid_item','$txtqty','0','$txtremark','$user','$txtunit','$txtbppbdate','$txtinvno',
-				'$txtid_supplier','N','1','$txtbppbdate','N','$cbokb','N','$txtnomor_rak','$dateinput','N')";
+				'$txtid_supplier','N','1','$txtbppbdate','N','$cbokb','N','$txtnomor_rak','$dateinput','N','$txtjenis_trans')";
 			insert_log($sql,$user);
 			{$_SESSION['msg']="Data Berhasil Disimpan, Nomor BPPB : ".$txtbppbno2;}
 			echo "<script>window.location.href='../forms/?mod=new_bppb_gen';</script>";

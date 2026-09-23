@@ -189,6 +189,7 @@ if ($bppbno=="" AND $id_item=="")
   $bppbdate = date('d M Y');
 
   $status_kb = "";
+  $txtjenis_trans_h = "";
 
   $txttujuan = "";
 
@@ -243,6 +244,7 @@ else if ($bppbno<>"" AND $id_item=="")
   $bppbdate = date('d M Y',strtotime($data['bppbdate']));
 
   $status_kb = $data['jenis_dok'];
+  $txtjenis_trans_h = $data['jenis_trans'];
 
   $txttujuan = $data['tujuan'];
 
@@ -299,6 +301,7 @@ else
   $bppbdate = date('d M Y',strtotime($data['bppbdate']));
 
   $status_kb = $data['jenis_dok'];
+  $txtjenis_trans_h = $data['jenis_trans'];
 
   $txttujuan = $data['tujuan'];
 
@@ -355,6 +358,8 @@ echo "<script type='text/javascript'>";
 
     var status_kb = document.form.txtstatus_kb.value;
 
+    var jenis_trans = (document.form.txtjenis_trans ? document.form.txtjenis_trans.value : '');
+
     var bppbdate = document.form.txtbppbdate.value;
 
     var qtykos = 0;
@@ -398,6 +403,11 @@ echo "<script type='text/javascript'>";
     echo "else if (qtykos == 0) { swal({ title: 'Tidak Ada Data', $img_alert }); valid = false; }";
 
     echo "else if (qtyover > 0) { swal({ title: 'Stock Tidak Cukup', $img_alert }); valid = false; }";
+
+    if ($mode=="WIP" or $mode=="Scrap")
+    {
+      echo "else if (jenis_trans == '') { swal({ title: 'Jenis Pengeluaran Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
+    }
 
     echo "else if (id_supplier == '') { swal({ title: 'Dikirim Ke Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
 
@@ -602,6 +612,28 @@ echo "<div class='box'>";
             echo "<input type='text' class='form-control' name='txtnomor_mobil' placeholder='$cmas $c50' value='$nomor_mobil'>";
 
           echo "</div>";
+
+          if ($mode=="WIP" or $mode=="Scrap")
+          {
+
+            $jns_gudang_jp = ($mode=="WIP") ? "WIP" : "SCRAP";
+
+            echo "<div class='form-group'>";
+
+              echo "<label>Jenis Pengeluaran *</label>";
+
+              echo "<select class='form-control select2' style='width: 100%;' name='txtjenis_trans' required>";
+
+              $sql = "select nama_trans isi,nama_trans tampil from mastertransaksi where
+                jenis_trans='OUT' and jns_gudang='$jns_gudang_jp' order by id";
+
+              IsiCombo($sql,$txtjenis_trans_h,'Pilih Jenis Pengeluaran');
+
+              echo "</select>";
+
+            echo "</div>";
+
+          }
 
           echo "<div class='form-group'>";
 

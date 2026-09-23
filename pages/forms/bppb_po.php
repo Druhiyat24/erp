@@ -96,6 +96,7 @@ if ($bppbno=="" AND $id_item=="")
   $tglaju = date('d M Y');
   $bppbdate = date('d M Y');
   $status_kb = "";
+  $txtjenis_trans_h = "";
   $txttujuan = "";
   $txtsubtujuan = "";
   $last_date_bppb = date('d M Y');
@@ -123,6 +124,7 @@ else if ($bppbno<>"" AND $id_item=="")
   $bppbno = $data['bppbno'];
   $bppbdate = date('d M Y',strtotime($data['bppbdate']));
   $status_kb = $data['jenis_dok'];
+  $txtjenis_trans_h = $data['jenis_trans'];
   $txttujuan = $data['tujuan'];
   $txtsubtujuan = $data['subtujuan'];
   $last_date_bppb = date('d M Y',strtotime($data['last_date_bppb']));
@@ -151,6 +153,7 @@ else
   $bppbno = $data['bppbno'];
   $bppbdate = date('d M Y',strtotime($data['bppbdate']));
   $status_kb = $data['jenis_dok'];
+  $txtjenis_trans_h = $data['jenis_trans'];
   $txttujuan = $data['tujuan'];
   $txtsubtujuan = $data['subtujuan'];
   $last_date_bppb = date('d M Y',strtotime($data['last_date_bppb']));
@@ -191,6 +194,7 @@ echo "<script type='text/javascript'>";
     var bcno = document.form.txtbcno.value;
     var bcdate = document.form.txtbcdate.value;
     var status_kb = document.form.txtstatus_kb.value;
+    var jenis_trans = (document.form.txtjenis_trans ? document.form.txtjenis_trans.value : '');
     var bppbdate = document.form.txtbppbdate.value;
     var qtykos = 0;
     var qtyover = 0;
@@ -213,6 +217,10 @@ echo "<script type='text/javascript'>";
     echo "if (reqno == '') { swal({ title: 'JO # Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
     echo "else if (qtykos == 0) { swal({ title: 'Tidak Ada Data', $img_alert }); valid = false; }";
     echo "else if (qtyover > 0) { swal({ title: 'Stock Tidak Cukup', $img_alert }); valid = false; }";
+    if ($mode=="WIP")
+    {
+      echo "else if (jenis_trans == '') { swal({ title: 'Jenis Pengeluaran Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
+    }
     echo "else if (id_supplier == '') { swal({ title: 'Dikirim Ke Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
     echo "else if (invno == '') { document.form.txtinvno.focus();swal({ title: 'Nomor Inv/SJ Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
     echo "else if (status_kb == '') { swal({ title: 'Jenis Dokumen Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
@@ -459,6 +467,17 @@ echo "<div class='box'>";
             echo "<label>$c50</label>";
             echo "<input type='text' class='form-control' name='txtnomor_mobil' placeholder='$cmas $c50' value='$nomor_mobil'>";
           echo "</div>";
+          if ($mode=="WIP")
+          {
+            echo "<div class='form-group'>";
+              echo "<label>Jenis Pengeluaran *</label>";
+              echo "<select class='form-control select2' style='width: 100%;' name='txtjenis_trans' required>";
+              $sql = "select nama_trans isi,nama_trans tampil from mastertransaksi where
+                jenis_trans='OUT' and jns_gudang='WIP' order by id";
+              IsiCombo($sql,$txtjenis_trans_h,'Pilih Jenis Pengeluaran');
+              echo "</select>";
+            echo "</div>";
+          }
           echo "
             <button type='submit' name='submit' class='btn btn-primary'>$csim</button>
             <a href='?mod=$mod&mode=$mode'>Baru</a>";
@@ -728,7 +747,7 @@ if ($mod=="37v_bppb_po")
               </td>"; 
             }
             else
-            { echo "<td><a href='?mod=edit_bppb&bppbno=$data[bppbno]' target='_blank'
+            { echo "<td><a href='?mod=edit_bppb&bppbno=$data[bppbno]&mode=$mode' target='_blank'
               data-toggle='tooltip' title='Edit New'><i class='fa fa-pencil-square-o text-success' aria-hidden='true'></i>
               </a></td>"; }
           echo "</tr>";

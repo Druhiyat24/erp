@@ -31,6 +31,7 @@ if (isset($_POST['txtcurr'])) { $txtcurr=nb($_POST['txtcurr']); } else { $txtcur
 if (isset($_POST['txtparitem']) and $mod=="61a") { $txtid_item_fg = $_POST['txtparitem']; } else { $txtid_item_fg = ""; }
 $txtremark=nb($_POST['txtremark']);
 $txtnomor_mobil=nb($_POST['txtnomor_mobil']);
+if (isset($_POST['txtjenis_trans'])) { $txtjenis_trans = trim(str_replace("'","",$_POST['txtjenis_trans'])); } else { $txtjenis_trans = ""; }
 $txtid_supplier=nb($_POST['txtid_supplier']);
 $txtinvno=nb($_POST['txtinvno']);
 if (isset($_POST['txtbcno'])) { $txtbcno=nb($_POST['txtbcno']); } else { $txtbcno = ""; } 
@@ -98,12 +99,12 @@ if ($bppbno=="")
 					if ($cek=="0")
 					{	$sql = "insert into $nm_tbl (id_item,id_item_fg,qty,unit,curr,price,remark,berat_bersih,berat_kotor,nomor_mobil,id_supplier,invno,bcno,bcdate,
 							bppbno,bppbno_int,bppbno_req,bppbdate,jenis_dok,username,use_kite,nomor_aju,tanggal_aju,kpno,
-							nomor_rak,status_retur,tujuan,subtujuan,id_jo) values ('$txtid_item','$txtid_item_fg',
+							nomor_rak,status_retur,tujuan,subtujuan,id_jo,jenis_trans) values ('$txtid_item','$txtid_item_fg',
 							'$txtqty','$txtunit','$txtcurr','$txtprice','$txtremark','$txtberat_bersih','$txtberat_kotor',
 							'$txtnomor_mobil','$txtid_supplier','$txtinvno','$txtbcno','$txtbcdate',
 							'$txtbppbno','$txtbppbno2','$txtreqno',
 							'$txtbppbdate','$status_kb','$user','1','$txtbcaju','$txttglaju',
-							'$txtkpno','$txtnomor_rak','$retur','$txttujuan','$txtsubtujuan','$txtid_jo')";
+							'$txtkpno','$txtnomor_rak','$retur','$txttujuan','$txtsubtujuan','$txtid_jo','$txtjenis_trans')";
 						insert_log($sql,$user);
 						calc_stock($cbomat,$txtid_item);
 						if ($cbomat=="FG")
@@ -185,6 +186,10 @@ else if ($bppbno<>"")
 				}
 			}
 		}
+	}
+	if ($mode=="WIP" or $mode=="Scrap")
+	{	$sql = "update $nm_tbl set jenis_trans='$txtjenis_trans' where bppbno='$bppbno'";
+		insert_log($sql,$user);
 	}
 	$_SESSION['msg'] = "2";
 	echo "<script>window.location.href='../forms/?mod=$mod2&mode=$mode';</script>";

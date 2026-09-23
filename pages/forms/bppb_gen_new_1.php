@@ -354,17 +354,27 @@ group by id_item ";
               <label>Jenis Dokumen *</label>
               <select class='form-control select2' style='width: 100%;' name='cbokb' id='cbokb' required>
                 <?php
-                $sql = "select nama_pilihan isi,nama_pilihan tampil from masterpilihan where 
+                $sql = "select nama_pilihan isi,nama_pilihan tampil from masterpilihan where
                     kode_pilihan='Status KB Out' order by nama_pilihan ";
                 IsiCombo($sql, $status_kb, 'Pilih Jenis Dokumen');
                 ?>
               </select>
-            </div>   
+            </div>
+            <div class='form-group'>
+              <label>Jenis Pengeluaran *</label>
+              <select class='form-control select2' style='width: 100%;' name='cbojenis_trans' id='cbojenis_trans' required>
+                <?php
+                $sql = "select nama_trans isi,nama_trans tampil from mastertransaksi where
+                    jenis_trans='OUT' and jns_gudang='ATKUMUM' order by id";
+                IsiCombo($sql, '', 'Pilih Jenis Pengeluaran');
+                ?>
+              </select>
+            </div>
             <div class='form-group'>
               <label>Notes</label>
               <textarea row='5' class='form-control' name='txtremark' id='txtremark' placeholder='Masukkan Notes'><?php echo $notes; ?></textarea>
             </div>
-</div>  
+</div>
 
           <div class='box-body'>
               <div id='detail_item'></div>
@@ -480,7 +490,7 @@ group by id_item ";
 
               </a>
 
-              <a href='?mod=edit_bppb&bppbno=$data[bppbno]' target='_blank'
+              <a href='?mod=edit_bppb&bppbno=$data[bppbno]&mode=ATKUMUM' target='_blank'
           data-toggle='tooltip' title='Edit New'><i class='fa fa-pencil-square-o text-success' aria-hidden='true'></i>
           </a>
 
