@@ -424,7 +424,7 @@ echo "<script type='text/javascript'>";
 
     #echo "else if (Number(qty) > Number(sisa)) { document.form.txtqty.focus();swal({ title: 'Jumlah Tidak Mencukupi', imageUrl: $img_err });valid = false;}";
 
-    if ($mode=="WIP")
+    if ($mode=="WIP" or $mode=="Scrap")
     { echo "else if (jenis_trans == '') { swal({ title: 'Jenis Pengeluaran Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}"; }
     echo "else if (id_supplier == '') { swal({ title: 'Dikirim Ke Tidak Boleh Kosong', imageUrl: $img_err });valid = false;}";
 
@@ -1194,8 +1194,10 @@ echo "<div class='box'>";
 
           echo "</div>";
 
-          if ($mode=="WIP")
+          if ($mode=="WIP" or $mode=="Scrap")
           {
+
+          $jns_gudang_jp = ($mode=="WIP") ? "WIP" : "SCRAP";
 
           echo "<div class='form-group'>";
 
@@ -1204,7 +1206,7 @@ echo "<div class='box'>";
           echo "<select class='form-control select2' style='width: 100%;' name='txtjenis_trans' required>";
 
           $sql = "select nama_trans isi,nama_trans tampil from mastertransaksi where
-            jenis_trans='OUT' and jns_gudang='WIP' order by id";
+            jenis_trans='OUT' and jns_gudang='$jns_gudang_jp' order by id";
 
           IsiCombo($sql,$txtjenis_trans_h,'Pilih Jenis Pengeluaran');
 

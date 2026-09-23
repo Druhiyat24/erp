@@ -147,7 +147,7 @@ else if ($bppbno<>"" AND $id_item<>"")
 		bcno='$txtbcno',
 		bcdate='$txtbcdate',nomor_aju='$txtbcaju',tanggal_aju='$txttglaju',
 		bppbdate='$txtbppbdate',tujuan='$txttujuan',subtujuan='$txtsubtujuan',username='$user'";
-	if ($mode=="WIP")
+	if ($mode=="WIP" or $mode=="Scrap")
 	{ $sql .= ",jenis_trans='$txtjenis_trans'"; }
 	$sql .= " where bppbno='$bppbno'";
 	insert_log($sql,$user);
