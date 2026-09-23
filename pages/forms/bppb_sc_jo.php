@@ -606,23 +606,6 @@ echo "<div class='box'>";
 
           echo "</div>";
 
-          echo "<div class='form-group'>";
-
-            echo "<label>$c51 *</label>";
-if($mode = "Scrap"){
-	//echo "123";
-	$sql = "select id_supplier isi,supplier tampil from mastersupplier WHERE Id_Supplier NOT IN('435') order by Supplier";
-}else{
-	$sql = "select id_supplier isi,supplier tampil from mastersupplier WHERE Id_Supplier IN('435') order by supplier";
-}
-            echo "<select class='form-control select2' style='width: 100%;' name='txtid_supplier'>";
-
-            IsiCombo($sql,'',$cpil.' Dikirim Ke');
-
-            echo "</select>";
-
-          echo "</div>";
-
           if ($mode=="WIP")
           {
 
@@ -642,6 +625,23 @@ if($mode = "Scrap"){
             echo "</div>";
 
           }
+
+          echo "<div class='form-group'>";
+
+            echo "<label>$c51 *</label>";
+if($mode = "Scrap"){
+	//echo "123";
+	$sql = "select id_supplier isi,supplier tampil from mastersupplier WHERE Id_Supplier NOT IN('435') order by Supplier";
+}else{
+	$sql = "select id_supplier isi,supplier tampil from mastersupplier WHERE Id_Supplier IN('435') order by supplier";
+}
+            echo "<select class='form-control select2' style='width: 100%;' name='txtid_supplier'>";
+
+            IsiCombo($sql,'',$cpil.' Dikirim Ke');
+
+            echo "</select>";
+
+          echo "</div>";
 
           echo "
 
