@@ -425,6 +425,15 @@ inner join so on so.id = sd.id_so where a.bppbno='$bppbno'";
         <td> : '.fd_view($teksdok).'</td>
       </tr>';
     }
+  $sj_remark = trim($rsh['remark']);
+  if ($sj_remark!="" AND $sj_remark!="*" AND $sj_remark!="-")
+  {
+    $head_data = $head_data.'
+    <tr>
+      <td width="20%">Keterangan</td>
+      <td colspan="3"> : '.htmlspecialchars($sj_remark).'</td>
+    </tr>';
+  }
   $head_data = $head_data.'
   </table>';
 
