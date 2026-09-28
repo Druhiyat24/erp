@@ -501,7 +501,7 @@ if ($mode=="Out")
     }
 
     $sj_remark_html = (isset($sj_remark) AND $sj_remark!="" AND $sj_remark!="*" AND $sj_remark!="-")
-      ? '<br><span style="font-size:8pt;">Notes: '.htmlspecialchars($sj_remark).'</span>'
+      ? '<br><br><span style="font-size:10pt;">Notes: '.htmlspecialchars($sj_remark).'</span>'
       : '';
 
     $ttdnya = $ttdnya.
@@ -510,15 +510,15 @@ if ($mode=="Out")
 
     <tr>
 
-      <td width="200px" style="margin-right:-5px;border:none;" align="left">
+      <td width="200px" style="margin-right:-5px;border:none; vertical-align:top;" align="left">
 
-        '.$fullname.$sj_remark_html.'
+        <br><br><br>'.$fullname.$sj_remark_html.'
 
       </td>
 
-      <td width="200px" style="margin-right:-5px;border:none;" align="left">
+      <td width="200px" style="margin-right:-5px;border:none; vertical-align:top;" align="left">
 
-       '.$cfmfullname.'
+        <br><br><br>'.$cfmfullname.'
 
       </td>      ';
 
