@@ -426,14 +426,6 @@ inner join so on so.id = sd.id_so where a.bppbno='$bppbno'";
       </tr>';
     }
   $sj_remark = trim($rsh['remark']);
-  if ($sj_remark!="" AND $sj_remark!="*" AND $sj_remark!="-")
-  {
-    $head_data = $head_data.'
-    <tr>
-      <td width="20%">Keterangan</td>
-      <td colspan="3"> : '.htmlspecialchars($sj_remark).'</td>
-    </tr>';
-  }
   $head_data = $head_data.'
   </table>';
 
@@ -760,13 +752,21 @@ $footernya =
 
 <table style="font-size:12px;" width="100%">
 
-  <?php 
+  <?php
 
   echo $ttdnya;
 
   ?>
 
 </table>
+
+<?php
+
+if (isset($sj_remark) AND $sj_remark!="" AND $sj_remark!="*" AND $sj_remark!="-")
+
+{ echo "<p style='font-size:10pt; margin-top:4px;'>Notes: ".htmlspecialchars($sj_remark)."</p>"; }
+
+?>
 
 <?php
 
