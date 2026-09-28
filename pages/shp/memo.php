@@ -207,6 +207,28 @@ if (!function_exists('file_ico_class')) {
     return array('', 'fa-file-o');
   }
 }
+
+/* Nama fisik file yang dipakai di URL (upload/<...>).
+   Upload baru sudah disimpan dalam bentuk rawurlencode() (lihat upload_file.php),
+   jadi dipakai apa adanya. Upload lama (sebelum perbaikan) masih nama asli apa
+   adanya, jadi perlu di-rawurlencode() dulu supaya jadi URL yang valid. */
+if (!function_exists('memo_file_url_name')) {
+  function memo_file_url_name($file_name)
+  {
+    if (preg_match('/^[A-Za-z0-9\-_.~%]*$/', $file_name)) { return $file_name; }
+    return rawurlencode($file_name);
+  }
+}
+
+/* Nama yang ditampilkan ke user. Upload baru tersimpan ter-encode sehingga perlu
+   di-decode dulu; upload lama sudah berupa teks asli, dan rawurldecode() pada teks
+   tanpa karakter '%' tidak mengubah apa pun, jadi aman dipakai untuk keduanya. */
+if (!function_exists('memo_file_display_name')) {
+  function memo_file_display_name($clean_name)
+  {
+    return rawurldecode($clean_name);
+  }
+}
 ?>
 <?php
 if ($mod == "memo_list") {
@@ -355,6 +377,8 @@ $qfile = mysql_query("SELECT  a.*, REGEXP_REPLACE(file_name, '^[0-9]+_', '') AS 
 
             <?php while($f = mysql_fetch_array($qfile)){
                   list($ico_cls, $ico_fa) = file_ico_class($f['file_name']);
+                  $display_name = memo_file_display_name($f['clean_name']);
+                  $url_name = memo_file_url_name($f['file_name']);
                   $sub = htmlspecialchars(trim($f['created_by']));
                   if (!empty($f['created_date'])) {
                     $sub = ($sub === '' ? '' : $sub . ' &middot; ') . date('d M Y', strtotime($f['created_date']));
@@ -366,15 +390,15 @@ $qfile = mysql_query("SELECT  a.*, REGEXP_REPLACE(file_name, '^[0-9]+_', '') AS 
 
                 <a class="file-meta"
                    target="_blank"
-                   title="<?php echo htmlspecialchars($f['clean_name'], ENT_QUOTES); ?>"
-                   href="upload/<?php echo rawurlencode($f['file_name']); ?>">
-                    <span class="file-name"><?php echo htmlspecialchars($f['clean_name']); ?></span>
+                   title="<?php echo htmlspecialchars($display_name, ENT_QUOTES); ?>"
+                   href="upload/<?php echo $url_name; ?>">
+                    <span class="file-name"><?php echo htmlspecialchars($display_name); ?></span>
                     <?php if ($sub !== '') { ?><span class="file-sub"><?php echo $sub; ?></span><?php } ?>
                 </a>
 
                 <a class="file-dl-btn"
-                   href="upload/<?php echo rawurlencode($f['file_name']); ?>"
-                   download="<?php echo htmlspecialchars($f['clean_name'], ENT_QUOTES); ?>"
+                   href="upload/<?php echo $url_name; ?>"
+                   download="<?php echo htmlspecialchars($display_name, ENT_QUOTES); ?>"
                    title="Download file">
                     <i class="fa fa-download"></i>
                 </a>

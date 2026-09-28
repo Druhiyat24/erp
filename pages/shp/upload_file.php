@@ -13,7 +13,11 @@ $id_h = $_POST['id_h'];
 foreach($_FILES['file']['name'] as $key => $val){
 
     $tmp  = $_FILES['file']['tmp_name'][$key];
-    $name = time().'_'.$val;
+    // nama asli di-rawurlencode() dulu supaya nama fisik di disk selalu ASCII aman
+    // (nama asli yang mengandung spasi/tanda kurung/karakter non-ASCII seperti China
+    // rawan berubah byte-nya di Windows saat move_uploaded_file(), yang bikin nama di
+    // disk beda dengan yang tersimpan di database sehingga link download 404)
+    $name = time().'_'.rawurlencode($val);
 
     move_uploaded_file($tmp, "upload/".$name);
 
