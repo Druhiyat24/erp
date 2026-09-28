@@ -124,11 +124,39 @@
     text-decoration: underline;
 }
 
+/* tombol download: samar, jadi biru saat disentuh */
+.file-item-clean .file-dl-btn {
+    flex: 0 0 auto;
+    cursor: pointer;
+    margin-left: 6px;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    border: 0;
+    border-radius: 7px;
+    background: transparent;
+    color: #cbd5e1;
+    font-size: 14px;
+    line-height: 26px;
+    text-align: center;
+    text-decoration: none;
+    transition: background .15s ease, color .15s ease;
+}
+.file-item-clean:hover .file-dl-btn {
+    color: #94a3b8;
+}
+.file-item-clean .file-dl-btn:hover,
+.file-item-clean .file-dl-btn:focus {
+    background: #dbeafe;
+    color: #2563eb;
+    outline: none;
+}
+
 /* tombol hapus: samar, jadi merah saat disentuh */
 .file-item-clean .btn-cancel-file {
     flex: 0 0 auto;
     cursor: pointer;
-    margin-left: 10px;
+    margin-left: 6px;
     width: 26px;
     height: 26px;
     padding: 0;
@@ -344,6 +372,13 @@ if ($mod == "memo_list_non_inv") {
                    href="upload/<?php echo rawurlencode($f['file_name']); ?>">
                     <span class="file-name"><?php echo htmlspecialchars($f['clean_name']); ?></span>
                     <?php if ($sub !== '') { ?><span class="file-sub"><?php echo $sub; ?></span><?php } ?>
+                </a>
+
+                <a class="file-dl-btn"
+                   href="upload/<?php echo rawurlencode($f['file_name']); ?>"
+                   download="<?php echo htmlspecialchars($f['clean_name'], ENT_QUOTES); ?>"
+                   title="Download file">
+                    <i class="fa fa-download"></i>
                 </a>
 
                 <button type="button"
