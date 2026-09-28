@@ -500,6 +500,10 @@ if ($mode=="Out")
 
     }
 
+    $sj_remark_html = (isset($sj_remark) AND $sj_remark!="" AND $sj_remark!="*" AND $sj_remark!="-")
+      ? '<br><span style="font-size:8pt;">Notes: '.htmlspecialchars($sj_remark).'</span>'
+      : '';
+
     $ttdnya = $ttdnya.
 
     '</tr>
@@ -508,7 +512,7 @@ if ($mode=="Out")
 
       <td width="200px" style="margin-right:-5px;border:none;" align="left">
 
-        '.$fullname.'
+        '.$fullname.$sj_remark_html.'
 
       </td>
 
@@ -759,14 +763,6 @@ $footernya =
   ?>
 
 </table>
-
-<?php
-
-if (isset($sj_remark) AND $sj_remark!="" AND $sj_remark!="*" AND $sj_remark!="-")
-
-{ echo "<p style='font-size:10pt; margin-top:-55px;'>Notes: ".htmlspecialchars($sj_remark)."</p>"; }
-
-?>
 
 <?php
 
