@@ -764,7 +764,7 @@ $footernya =
 
 if (isset($sj_remark) AND $sj_remark!="" AND $sj_remark!="*" AND $sj_remark!="-")
 
-{ echo "<p style='font-size:10pt; margin-top:4px;'>Notes: ".htmlspecialchars($sj_remark)."</p>"; }
+{ echo "<p style='font-size:10pt; margin-top:-55px;'>Notes: ".htmlspecialchars($sj_remark)."</p>"; }
 
 ?>
 
