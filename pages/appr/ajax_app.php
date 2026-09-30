@@ -70,7 +70,7 @@ if ($mode=="view_list_rak_loc_trx_new")
 			</thead>
 			
 			<tbody>";
-			$sql="select goods_code,itemdesc,s.color,s.size,ms.supplier,reqitem.qty,reqitem.unit,
+			$sql="select goods_code,itemdesc,s.color,s.size,ms.supplier,reqitem.qty,reqitem.unit,reqitem.curr,
         price,a.notes remark
         ,tmppo.username userpo,tmppo.podate,a.username userreq,a.reqdate,
         a.app,a.app_by,a.app_date,a.app_notes,a.app2,a.app_by2,a.app_date2,a.app_notes2 
