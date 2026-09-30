@@ -60,6 +60,7 @@ $txtbcdate = fd($_POST['txtbcdate']);
 $txtno_fp = nb($_POST['txtno_fp']);
 $txtgrade = nb($_POST['txtgrade']);
 $txtjenis_trans = trim(str_replace("'","",$_POST['txtjenis_trans']));
+if (isset($_POST['txtremark'])) { $txtremark = trim(str_replace("'","",$_POST['txtremark'])); } else { $txtremark = ""; }
 $txttgl_fp = nb($_POST['txttgl_fp']);
 $txtkkbc = nb($_POST['txtkkbc']);
 $cek = flookup("count(*)","bppb","bppbno='$txtbppbno'");
@@ -80,11 +81,11 @@ if ($cek=="0")
 			$txtid_item = $id_item;
 			$sql = "insert into bppb (username,bppbno,bppbno_int,bppbdate,id_supplier,invno,jenis_dok,tujuan,
 				subtujuan,nomor_aju,tanggal_aju,bcno,bcdate,no_fp,tgl_fp,nomor_kk_bc,
-				id_item,id_so_det,qty,unit,curr,price,grade,stat_inv,id_buyer,jenis_trans)
+				id_item,id_so_det,qty,unit,curr,price,grade,stat_inv,id_buyer,jenis_trans,remark)
 				values ('$user','$txtbppbno','$txtbppbno2','$txtbppbdate','$txtid_supplier','$txtinvno','$txtjenis_dok',
 				'$txttujuan','$txtsubtujuan','$txtnomor_aju','$txttanggal_aju','$txtbcno',
 				'$txtbcdate','$txtno_fp','$txttgl_fp','$txtkkbc','$id_item','$id_so_det',
-				'$qty','$unit','$curr','$price','$txtgrade','0','$txtbuyer','$txtjenis_trans')";
+				'$qty','$unit','$curr','$price','$txtgrade','0','$txtbuyer','$txtjenis_trans','$txtremark')";
 			insert_log($sql,$user);
 			calc_stock($cbomat,$txtid_item);
 			if ($cbomat=="FG")

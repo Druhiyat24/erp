@@ -407,11 +407,11 @@ function startCalcBpb(){
 
                     </select>
 
-                  </div>    
+                  </div>
 
       </div>
 
-      <div class='col-md-3'>          
+      <div class='col-md-3'>
 
         <div class='form-group'>
 
@@ -505,7 +505,13 @@ function startCalcBpb(){
 
                   </div>
 
-                  
+                  <div class='form-group'>
+
+                    <label>Remark / Description</label>
+
+                    <input type='text' maxlength='80' class='form-control' name='txtremark' placeholder='Masukkan Remark / Description' value=''>
+
+                  </div>
 
                 </div>
 
@@ -758,6 +764,7 @@ function startCalcBpb(){
         $id_supplier_h  =$databppb_h['id_supplier'];
         $grade_h  =$databppb_h['grade'];
         $jenis_trans_h  =$databppb_h['jenis_trans'];
+        $remark_h  =$databppb_h['remark'];
 
         $querytotal = mysql_query("SELECT sum(qty) total from bppb where bppbno = '$id_bppb'");
         $datatotal = mysql_fetch_array($querytotal);
@@ -827,11 +834,19 @@ function startCalcBpb(){
 
                     </select>
 
-                  </div>                     
+                  </div>
+
+                  <div class='form-group'>
+
+                    <label>Remark / Description</label>
+
+                    <input type='text' maxlength='80' class='form-control' name='txtremark' placeholder='Masukkan Remark / Description' value='<?php echo $remark_h; ?>'>
+
+                  </div>
 
                 </div>
 
-                <div class='col-md-3'>          
+                <div class='col-md-3'>
 
                   <div class='form-group'>
 
@@ -913,7 +928,7 @@ function startCalcBpb(){
 
                     </select>
 
-                  </div>                     
+                  </div>
 
                 </div>
 
