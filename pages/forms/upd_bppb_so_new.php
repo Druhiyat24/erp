@@ -24,6 +24,7 @@ if ($mod == 'update')
    $txtinvno = nb($_POST['txtinvno']);
    $txtjenis_dok = nb($_POST['txtjenis_dok']);
    $txtjenis_trans = trim(str_replace("'","",$_POST['txtjenis_trans']));
+   if (isset($_POST['txtremark'])) { $txtremark = trim(str_replace("'","",$_POST['txtremark'])); } else { $txtremark = ""; }
 
    $idbppbs = $_POST['idbppb'];
    $qtys = $_POST['qty'];
@@ -145,7 +146,8 @@ if ($mod == 'update')
   }
 
   $sql	="update bppb set grade = '$txtgrade', bppbdate = '$txtbppbdate', id_buyer = '$txtbuyer',
-  id_supplier = '$txtid_supplier', invno = '$txtinvno', jenis_dok = '$txtjenis_dok', jenis_trans = '$txtjenis_trans'
+  id_supplier = '$txtid_supplier', invno = '$txtinvno', jenis_dok = '$txtjenis_dok', jenis_trans = '$txtjenis_trans',
+  remark = '$txtremark'
   where bppbno = '$id_bppb'";
   insert_log($sql,$user);
   $_SESSION['msg'] = 'Data Berhasil Disimpan. Nomor BKB : '.$bppbno_int;
