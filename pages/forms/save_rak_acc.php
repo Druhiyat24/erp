@@ -15,20 +15,14 @@ $QtyArr = $_POST['qty_mutasi'];
 $rak = $_POST['namarak'];
 
 
-$sql_cari  = mysql_query("select max(no_mut) urut from bpb_det where YEAR(CURRENT_DATE()) and MONTH(CURRENT_DATE())");
-	$row_cari = mysql_fetch_array($sql_cari);
-	$kodepay = $row_cari['urut'];
-	$urutan = (int) substr($kodepay, 15, 5);
-	if ($urutan == "") {
-		$urutan = "00000";
-	} else {
-		$urutan = $urutan;
-	}
-	$urutan++;
-	$tahun   = substr(date('Y', strtotime($tgl_input)), 2, 2);
-	$bulan   = substr(date('m', strtotime($tgl_input)), 0, 2);
-	$nm_mut = "MUT/GACC/$bulan$tahun/";
-	$no_mutasi = $nm_mut . sprintf("%05s", $urutan);
+$tahun   = substr(date('Y', strtotime($tgl_input)), 2, 2);
+$bulan   = substr(date('m', strtotime($tgl_input)), 0, 2);
+$nm_mut = "MUT/GACC/$bulan$tahun/";
+// cari nomor terakhir khusus bulan ini; max() seluruh tabel selalu ketemu MUT/GACC/1225/... (urutan string) sehingga nomor tidak pernah naik
+$sql_cari = mysql_query("select max(no_mut) urut from bpb_det where no_mut like '$nm_mut%'");
+$row_cari = mysql_fetch_array($sql_cari);
+$urutan = (int) substr($row_cari['urut'], strlen($nm_mut)) + 1;
+$no_mutasi = $nm_mut . sprintf("%05d", $urutan);
 
 $gagal = array(); // kumpulan pesan item yang gagal/dilewati, supaya user tahu kenapa
 

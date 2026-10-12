@@ -157,28 +157,40 @@ if (empty($_SESSION['username'])) { header("location:../../index.php"); }
     });
     if (Number(dipilih) == 0) { swal({ title: 'Tidak Ada Data Dipilih', <?php echo $img_alert; ?> }); return false; }
     if (Number(rak_kosong) > 0) { swal({ title: 'Rak Tujuan Belum Dipilih', text: 'Pastikan setiap item yang dicentang sudah memilih Rak Tujuan.', <?php echo $img_alert; ?> }); return false; }
+    // cegah klik Save dua kali: request kedua akan ditolak server (stok sudah termutasi) dan pesan errornya menimpa pesan sukses
+    if (sedangSimpan) { return false; }
+    sedangSimpan = true;
+    $('.mutacc-btn-save').prop('disabled', true).html("<i class='fa fa-spinner fa-spin'></i> Saving...");
     return true;
   };
 
+  var sedangSimpan = false;
+  var xhrItem = null;
+  var xhrDetail = null;
 
   function getDetail()
   {
     var id_item = $('#id_item').val();
     var id_rak_loc = $('#nama_rak').val();
+    if (xhrDetail) { xhrDetail.abort(); }
+    if (!id_rak_loc || !id_item) {
+      $("#detail_item").html("<div class='mutacc-empty'>Pilih Rak dan Item terlebih dahulu untuk menampilkan data.</div>");
+      return;
+    }
     $("#detail_item").html("<div class='mutacc-empty'><i class='fa fa-spinner fa-spin'></i> Memuat data...</div>");
-    var html = $.ajax
-    ({  type: "POST",
-        url: 'ajax_mut_acc.php?modeajax=viewdetail',
-        data: {
-          id_item: id_item,
-          id_rak_loc: id_rak_loc
-        },
-        async: false
-    }).responseText;
-    if(html)
-    { $("#detail_item").html(html); }
-    $(".select2").select2();
-    $('#data_mut').dataTable();
+    xhrDetail = $.ajax({
+      type: "POST",
+      url: 'ajax_mut_acc.php?modeajax=viewdetail',
+      data: { id_item: id_item, id_rak_loc: id_rak_loc }
+    }).done(function(html) {
+      $("#detail_item").html(html);
+      $("#detail_item .select2").select2();
+      $('#data_mut').dataTable();
+    }).fail(function(xhr, status) {
+      if (status !== 'abort') {
+        $("#detail_item").html("<div class='mutacc-empty'>Gagal memuat data, silakan pilih ulang Rak / Item.</div>");
+      }
+    });
   };
 </script>
  <script type="text/javascript">
@@ -202,17 +214,16 @@ if (empty($_SESSION['username'])) { header("location:../../index.php"); }
 <script type='text/javascript'>
     function getitem() {
       var id_rak_loc = $('#nama_rak').val();
-      var html = $.ajax({
+      if (xhrItem) { xhrItem.abort(); }
+      // .select2() ulang (bukan trigger change) supaya tampilan ter-refresh tanpa memicu onchange getDetail()
+      $("#id_item").html("<option value='' disabled selected>Memuat item...</option>").select2();
+      xhrItem = $.ajax({
         type: "POST",
         url: 'ajax_mut_acc.php?modeajax=view_item',
-        data: {
-          id_rak_loc: id_rak_loc
-        },
-        async: false
-      }).responseText;
-      if (html) {
-        $("#id_item").html(html);
-      }
+        data: { id_rak_loc: id_rak_loc }
+      }).done(function(html) {
+        $("#id_item").html(html).select2();
+      });
     };
   </script>
 
@@ -288,7 +299,7 @@ if($mod=="mrL")
           <span class="mutacc-title">Detail Stok &amp; Mutasi</span>
         </div>
         <div id='detail_item'>
-          <div class="mutacc-empty">Pilih Rak terlebih dahulu untuk menampilkan data.</div>
+          <div class="mutacc-empty">Pilih Rak dan Item terlebih dahulu untuk menampilkan data.</div>
         </div>
         <div class="mutacc-footer">
           <a href="?mod=mr_acc_hist" class="mutacc-btn-back"><i class="fa fa-arrow-left"></i> Back</a>
