@@ -64,10 +64,6 @@ $tglinputakhir = isset($_POST['tglinputakhir']) && $_POST['tglinputakhir'] != ""
   box-shadow:0 0 0 3px rgba(0,166,90,.12) !important;
 }
 
-.mutacc-empty{
-  text-align:center; color:#9aa5b1; font-size:12.5px; padding:26px 10px;
-}
-
 .mutacc-table-wrap table.dataTable{ border-collapse:separate !important; border-spacing:0; }
 .mutacc-table-wrap table.dataTable thead th{
   background:#f8fafc; color:#6b7684; font-weight:700;
@@ -102,8 +98,13 @@ $tglinputakhir = isset($_POST['tglinputakhir']) && $_POST['tglinputakhir'] != ""
 }
 </style>
 <script type="text/javascript">
-  $(function() {
-    $('#tbl_mutacc_hist').dataTable({ "order": [], "pageLength": 10 });
+  // jQuery & DataTables baru dimuat di bawah index.php (setelah content.php), jadi tunggu DOMContentLoaded
+  document.addEventListener('DOMContentLoaded', function() {
+    $('#tbl_mutacc_hist').DataTable({
+      "order": [],
+      "pageLength": 10,
+      "language": { "emptyTable": "Tidak ada data mutasi untuk filter ini." }
+    });
   });
 </script>
 <div class="mutacc-wrap">
@@ -185,7 +186,6 @@ $tglinputakhir = isset($_POST['tglinputakhir']) && $_POST['tglinputakhir'] != ""
             where bd.no_mut like 'MUT/GACC/%' $cri_tgl
             order by bd.id desc
             limit 500";
-          $i = 1;
           $query = mysqli_query($con_new, $sql);
           while ($data = mysqli_fetch_array($query)) {
             $tgl = ($data['tgl_mut'] != "" && $data['tgl_mut'] != "0000-00-00") ? date('d M Y', strtotime($data['tgl_mut'])) : '-';
@@ -202,10 +202,6 @@ $tglinputakhir = isset($_POST['tglinputakhir']) && $_POST['tglinputakhir'] != ""
               <td>$data[rak_tujuan]</td>
               <td>$data[user]</td>
             </tr>";
-            $i++;
-          }
-          if ($i == 1) {
-            echo "<tr><td colspan='10' class='mutacc-empty'>Tidak ada data mutasi untuk filter ini.</td></tr>";
           }
           ?>
         </tbody>
