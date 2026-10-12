@@ -1,4 +1,4 @@
-<?php 
+<?php
 include '../../include/conn.php';
 include 'fungsi.php';
 session_start();
@@ -30,34 +30,76 @@ $sql_cari  = mysql_query("select max(no_mut) urut from bpb_det where YEAR(CURREN
 	$nm_mut = "MUT/GACC/$bulan$tahun/";
 	$no_mutasi = $nm_mut . sprintf("%05s", $urutan);
 
+$gagal = array(); // kumpulan pesan item yang gagal/dilewati, supaya user tahu kenapa
+
 foreach ($ItemArray as $key => $value)
 {
-$qty=$QtyArr[$key];
-$rak_tujuan=$rak[$key];	
-echo $key;
-echo $qty;
-echo $rak_tujuan; 
-if ($qty > 0) {
-	$sql="update bpb_det set qty_mutasi_old = (coalesce(qty_mutasi,0) + $qty),qty_old = roll_qty, roll_qty = (coalesce(roll_qty,0) - $qty) where id='$key'";
-	insert_log($sql,$user);
+	$key = (int) $key; // id bpb_det, pastikan integer murni
+	$qty = (float) str_replace(',', '', $QtyArr[$key]);
+	$rak_tujuan = nb($rak[$key]);
 
-	$sql2="insert into bpb_det select '', bpbno,bpbno_int,id_item,id_jo,no_pack, '$qty' roll_qty, unit,'$rak_tujuan' id_rak_loc, '$user' user, '2023-02-01' bpbdate, 'N' cancel,id id_bpbdet, '' qty_mutasi,'$no_mutasi' no_mut,null tgl_mut,'',''  from bpb_det where id = '$key'";
-	#echo "<br>".$sql;
+	if ($qty <= 0) { continue; } // baris tidak dicentang qty-nya / tidak valid, lewati tanpa diproses
+
+	// Ambil kondisi TERKINI baris sumber langsung dari DB (bukan dari input form),
+	// pakai rumus yang SAMA PERSIS dengan yang dipakai tampilan (ajax_mut_acc.php):
+	// sisa = roll_qty - qty_out (yang sudah keluar lewat bppb_det) - qty_mutasi (yang sudah termutasi sebelumnya)
+	$sql_cek = "select bd.id, bd.bpbno, bd.bpbno_int, bd.id_item, bd.id_jo, bd.no_pack, bd.roll_qty,
+		bd.unit, bd.bpbdate, bd.qty_mutasi,
+		(select COALESCE(SUM(roll_qty),0) from bppb_det where id_bpb_det = bd.id and cancel = 'N') qty_out
+		from bpb_det bd where bd.id = '$key'";
+	$cek = mysql_fetch_array(mysql_query($sql_cek));
+
+	if (!$cek) { $gagal[] = "ID $key: data tidak ditemukan"; continue; }
+
+	if ($rak_tujuan == "") {
+		$gagal[] = "$cek[id_item] ($cek[bpbno_int]): Rak Tujuan belum dipilih";
+		continue;
+	}
+
+	$sisa = $cek['roll_qty'] - $cek['qty_out'] - (float) $cek['qty_mutasi'];
+
+	if ($qty > $sisa) {
+		$gagal[] = "$cek[id_item] ($cek[bpbno_int]): qty mutasi diminta $qty, sisa stok real cuma ".number_format($sisa,2);
+		continue;
+	}
+
+	// UPDATE baris sumber: roll_qty TIDAK diubah (tetap jadi catatan qty asli diterima,
+	// dipakai laporan lain sebagai fakta historis), yang bertambah cuma qty_mutasi.
+	// Kondisi di WHERE diulang lagi sebagai guard atomik terhadap race condition /
+	// submit ganda - kalau antara pengecekan di atas dan UPDATE ini ada proses lain
+	// yang sudah mengurangi stok duluan, baris ini tidak akan ter-update (affected=0).
+	$sql = "update bpb_det set
+		qty_mutasi_old = COALESCE(qty_mutasi,0),
+		qty_mutasi = COALESCE(qty_mutasi,0) + $qty
+		where id='$key'
+		and (roll_qty - (select COALESCE(SUM(roll_qty),0) from bppb_det where id_bpb_det = bpb_det.id and cancel = 'N') - COALESCE(qty_mutasi,0)) >= $qty";
+	mysql_query($sql);
+	$affected = mysql_affected_rows();
+	insert_log("X".$sql, $user); // "X" supaya insert_log cuma mencatat log, tidak menjalankan ulang query-nya
+
+	if ($affected < 1) {
+		$gagal[] = "$cek[id_item] ($cek[bpbno_int]): stok berubah saat disimpan (kemungkinan dimutasi/dipakai bersamaan), silakan cek ulang";
+		continue;
+	}
+
+	// Baris baru di rak tujuan: tanggal terima (bpbdate) tetap mengikuti baris sumber
+	// (bukan tanggal hardcode / tanggal hari ini), tgl_mut diisi tanggal mutasi
+	// sebenarnya supaya laporan periode bisa mengklasifikasikan dengan benar.
+	$sql2 = "insert into bpb_det
+		(bpbno,bpbno_int,id_item,id_jo,no_pack,roll_qty,unit,id_rak_loc,user,bpbdate,cancel,id_bpbdet,qty_mutasi,no_mut,tgl_mut,qty_old,qty_mutasi_old)
+		values
+		('$cek[bpbno]','$cek[bpbno_int]','$cek[id_item]','$cek[id_jo]','$cek[no_pack]','$qty','$cek[unit]','$rak_tujuan','$user','$cek[bpbdate]','N','$key','0','$no_mutasi','$tgl_input','0','0')";
 	insert_log($sql2,$user);
 }
 
-// 	$sql_1="insert into bpb_roll_log (id_h,id_bpb_roll,roll_no,lot_no,roll_qty,roll_foc,unit,roll_qty_used,id_rak,
-// 		barcode,roll_qty_foc_used,roll_qty_act,id_rak_loc, id_rak_old,user,tgl_input) 
-// 		select id_h,id,roll_no,lot_no,'$qty',roll_foc,unit,roll_qty_used,id_rak,
-// 		barcode,roll_qty_foc_used,roll_qty_act,'$raknya','$crinya','$user','$tgl_input' from bpb_roll 
-// 		where id='$key'";
-// 	#echo "<br>".$sql;
-// 	insert_log($sql_1,$user);	
-
-// 	$sql="update bpb_roll set roll_qty= roll_qty - $qty where id='$key'";
-// 	#echo "<br>".$sql;
-// 	insert_log($sql,$user);
+if (count($gagal) > 0)
+{
+	$pesan = implode("\\n", $gagal);
+	$_SESSION['msg'] = "XSebagian item tidak tersimpan:\\n".$pesan;
 }
-$_SESSION['msg'] = 'Data Berhasil Disimpan';
+else
+{
+	$_SESSION['msg'] = 'Data Berhasil Disimpan';
+}
 echo "<script>window.location.href='../forms/?mod=mr_acc';</script>";
 ?>

@@ -294,6 +294,8 @@ else if ($mod=="mr_hist")
 	{	include "mut_rak_hist.php";	}
 else if ($mod=="mr")
 	{	include "mut_rak.php";	}
+else if ($mod=="mr_acc_hist")
+	{	include "mut_rak_acc_hist.php";	}
 else if ($mod=="mr_acc")
 	{	include "mut_rak_acc.php";	}
 else if ($mod=="adj_rak")

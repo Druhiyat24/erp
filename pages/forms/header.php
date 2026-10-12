@@ -688,7 +688,7 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
                 echo "<li><a href='?mod=8&mode=FG'><span>Stock FG</span></a></li>";
               }
               if ($user != "bc") {
-                echo "<li><a href='?mod=mr_acc'><span>Mutasi Rak</span></a></li>";
+                echo "<li><a href='?mod=mr_acc_hist'><span>Mutasi Rak Accessories</span></a></li>";
               }
             }
             ?>

@@ -52,6 +52,7 @@ $rscomp=mysql_fetch_array(mysql_query("select * from mastercompany"));
 	if ($modenya=="viewdetail")
 	{ 
 		?>
+		<div class="mutacc-table-wrap">
 		<table id="data_mut" class="display responsive" style="width:100%;font-size:11px;">
       <thead>
         <tr>
@@ -76,8 +77,10 @@ $rscomp=mysql_fetch_array(mysql_query("select * from mastercompany"));
       </thead>
       <tbody>
         <?php
-        $id_item = $_REQUEST['id_item'];	
+        $id_item = $_REQUEST['id_item'];
 		$id_rak_loc = $_REQUEST['id_rak_loc'];
+        // Item # opsional: kalau belum dipilih, tampilkan semua item yang ada di rak terpilih
+        $cri_item = ($id_item!="") ? "and id_item = '$id_item'" : "";
         $sql="select * from (select * from (select a.*,b.*,(COALESCE(a.roll_qty,0) - COALESCE(b.qty_out,0) - COALESCE(a.qty_mutasi,0)) qty_sisa from (select bd.*,
           bpb.bpbdate tgl_bpb, 
           jd.kpno, 
@@ -104,7 +107,7 @@ $rscomp=mysql_fetch_array(mysql_query("select * from mastercompany"));
          left join mastersupplier ms on bpb.id_supplier = ms.id_supplier 
          where bd.id_rak_loc = '$id_rak_loc'
          order by bpb.bpbdate asc) a left join 
-				 (select id_bpb_det,SUM(roll_qty) qty_out from bppb_det where cancel = 'N' GROUP BY id_bpb_det) b on b.id_bpb_det = a.id) a ) a where qty_sisa > 0 and id_item = '$id_item' ";
+				 (select id_bpb_det,SUM(roll_qty) qty_out from bppb_det where cancel = 'N' GROUP BY id_bpb_det) b on b.id_bpb_det = a.id) a ) a where qty_sisa > 0 $cri_item ";
         // echo $sql;
         $i=1;
         $query=mysqli_query($con_new,$sql);
@@ -131,7 +134,7 @@ $rscomp=mysql_fetch_array(mysql_query("select * from mastercompany"));
             <td>$data[bpbno_int]</td>
             <td>$data[tgl_bpb]</td>
             <td>$data[qty_sisa]</td>
-            <td><input  class='form-control' type='text' max = '$data[qty_sisa]' name ='qty_mutasi[$id]' value = '$data[qty_sisa]' required></td>
+            <td><input  class='form-control' type='number' step='any' min='0.01' max = '$data[qty_sisa]' name ='qty_mutasi[$id]' value = '$data[qty_sisa]' required></td>
             <td>$data[unit]</td>
             <td>$data[kode_rak]</td>
             <td> <select class='form-control select2' name='namarak[$id]' data-dropup-auto='false' data-live-search='true'>
@@ -144,11 +147,14 @@ $rscomp=mysql_fetch_array(mysql_query("select * from mastercompany"));
           </tr>";
           $i++;
         };
+        if ($i==1)
+        { echo "<tr><td colspan='16' class='mutacc-empty'>Tidak ada stok tersedia untuk kombinasi rak &amp; item ini.</td></tr>"; }
         ?>
       </tbody>
     </table>
+    </div>
     <?php
-	
+
 	}
 
 
