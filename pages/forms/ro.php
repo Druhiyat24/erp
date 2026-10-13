@@ -147,18 +147,6 @@ echo "</script>";
     }
   }
 
-  function getListKPNo2(cri_item)
-  {   var html = $.ajax
-    ({  type: "POST",
-      url: 'ajax2.php?modeajax=cari_list_bpb_acc',
-      data: {cri_item: cri_item, mode: '<?=$mode?>'},
-      async: false
-    }).responseText;
-    if(html)
-    {  
-      $("#cbosj").html(html);
-    }
-  }
   function getListData(cri_item)
   {   var html = $.ajax
     ({  type: "POST",
@@ -209,39 +197,6 @@ echo "</script>";
 
     };
 
-    function getListData2(cri_item)
-    {   
-      var html = $.ajax
-      ({  type: "POST",
-        url: 'ajax2_ro.php?modeajax=view_list_sj_ro2',
-        data: "cri_item=" +cri_item,
-        async: false
-      }).responseText;
-      if(html)
-      {  
-        $("#detail_item").html(html);
-      }
-      $(document).ready(function() {
-        var table = $('#examplefix2').DataTable
-        ({  scrollCollapse: true,
-          paging: false,
-          fixedColumns:   
-          { leftColumns: 1,
-            rightColumns: 1
-          }
-        });
-      });
-      var html = $.ajax
-      ({  type: "POST",
-        url: 'ajax2.php?modeajax=cari_defect2',
-        data: "cri_item=" +cri_item,
-        async: false
-      }).responseText;
-      if(html)
-      {  
-        $("#cbodefect").html(html);
-      }
-    };
 
     function choose_rak(id_jo,id_item)
     { 
@@ -454,105 +409,6 @@ echo "</script>";
   echo "</div>";
   echo "</div>";
   echo "</div>";
-# END COPAS ADD
-}elseif($mod=="Retur_accs") {
-  echo "<div class='box'>";
-  echo "<div class='box-body'>";
-  echo "<div class='row'>";
-  echo "<form method='post' name='form' action='save_data_ro_acc.php' >";
-  echo "<div class='col-md-3'>";
-  echo "<div class='form-group'>";
-  echo "<label>Filter Tgl BPB *</label>";
-  echo "<input type='text' id='datepicker1' class='form-control dtpspc' autocomplete='off' onkeydown='return false' name='txttglcut'  
-  placeholder='Masukkan Filter Tgl Surat Jalan' onchange='getListKPNo2(this.value)'>";
-  echo "</div>";
-  echo "<div class='form-group'>";
-  echo "<label>$caption[2] *</label>";
-  echo "<select class='form-control select2' style='width: 100%;' name='txtsjno' id='cbosj' onchange='getListData2(this.value)'>";
-  echo "</select>";
-  echo "</div>";
-  echo "</div>";
-  echo "<div class='col-md-3'>";
-  echo "<div class='form-group'>";
-  echo "<label>Nomor RO</label>";
-  echo "<input type='text' class='form-control' name='txtrono' placeholder='$cmas Nomor RO' readonly value='$rono'>";
-  echo "</div>";
-  echo "<div class='form-group'>";
-  echo "<label>Tgl RO *</label>";
-  echo "<input type='text' id='datepicker2' class='form-control dtpspc' autocomplete='off' onkeydown='return false' name='txtbpbdate' placeholder='$cmas Tgl RO' value='$rodate'>";
-  echo "</div>";
-  echo "<div class='form-group'>";
-  echo "<label>Jenis Defect *</label>";
-  echo "<select class='form-control select2' style='width: 100%;' name='txtdefect' id='cbodefect'>";
-  echo "</select>";
-  echo "</div>";
-  echo "</div>";
-  echo "<div class='col-md-3'>";
-  echo "<div class='form-group'>";
-  echo "<label>$c46 *</label>";
-  if ($st_company=="KITE") 
-    { $status_kb_cri="Status KITE In"; }
-  else
-    { $status_kb_cri="Status KB Out"; }
-  $sql = "select nama_pilihan isi,nama_pilihan tampil from masterpilihan where 
-  kode_pilihan='$status_kb_cri' order by nama_pilihan";
-  echo "<select class='form-control select2' style='width: 100%;' name='txtstatus_kb' onchange='getTujuan(this.value)'>";
-  IsiCombo($sql,$status_kb,$cpil.' '.$c46);
-  echo "</select>";
-  echo "</div>";
-  echo "<div class='form-group'>";
-  echo "<label>$c47</label>";
-  echo "<select class='form-control select2' style='width: 100%;' id='cbotujuan' name='txttujuan'>";
-  if ($bpbno!="")
-    { $sql = "select nama_pilihan isi,nama_pilihan tampil 
-  from masterpilihan where kode_pilihan='$status_kb'";
-  IsiCombo($sql,trim($txttujuan),$cpil.' '.$c47);
-}
-echo "</select>";
-echo "</div>";
-echo "
-<div class='row'>
-<div class='col-md-6'>
-<div class='form-group'>
-<label>$c42 *</label>
-<input type='text' class='form-control' name='txtbcno' placeholder='$cmas $c42' >
-</div>
-</div>
-<div class='col-md-6'>
-<div class='form-group'>
-<label>$c43 *</label>
-<input type='text' class='form-control dtpspc' autocomplete='off' onkeydown='return false' name='txtbcdate' value='$bcdate'   
-placeholder='Masukkan Tgl. Daftar'>
-</div>
-</div>
-</div>";
-echo "
-<div class='row'>
-<div class='col-md-6'>
-<div class='form-group'>
-<label>Nomor Aju *</label>
-<input type='text' class='form-control' name='txtbcaju' placeholder='$cmas' >
-</div>
-</div>
-<div class='col-md-6'>
-<div class='form-group'>
-<label>Tgl Aju *</label>
-<input type='text' class='form-control dtpspc' autocomplete='off' onkeydown='return false' name='txttglaju' value='$bcdate'   
-placeholder='Masukkan Tgl. Aju'>
-</div>
-</div>
-</div>";
-echo "</div>";
-echo "<div class='box-body'>";
-echo "<div id='detail_item'></div>";
-echo "</div>";
-echo "<div class='col-md-3'>";
-echo "<button type='submit' name='submit' class='btn btn-primary'>Simpan</button>";
-echo "</div>";
-echo "</form>";
-echo "</div>";
-echo "</div>";
-echo "</div>";
 # END COPAS ADD
 } else { ?>
   <div class="box">
