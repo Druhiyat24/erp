@@ -68,7 +68,7 @@ if (isset($_GET['to'])) {
          inner join jo_det jd on bpb.id_jo = jd.id_jo
          inner join so on jd.id_so = so.id
          inner join act_costing ac on so.id_cost = ac.id
-         left join (select bpbno,id_item,id_jo,sum(roll_qty) roll_qty from bpb_det group by bpbno) sr on bpb.bpbno = sr.bpbno
+         left join (select bpbno,id_item,id_jo,sum(roll_qty - coalesce(qty_mutasi,0)) roll_qty from bpb_det group by bpbno) sr on bpb.bpbno = sr.bpbno
          where bpb.bpbdate >= '$fromcri' and bpb.bpbdate <= '$tocri' and bpb.bpbno like 'A%' and bpb.bpbno like 'A%' and substring(bpb.bpbno,-2) != '-R'
          and pono is not null and id_po_item is not null
          group by bpbno

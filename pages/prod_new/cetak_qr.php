@@ -194,7 +194,7 @@ $logo_company = $rscomp["logo_company"];
   inner join jo_det jd on bpb.id_jo = jd.id_jo
   inner join so on jd.id_so = so.id
   inner join act_costing ac on so.id_cost = ac.id
-  left join (select bpbno,id_item,id_jo,sum(roll_qty) roll_qty from bpb_det group by bpbno, id_item, id_jo) sr on bpb.bpbno = sr.bpbno and bpb.id_item = sr.id_item and sr.id_jo = bpb.id_jo
+  left join (select bpbno,id_item,id_jo,sum(roll_qty - coalesce(qty_mutasi,0)) roll_qty from bpb_det group by bpbno, id_item, id_jo) sr on bpb.bpbno = sr.bpbno and bpb.id_item = sr.id_item and sr.id_jo = bpb.id_jo
   where bpb.bpbno='$bpbno' and bpb.id_item = '$id_item' and bpb.id_jo = '$id_jo'");
   $databpb      = mysql_fetch_array($querybpb);
   $bpbno_int    = $databpb['bpbno_int'];

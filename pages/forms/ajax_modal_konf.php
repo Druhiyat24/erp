@@ -82,8 +82,8 @@ if ($mode == 'bpb') {
 			left join 
 			(select ab.bpbno,ab.bpbno_int,ab.id_item,ab.id_jo,sum(ab.roll_qty) roll_qty,group_concat(' ', rak, ' ') rak from
 			(
-			select bd.bpbno,bd.bpbno_int,id_item,id_jo, sum(bd.roll_qty) roll_qty, 
-						concat(kode_rak,' (', sum(bd.roll_qty), ')') rak from bpb_det bd 
+			select bd.bpbno,bd.bpbno_int,id_item,id_jo, sum(bd.roll_qty - coalesce(bd.qty_mutasi,0)) roll_qty, 
+						concat(kode_rak,' (', sum(bd.roll_qty - coalesce(bd.qty_mutasi,0)), ')') rak from bpb_det bd 
 						inner join master_rak mr on bd.id_rak_loc = mr.id
 						where bd.bpbno = '$bpbno' group by id_item,id_jo, id_rak_loc
 						order by kode_rak asc

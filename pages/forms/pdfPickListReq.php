@@ -125,12 +125,12 @@ class Model{
                   inner join master_rak d on s.id_rak_loc=d.id
                   group by id_item,id_jo,d.kode_rak
                                     having round(sum(roll_qty),2) - round(sum(roll_qty_used),2) != '0') tmplok group by id_item,id_jo UNION
-                    select id_item ,id_jo, GROUP_CONCAT(kode_rak) kode_rak ,'','' from (select  id_item,id_jo,CONCAT(kode_rak,' (',qty,' ',unit,')') kode_rak, kode_rak rak from (select id_item,id_jo,unit,a.id_rak_loc,sum(qty_in) - sum(qty_out) qty from (
-select id_item,id_jo,unit,id_rak_loc,sum(roll_qty) qty_in, '0' qty_out from bpb_det group by id_item,id_jo,id_rak_loc
-union
-select id_item,id_jo,unit,id_rak_loc,'0' qty_in,sum(roll_qty) qty_out from bppb_det group by id_item,id_jo,id_rak_loc
+                    select id_item ,id_jo, GROUP_CONCAT(kode_rak) kode_rak ,'','' from (select  id_item,id_jo,CONCAT(kode_rak,' (',qty,' ',unit,')') kode_rak, kode_rak rak from (select id_item,id_jo,unit,a.id_rak_loc,cast(round(sum(qty_in) - sum(qty_out),2) as double) qty from (
+select id_item,id_jo,unit,id_rak_loc,sum(roll_qty - coalesce(qty_mutasi,0)) qty_in, '0' qty_out from bpb_det where coalesce(cancel,'N') != 'Y' and id_item in (select id_item from bppb_req where bppbno = '$bppbno') group by id_item,id_jo,id_rak_loc
+union all
+select id_item,id_jo,unit,id_rak_loc,'0' qty_in,sum(roll_qty) qty_out from bppb_det where cancel = 'N' and id_item in (select id_item from bppb_req where bppbno = '$bppbno') group by id_item,id_jo,id_rak_loc
 ) a
-group by id_item,id_jo,id_rak_loc) a inner join master_rak b on b.id = a.id_rak_loc) a group by id_item,id_jo) tbllok
+group by id_item,id_jo,id_rak_loc having round(sum(qty_in) - sum(qty_out),2) > 0) a inner join master_rak b on b.id = a.id_rak_loc) a group by id_item,id_jo) tbllok
                 on b.id_item=tbllok.id_item and b.id_jo=tbllok.id_jo 
                 left join 
                 (select bppbno_req,id_item,id_jo,sum(qty) qtysdhout,unit unitsdhout from bppb 

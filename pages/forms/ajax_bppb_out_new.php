@@ -279,11 +279,11 @@ if ($modenya=="view_list_stock_req")
 			{
 			$sql="SELECT a.id,a.bpbno_int, a.no_pack, a.id_item, a.id_jo,
 			round(coalesce(a.roll_qty,0),2) roll_qty,
-			round(coalesce(qty_out,0),2) qty_out,
-			round(coalesce(a.roll_qty,0),2) - round(coalesce(qty_out,0),2) qty_sisa,
+			round(coalesce(qty_out,0) + coalesce(a.qty_mutasi,0),2) qty_out,
+			round(coalesce(a.roll_qty,0) - coalesce(qty_out,0) - coalesce(a.qty_mutasi,0),2) qty_sisa,
 			a.unit,a.id_rak_loc,mr.kode_rak, concat( kode_rak, ' ', nama_rak ) raknya from bpb_det a 
 			inner join master_rak mr on a.id_rak_loc = mr.id 
-			left join (select sum(roll_qty) qty_out, id_bpb_det from bppb_det where id_item = '$id_item' and id_jo = '$id_jo' group by id_bpb_det) b on a.id = b.id_bpb_det
+			left join (select sum(roll_qty) qty_out, id_bpb_det from bppb_det where id_item = '$id_item' and id_jo = '$id_jo' and cancel = 'N' group by id_bpb_det) b on a.id = b.id_bpb_det
 			where a.cancel = 'N' and a.id_item = '$id_item' and a.id_jo = '$id_jo'";
 			}
 			#echo $sql; 

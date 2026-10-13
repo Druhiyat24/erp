@@ -86,7 +86,7 @@ if ($modenya == "view_list_data") {
 		$sql = "select bpb.bpbno,bpbno_int, bpbdate, sum(bpb.qty) qty_bpb,coalesce(sum(roll_qty),0) roll_qty,pono, invno, ms.supplier, bpb.username create_by, confirm, if(sum(bpb.qty) = sum(roll_qty),'Ok','N/A') stat_lokasi, 
 			if (update_dok_pab = 'Y','Ok','N/A') stat_dok from bpb 
 			inner join mastersupplier ms on bpb.id_supplier = ms.id_supplier
-			left join (select bpbno,id_item,id_jo,sum(roll_qty)roll_qty from bpb_det group by bpbno,id_item,id_jo) bd on bpb.bpbno = bd.bpbno and bpb.id_item = bd.id_item and bpb.id_jo = bd.id_jo
+			left join (select bpbno,id_item,id_jo,sum(roll_qty - coalesce(qty_mutasi,0)) roll_qty from bpb_det group by bpbno,id_item,id_jo) bd on bpb.bpbno = bd.bpbno and bpb.id_item = bd.id_item and bpb.id_jo = bd.id_jo
 			where bpb.bpbno like 'A%' and bpbdate >= '2023-02-01' and confirm = 'N'
 			group by bpb.bpbno
 			order by bpbdate asc";

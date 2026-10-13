@@ -298,7 +298,7 @@ $logo_company = $rscomp["logo_company"];
             // group by bpbno) br on bpb.bpbno = br.bpbno";
             $tipemode = 'fabric';
           } else  if ($cbotipe == 'A') {
-            $sqljoin = "left join (select bpbno,sum(roll_qty) roll_qty from bpb_det group by bpbno) br on bpb.bpbno = br.bpbno";
+            $sqljoin = "left join (select bpbno,sum(roll_qty - coalesce(qty_mutasi,0)) roll_qty from bpb_det group by bpbno) br on bpb.bpbno = br.bpbno";
             $tipemode = 'acc';
           }
 
@@ -543,7 +543,7 @@ $logo_company = $rscomp["logo_company"];
                   $sqljoin = "left join bpb_roll_h brh on bpb.id_item = brh.id_item and bpb.id_jo = brh.id_jo and bpb.bpbno = brh.bpbno
                   left join (select id_h,sum(roll_qty) roll_qty from bpb_roll group by id_h) br on brh.id = br.id_h";
                 } else if ($mode == 'acc') {
-                  $sqljoin = "left join (select bpbno,id_item,id_jo,sum(roll_qty) roll_qty from bpb_det bd group by bpbno,id_item,id_jo ) br on br.bpbno = bpb.bpbno and br.id_item = bpb.id_item and br.id_jo = bpb.id_jo";
+                  $sqljoin = "left join (select bpbno,id_item,id_jo,sum(roll_qty - coalesce(qty_mutasi,0)) roll_qty from bpb_det bd group by bpbno,id_item,id_jo ) br on br.bpbno = bpb.bpbno and br.id_item = bpb.id_item and br.id_jo = bpb.id_jo";
                 }
                 $query = mysql_query(
                   "select bpb.id_jo, ac.kpno, mp.product_group, mi.id_item, mi.goods_code, mi.itemdesc, bpb.qty qty_bpb
@@ -768,7 +768,7 @@ $logo_company = $rscomp["logo_company"];
     $sql_join = "	left join bpb_roll_h brh on bpb.id_item = brh.id_item and bpb.id_jo = brh.id_jo and bpb.bpbno  = brh.bpbno
     left join (select id_h,sum(roll_qty) roll_qty from bpb_roll group by id_h) br on brh.id = br.id_h";
   } else {
-    $sql_join = "left join (select bpbno,id_item, id_jo,sum(roll_qty) roll_qty from bpb_det group by bpbno, id_item,id_jo) br on bpb.bpbno = br.bpbno and bpb.id_item = br.id_item and bpb.id_jo = br.id_jo";
+    $sql_join = "left join (select bpbno,id_item, id_jo,sum(roll_qty - coalesce(qty_mutasi,0)) roll_qty from bpb_det group by bpbno, id_item,id_jo) br on bpb.bpbno = br.bpbno and bpb.id_item = br.id_item and bpb.id_jo = br.id_jo";
   }
 
   $querybpb = mysql_query("SELECT bpb.*, mi.mattype, ac.kpno, mi.goods_code, mi.itemdesc, 
