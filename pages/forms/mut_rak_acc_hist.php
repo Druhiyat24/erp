@@ -96,16 +96,99 @@ $tglinputakhir = isset($_POST['tglinputakhir']) && $_POST['tglinputakhir'] != ""
 .mutacc-btn-outline:hover, .mutacc-btn-outline:focus{
   background:#d2f0e0; border-color:#00a65a; color:#00753f; text-decoration:none;
 }
+
+.mutacc-btn-show{
+  background:#e5f7ee; border:1px solid #00a65a; color:#00753f;
+  font-weight:600; font-size:11px; line-height:1.5; padding:2px 10px; border-radius:6px;
+  display:inline-flex; align-items:center; gap:5px; white-space:nowrap;
+}
+.mutacc-btn-show:hover, .mutacc-btn-show:focus{ background:#d2f0e0; outline:none; }
+.mutacc-btn-back{
+  background:#eef1f4; border:1px solid #d5dbe3; color:#475569;
+  font-weight:600; font-size:12px; line-height:1.5; padding:5px 14px; border-radius:6px;
+}
+.mutacc-btn-back:hover, .mutacc-btn-back:focus{ background:#e2e7ed; outline:none; }
+
+/* ===== Modal detail mutasi ===== */
+.mutacc-modal{ border-radius:12px; border:0; overflow:hidden; }
+.mutacc-modal .modal-header{ padding:14px 20px; border-bottom:1px solid #f1f5f9; display:flex; align-items:center; }
+.mutacc-modal .modal-header .close{ order:2; margin-left:auto; }
+.mutacc-modal .modal-header .mutacc-card-head{ border:0; margin:0; padding:0; }
+.mutacc-modal .modal-body{ padding:18px 20px; }
+.mutacc-modal .modal-footer{ padding:12px 20px; border-top:1px solid #f1f5f9; }
+.mutacc-empty{ text-align:center; color:#9aa5b1; font-size:12.5px; padding:26px 10px; }
+
+.mutacc-det-flow{ display:flex; align-items:stretch; gap:12px; margin-bottom:18px; }
+.mutacc-det-rak{
+  flex:1; background:#f8fafc; border:1px solid #eef1f4; border-radius:10px; padding:10px 14px;
+}
+.mutacc-det-rak.tujuan{ background:#f4fbf7; border-color:#cdeedb; }
+.mutacc-det-rak small{ display:block; font-size:11px; color:#8a97a6; margin-bottom:2px; }
+.mutacc-det-rak b{ font-size:13px; color:#1e293b; }
+.mutacc-det-arrow{
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  color:#00a65a; min-width:90px;
+}
+.mutacc-det-arrow i{ font-size:22px; }
+.mutacc-det-arrow span{ font-size:12px; font-weight:700; color:#00753f; }
+
+.mutacc-det-section{ margin-bottom:16px; }
+.mutacc-det-title{
+  font-size:11px; font-weight:700; color:#6b7684; text-transform:uppercase; letter-spacing:.4px;
+  padding-bottom:6px; margin-bottom:10px; border-bottom:1px solid #f1f5f9;
+}
+.mutacc-det-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:10px 16px; }
+.mutacc-det-grid .full{ grid-column:1 / -1; }
+.mutacc-det-grid span{ display:block; font-size:11px; color:#8a97a6; }
+.mutacc-det-grid b{ font-size:12.5px; color:#1e293b; font-weight:600; word-break:break-word; }
+
+.mutacc-det-stok{ width:100%; font-size:12px; }
+.mutacc-det-stok th{
+  background:#f8fafc; color:#6b7684; font-size:10.5px; text-transform:uppercase; letter-spacing:.4px;
+  padding:8px 10px; border-bottom:1px solid #eef1f4; text-align:right;
+}
+.mutacc-det-stok td{ padding:8px 10px; border-bottom:1px solid #f4f6f8; color:#334155; text-align:right; }
+.mutacc-det-stok th:first-child, .mutacc-det-stok td:first-child{ text-align:left; }
+.mutacc-det-stok td small{ display:block; color:#8a97a6; font-size:10.5px; }
+.mutacc-det-note{ font-size:11px; color:#9aa5b1; margin:8px 0 0; }
+
+@media (max-width:767px){
+  .mutacc-det-flow{ flex-direction:column; }
+  .mutacc-det-arrow i{ transform:rotate(90deg); }
+  .mutacc-det-grid{ grid-template-columns:repeat(2, 1fr); }
+}
 </style>
 <script type="text/javascript">
   // jQuery & DataTables baru dimuat di bawah index.php (setelah content.php), jadi tunggu DOMContentLoaded
   document.addEventListener('DOMContentLoaded', function() {
+    // modal dipindah ke <body> supaya tidak tertutup backdrop oleh stacking context layout
+    $('#mutaccDetailModal').appendTo('body');
     $('#tbl_mutacc_hist').DataTable({
       "order": [],
       "pageLength": 10,
+      "columnDefs": [{ "orderable": false, "searchable": false, "targets": -1 }],
       "language": { "emptyTable": "Tidak ada data mutasi untuk filter ini." }
     });
   });
+
+  var xhrDetailHist = null;
+  function showDetail(id)
+  {
+    if (xhrDetailHist) { xhrDetailHist.abort(); }
+    $('#mutaccDetailBody').html("<div class='mutacc-empty'><i class='fa fa-spinner fa-spin'></i> Memuat data...</div>");
+    $('#mutaccDetailModal').modal('show');
+    xhrDetailHist = $.ajax({
+      type: "POST",
+      url: 'ajax_mut_acc.php?modeajax=detail_hist',
+      data: { id: id }
+    }).done(function(html) {
+      $('#mutaccDetailBody').html(html);
+    }).fail(function(xhr, status) {
+      if (status !== 'abort') {
+        $('#mutaccDetailBody').html("<div class='mutacc-empty'>Gagal memuat detail, silakan coba lagi.</div>");
+      }
+    });
+  }
 </script>
 <div class="mutacc-wrap">
 
@@ -168,6 +251,7 @@ $tglinputakhir = isset($_POST['tglinputakhir']) && $_POST['tglinputakhir'] != ""
             <th>Rak Asal</th>
             <th>Rak Tujuan</th>
             <th>User</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -201,6 +285,7 @@ $tglinputakhir = isset($_POST['tglinputakhir']) && $_POST['tglinputakhir'] != ""
               <td>$data[rak_asal]</td>
               <td>$data[rak_tujuan]</td>
               <td>$data[user]</td>
+              <td><button type='button' class='mutacc-btn-show' onclick='showDetail(".(int)$data['id'].")'><i class='fa fa-eye'></i> Show</button></td>
             </tr>";
           }
           ?>
@@ -209,4 +294,23 @@ $tglinputakhir = isset($_POST['tglinputakhir']) && $_POST['tglinputakhir'] != ""
     </div>
   </div>
 
+</div>
+
+<div class="modal fade" id="mutaccDetailModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content mutacc-modal">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="mutacc-card-head">
+          <span class="mutacc-bar"></span>
+          <span class="mutacc-icon"><i class="fa fa-file-text-o"></i></span>
+          <span class="mutacc-title">Detail Mutasi</span>
+        </div>
+      </div>
+      <div class="modal-body" id="mutaccDetailBody"></div>
+      <div class="modal-footer">
+        <button type="button" class="mutacc-btn-back" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

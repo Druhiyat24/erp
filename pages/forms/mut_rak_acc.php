@@ -185,7 +185,7 @@ if (empty($_SESSION['username'])) { header("location:../../index.php"); }
     }).done(function(html) {
       $("#detail_item").html(html);
       $("#detail_item .select2").select2();
-      $('#data_mut').dataTable();
+      $('#data_mut').dataTable({ "language": { "emptyTable": "Tidak ada stok tersedia untuk kombinasi rak & item ini." } });
     }).fail(function(xhr, status) {
       if (status !== 'abort') {
         $("#detail_item").html("<div class='mutacc-empty'>Gagal memuat data, silakan pilih ulang Rak / Item.</div>");

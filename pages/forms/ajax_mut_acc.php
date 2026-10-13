@@ -137,14 +137,137 @@ $rscomp=mysql_fetch_array(mysql_query("select * from mastercompany"));
           </tr>";
           $i++;
         };
-        if ($i==1)
-        { echo "<tr><td colspan='16' class='mutacc-empty'>Tidak ada stok tersedia untuk kombinasi rak &amp; item ini.</td></tr>"; }
         ?>
       </tbody>
     </table>
     </div>
     <?php
 
+	}
+
+	if ($modenya=="detail_hist")
+	{
+		$id = (int) $_REQUEST['id'];
+		$h = function($s) { return ($s === null || trim($s) === '') ? '-' : htmlspecialchars($s); };
+		$angka = function($n) { return number_format((float) $n, 2); };
+
+		$mut = mysqli_fetch_assoc(mysqli_query($con_new, "select bd.*, mi.goods_code, mi.itemdesc
+			from bpb_det bd left join masteritem mi on mi.id_item = bd.id_item
+			where bd.id = '$id' and bd.no_mut like 'MUT/GACC/%'"));
+
+		if (!$mut)
+		{ echo "<div class='mutacc-empty'>Data mutasi tidak ditemukan.</div>"; }
+		else
+		{
+			$id_src = (int) $mut['id_bpbdet'];
+			$src = mysqli_fetch_assoc(mysqli_query($con_new, "select * from bpb_det where id = '$id_src'"));
+			if (!$src) { $src = array('id_rak_loc' => 0, 'roll_qty' => 0, 'qty_mutasi' => 0); }
+
+			$rak = array();
+			$q = mysqli_query($con_new, "select id, concat(kode_rak,' ',nama_rak) rak from master_rak where id in ('".(int)$mut['id_rak_loc']."','".(int)$src['id_rak_loc']."')");
+			while ($r = mysqli_fetch_assoc($q)) { $rak[$r['id']] = $r['rak']; }
+			$rak_asal = isset($rak[$src['id_rak_loc']]) ? $rak[$src['id_rak_loc']] : '-';
+			$rak_tujuan = isset($rak[$mut['id_rak_loc']]) ? $rak[$mut['id_rak_loc']] : '-';
+
+			// id_bpb_det bertipe varchar, dibandingkan sebagai string supaya index-nya terpakai
+			$out = array();
+			$q = mysqli_query($con_new, "select id_bpb_det, sum(roll_qty) qty from bppb_det where id_bpb_det in ('$id','$id_src') and cancel = 'N' group by id_bpb_det");
+			while ($r = mysqli_fetch_assoc($q)) { $out[$r['id_bpb_det']] = (float) $r['qty']; }
+			$out_tujuan = isset($out[$id]) ? $out[$id] : 0;
+			$out_asal = isset($out[$id_src]) ? $out[$id_src] : 0;
+
+			$bpbno = mysqli_real_escape_string($con_new, $mut['bpbno']);
+			$bpb = mysqli_fetch_assoc(mysqli_query($con_new, "select b.bpbdate, b.pono, b.invno, ms.supplier
+				from bpb b left join mastersupplier ms on ms.id_supplier = b.id_supplier
+				where b.bpbno = '$bpbno' limit 1"));
+
+			$id_jo = mysqli_real_escape_string($con_new, $mut['id_jo']);
+			$ws = mysqli_fetch_assoc(mysqli_query($con_new, "select ac.kpno, ac.styleno, mb.supplier buyer
+				from jo_det jd inner join so on jd.id_so = so.id
+				inner join act_costing ac on so.id_cost = ac.id
+				left join mastersupplier mb on ac.id_buyer = mb.id_supplier
+				where jd.id_jo = '$id_jo' and jd.cancel = 'N' limit 1"));
+
+			$tgl_mut = ($mut['tgl_mut'] != "" && $mut['tgl_mut'] != "0000-00-00") ? date('d M Y', strtotime($mut['tgl_mut'])) : '-';
+			$tgl_bpb = ($bpb && $bpb['bpbdate'] != "") ? date('d M Y', strtotime($bpb['bpbdate'])) : '-';
+			$sisa_asal = (float) $src['roll_qty'] - $out_asal - (float) $src['qty_mutasi'];
+			$sisa_tujuan = (float) $mut['roll_qty'] - $out_tujuan - (float) $mut['qty_mutasi'];
+			?>
+			<div class="mutacc-det-flow">
+				<div class="mutacc-det-rak">
+					<small>Rak Asal</small>
+					<b><?= $h($rak_asal) ?></b>
+				</div>
+				<div class="mutacc-det-arrow">
+					<i class="fa fa-long-arrow-right"></i>
+					<span><?= $angka($mut['roll_qty']) ?> <?= $h($mut['unit']) ?></span>
+				</div>
+				<div class="mutacc-det-rak tujuan">
+					<small>Rak Tujuan</small>
+					<b><?= $h($rak_tujuan) ?></b>
+				</div>
+			</div>
+
+			<div class="mutacc-det-section">
+				<div class="mutacc-det-title">Info Mutasi</div>
+				<div class="mutacc-det-grid">
+					<div><span>No Mutasi</span><b><?= $h($mut['no_mut']) ?></b></div>
+					<div><span>Tgl Mutasi</span><b><?= $tgl_mut ?></b></div>
+					<div><span>User</span><b><?= $h($mut['user']) ?></b></div>
+				</div>
+			</div>
+
+			<div class="mutacc-det-section">
+				<div class="mutacc-det-title">Item</div>
+				<div class="mutacc-det-grid">
+					<div><span>ID Item</span><b><?= $h($mut['id_item']) ?></b></div>
+					<div><span>Kode Item</span><b><?= $h($mut['goods_code']) ?></b></div>
+					<div><span>Unit</span><b><?= $h($mut['unit']) ?></b></div>
+					<div class="full"><span>Nama Item</span><b><?= $h($mut['itemdesc']) ?></b></div>
+				</div>
+			</div>
+
+			<div class="mutacc-det-section">
+				<div class="mutacc-det-title">Dokumen Penerimaan (BPB)</div>
+				<div class="mutacc-det-grid">
+					<div><span>No BPB</span><b><?= $h($mut['bpbno_int']) ?></b></div>
+					<div><span>Tgl BPB</span><b><?= $tgl_bpb ?></b></div>
+					<div><span>Supplier</span><b><?= $h($bpb ? $bpb['supplier'] : '-') ?></b></div>
+					<div><span>No PO</span><b><?= $h($bpb ? $bpb['pono'] : '-') ?></b></div>
+					<div><span>No Invoice / SJ</span><b><?= $h($bpb ? $bpb['invno'] : '-') ?></b></div>
+					<div><span>WS</span><b><?= $h($ws ? $ws['kpno'] : '-') ?></b></div>
+					<div><span>Style</span><b><?= $h($ws ? $ws['styleno'] : '-') ?></b></div>
+					<div><span>Buyer</span><b><?= $h($ws ? $ws['buyer'] : '-') ?></b></div>
+				</div>
+			</div>
+
+			<div class="mutacc-det-section">
+				<div class="mutacc-det-title">Posisi Stok Saat Ini</div>
+				<table class="mutacc-det-stok">
+					<thead>
+						<tr><th>Lokasi</th><th>Qty Masuk</th><th>Keluar</th><th>Dimutasi</th><th>Sisa</th></tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Rak Asal <small><?= $h($rak_asal) ?></small></td>
+							<td><?= $angka($src['roll_qty']) ?></td>
+							<td><?= $angka($out_asal) ?></td>
+							<td><?= $angka($src['qty_mutasi']) ?></td>
+							<td><b><?= $angka($sisa_asal) ?></b></td>
+						</tr>
+						<tr>
+							<td>Rak Tujuan <small><?= $h($rak_tujuan) ?></small></td>
+							<td><?= $angka($mut['roll_qty']) ?></td>
+							<td><?= $angka($out_tujuan) ?></td>
+							<td><?= $angka($mut['qty_mutasi']) ?></td>
+							<td><b><?= $angka($sisa_tujuan) ?></b></td>
+						</tr>
+					</tbody>
+				</table>
+				<p class="mutacc-det-note">Kolom "Dimutasi" di rak asal adalah total semua mutasi dari baris penerimaan ini, tidak hanya mutasi ini.</p>
+			</div>
+			<?php
+		}
 	}
 
 
