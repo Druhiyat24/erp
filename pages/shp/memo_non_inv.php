@@ -211,14 +211,12 @@ if (!function_exists('file_ico_class')) {
   }
 }
 
-/* Nama fisik file yang dipakai di URL (upload/<...>).
-   Upload baru sudah disimpan dalam bentuk rawurlencode() (lihat upload_file.php),
-   jadi dipakai apa adanya. Upload lama (sebelum perbaikan) masih nama asli apa
-   adanya, jadi perlu di-rawurlencode() dulu supaya jadi URL yang valid. */
+/* Nama fisik file yang dipakai di URL (upload/<...>). Selalu di-rawurlencode():
+   upload baru tersimpan di disk dengan '%' literal (mis. "a%20b.pdf"), jadi '%'
+   harus jadi '%25' di URL; kalau tidak, Apache men-decode %20 jadi spasi dan 404. */
 if (!function_exists('memo_file_url_name')) {
   function memo_file_url_name($file_name)
   {
-    if (preg_match('/^[A-Za-z0-9\-_.~%]*$/', $file_name)) { return $file_name; }
     return rawurlencode($file_name);
   }
 }
