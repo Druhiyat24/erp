@@ -23,9 +23,41 @@ if ($mod == 'simpan')
 	$txtbppbdate = fd($_POST['txtbppbdate']);	
 
 	if (isset($_POST['txtstatus_kb'])) { $status_kb=nb($_POST['txtstatus_kb']); } else { $status_kb = ""; } 
-	if (isset($_POST['txtnomor_rak'])) {$txtnomor_rak=nb($_POST['txtnomor_rak']);} else {$txtnomor_rak="";}	
+	if (isset($_POST['txtnomor_rak'])) {$txtnomor_rak=nb($_POST['txtnomor_rak']);} else {$txtnomor_rak="";}
 
-	$txtbppbno = urutkan('Add_BPPB',$cbomat); 
+	// Pengaman stok aksesoris: cek ulang sisa tiap baris rak di server sebelum apa pun disimpan
+	// (termasuk sebelum nomor BPPB dibuat). Sisa = roll_qty - qty_mutasi - yang sudah keluar.
+	if ($cbomat == 'A')
+	{
+		$pakai = array();
+		foreach ($_POST['totqtyroll'] as $k => $v)
+		{
+			foreach (explode("X", $_POST['qtyroll'][$k]) as $rollrak)
+			{
+				$c = explode("|", $rollrak);
+				if (count($c) < 5 || (int) $c[2] <= 0 || (float) $c[4] <= 0) { continue; }
+				$pakai[(int) $c[2]] = (isset($pakai[(int) $c[2]]) ? $pakai[(int) $c[2]] : 0) + (float) $c[4];
+			}
+		}
+		$gagal = array();
+		foreach ($pakai as $idb => $qty)
+		{
+			$r = mysql_fetch_array(mysql_query("select bd.id_item, concat(mr.kode_rak,' ',mr.nama_rak) rak,
+				bd.roll_qty - coalesce(bd.qty_mutasi,0)
+				- coalesce((select sum(o.roll_qty) from bppb_det o where o.id_bpb_det = '$idb' and o.cancel = 'N'),0) sisa
+				from bpb_det bd left join master_rak mr on mr.id = bd.id_rak_loc where bd.id = '$idb'"));
+			if (!$r) { $gagal[] = "Baris rak ID $idb tidak ditemukan"; continue; }
+			if ($qty > round($r['sisa'], 4)) { $gagal[] = "Item $r[id_item] di $r[rak]: diambil $qty, sisa ".number_format($r['sisa'],2); }
+		}
+		if (count($gagal) > 0)
+		{
+			$_SESSION['msg'] = "XData tidak disimpan:\\n".implode("\\n", $gagal);
+			echo "<script>window.location.href='../forms/?mod=new_bppb_out';</script>";
+			exit;
+		}
+	}
+
+	$txtbppbno = urutkan('Add_BPPB',$cbomat);
 
 		$cbomat2=flookup("nama_pilihan","masterpilihan","kode_pilihan='MAP_MAT_".$cbomat."'");
 		$date=fd($txtbppbdate);
@@ -95,16 +127,26 @@ if ($mod == 'simpan')
 				{	$criroll2 = explode("|",$rollrak);
 					$id_item_barcode = $criroll2[0];
 					$id_jo_barcode = $criroll2[1];
-					$id_bpb = $criroll2[2];
+					$id_bpb = (int) $criroll2[2];
 					$id_rak = $criroll2[3];
-					$qtyuse = $criroll2[4];
-					$sql_insert_det = "insert into bppb_det (id,bppbno,bppbno_int,bppbno_req,id_item,id_jo,roll_qty,unit,id_rak_loc,user,bppbdate,id_bpb_det,cancel) values
-					('','$txtbppbno','$txtbppbno2','$txtreqno','$id_item_barcode','$id_jo_barcode','$qtyuse','$unit','$id_rak','$user','$date','$id_bpb','N')";
-					insert_log($sql_insert_det,$user);
+					$qtyuse = (float) $criroll2[4];
+					if ($id_bpb <= 0 || $qtyuse <= 0) { continue; }
+					// guard atomik: hanya tercatat keluar kalau sisa baris masih cukup saat disimpan
+					$sql_insert_det = "insert into bppb_det (bppbno,bppbno_int,bppbno_req,id_item,id_jo,roll_qty,unit,id_rak_loc,user,bppbdate,id_bpb_det,cancel)
+					select '$txtbppbno','$txtbppbno2','$txtreqno','$id_item_barcode','$id_jo_barcode','$qtyuse','$unit','$id_rak','$user','$date','$id_bpb','N'
+					from bpb_det bd where bd.id = '$id_bpb'
+					and (bd.roll_qty - coalesce(bd.qty_mutasi,0) - coalesce((select sum(x.roll_qty) from bppb_det x where x.id_bpb_det = '$id_bpb' and x.cancel = 'N'),0)) >= $qtyuse";
+					mysql_query($sql_insert_det);
+					$affected = mysql_affected_rows();
+					insert_log("X".$sql_insert_det,$user);
+					if ($affected < 1) { $gagal_simpan[] = "Item $id_item_barcode (baris rak $id_bpb): stok berubah saat disimpan"; }
 				}
-			}		
-		}		
-		{$_SESSION['msg']="Data Berhasil Disimpan, Nomor BPPB : ".$txtbppbno2;}
+			}
+		}
+		if (!empty($gagal_simpan))
+		{ $_SESSION['msg']="XNomor BPPB ".$txtbppbno2." tersimpan, tetapi baris berikut tidak tercatat:\\n".implode("\\n", $gagal_simpan); }
+		else
+		{ $_SESSION['msg']="Data Berhasil Disimpan, Nomor BPPB : ".$txtbppbno2; }
 		echo "<script>window.location.href='../forms/?mod=det_bppb_out&id=$txtbppbno'</script>";
 	}
 

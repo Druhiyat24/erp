@@ -110,7 +110,7 @@ header("Cache-Control: max-age=0");
          group by id_cost order by id_jo asc) jd on bd.id_jo = jd.id_jo
          inner join master_rak mr on bd.id_rak_loc = mr.id
          inner join mastersupplier ms on bpb.id_supplier = ms.id_supplier 
-         where bpb.bpbdate >= '$fromcri' and bpb.bpbdate <= '$tocri'
+         where bpb.bpbdate >= '$fromcri' and bpb.bpbdate <= '$tocri' and bd.tgl_mut is null
          order by bpb.bpbdate asc
 ";
 
@@ -372,7 +372,7 @@ header("Cache-Control: max-age=0");
           from bpb_det bd
           inner join (select bpbno, pono, id_supplier,bpbno_int, bpbdate,invno from bpb where bpbdate >= '$fromcri' and bpbdate <= '$tocri' 
           group by bpbno) bpb on bd.bpbno = bpb.bpbno
-          where bpb.bpbdate >= '$fromcri' and bpb.bpbdate <= '$tocri' and bd.bpbno <> 'saldoawal'
+          where bpb.bpbdate >= '$fromcri' and bpb.bpbdate <= '$tocri' and bd.bpbno <> 'saldoawal' and bd.tgl_mut is null
           group by id_rak_loc, id_item, id_jo, unit
           UNION
           select id_rak_loc,id_item,id_jo,unit,'0' qty_awal,sum(roll_qty) qty_in, '0' qty_out from bpb_det where tgl_mut >= '$fromcri' and tgl_mut <= '$tocri' group by id_rak_loc, id_item, id_jo, unit  
@@ -397,7 +397,7 @@ header("Cache-Control: max-age=0");
          group by id_cost order by id_jo asc) jd on a.id_jo = jd.id_jo
           inner join mastersupplier mb on jd.id_buyer = mb.id_supplier
           inner join masteritem mi on a.id_item = mi.id_item
-          group by a.id_rak_loc, a.id_item, a.id_jo, a.unit) a where (qty_awal + qty_in) > 0 ";
+          group by a.id_rak_loc, a.id_item, a.id_jo, a.unit) a where (qty_awal <> 0 or qty_in <> 0 or qty_out <> 0) ";
 
 
 // $sql = "select concat(kode_rak ,' ', nama_rak) lokasi,
