@@ -87,7 +87,7 @@ header("Cache-Control: max-age=0");
           $fromcri = date('Y-m-d', strtotime($from));
           $tocri = date('Y-m-d', strtotime($to));
 
-          $sql = "select bd.*,
+          $sql = "(select bd.*,
           bpb.bpbdate tgl_bpb, 
           jd.kpno, 
           mi.itemdesc, 
@@ -97,7 +97,8 @@ header("Cache-Control: max-age=0");
           pono,
           invno,
           buyer,
-          styleno 
+          styleno,
+          bd.bpbno_int nomor_dok
           from bpb_det bd
          inner join (select bpbno, pono, id_supplier,bpbno_int, bpbdate,invno from bpb where bpbdate >= '$fromcri' and bpbdate <= '$tocri' 
          group by bpbno) bpb on bd.bpbno = bpb.bpbno
@@ -110,8 +111,21 @@ header("Cache-Control: max-age=0");
          group by id_cost order by id_jo asc) jd on bd.id_jo = jd.id_jo
          inner join master_rak mr on bd.id_rak_loc = mr.id
          inner join mastersupplier ms on bpb.id_supplier = ms.id_supplier 
-         where bpb.bpbdate >= '$fromcri' and bpb.bpbdate <= '$tocri' and bd.tgl_mut is null
-         order by bpb.bpbdate asc
+         where bpb.bpbdate >= '$fromcri' and bpb.bpbdate <= '$tocri' and bd.tgl_mut is null)
+         union all
+         -- mutasi lokasi rak aksesoris = pemasukan ke rak tujuan (supplier Mutasi Lokasi), sama dengan laporan mutasi detail
+         (select bd.*, bd.tgl_mut tgl_bpb, jd.kpno, mi.itemdesc, mi.goods_code, concat(mr.kode_rak, ' ', mr.nama_rak) rak, 'Mutasi Lokasi' supplier, '' pono, '' invno, jd.buyer, jd.styleno, bd.no_mut nomor_dok
+         from bpb_det bd
+         inner join masteritem mi on bd.id_item = mi.id_item
+         inner join (select ac.id_buyer, supplier buyer,ac.styleno,jd.id_jo, ac.kpno from jo_det jd
+         inner join so on jd.id_so = so.id
+         inner join act_costing ac on so.id_cost = ac.id
+         inner join mastersupplier mb on ac.id_buyer = mb.id_supplier
+         where jd.cancel = 'N'
+         group by id_cost order by id_jo asc) jd on bd.id_jo = jd.id_jo
+         inner join master_rak mr on bd.id_rak_loc = mr.id
+         where bd.tgl_mut >= '$fromcri' and bd.tgl_mut <= '$tocri')
+         order by tgl_bpb asc
 ";
 
           #echo $sql;
@@ -121,7 +135,7 @@ header("Cache-Control: max-age=0");
             $tgl_bpb = date('d M Y', strtotime($data[tgl_bpb]));
             echo "<tr>";
             echo "<td>$no</td>";
-            echo "<td>$data[bpbno_int]</td>";
+            echo "<td>$data[nomor_dok]</td>";
             echo "<td>$tgl_bpb</td>";
             echo "<td>$data[supplier]</td>";
             echo "<td>$data[pono]</td>";
@@ -182,7 +196,7 @@ header("Cache-Control: max-age=0");
           $fromcri = date('Y-m-d', strtotime($from));
           $tocri = date('Y-m-d', strtotime($to));
 
-          $sql = "select bd.*,
+          $sql = "(select bd.bppbno_int, bd.id_item, bd.roll_qty, bd.unit, bd.user,
           bppb.bppbdate tgl_bppb,
           invno,
           jenis_dok,
@@ -215,8 +229,24 @@ header("Cache-Control: max-age=0");
           group by id_cost order by id_jo asc) jd on bd.id_jo = jd.id_jo
           inner join master_rak mr on bd.id_rak_loc = mr.id
           inner join mastersupplier ms on bppb.id_supplier = ms.id_supplier 
-          where bppb.bppbdate >= '$fromcri' and bppb.bppbdate <= '$tocri'
-          order by bppb.bppbdate asc";
+          where bppb.bppbdate >= '$fromcri' and bppb.bppbdate <= '$tocri')
+          union all
+          -- mutasi lokasi rak aksesoris = pengeluaran dari rak asal (INHOUSE, supplier Mutasi Lokasi), sama dengan laporan mutasi detail
+          (select d.no_mut, d.id_item, d.roll_qty, d.unit, d.user, d.tgl_mut, '', 'INHOUSE', '', '0000-00-00', '', '0000-00-00',
+          jd.kpno, mi.itemdesc, mi.goods_code, concat(ra.kode_rak, ' ', ra.nama_rak), 'Mutasi Lokasi', '', concat('Mutasi ke ', rt.kode_rak, ' ', rt.nama_rak), '', '-', jd.styleno, 'MUTASI LOKASI', jd.buyer
+          from bpb_det d
+          inner join bpb_det src on src.id = d.id_bpbdet and src.id_item = d.id_item and src.id_jo = d.id_jo and src.qty_mutasi > 0
+          inner join masteritem mi on d.id_item = mi.id_item
+         inner join (select ac.id_buyer, supplier buyer,ac.styleno,jd.id_jo, ac.kpno from jo_det jd
+         inner join so on jd.id_so = so.id
+         inner join act_costing ac on so.id_cost = ac.id
+         inner join mastersupplier mb on ac.id_buyer = mb.id_supplier
+         where jd.cancel = 'N'
+         group by id_cost order by id_jo asc) jd on d.id_jo = jd.id_jo
+          inner join master_rak ra on src.id_rak_loc = ra.id
+          left join master_rak rt on d.id_rak_loc = rt.id
+          where d.tgl_mut >= '$fromcri' and d.tgl_mut <= '$tocri')
+          order by tgl_bppb asc";
 
 
           // $sql = "select bd.*,

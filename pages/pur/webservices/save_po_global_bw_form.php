@@ -22,6 +22,12 @@ if(!ISSET($username)){
 	$header['txtnotes'] = addslashes($header['txtnotes']);
 	$curr = $header['curr'];		
 if($header['format'] == '1' ){
+	// PO baru hanya boleh untuk supplier yang masih aktif (mastersupplier.non_aktif = 0)
+	$cek_supp = $getListData->eksekusi_query("select count(*) jml from mastersupplier where id_supplier = '".(int)$header['cbosupp']."' and non_aktif = '0'",'cek_supplier');
+	if($cek_supp[0]['jml'] == 0){
+		print_r('{ "respon":"", "message":"Supplier tidak aktif atau belum dipilih, PO tidak bisa dibuat","part" : "Validasi", "records":"0"}');
+		exit;
+	}
 	$header['txtdraftpo'] = $getListData -> generate_no_draft_po($header,$detail);
 	$insert_header 	= $getListData->insert_header($header,$username);
 	$last_id_po_draft	= $getListData->get_last_id_draft_po($header['txtdraftpo']);

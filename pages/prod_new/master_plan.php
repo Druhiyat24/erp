@@ -51,6 +51,9 @@ $logo_company = $rscomp["logo_company"];
       <a href='../prod_new/?mod=master_plan_new' class='btn btn-primary btn-s'>
         <i class='fa fa-plus'></i> New
       </a>
+      <a href='guide_master_plan.php' target='_blank' class='btn btn-info btn-s'>
+        <i class='fa fa-book'></i> Guide
+      </a>
     </div>
 
     <div class='row'>

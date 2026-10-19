@@ -620,7 +620,23 @@ $id_contents ="id_contents";
         left join (select id_item, id_jo, group_concat(distinct(color)) color_gmt from bom_jo_item k inner join so_det sd on k.id_so_det = sd.id where status = 'M' and k.cancel = 'N' group by id_item, id_jo) cc on s.id_gen = cc.id_item and a.id_jo = cc.id_jo
         where a.tgl_mut BETWEEN  '$from' and '$to')) a left join (select id_jo,kpno,styleno from act_costing ac inner join so on ac.id=so.id_cost inner join jo_det jod on so.id=jod.id_so group by id_jo) b on b.id_jo=a.id_jo)",33);
       	}else{
-      		tampil_data("select if(bppbno_int!='',bppbno_int,bppbno) bppbno,a.bppbno_req,bppbdate,'NIRWANA ALABARE GARMENT' profit_center, invno,jenis_dok,right(nomor_aju,6),tanggal_aju,
+      		// mutasi lokasi rak aksesoris (bpb_det bertanggal tgl_mut) = pengeluaran dari rak asal, sama dengan laporan mutasi detail & global
+      		$sql_mut_out = "";
+      		if ($suppnya == "")
+      		{	$sql_mut_out = " union all
+      			(select m.no_mut,'',m.tgl_mut,'NIRWANA ALABARE GARMENT','','INHOUSE','','','','','Mutasi Lokasi',m.id_item,$id_contents,goods_code,$fld itemdesc,s.color,s.size,
+      			m.roll_qty,0,0,m.unit,0,concat('Mutasi ke ',m.rak_tujuan),m.user,'',tmpjo.kpno,tmpjo.styleno,'',0,'','MUTASI LOKASI',cp.nama_panel,cc.color_gmt
+      			from (select d.no_mut,d.tgl_mut,d.id_item,d.id_jo,d.unit,d.roll_qty,d.user,d.bpbno,d.bpbno_int,concat(rt.kode_rak,' ',rt.nama_rak) rak_tujuan from bpb_det d
+      				inner join bpb_det src on src.id = d.id_bpbdet and src.id_item = d.id_item and src.id_jo = d.id_jo and src.qty_mutasi > 0
+      				left join master_rak rt on rt.id = d.id_rak_loc where d.tgl_mut between '$from' and '$to') m
+      			inner join $tbl s on m.id_item = s.id_item
+      			$join_mc
+      			left join (select id_jo,kpno,styleno from act_costing ac inner join so on ac.id=so.id_cost inner join jo_det jod on so.id=jod.id_so group by id_jo) tmpjo on tmpjo.id_jo = m.id_jo
+      			left join (select id_jo,bom_jo_item.id_item,group_concat(distinct(nama_panel)) nama_panel from bom_jo_item inner join masterpanel mp on bom_jo_item.id_panel = mp.id where id_panel != '0' group by id_item, id_jo) cp on s.id_gen = cp.id_item and m.id_jo = cp.id_jo
+      			left join (select id_item, id_jo, group_concat(distinct(color)) color_gmt from bom_jo_item k inner join so_det sd on k.id_so_det = sd.id where status = 'M' and k.cancel = 'N' group by id_item, id_jo) cc on s.id_gen = cc.id_item and m.id_jo = cc.id_jo
+      			where $where $que_cl)";
+      		}
+      		tampil_data("(select if(bppbno_int!='',bppbno_int,bppbno) bppbno,a.bppbno_req,bppbdate,'NIRWANA ALABARE GARMENT' profit_center, invno,jenis_dok,right(nomor_aju,6),tanggal_aju,
       			lpad(bcno,6,'0') bcno,bcdate,supplier,a.id_item,$id_contents,goods_code,$fld itemdesc,s.color,s.size,
       			a.qty,0 as qty_good,0 as qty_reject,
       			a.unit,berat_bersih,remark,$flduser,a.confirm_by,ac.kpno ws,ac.styleno,a.curr,a.price,br.idws_act,a.jenis_trans,cp.nama_panel, cc.color_gmt 
@@ -640,7 +656,7 @@ $id_contents ="id_contents";
       			where status = 'M' and k.cancel = 'N'
       			group by id_item, id_jo) cc on s.id_gen = cc.id_item and a.id_jo = cc.id_jo				 
       			where $whereout and bppbdate between '$from' and '$to'
-      			$que_cl $que_supp order by bppbdate",33);
+      			$que_cl $que_supp)" . $sql_mut_out . " order by bppbdate",33);
       	}
 
       		// echo $classnya;
@@ -1038,8 +1054,25 @@ from (
         left join (select id_jo,bom_jo_item.id_item,group_concat(distinct(nama_panel)) nama_panel from bom_jo_item inner join masterpanel mp on bom_jo_item.id_panel = mp.id where id_panel != '0' group by id_item, id_jo) cp on a.id_gen = cp.id_item and a.id_jo = cp.id_jo
         left join (select id_item, id_jo, group_concat(distinct(color)) color_gmt from bom_jo_item k inner join so_det sd on k.id_so_det = sd.id where status = 'M' and k.cancel = 'N' group by id_item, id_jo) cc on a.id_gen = cc.id_item and a.id_jo = cc.id_jo",37);
       	}else{
+      	// mutasi lokasi rak aksesoris (bpb_det bertanggal tgl_mut) = pemasukan ke rak tujuan, sama dengan laporan mutasi detail & global
+      	$sql_mut_in = "";
+      	if ($suppnya == "")
+      	{	$sql_mut_in = " union all
+      		(select m.no_mut,m.tgl_mut,'NIRWANA ALABARE GARMENT','','INHOUSE','','','','','Mutasi Lokasi','','','',m.id_item,mc.id_contents,s.goods_code,$fld itemdesc,s.color,s.size,
+      		m.roll_qty,m.roll_qty,0,m.unit,0,concat('Mutasi dari ',m.rak_asal),m.user,'',tmpjo.kpno,tmpjo.styleno,'',0,0,'MUTASI LOKASI',m.dok_asal,m.rak_tujuan,cp.nama_panel,cc.color_gmt
+      		from (select d.no_mut,d.tgl_mut,d.id_item,d.id_jo,d.unit,d.roll_qty,d.user,d.bpbno,d.bpbno_int,src.bpbno_int dok_asal,
+      			concat(ra.kode_rak,' ',ra.nama_rak) rak_asal,concat(rt.kode_rak,' ',rt.nama_rak) rak_tujuan from bpb_det d
+      			left join bpb_det src on src.id = d.id_bpbdet left join master_rak ra on ra.id = src.id_rak_loc
+      			left join master_rak rt on rt.id = d.id_rak_loc where d.tgl_mut between '$from' and '$to') m
+      		inner join $tbl s on m.id_item = s.id_item
+      		left join (select a.id as id_gen ,e.id_contents from masterdesc a left join mastercolor b on a.id_color = b.id left join masterweight c on b.id_weight = c.id left join masterlength d on c.id_length = d.id left join masterwidth e on d.id_width = e.id) mc on s.id_gen = mc.id_gen
+      		left join (select id_jo,kpno,styleno from act_costing ac inner join so on ac.id=so.id_cost inner join jo_det jod on so.id=jod.id_so group by id_jo) tmpjo on tmpjo.id_jo = m.id_jo
+      		left join (select id_jo,bom_jo_item.id_item,group_concat(distinct(nama_panel)) nama_panel from bom_jo_item inner join masterpanel mp on bom_jo_item.id_panel = mp.id where id_panel != '0' group by id_item, id_jo) cp on s.id_gen = cp.id_item and m.id_jo = cp.id_jo
+      		left join (select id_item, id_jo, group_concat(distinct(color)) color_gmt from bom_jo_item k inner join so_det sd on k.id_so_det = sd.id where status = 'M' and k.cancel = 'N' group by id_item, id_jo) cc on s.id_gen = cc.id_item and m.id_jo = cc.id_jo
+      		where $where $que_cl)";
+      	}
 
-      	tampil_data("select if(bpbno_int!='',bpbno_int,bpbno) bpbno,bpbdate,'NIRWANA ALABARE GARMENT' profit_center, invno,jenis_dok,right(nomor_aju,6),tanggal_aju,
+      	tampil_data("(select if(bpbno_int!='',bpbno_int,bpbno) bpbno,bpbdate,'NIRWANA ALABARE GARMENT' profit_center, invno,jenis_dok,right(nomor_aju,6),tanggal_aju,
       		lpad(bcno,6,'0') bcno,bcdate,supplier,a.pono,z.tipe_com,invno,a.id_item,id_contents,goods_code,$fld itemdesc,s.color,s.size,
       		a.qty,(a.qty-coalesce(a.qty_reject,0)) as qty_good,coalesce(a.qty_reject,0) as qty_reject,
       		a.unit,berat_bersih,remark,$flduser,a.confirm_by,tmpjo.kpno ws,tmpjo.styleno,a.curr,if(z.tipe_com !='Regular','0',a.price)price,a.price, a.jenis_trans,a.reffno,lr.rak,cp.nama_panel,cc.color_gmt 
@@ -1068,7 +1101,7 @@ from (
       		group by id_item, id_jo) cp on s.id_gen = cp.id_item and a.id_jo = cp.id_jo
       		left join (select id_item, id_jo, group_concat(distinct(color)) color_gmt from bom_jo_item k inner join so_det sd on k.id_so_det = sd.id where status = 'M' and k.cancel = 'N' group by id_item, id_jo) cc on s.id_gen = cc.id_item and a.id_jo = cc.id_jo    
       		where $where and bpbdate between '$from' and '$to'
-      		$que_cl $que_supp order by bpbdate",37);
+      		$que_cl $que_supp)" . $sql_mut_in . " order by bpbdate",37);
       }
       	// echo $classnya;
 

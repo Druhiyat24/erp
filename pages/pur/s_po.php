@@ -39,6 +39,13 @@ if(ISSET($_POST['n_installment'])){
 }
 if(isset($_POST['txtpph'])) {$pph=$_POST['txtpph'];} else {$pph="0";}
 
+# PO baru hanya boleh untuk supplier yang masih aktif (mastersupplier.non_aktif = 0)
+if($pono=="" and flookup("count(*)","mastersupplier","id_supplier='".(int)$id_supplier."' and non_aktif='0'")==0)
+{	$_SESSION['msg'] = "XSupplier tidak aktif atau belum dipilih, PO tidak bisa dibuat";
+	echo "<script>window.location.href='../pur/?mod=".($mod=="9" ? "9L" : "3L")."';</script>";
+	exit;
+}
+
 if($jenis!="N" and $pono=="")
 {	$joselect="";
 	foreach ($_POST['txtJOItem'] as $names)
