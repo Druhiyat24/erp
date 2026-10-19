@@ -602,7 +602,7 @@ console.log($("#pkp").val());
 
               $sql="select id_supplier isi,supplier tampil from mastersupplier
 
-                where tipe_sup='S' and supplier!='' order by supplier";
+                where tipe_sup='S' and supplier!='' and (non_aktif='0' or id_supplier='$id_supplier') order by supplier";
 
               IsiCombo($sql,$id_supplier,'Pilih Supplier')
 

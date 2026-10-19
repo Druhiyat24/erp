@@ -116,7 +116,7 @@ if ($modenya == "get_list_supp_global") {
   from bom_jo_global_item a
   inner join masteritem mi on a.id_item = mi.id_item 
   inner join mastersupplier ms on a.id_supplier = ms.id_supplier
-  where if(mi.mattype = 'F' or mi.mattype = 'A','M','P') = '$jenis_item' and a.cancel = 'N'
+  where if(mi.mattype = 'F' or mi.mattype = 'A','M','P') = '$jenis_item' and a.cancel = 'N' and ms.non_aktif = '0'
   group by ms.id_supplier
   order by ms.supplier asc";
   IsiCombo($sql, '', 'Pilih Supplier');

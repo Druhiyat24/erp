@@ -80,12 +80,12 @@ if ($modenya=="get_list_supp")
   $sql = "select d.id_supplier isi,concat(supplier,' (',if(pkp='','NON PKP',pkp),')') tampil from 
     jo_dev a inner join bom_dev_jo_item s on a.id=s.id_jo
     inner join mastersupplier d on s.id_supplier=d.id_supplier 
-    where tipe_sup='S' and s.status='$jenis_item' $sql_app group by supplier 
+    where tipe_sup='S' and d.non_aktif='0' and s.status='$jenis_item' $sql_app group by supplier 
     union all 
     select d.id_supplier isi,concat(supplier,' (',if(pkp='','NON PKP',pkp),')') tampil from 
     jo_dev a inner join bom_dev_jo_item s on a.id=s.id_jo
     inner join mastersupplier d on s.id_supplier2=d.id_supplier 
-    where tipe_sup='S' and s.status='$jenis_item' $sql_app group by supplier";
+    where tipe_sup='S' and d.non_aktif='0' and s.status='$jenis_item' $sql_app group by supplier";
   IsiCombo($sql,'','Pilih Supplier');
 }
 

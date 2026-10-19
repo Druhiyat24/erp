@@ -21,6 +21,13 @@ $curr=$_POST['txtcurr'];
 $tax=$_POST['txtppn'];
 $disc=$_POST['txtdisc'];
 if(isset($_POST['txtpph'])) {$pph=$_POST['txtpph'];} else {$pph="0";}
+
+# PO baru hanya boleh untuk supplier yang masih aktif (mastersupplier.non_aktif = 0)
+if($pono=="" and flookup("count(*)","mastersupplier","id_supplier='".(int)$id_supplier."' and non_aktif='0'")==0)
+{	$_SESSION['msg'] = "XSupplier tidak aktif atau belum dipilih, PO tidak bisa dibuat";
+	echo "<script>window.location.href='../pur/?mod=poaddL';</script>";
+	exit;
+}
 $jmlws=1;
 $joselect=$_POST['txtJOItem'];
 
