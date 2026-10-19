@@ -628,7 +628,7 @@ $id_contents ="id_contents";
       			m.roll_qty,0,0,m.unit,0,concat('Mutasi ke ',m.rak_tujuan),m.user,'',tmpjo.kpno,tmpjo.styleno,'',0,'','MUTASI LOKASI',cp.nama_panel,cc.color_gmt
       			from (select d.no_mut,d.tgl_mut,d.id_item,d.id_jo,d.unit,d.roll_qty,d.user,d.bpbno,d.bpbno_int,concat(rt.kode_rak,' ',rt.nama_rak) rak_tujuan from bpb_det d
       				inner join bpb_det src on src.id = d.id_bpbdet and src.id_item = d.id_item and src.id_jo = d.id_jo and src.qty_mutasi > 0
-      				left join master_rak rt on rt.id = d.id_rak_loc where d.tgl_mut between '$from' and '$to') m
+      				left join master_rak rt on rt.id = d.id_rak_loc where d.cancel = 'N' and d.tgl_mut between '$from' and '$to') m
       			inner join $tbl s on m.id_item = s.id_item
       			$join_mc
       			left join (select id_jo,kpno,styleno from act_costing ac inner join so on ac.id=so.id_cost inner join jo_det jod on so.id=jod.id_so group by id_jo) tmpjo on tmpjo.id_jo = m.id_jo
@@ -1063,7 +1063,7 @@ from (
       		from (select d.no_mut,d.tgl_mut,d.id_item,d.id_jo,d.unit,d.roll_qty,d.user,d.bpbno,d.bpbno_int,src.bpbno_int dok_asal,
       			concat(ra.kode_rak,' ',ra.nama_rak) rak_asal,concat(rt.kode_rak,' ',rt.nama_rak) rak_tujuan from bpb_det d
       			left join bpb_det src on src.id = d.id_bpbdet left join master_rak ra on ra.id = src.id_rak_loc
-      			left join master_rak rt on rt.id = d.id_rak_loc where d.tgl_mut between '$from' and '$to') m
+      			left join master_rak rt on rt.id = d.id_rak_loc where d.cancel = 'N' and d.tgl_mut between '$from' and '$to') m
       		inner join $tbl s on m.id_item = s.id_item
       		left join (select a.id as id_gen ,e.id_contents from masterdesc a left join mastercolor b on a.id_color = b.id left join masterweight c on b.id_weight = c.id left join masterlength d on c.id_length = d.id left join masterwidth e on d.id_width = e.id) mc on s.id_gen = mc.id_gen
       		left join (select id_jo,kpno,styleno from act_costing ac inner join so on ac.id=so.id_cost inner join jo_det jod on so.id=jod.id_so group by id_jo) tmpjo on tmpjo.id_jo = m.id_jo

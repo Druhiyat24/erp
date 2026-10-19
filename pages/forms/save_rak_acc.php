@@ -38,7 +38,7 @@ foreach ($ItemArray as $key => $value)
 	// pakai rumus yang SAMA PERSIS dengan yang dipakai tampilan (ajax_mut_acc.php):
 	// sisa = roll_qty - qty_out (yang sudah keluar lewat bppb_det) - qty_mutasi (yang sudah termutasi sebelumnya)
 	$sql_cek = "select bd.id, bd.bpbno, bd.bpbno_int, bd.id_item, bd.id_jo, bd.no_pack, bd.roll_qty,
-		bd.unit, bd.bpbdate, bd.qty_mutasi,
+		bd.unit, bd.bpbdate, bd.qty_mutasi, bd.id_rak_loc,
 		(select COALESCE(SUM(roll_qty),0) from bppb_det where id_bpb_det = bd.id and cancel = 'N') qty_out
 		from bpb_det bd where bd.id = '$key'";
 	$cek = mysql_fetch_array(mysql_query($sql_cek));
@@ -47,6 +47,12 @@ foreach ($ItemArray as $key => $value)
 
 	if ($rak_tujuan == "") {
 		$gagal[] = "$cek[id_item] ($cek[bpbno_int]): Rak Tujuan belum dipilih";
+		continue;
+	}
+
+	// mutasi ke rak yang sama tidak memindahkan apa pun dan membuat laporan mutasi ngaco
+	if ((int) $rak_tujuan == (int) $cek['id_rak_loc']) {
+		$gagal[] = "$cek[id_item] ($cek[bpbno_int]): Rak Tujuan sama dengan rak asal";
 		continue;
 	}
 

@@ -148,15 +148,20 @@ if (empty($_SESSION['username'])) { header("location:../../index.php"); }
   {
     var dipilih = 0;
     var rak_kosong = 0;
+    var rak_sama = 0;
+    var rak_asal = $('#nama_rak').val();
     $('.chkclass:checked').each(function() {
       dipilih = dipilih + 1;
       var selRak = $(this).closest('tr').find('select[name^="namarak"]');
       if (selRak.length == 0 || selRak.val() == '' || selRak.val() == null) {
         rak_kosong = rak_kosong + 1;
+      } else if (selRak.val() == rak_asal) {
+        rak_sama = rak_sama + 1;
       }
     });
     if (Number(dipilih) == 0) { swal({ title: 'Tidak Ada Data Dipilih', <?php echo $img_alert; ?> }); return false; }
     if (Number(rak_kosong) > 0) { swal({ title: 'Rak Tujuan Belum Dipilih', text: 'Pastikan setiap item yang dicentang sudah memilih Rak Tujuan.', <?php echo $img_alert; ?> }); return false; }
+    if (Number(rak_sama) > 0) { swal({ title: 'Rak Tujuan Sama Dengan Rak Asal', text: 'Mutasi hanya boleh ke rak yang berbeda.', <?php echo $img_alert; ?> }); return false; }
     // cegah klik Save dua kali: request kedua akan ditolak server (stok sudah termutasi) dan pesan errornya menimpa pesan sukses
     if (sedangSimpan) { return false; }
     sedangSimpan = true;

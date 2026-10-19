@@ -103,6 +103,22 @@ $tglinputakhir = isset($_POST['tglinputakhir']) && $_POST['tglinputakhir'] != ""
   display:inline-flex; align-items:center; gap:5px; white-space:nowrap;
 }
 .mutacc-btn-show:hover, .mutacc-btn-show:focus{ background:#d2f0e0; outline:none; }
+.mutacc-btn-cancel{
+  background:#fdecea; border:1px solid #dd4b39; color:#b03a2e;
+  font-weight:600; font-size:11px; line-height:1.5; padding:2px 10px; border-radius:6px;
+  display:inline-flex; align-items:center; gap:5px; white-space:nowrap; margin-left:4px;
+}
+.mutacc-btn-cancel:hover, .mutacc-btn-cancel:focus{ background:#f9d6d2; outline:none; }
+
+/* status baris mutasi: alasan kenapa tombol Cancel tidak muncul */
+.mutacc-badge{
+  display:inline-block; font-size:10.5px; font-weight:700; line-height:1.4;
+  padding:2px 8px; border-radius:10px; white-space:nowrap; cursor:default;
+}
+.mutacc-badge.aktif{ background:#e5f7ee; color:#00753f; }
+.mutacc-badge.lanjut{ background:#fff4e0; color:#a15c00; }
+.mutacc-badge.keluar{ background:#e8f0fe; color:#1f4fa3; }
+.mutacc-badge.batal{ background:#eef1f4; color:#6b7684; text-decoration:line-through; }
 .mutacc-btn-back{
   background:#eef1f4; border:1px solid #d5dbe3; color:#475569;
   font-weight:600; font-size:12px; line-height:1.5; padding:5px 14px; border-radius:6px;
@@ -189,6 +205,36 @@ $tglinputakhir = isset($_POST['tglinputakhir']) && $_POST['tglinputakhir'] != ""
       }
     });
   }
+
+  function cancelMutasi(btn)
+  {
+    var id = $(btn).data('id');
+    swal({
+      title: 'Cancel Mutasi?',
+      text: $(btn).data('no') + ' - ' + $(btn).data('info') + '. Stok akan dikembalikan ke rak asal.',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dd4b39',
+      confirmButtonText: 'Ya, Cancel',
+      cancelButtonText: 'Tidak',
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true
+    }, function() {
+      $.ajax({
+        type: 'POST',
+        url: 'cancel_mut_acc.php',
+        data: { id: id },
+        dataType: 'json'
+      }).done(function(res) {
+        swal({ title: res.msg, imageUrl: res.ok ? '../../images/success.jpg' : '../../images/error.jpg' }, function() {
+          // muat ulang daftar dengan filter tanggal yang sama
+          if (res.ok) { $('#formFilterMut').submit(); }
+        });
+      }).fail(function() {
+        swal({ title: 'Gagal menghubungi server, silakan coba lagi.', imageUrl: '../../images/error.jpg' });
+      });
+    });
+  }
 </script>
 <div class="mutacc-wrap">
 
@@ -206,7 +252,7 @@ $tglinputakhir = isset($_POST['tglinputakhir']) && $_POST['tglinputakhir'] != ""
       <span class="mutacc-icon"><i class="fa fa-filter"></i></span>
       <span class="mutacc-title">Filter Tanggal Mutasi</span>
     </div>
-    <form method="post" action="">
+    <form method="post" action="" id="formFilterMut">
       <div class="row">
         <div class="col-md-2">
           <div class="form-group">
@@ -251,6 +297,7 @@ $tglinputakhir = isset($_POST['tglinputakhir']) && $_POST['tglinputakhir'] != ""
             <th>Rak Asal</th>
             <th>Rak Tujuan</th>
             <th>User</th>
+            <th>Status</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -259,7 +306,8 @@ $tglinputakhir = isset($_POST['tglinputakhir']) && $_POST['tglinputakhir'] != ""
           $cri_tgl = "and bd.tgl_mut >= '$tglinputawal' and bd.tgl_mut <= '$tglinputakhir'";
           $sql = "select bd.id, bd.no_mut, bd.tgl_mut, bd.bpbno_int, bd.user,
             bd.id_item, mi.goods_code, mi.itemdesc,
-            bd.roll_qty, bd.unit,
+            bd.roll_qty, bd.unit, bd.cancel, bd.qty_old, coalesce(bd.qty_mutasi,0) qty_mutasi,
+            (select count(*) from bppb_det o where o.id_bpb_det = cast(bd.id as char) and o.cancel = 'N') jml_out,
             concat(mr_asal.kode_rak,' ',mr_asal.nama_rak) rak_asal,
             concat(mr_tujuan.kode_rak,' ',mr_tujuan.nama_rak) rak_tujuan
             from bpb_det bd
@@ -273,6 +321,21 @@ $tglinputakhir = isset($_POST['tglinputakhir']) && $_POST['tglinputakhir'] != ""
           $query = mysqli_query($con_new, $sql);
           while ($data = mysqli_fetch_array($query)) {
             $tgl = ($data['tgl_mut'] != "" && $data['tgl_mut'] != "0000-00-00") ? date('d M Y', strtotime($data['tgl_mut'])) : '-';
+            // hanya mutasi yang stok hasilnya belum dipakai yang boleh dicancel (sama dengan pengecekan di cancel_mut_acc.php)
+            $qty = $data['roll_qty'];
+            $tombol_cancel = "";
+            if ($data['cancel'] == 'Y') {
+              $status = "<span class='mutacc-badge batal' title='Mutasi sudah dibatalkan, stok sudah kembali ke rak asal'>Dibatalkan</span>";
+              if ($data['qty_old'] > 0) { $qty = $data['qty_old']; }
+            } else if ($data['qty_mutasi'] > 0) {
+              $status = "<span class='mutacc-badge lanjut' title='Stok hasil mutasi ini sudah dimutasi lagi ke rak lain, tidak bisa dicancel'>Sudah dimutasi lagi</span>";
+            } else if ($data['jml_out'] > 0) {
+              $status = "<span class='mutacc-badge keluar' title='Stok hasil mutasi ini sudah dikeluarkan (OUT/retur), tidak bisa dicancel'>Sudah dikeluarkan</span>";
+            } else {
+              $status = "<span class='mutacc-badge aktif'>Aktif</span>";
+              $info = htmlspecialchars($data['goods_code']." ".number_format($data['roll_qty'], 2)." ".$data['unit']." (".$data['rak_asal']." ke ".$data['rak_tujuan'].")", ENT_QUOTES);
+              $tombol_cancel = "<button type='button' class='mutacc-btn-cancel' data-id='".(int)$data['id']."' data-no='".htmlspecialchars($data['no_mut'], ENT_QUOTES)."' data-info='$info' onclick='cancelMutasi(this)'><i class='fa fa-times'></i> Cancel</button>";
+            }
             echo "
             <tr>
               <td>$tgl</td>
@@ -280,12 +343,13 @@ $tglinputakhir = isset($_POST['tglinputakhir']) && $_POST['tglinputakhir'] != ""
               <td>$data[bpbno_int]</td>
               <td>$data[goods_code]</td>
               <td>$data[itemdesc]</td>
-              <td>".number_format($data['roll_qty'], 2)."</td>
+              <td>".number_format($qty, 2)."</td>
               <td>$data[unit]</td>
               <td>$data[rak_asal]</td>
               <td>$data[rak_tujuan]</td>
               <td>$data[user]</td>
-              <td><button type='button' class='mutacc-btn-show' onclick='showDetail(".(int)$data['id'].")'><i class='fa fa-eye'></i> Show</button></td>
+              <td>$status</td>
+              <td style='white-space:nowrap;'><button type='button' class='mutacc-btn-show' onclick='showDetail(".(int)$data['id'].")'><i class='fa fa-eye'></i> Show</button>$tombol_cancel</td>
             </tr>";
           }
           ?>

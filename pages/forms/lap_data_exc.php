@@ -124,7 +124,7 @@ header("Cache-Control: max-age=0");
          where jd.cancel = 'N'
          group by id_cost order by id_jo asc) jd on bd.id_jo = jd.id_jo
          inner join master_rak mr on bd.id_rak_loc = mr.id
-         where bd.tgl_mut >= '$fromcri' and bd.tgl_mut <= '$tocri')
+         where bd.cancel = 'N' and bd.tgl_mut >= '$fromcri' and bd.tgl_mut <= '$tocri')
          order by tgl_bpb asc
 ";
 
@@ -245,7 +245,7 @@ header("Cache-Control: max-age=0");
          group by id_cost order by id_jo asc) jd on d.id_jo = jd.id_jo
           inner join master_rak ra on src.id_rak_loc = ra.id
           left join master_rak rt on d.id_rak_loc = rt.id
-          where d.tgl_mut >= '$fromcri' and d.tgl_mut <= '$tocri')
+          where d.cancel = 'N' and d.tgl_mut >= '$fromcri' and d.tgl_mut <= '$tocri')
           order by tgl_bppb asc";
 
 

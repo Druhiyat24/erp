@@ -100,7 +100,8 @@ $rscomp=mysql_fetch_array(mysql_query("select * from mastercompany"));
 				 (select id_bpb_det,SUM(roll_qty) qty_out from bppb_det where cancel = 'N' GROUP BY id_bpb_det) b on b.id_bpb_det = a.id) a ) a where qty_sisa > 0 and id_item = '$id_item' ";
         // echo $sql;
         $opsi_rak = "";
-        $sql_rak = mysql_query("select id, CONCAT(kode_rak,' ',nama_rak) nama_rak from master_rak where nama_rak like '%ACCESSORIES%' and aktif = 'Y'");
+        // rak asal tidak ditawarkan sebagai rak tujuan: mutasi ke rak yang sama membuat laporan mutasi ngaco
+        $sql_rak = mysql_query("select id, CONCAT(kode_rak,' ',nama_rak) nama_rak from master_rak where nama_rak like '%ACCESSORIES%' and aktif = 'Y' and id <> '".(int)$id_rak_loc."'");
         while ($row = mysql_fetch_array($sql_rak)) {
           $opsi_rak .= '<option value="'.$row['id'].'">'.$row['nama_rak'].'</option>';
         }
@@ -192,6 +193,18 @@ $rscomp=mysql_fetch_array(mysql_query("select * from mastercompany"));
 			$tgl_bpb = ($bpb && $bpb['bpbdate'] != "") ? date('d M Y', strtotime($bpb['bpbdate'])) : '-';
 			$sisa_asal = (float) $src['roll_qty'] - $out_asal - (float) $src['qty_mutasi'];
 			$sisa_tujuan = (float) $mut['roll_qty'] - $out_tujuan - (float) $mut['qty_mutasi'];
+			// status sama dengan daftar history: menjelaskan kenapa mutasi bisa / tidak bisa dicancel
+			$qty_mut = $mut['roll_qty'];
+			if ($mut['cancel'] == 'Y') {
+				$status_mut = "<span class='mutacc-badge batal'>Dibatalkan</span>";
+				if ($mut['qty_old'] > 0) { $qty_mut = $mut['qty_old']; }
+			} else if ((float) $mut['qty_mutasi'] > 0) {
+				$status_mut = "<span class='mutacc-badge lanjut'>Sudah dimutasi lagi</span>";
+			} else if ($out_tujuan > 0) {
+				$status_mut = "<span class='mutacc-badge keluar'>Sudah dikeluarkan</span>";
+			} else {
+				$status_mut = "<span class='mutacc-badge aktif'>Aktif</span>";
+			}
 			?>
 			<div class="mutacc-det-flow">
 				<div class="mutacc-det-rak">
@@ -200,7 +213,7 @@ $rscomp=mysql_fetch_array(mysql_query("select * from mastercompany"));
 				</div>
 				<div class="mutacc-det-arrow">
 					<i class="fa fa-long-arrow-right"></i>
-					<span><?= $angka($mut['roll_qty']) ?> <?= $h($mut['unit']) ?></span>
+					<span><?= $angka($qty_mut) ?> <?= $h($mut['unit']) ?></span>
 				</div>
 				<div class="mutacc-det-rak tujuan">
 					<small>Rak Tujuan</small>
@@ -214,6 +227,7 @@ $rscomp=mysql_fetch_array(mysql_query("select * from mastercompany"));
 					<div><span>No Mutasi</span><b><?= $h($mut['no_mut']) ?></b></div>
 					<div><span>Tgl Mutasi</span><b><?= $tgl_mut ?></b></div>
 					<div><span>User</span><b><?= $h($mut['user']) ?></b></div>
+					<div><span>Status</span><b><?= $status_mut ?></b></div>
 				</div>
 			</div>
 
