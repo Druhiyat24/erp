@@ -30,7 +30,7 @@ $revise = $rs['revise'];
 $createby = $rs['fullname'];
 if($rs['curr']=="USD")
 {
-  $decim=4;
+  $decim=5;
 }
 else
 {

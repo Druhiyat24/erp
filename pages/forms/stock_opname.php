@@ -1,116 +1,113 @@
-<?php 
+<?php
 if (empty($_SESSION['username'])) { header("location:../../index.php"); }
 
-if ($excel=="N") 
-{ echo "<a href='index.php?mod=8&mode=$mode&dest=xls'>Save To Excel</a></br>"; }
+if ($excel=="N")
+{ echo "<a href='stock_opname_excel.php?mode=$mode' target='_blank'>Save To Excel</a></br>"; }
 
 $rs=mysql_fetch_array(mysql_query("select * from mastercompany"));
   $nm_company=$rs['company'];
+  $isSandrafine = ($nm_company=="PT. Sandrafine Garment");
+  $showRiwayat  = ($mode=="FG" || !$isSandrafine);
+
+// jumlah kolom sebelum kolom Stock (untuk colspan footer)
+if ($mode=="FG") { $stockIdx = 8; }
+else { $stockIdx = 9 + ($isSandrafine ? 1 : 0); }
 ?>
 
-<?PHP
-echo "<div class='box'>";
-  echo "<div class='box-body'>";
-    echo "<table id='example' class='display displayresponsive'>";
-      echo "<thead>";
-        echo "<tr>";
-          echo "<th style='width: 5%;'>No</th>";
-          if ($mode=="FG") 
-          { echo "<th>Style / Model</th>"; 
-            echo "<th>No. Order</th>"; 
-          }
-          echo "<th>Kategori</th>";
-          echo "<th style='width: 10%;'>Kode Barang</th>";
-          if($mode!="FG")
-          { echo "<th>Nama Barang</th>"; }
-          echo "<th>Warna</th>"; 
-          echo "<th>Ukuran</th>";
-          if($mode!="FG" and $nm_company=="PT. Sandrafine Garment")
-          { echo "<th>Stock Card</th>"; }
-          if($mode!="FG")
-          { 
-            echo "<th>Kode Odo</th>";
-            echo "<th>Item Odo</th>";
-          }
-          echo "<th style='width: 15%;'>Stock</th>";
-          echo "<th>Riwayat</th>";
-        echo "</tr>";
-      echo "</thead>";
-      echo "<tfoot>";
-        echo "<tr>";
-          if ($mode=="FG")
-          { echo "<th colspan='7' style='text-align:right'>Total:</th>"; }
-          else
-          { echo "<th colspan='5' style='text-align:right'>Total:</th>"; }
-          echo "<th></th>";
-        echo "</tr>";
-      echo "</tfoot>";
-      echo "<tbody>";
-      if ($mode=="FG") 
-      { 
-        $qry="select styleno,kpno,goods_code,itemname,color,size,stock,a.id_item 
-          from stock a inner join masterstyle s on a.mattype='FG'
-          and a.id_item=s.id_item";
-        $query = mysql_query($qry);
-        if (!$query) { die($qry. mysql_error()); }
-        $jumrowdata=mysql_num_rows($query);
-        $no = 1;
-        $jml_kolom=8; 
-        while($data = mysql_fetch_array($query))
-        { echo "<tr>";
-          echo "<th scope='row'>$no</th>";
-          for ($i = 0; $i < $jml_kolom; $i++)
-          { if ($i==7)
-            { echo "<td><a href='?mod=14&mode=$mode&id=$data[$i]'>Riwayat</a></td>"; }
-            else
-            { if (is_numeric($data[$i]))
-              { echo "<td align='right'>$data[$i]</td>"; }
-              else
-              { echo "<td>$data[$i]</td>"; }
-            }
-          }
-          echo "</tr>";
-          $no++;
-        }
-      } 
-      else 
-      { 
-        if($mode=="General") 
-        { $sql_cri = "s.mattype='N'"; } 
-        else if($mode=="Bahan_Baku") 
-        { $sql_cri = "s.mattype in ('A','F')"; } 
-        else 
-        { $sql_cri = "s.mattype not in ('N','A','F')"; }
-		    $qry="select s.matclass,if(s.goods_code='-' or s.goods_code='',concat(s.mattype,' ',s.id_item),s.goods_code) goods_code,
-          s.itemdesc,s.color,s.size,odo.goods_code kode_odo,odo.itemdesc item_odo,round(a.stock,2) stock,a.id_item 
-          from stock a inner join masteritem s on a.mattype=s.mattype
-          and a.id_item=s.id_item 
-          left join masteritem_odo odo on s.id_item_odo=odo.id_item_odo where $sql_cri ";
-        $query = mysql_query($qry);
-        if (!$query) { die($qry. mysql_error()); }
-        $jumrowdata=mysql_num_rows($query);
-        $no = 1;
-        $jml_kolom=9;
-        while($data = mysql_fetch_array($query))
-        { echo "<tr>";
-          echo "<th scope='row'>$no</th>";
-          for ($i = 0; $i < $jml_kolom; $i++)
-          { 
-            if($i==8 and $mode!="FG" and $nm_company!="PT. Sandrafine Garment")
-            { echo "<td><a href='?mod=14&mode=$mode&id=$data[$i]'>Riwayat</a></td>"; }
-            else
-            { if (is_numeric($data[$i]))
-              { echo "<td align='right'>$data[$i]</td>"; }
-              else
-              { echo "<td>$data[$i]</td>"; }
-            }
-          }
-          echo "</tr>";
-          $no++;
-        }
-      }
-      echo "</tbody>";
-    echo "</table>";
-  echo "</div>";
-echo "</div>";
-?>
+<div class='box'>
+  <div class='box-body'>
+    <table id='example' class='display displayresponsive'>
+      <thead>
+        <tr>
+          <th style='width: 5%;'>No</th>
+          <?php if ($mode=="FG") { ?>
+          <th>Style / Model</th>
+          <th>No. WS</th>
+          <?php } ?>
+          <th>Kategori</th>
+          <th>ID Item</th>
+          <th style='width: 10%;'>Kode Barang</th>
+          <?php if ($mode!="FG") { ?>
+          <th>Nama Barang</th>
+          <?php } ?>
+          <th>Warna</th>
+          <th>Ukuran</th>
+          <?php if ($mode!="FG" and $isSandrafine) { ?>
+          <th>Stock Card</th>
+          <?php } ?>
+          <?php if ($mode!="FG") { ?>
+          <th>Kode Odo</th>
+          <th>Item Odo</th>
+          <?php } ?>
+          <th style='width: 15%;'>Stock</th>
+          <th>Riwayat</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th colspan='<?php echo $stockIdx; ?>' style='text-align:right'>Total:</th>
+          <th id='opname_total' style='text-align:right'></th>
+          <th></th>
+        </tr>
+      </tfoot>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+// Tabel diisi dari stock_opname_data.php (server-side).
+// Init dijalankan saat window load, setelah jQuery & DataTables dimuat dari index.php.
+window.addEventListener('load', function () {
+  var STOCK_MODE      = <?php echo json_encode($mode); ?>;
+  var IS_FG           = (STOCK_MODE == 'FG');
+  var SHOW_STOCK_CARD = <?php echo $isSandrafine ? 'true' : 'false'; ?>;
+  var SHOW_RIWAYAT    = <?php echo $showRiwayat ? 'true' : 'false'; ?>;
+
+  var cols = [{ data: 'no', orderable: false }];
+  if (IS_FG) {
+    cols.push({ data: 'styleno' }, { data: 'kpno' }, { data: null, orderable: false, defaultContent: 'FG' });
+  } else {
+    cols.push({ data: 'matclass' });
+  }
+  cols.push({ data: 'id_item' }, { data: 'goods_code' });
+  if (!IS_FG) { cols.push({ data: 'itemdesc' }); }
+  cols.push({ data: 'color' }, { data: 'size' });
+  if (!IS_FG && SHOW_STOCK_CARD) { cols.push({ data: null, orderable: false, defaultContent: '' }); }
+  if (!IS_FG) { cols.push({ data: 'kode_odo' }, { data: 'item_odo' }); }
+  cols.push({
+    data: 'stock',
+    createdCell: function (td) { $(td).css('text-align', 'right'); }
+  });
+  cols.push({
+    data: null,
+    orderable: false,
+    defaultContent: '',
+    render: function (data, type, row) {
+      if (!SHOW_RIWAYAT) { return ''; }
+      return "<a href='?mod=14&mode=" + encodeURIComponent(STOCK_MODE) +
+             "&id=" + encodeURIComponent(row.id_item) + "'>Riwayat</a>";
+    }
+  });
+
+  var $tbl = $('#example');
+  // Hapus init lama dari index.php (footerCallback sisi klien tidak dipakai lagi)
+  if ($.fn.DataTable.isDataTable($tbl)) { $tbl.DataTable().destroy(); }
+
+  $tbl.DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: {
+      url: 'stock_opname_data.php',
+      type: 'POST',
+      data: function (d) { d.mode = STOCK_MODE; }
+    },
+    columns: cols,
+    order: []
+  }).on('xhr.dt', function (e, settings, json) {
+    if (json && json.stock_total !== undefined) {
+      $('#opname_total').text(Number(json.stock_total).toFixed(2));
+    }
+  });
+});
+</script>

@@ -32,7 +32,7 @@ $createby = $rs['fullname'];
 $tipe_com = $rs['tipe_com'];
 if($rs['curr']=="USD")
 {
-  $decim=4;
+  $decim=5;
 }
 else
 {
