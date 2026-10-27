@@ -21,6 +21,12 @@ $header['txtetadate'] = fd($header['txtetadate']);
 $header['txtexpdate'] = fd($header['txtexpdate']);
 $header['txtnotes'] = addslashes($header['txtnotes']);
 $curr = $header['curr'];		
+// Billed To wajib diisi dengan customer aktif (mastersupplier tipe C), untuk draft baru maupun edit
+$cek_billed = $getListData->eksekusi_query("select count(*) jml from mastersupplier where id_supplier = '".(int)$header['billed_to']."' and tipe_sup = 'C' and non_aktif != 1",'cek_billed_to');
+if($cek_billed[0]['jml'] == 0){
+	print_r('{ "respon":"", "message":"Billed To wajib diisi dengan customer yang aktif","part" : "Validasi", "records":"0"}');
+	exit;
+}
 if($header['format'] == '1' ){
 	// PO baru hanya boleh untuk supplier yang masih aktif (mastersupplier.non_aktif = 0)
 	$cek_supp = $getListData->eksekusi_query("select count(*) jml from mastersupplier where id_supplier = '".(int)$header['cbosupp']."' and non_aktif = '0'",'cek_supplier');
@@ -171,10 +177,11 @@ return $hasil;
 
 
 public function insert_header($header,$username){
+	$billed_to = (int) $header['billed_to']; // Billed To (customer), kosong = NULL
 	$insert = "insert into po_header_draft (username,draftno,draftdate,etd,eta,expected_date,id_supplier,id_terms,
-	notes,n_kurs,ppn,tax,discount,pph,jenis,jml_pterms,fg_pkp,id_dayterms,tipe_com,tipe_tagihan)
+	notes,n_kurs,ppn,tax,discount,pph,jenis,jml_pterms,fg_pkp,id_dayterms,tipe_com,tipe_tagihan,id_billed_to)
 	values ('{$username}','{$header['txtdraftpo']}','{$header['txtdrafpodate']}','{$header['txtetddate']}','{$header['txtetadate']}','{$header['txtexpdate']}','{$header['cbosupp']}','{$header['txtid_terms']}',
-	'{$header['txtnotes']}','{$header['n_kurs']}','{$header['ppn_nya']}','{$header['ppn_nya']}','{$header['txtdisc']}','{$header['txtdisc']}','{$header['jenis_item']}','{$header['txtdays']}','{$header['pkp']}','{$header['txtid_dayterms']}','{$header['txt_tipecom']}','{$header['txt_tipetagihan']}')";
+	'{$header['txtnotes']}','{$header['n_kurs']}','{$header['ppn_nya']}','{$header['ppn_nya']}','{$header['txtdisc']}','{$header['txtdisc']}','{$header['jenis_item']}','{$header['txtdays']}','{$header['pkp']}','{$header['txtid_dayterms']}','{$header['txt_tipecom']}','{$header['txt_tipetagihan']}',NULLIF('{$billed_to}','0'))";
 /* 			echo $insert;
 die();  */
 $this->eksekusi_query_insert_update($insert,'insert_header');	
@@ -182,6 +189,7 @@ $this->eksekusi_query_insert_update($insert,'insert_header');
 return 1;
 }
 public function update_header($my_header){
+	$billed_to = (int) $my_header['billed_to']; // Billed To (customer), kosong = NULL
 	$update = "UPDATE po_header_draft 
 	SET  id_terms			= 	'{$my_header['txtid_terms']}'
 	,n_kurs				= 	'{$my_header['n_kurs']}'
@@ -196,6 +204,7 @@ public function update_header($my_header){
 	,jml_pterms         =  	'{$my_header['txtdays']}'
 	,tipe_com           =  	'{$my_header['txt_tipecom']}'
 	,tipe_tagihan       =  	'{$my_header['txt_tipetagihan']}'
+	,id_billed_to       =  	NULLIF('{$billed_to}','0')
 	WHERE id = '{$my_header['id']}'
 	";
 /* 						echo $update;

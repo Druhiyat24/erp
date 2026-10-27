@@ -228,9 +228,9 @@ public function flookup_new($fld,$tbl,$criteria)
 		$header = $header[0];
 		$header['notes'] = addslashes($header['notes']);
 		$insert = "insert into po_header (username,pono,podate,etd,eta,expected_date,id_supplier,id_terms,
-			notes,n_kurs,ppn,tax,discount,pph,jenis,jml_pterms,fg_pkp,id_dayterms,id_draft,d_start_installment,n_installment,fg_installment)
+			notes,n_kurs,ppn,tax,discount,pph,jenis,jml_pterms,fg_pkp,id_dayterms,id_draft,d_start_installment,n_installment,fg_installment,id_billed_to)
 			values ('{$header['username']}','{$no_po}','{$header['draftdate']}','{$header['etd']}','{$header['eta']}','{$header['expected_date']}','{$header['id_supplier']}','{$header['id_terms']}',
-			'{$header['notes']}','{$header['n_kurs']}','{$header['tax']}','{$header['tax']}','{$header['discount']}','{$header['pph']}','{$header['jenis']}','{$header['jml_pterms']}','{$header['fg_pkp']}','{$header['id_dayterms']}','{$header['id']}','{$header['start_installment']}','{$header['jumlah_installment']}','{$header['fg_installment']}')";
+			'{$header['notes']}','{$header['n_kurs']}','{$header['tax']}','{$header['tax']}','{$header['discount']}','{$header['pph']}','{$header['jenis']}','{$header['jml_pterms']}','{$header['fg_pkp']}','{$header['id_dayterms']}','{$header['id']}','{$header['start_installment']}','{$header['jumlah_installment']}','{$header['fg_installment']}',NULLIF('{$header['id_billed_to']}',''))";
 /*  			echo $insert;
 			die();   */
 		$this->eksekusi_query_insert_update($insert,'insert_header');	

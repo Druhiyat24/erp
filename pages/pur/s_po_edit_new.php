@@ -33,6 +33,13 @@ $txtdisc = $_POST['txtdisc'];
 $txtppn = $_POST['txtppn'];
 $txtnotes = $_POST['txtnotes'];
 $tipe_com = $_POST['tipe_com'];
+// Billed To wajib diisi dengan customer aktif (mastersupplier tipe C)
+$id_billed_to = isset($_POST['txtbilled_to']) ? (int) $_POST['txtbilled_to'] : 0;
+if (flookup("count(*)","mastersupplier","id_supplier='$id_billed_to' and tipe_sup='C' and non_aktif != 1")==0)
+{	$_SESSION['msg'] = "XBilled To wajib diisi dengan customer yang aktif";
+	echo "<script>window.location.href='../pur/?mod=33x&id=$id_po';</script>";
+	exit;
+}
 
 
 
@@ -55,7 +62,7 @@ foreach ($ItemArray as $key => $value)
 	{	
 		$cancelcek = "Y";
 	}	
-		$sql_header="update po_header set podate = '$podate_fix', id_terms = '$txtid_terms', jml_pterms = '$txtdays', id_dayterms = '$txtid_dayterms', etd = '$txtetddate_fix', eta = '$txtetadate_fix', expected_date = '$txtexpdate_fix', discount = '$txtdisc', ppn = '$txtppn', tax = '$txtppn', notes = '$txtnotes', n_kurs = '$n_kurs' 
+		$sql_header="update po_header set podate = '$podate_fix', id_terms = '$txtid_terms', jml_pterms = '$txtdays', id_dayterms = '$txtid_dayterms', etd = '$txtetddate_fix', eta = '$txtetadate_fix', expected_date = '$txtexpdate_fix', discount = '$txtdisc', ppn = '$txtppn', tax = '$txtppn', notes = '$txtnotes', n_kurs = '$n_kurs', id_billed_to = NULLIF('$id_billed_to','0') 
 			where id = '$id_po'";
 		insert_log($sql_header,$user);
 

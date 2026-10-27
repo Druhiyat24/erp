@@ -43,6 +43,7 @@ if ($id_po=="")
   $tax="0";
 
   $id_supplier = "";
+  $id_billed_to = "";
 
   $kode_dept = "";
 
@@ -103,6 +104,7 @@ else
   $curr = $data['curr'];
 
   $id_supplier = $data['id_supplier'];
+  $id_billed_to = $data['id_billed_to'];
 
   $kode_dept = $data['kode_mkt'];
 
@@ -367,6 +369,7 @@ console.log($("#pkp").val());
     if (podate == '') { document.form.txtpodate.focus(); swal({ title: 'PO Date Tidak Boleh Kosong', <?php echo $img_alert; ?> }); valid = false;}
 
     else if (id_supplier == '') { swal({ title: 'Supplier Tidak Boleh Kosong', <?php echo $img_alert; ?> }); valid = false;}
+    else if (document.form.txtbilled_to.value == '') { swal({ title: 'Billed To Tidak Boleh Kosong', <?php echo $img_alert; ?> }); valid = false;}
 
     else if (curr == '') { swal({ title: 'Currency Tidak Boleh Kosong', <?php echo $img_alert; ?> }); valid = false;}
 
@@ -610,6 +613,12 @@ console.log($("#pkp").val());
 
             </select>
 
+          </div>
+          <div class='form-group'>
+            <label>Billed To *</label>
+            <select class='form-control select2' style='width: 100%;' name='txtbilled_to' id='billed_to'>
+            <?php IsiCombo("select id_supplier isi, supplier tampil from mastersupplier where tipe_sup = 'C' and non_aktif != 1 order by supplier", $id_billed_to, 'Pilih Billed To'); ?>
+            </select>
           </div>
 
         </div>

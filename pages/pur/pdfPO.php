@@ -26,6 +26,22 @@ $rs=mysqli_fetch_assoc(mysqli_query($con_new,"select up.fullname,po.revise,po.je
   left join po_header_draft phd on phd.id=po.id_draft     
   where po.id='$_GET[id]' and poit.cancel='N' /*and phd.app = 'A'*/ group by po.pono"));
 $PONO = $rs['pono'];
+// Billed To (customer) tampil di bawah Shipping address; PO lama tanpa Billed To tidak menampilkan baris ini
+$billed_html = "";
+$rsbill = mysqli_fetch_assoc(mysqli_query($con_new, "select ms.Supplier, ms.alamat, ms.alamat2 from po_header po inner join mastersupplier ms on ms.id_supplier = po.id_billed_to where po.id = '".(int)$_GET['id']."'"));
+if ($rsbill) {
+  $billed_html = '
+        <tr>
+        <td style="width:60%; border-collapse: collapse; padding-top:12px;">
+            <p style="color:black; font-weight:bold; font-size:12px; padding-top:5px;">
+            Billed To:<br/>
+                '.htmlspecialchars($rsbill['Supplier']).'<br/>'
+                .htmlspecialchars(trim($rsbill['alamat'].' '.$rsbill['alamat2'])).'
+            </p>
+        </td>
+        <td style="width:40%; border-collapse: collapse;"></td>
+        </tr>';
+}
 $cekidgen=flookup("count(*)","po_item","id_gen=0 and id_po='$_GET[id]'");
 $revise = $rs['revise'];
 $createby = $rs['fullname'];
@@ -245,13 +261,13 @@ $html= '
         </tr>
         <tr>
         <td style="width:60%; border-collapse: collapse;">
-            <p style="color:black; font-weight:bold; font-size:10px; padding-top:5px;">
+            <p style="color:black; font-weight:bold; font-size:12px; padding-top:5px;">
             Shipping address:<br/>
-                '.$company.'<br/>'
-                .$alamat.' Kec. '.$kec.'<br/>'
-                .$kota.' '.$kode_pos.'<br/>
-                Indonesia<br/>
-                Telp. '.$telp.' Fax. '.$fax.'
+                '.strtoupper($company).'<br/>'
+                .strtoupper($alamat.' Kec. '.$kec).'<br/>'
+                .strtoupper($kota.' '.$kode_pos).'<br/>
+                INDONESIA<br/>
+                TELP. '.$telp.' FAX. '.$fax.'
             </p>
         </td>
         <td style="width:40%; border-collapse: collapse;">
@@ -262,7 +278,7 @@ $html= '
             .$phone.'
         </p>
         </td>
-        </tr>
+        </tr>'.$billed_html.'
     </table>
     <p style="font-size:14px">Purchase Order Confirmation '.$PONO.' '.$revise.' '.$wsno.'</p>
 

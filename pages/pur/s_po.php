@@ -46,6 +46,15 @@ if($pono=="" and flookup("count(*)","mastersupplier","id_supplier='".(int)$id_su
 	exit;
 }
 
+# Billed To wajib: selalu untuk PO baru, untuk edit hanya dari form yang punya field Billed To
+$id_billed_to = isset($_POST['txtbilled_to']) ? (int) $_POST['txtbilled_to'] : 0;
+$set_billed = isset($_POST['txtbilled_to']) ? ", id_billed_to = NULLIF('$id_billed_to','0')" : "";
+if(($pono=="" or isset($_POST['txtbilled_to'])) and flookup("count(*)","mastersupplier","id_supplier='$id_billed_to' and tipe_sup='C' and non_aktif != 1")==0)
+{	$_SESSION['msg'] = "XBilled To wajib diisi dengan customer yang aktif";
+	echo "<script>window.location.href='../pur/?mod=".(substr($mod,0,1)=="9" ? "9L" : "3L")."';</script>";
+	exit;
+}
+
 if($jenis!="N" and $pono=="")
 {	$joselect="";
 	foreach ($_POST['txtJOItem'] as $names)
@@ -96,9 +105,9 @@ if ($pono=="" or $mod=="3ea")
 	{
 		$pono=urutkan_inq($cri3,$cri2);
 		$sql="insert into po_header (username,pono,podate,etd,eta,expected_date,id_supplier,id_terms,
-			notes,n_kurs,ppn,tax,discount,pph,jenis,jml_pterms)
+			notes,n_kurs,ppn,tax,discount,pph,jenis,jml_pterms,id_billed_to)
 			values ('$user','$pono','$podate','$etddate','$etadate','$expdate','$id_supplier','$id_terms',
-			'$notes','$n_kurs','$tax','$tax','$disc','$pph','$jenis','$txtdays')";
+			'$notes','$n_kurs','$tax','$tax','$disc','$pph','$jenis','$txtdays',NULLIF('$id_billed_to','0'))";
 		insert_log($sql,$user);
 	}
 	$id_po=flookup("id","po_header","pono='$pono'");
@@ -136,7 +145,7 @@ else
 			fg_pkp 							=   '$pkp',
 			fg_installment        			=  	'$fg_installment',
 			d_start_installment     		=  	'$d_installment',
-			n_installment        			=  	'$n_installment'			
+			n_installment        			=  	'$n_installment'{$set_billed}			
 			where id='$id_po'";
 		insert_log($sql,$user);
 		$sql="update po_item set curr='$curr' where id_po='$id_po'";

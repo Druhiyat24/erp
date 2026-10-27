@@ -76,6 +76,7 @@ function inejectHeaderToHtml(json,kondisi){
 		$("#datepicker1").val(decodeURIComponent(json.records[0].draftdate)),
 		$("#jenis_item").val(decodeURIComponent(json.records[0].jenis_item)).trigger("change"),
 		$("#cbosupp").val(decodeURIComponent(json.records[0].supplier)).trigger("change"),
+		$("#billed_to").val(decodeURIComponent(json.records[0].billed_to)).trigger("change"),
 		//$("#cbosupp").val(decodeURIComponent(json.records[0].jenis_item)).trigger("change"),
 		$("#curr").val(decodeURIComponent(json.records[0].curr)),
 		$("#txtid_terms").val(decodeURIComponent(json.records[0].id_terms)).trigger("change"),
@@ -421,6 +422,7 @@ function Save(){
 		$data.txtdrafpodate =$('#datepicker1').val();
 		$data.jenis_item    =$('#jenis_item').val();
 		$data.cbosupp       =$('#cbosupp').val();
+		$data.billed_to     =$('#billed_to').val();
 		$data.curr          =$('#curr').val();
 		$data.txtid_terms   =$('#txtid_terms').val();
 		$data.txtdays       =$('#txtdays').val();
@@ -491,6 +493,9 @@ var unitkos = 0;
 		swal({ title: 'Supplier Tidak Boleh Kosong', imageUrl: '../../images/error.jpg' }); return false;;
 		
 	}	
+	if(!$data.billed_to){
+		swal({ title: 'Billed To Tidak Boleh Kosong', imageUrl: '../../images/error.jpg' }); return false;;
+	}
 	if($data.curr ==''){
 		swal({ title: 'Currency Boleh Kosong', imageUrl: '../../images/error.jpg' }); return false;;
 		
@@ -604,6 +609,7 @@ function Save_global(){
 		$data.txtdrafpodate =$('#datepicker1').val();
 		$data.jenis_item    =$('#jenis_item').val();
 		$data.cbosupp       =$('#cbosupp').val();
+		$data.billed_to     =$('#billed_to').val();
 		$data.curr          =$('#curr').val();
 		$data.txtid_terms   =$('#txtid_terms').val();
 		$data.txtdays       =$('#txtdays').val();
@@ -674,6 +680,9 @@ var unitkos = 0;
 		swal({ title: 'Supplier Tidak Boleh Kosong', imageUrl: '../../images/error.jpg' }); return false;;
 		
 	}	
+	if(!$data.billed_to){
+		swal({ title: 'Billed To Tidak Boleh Kosong', imageUrl: '../../images/error.jpg' }); return false;;
+	}
 	if($data.curr ==''){
 		swal({ title: 'Currency Boleh Kosong', imageUrl: '../../images/error.jpg' }); return false;;
 		

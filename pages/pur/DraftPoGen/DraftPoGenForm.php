@@ -126,6 +126,13 @@ IsiCombo($sql,$id_supplier,'Pilih Supplier');
 ?> 
 </select> 
 </div> 
+<div class='form-group'> 
+<label>Billed To *</label> 
+<select class='form-control select2' style='width: 100%;' 
+name='txtbilled_to' id='billed_to'> 
+<?php IsiCombo("select id_supplier isi, supplier tampil from mastersupplier where tipe_sup = 'C' and non_aktif != 1 order by supplier", '', 'Pilih Billed To'); ?> 
+</select> 
+</div> 
 </div> 
 <div class='col-md-3'> 
     <div class='form-group'> 

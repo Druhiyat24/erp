@@ -50,6 +50,7 @@ if ($id_po=="")
   $tax="0"; 
 
   $id_supplier = "";
+  $id_billed_to = "";
 
   $id_terms = "";
 
@@ -104,6 +105,7 @@ where a.id='$id_po' limit 1");
   $curr = $data['curr'];
 
   $id_supplier = $data['id_supplier'];
+  $id_billed_to = $data['id_billed_to'];
 
   $id_terms = $data['id_terms'];
 
@@ -488,7 +490,7 @@ $(document).ready( function () {
     <div class='row'>
 
 <!--       <form method='post' name='form' action='s_po.php?mod=<?php echo $mod; ?>' onsubmit='return validasi()'> -->
-        <form method='post' name='form' action='s_po_edit_new.php?id_po=<?php echo $id_po; ?>' >
+        <form method='post' name='form' action='s_po_edit_new.php?id_po=<?php echo $id_po; ?>' onsubmit="if (document.form.txtbilled_to.value == '') { swal({ title: 'Billed To Tidak Boleh Kosong', imageUrl: '../../images/error.jpg' }); return false; }">
 
         <div class='col-md-3'>              
 
@@ -572,6 +574,12 @@ $(document).ready( function () {
 
             </select>
 
+          </div>
+          <div class='form-group'>
+            <label>Billed To *</label>
+            <select class='form-control select2' style='width: 100%;' name='txtbilled_to' id='billed_to'>
+            <?php IsiCombo("select id_supplier isi, supplier tampil from mastersupplier where tipe_sup = 'C' and non_aktif != 1 order by supplier", $id_billed_to, 'Pilih Billed To'); ?>
+            </select>
           </div>
 
           <div style='width: 400%;' class='form-group'>

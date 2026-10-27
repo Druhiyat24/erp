@@ -24,6 +24,7 @@ class getListData {
 		,G.kode_pterms
 		,A.draftdate
 		,A.id_supplier
+		,A.id_billed_to
 		,A.id_terms
 		,A.n_kurs
 		,A.etd
@@ -65,6 +66,7 @@ class getListData {
 			$outp .= '"draftdate":"'. rawurlencode(date('d M Y', strtotime($row["draftdate"]))). '",'; 
 			$outp .= '"jenis_item":"'. rawurlencode($row["jenis"]). '",';
 			$outp .= '"supplier":"'. rawurlencode($row["id_supplier"]). '",';
+			$outp .= '"billed_to":"'. rawurlencode($row["id_billed_to"]). '",';
 			$outp .= '"curr":"'. rawurlencode($row["curr"]). '",';
 			$outp .= '"id_terms":"'. rawurlencode($row["id_terms"]). '",';
 			$outp .= '"jml_pterms":"'. rawurlencode($row["jml_pterms"]). '",';
