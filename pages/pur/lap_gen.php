@@ -53,6 +53,8 @@ echo "<div class='box lap-gen-table-box'>";
 					<th>PO Date</th>
 					<th>Request No</th>
 					<th>Description</th>
+          <th>Kode Barang</th>
+          <th>Kategori</th>
 					<th>Qty PO</th>
 					<th>Unit</th>
 					<th>Price</th>
@@ -226,6 +228,8 @@ function choose_barang(xpoid)
           { data: "podate" },
           { data: "buyer" },
           { data: "itemdesc" },
+          { data: "goods_code" },
+          { data: "description" },
           { data: "qty", className: "text-right" },
           { data: "unit", className: "text-center" },
           { data: "price", className: "text-right" },

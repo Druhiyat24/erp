@@ -24,15 +24,16 @@ $rsComp = mysql_fetch_array(mysql_query("select * from mastercompany"));
 $nm_company = $rsComp["company"];
 
 $sqldatatable = "select IF(a.app = 'A', 'Approved', 'Waiting') AS status_po,a.id,pono,podate,supplier,
-nama_pterms,n_kurs,tmppoit.buyer,tmppoit.t_row,tmppoit.t_rows_cancel,tmppoit.itemdesc,tmppoit.qty,tmppoit.unit,tmppoit.price,tmppoit.curr
+nama_pterms,n_kurs,tmppoit.buyer,tmppoit.t_row,tmppoit.t_rows_cancel,tmppoit.itemdesc,tmppoit.goods_code ,tmppoit.description,tmppoit.qty,tmppoit.unit,tmppoit.price,tmppoit.curr
 from po_header a inner join 
 mastersupplier s on a.id_supplier=s.id_supplier inner join 
 masterpterms d on a.id_terms=d.id
 inner join 
 (select poit.id_jo,poit.id_po,group_concat(distinct reqno) buyer,
-count(*) t_row,sum(if(cancel='Y',1,0)) t_rows_cancel, j.itemdesc, poit.qty, poit.unit, poit.price, poit.curr from po_item poit 
+count(*) t_row,sum(if(cancel='Y',1,0)) t_rows_cancel, j.itemdesc, j.goods_code, poit.qty, poit.unit, poit.price, poit.curr, mc.description from po_item poit 
 inner join reqnon_header rnh on poit.id_jo=rnh.id	
-INNER JOIN masteritem j ON poit.id_gen = j.id_item	group by poit.id_po) 
+INNER JOIN masteritem j ON poit.id_gen = j.id_item
+LEFT JOIN mapping_category mc ON j.n_code_category = mc.n_id group by poit.id_po) 
 tmppoit on tmppoit.id_po=a.id 
 where a.jenis='N' $date_filter $supplier_filter $buyer_filter
 order by podate desc";
@@ -113,6 +114,8 @@ header("Expires: 0");
   <th>PO Date</th>
   <th>Request No</th>
   <th>Description</th>
+  <th>Kode Barang</th>
+  <th>Kategori</th>
   <th>Qty PO</th>
   <th>Unit</th>
   <th>Price</th>
@@ -132,6 +135,8 @@ while($data = mysql_fetch_array($query)){
   echo "<td align='center'>".fd_view($data['podate'])."</td>";
   echo "<td>".$data['buyer']."</td>";
   echo "<td>".$data['itemdesc']."</td>";
+  echo "<td>".$data['goods_code']."</td>";
+  echo "<td>".$data['description']."</td>";
   echo "<td align='right'>".number_format($data['qty'],2)."</td>";
   echo "<td align='center'>".$data['unit']."</td>";
   echo "<td align='right'>".number_format($data['price'],2)."</td>";
