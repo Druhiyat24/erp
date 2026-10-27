@@ -273,7 +273,7 @@ and det.cancel = 'N'");
   <tfoot>
     <tr>
       <td align='center'>Staff Exim</td>
-      <td align='center'>Manager Exim</td>
+      <td align='center'>GM Factory</td>
       <td align='center'>Manager MD</td>
       <td align='center'>Direksi</td>
     </tr>
