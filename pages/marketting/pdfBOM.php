@@ -386,15 +386,16 @@ $id = $_GET['id'];
 
 //     group by posno) tmpjo","jcons>1");
 
-$cekerr=flookup("posno","(select posno,id_item,count(distinct cons) jcons from bom_jo_item where 
-    id_jo='$id' and rule_bom='ALL COLOR ALL SIZE' and cancel='N'
-    group by posno,id_item) tmpjo","jcons>1");
+// sementara dinonaktifkan supaya PDF tetap tampil walau cons dalam 1 PNo berbeda
+// $cekerr=flookup("posno","(select posno,id_item,count(distinct cons) jcons from bom_jo_item where
+//     id_jo='$id' and rule_bom='ALL COLOR ALL SIZE' and cancel='N'
+//     group by posno,id_item) tmpjo","jcons>1");
 
-if($cekerr!=''){
+// if($cekerr!=''){
 
-    exit('Ada Kesalahan Di PNo '.$cekerr);
+//     exit('Ada Kesalahan Di PNo '.$cekerr);
 
-}
+// }
 
 $sql="drop table if exists $tblbomjoit";
 
