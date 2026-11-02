@@ -1,6 +1,7 @@
 				      <style>
 				      	td.text {
 				      		mso-number-format: "\@";
+				      		white-space: pre;
 				      		/*force text*/
 				      	}
 				      </style>
