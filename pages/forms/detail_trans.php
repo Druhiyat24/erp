@@ -783,7 +783,7 @@ else
 				<td>$data[username]</td>
 				<td>$data[confirm_by]</td>
 				<td>$data[ws]</td>
-				<td class='text'>$data[styleno]</td>
+				<td>$data[styleno]</td>
 				<td>$data[curr]</td>
 				<td>$data[price]</td>
 				<td>$data[switch_in]</td>
