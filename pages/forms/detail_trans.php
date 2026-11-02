@@ -1,12 +1,14 @@
 				      <style>
 				      	td.text {
 				      		mso-number-format: "\@";
-				      		white-space: pre;
 				      		/*force text*/
 				      	}
 				      </style>
 				      <?php 
 				      if (empty($_SESSION['username'])) { header("location:../../index.php"); }
+
+				      // html menggabungkan spasi berurutan jadi 1, mso-spacerun menjaganya saat dibuka di excel
+				      function spasi_excel($teks) { return preg_replace('/ {2,}/', '<span style="mso-spacerun:yes">$0</span>', $teks); }
 
 				      $user=$_SESSION['username'];
 				      $mode = $_GET['mode'];
@@ -330,6 +332,7 @@ $id_contents ="id_contents";
 		$query = mysql_query($sql);
 		$no = 1;
 		while ($data = mysql_fetch_array($query)) {
+			$data["styleno"] = spasi_excel($data["styleno"]);
 
 			echo "<tr";
 			echo "
@@ -422,6 +425,7 @@ $id_contents ="id_contents";
 		$query = mysql_query($sql);
 		$no = 1;
 		while ($data = mysql_fetch_array($query)) {
+			$data["styleno"] = spasi_excel($data["styleno"]);
 
 			echo "<tr";
 			echo "
@@ -750,6 +754,7 @@ else
 			$no = 1;
 														#echo $sql;
 			while ($data = mysql_fetch_array($query)) {
+				$data["styleno"] = spasi_excel($data["styleno"]);
 
 				echo "<tr";
 				echo "
@@ -783,7 +788,7 @@ else
 				<td>$data[username]</td>
 				<td>$data[confirm_by]</td>
 				<td>$data[ws]</td>
-				<td>$data[styleno]</td>
+				<td class='text'>$data[styleno]</td>
 				<td>$data[curr]</td>
 				<td>$data[price]</td>
 				<td>$data[switch_in]</td>
@@ -846,6 +851,7 @@ else
 			$no = 1;
 														#echo $sql;
 			while ($data = mysql_fetch_array($query)) {
+				$data["styleno"] = spasi_excel($data["styleno"]);
 
 				echo "<tr";
 				echo "
