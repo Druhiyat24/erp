@@ -8,7 +8,7 @@
 				      if (empty($_SESSION['username'])) { header("location:../../index.php"); }
 
 				      // html menggabungkan spasi berurutan jadi 1, mso-spacerun menjaganya saat dibuka di excel
-				      function spasi_excel($teks) { return preg_replace('/ {2,}/', '<span style="mso-spacerun:yes">$0</span>', $teks); }
+				      function spasi_excel($teks) { return preg_replace('/(&nbsp;)+/', '<span style="mso-spacerun:yes">$0</span>', preg_replace('/(?<= ) | (?= )/', '&nbsp;', $teks)); }
 
 				      $user=$_SESSION['username'];
 				      $mode = $_GET['mode'];
