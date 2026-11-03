@@ -4933,3 +4933,10 @@
 [20-Oct-2026 05:02:22 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 1048576) (tried to allocate 1048576 bytes) in C:\xampp\htdocs\erp\pages\forms\pdfBarcode_whs_mut.php on line 3
 [20-Oct-2026 05:02:26 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 1048576) (tried to allocate 1048576 bytes) in C:\xampp\htdocs\erp\pages\forms\pdfBarcode_whs_mut.php on line 3
 [20-Oct-2026 05:06:25 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\cetaksj_fg.php on line 3
+[28-Oct-2026 09:03:01 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\pdfBarcode_whs_mut.php on line 3
+[29-Oct-2026 09:23:26 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\pdfBarcode_whs_mut.php on line 3
+[29-Oct-2026 09:23:30 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\pdfBarcode_whs_mut.php on line 3
+[29-Oct-2026 09:23:32 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\pdfBarcode_whs_mut.php on line 3
+[29-Oct-2026 09:23:45 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\pdfBarcode_whs_mut.php on line 3
+[29-Oct-2026 09:23:46 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\pdfBarcode_whs_mut.php on line 3
+[29-Oct-2026 09:23:48 Europe/Berlin] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 262144 bytes) in C:\xampp\htdocs\erp\pages\forms\pdfBarcode_whs_mut.php on line 3

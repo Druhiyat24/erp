@@ -147,6 +147,18 @@ if ($mod == 'update_status') {
 		$s_total_defect_packing = isset($row_cari_output_defect_packing['total_defect']) ? $row_cari_output_defect_packing['total_defect'] : 0;
 		$s_total_reject_packing = isset($row_cari_output_reject_packing['total_reject']) ? $row_cari_output_reject_packing['total_reject'] : 0;
 
+		// echo $s_total_rft." ".
+		// $s_total_defect." ".
+		// $s_total_reject." ".
+		// $s_total_rft_finishing." ".
+		// $s_total_defect_finishing." ".
+		// $s_total_reject_finishing." ".
+		// $s_total_rft_packing." ".
+		// $s_total_defect_packing." ".
+		// $s_total_reject_packing;
+
+		// die();
+
 		if ($s_total_rft + $s_total_defect + $s_total_reject + $s_total_rft_finishing + $s_total_defect_finishing + $s_total_reject_finishing + $s_total_rft_packing + $s_total_defect_packing + $s_total_reject_packing  > 0) {
 			// If Master Plan has Output
 			$_SESSION['msg'] = "X Master Plan Sudah Memiliki Output.";
