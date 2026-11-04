@@ -316,8 +316,7 @@ $tglinputakhir = isset($_POST['tglinputakhir']) && $_POST['tglinputakhir'] != ""
             left join master_rak mr_asal on mr_asal.id = src.id_rak_loc
             left join master_rak mr_tujuan on mr_tujuan.id = bd.id_rak_loc
             where bd.no_mut like 'MUT/GACC/%' $cri_tgl
-            order by bd.id desc
-            limit 500";
+            order by bd.id desc";
           $query = mysqli_query($con_new, $sql);
           while ($data = mysqli_fetch_array($query)) {
             $tgl = ($data['tgl_mut'] != "" && $data['tgl_mut'] != "0000-00-00") ? date('d M Y', strtotime($data['tgl_mut'])) : '-';

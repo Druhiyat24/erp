@@ -375,16 +375,16 @@ header("Cache-Control: max-age=0");
             select bd.id_rak_loc, id_item, id_jo,unit,sum(roll_qty) qty_awal, '0' qty_in_awal, '0' qty_out_awal from bpb_det bd
             where bpbdate = '2023-02-01' and bpbno = 'saldoawal'
             group by id_rak_loc, id_item, id_jo, unit
-            union         
+            union all         
             select bd.id_rak_loc, id_item, id_jo,unit,'0' qty_awal, sum(roll_qty) qty_in_awal, '0' qty_out_awal 
             from bpb_det bd
             inner join (select bpbno, pono, id_supplier,bpbno_int, bpbdate,invno from bpb where bpbdate >= '2023-02-01' and bpbdate < '$fromcri' 
             group by bpbno) bpb on bd.bpbno = bpb.bpbno
             where bpb.bpbdate >= '2023-02-01' and bpb.bpbdate <'$fromcri' and bd.bpbno <> 'saldoawal' and tgl_mut is null
             group by id_rak_loc, id_item, id_jo, unit 
-            union
+            union all
             select id_rak_loc,id_item,id_jo,unit,sum(roll_qty) qty_awal,'0' qty_in, '0' qty_out from bpb_det where tgl_mut >= '2023-02-01' and tgl_mut <'$fromcri' group by id_rak_loc, id_item, id_jo, unit
-            union 
+            union all 
             select bd.id_rak_loc, id_item, id_jo,unit,'0' qty_awal, '0' qty_in_awal, sum(roll_qty) qty_out_awal 
             from bppb_det bd
             inner join (select bppbno,bppbdate from bppb 
@@ -392,21 +392,21 @@ header("Cache-Control: max-age=0");
             group by bppbno) bppb on bd.bppbno = bppb.bppbno
             where bppb.bppbdate >= '2023-02-01' and bppb.bppbdate < '$fromcri' 
             group by id_rak_loc, id_item, id_jo, unit
-            UNION
+            UNION ALL
             select id_rak_loc,id_item,id_jo,unit,qty_awal,qty_in,sum(qty_out) qty_out from (select id_rak id_rak_loc,id_item,id_jo,unit,qty_awal,qty_in,qty_out from (select id_bpbdet,id_rak_loc,id_item,id_jo,unit,'0' qty_awal,'0' qty_in, roll_qty qty_out from bpb_det where tgl_mut >= '2023-02-01' and tgl_mut < '$fromcri') a inner join 
 (select id,id_rak_loc id_rak,id_item itemid, id_jo joid from bpb_det where qty_mutasi > 0) b on b.id = a.id_bpbdet and a.id_item = b.itemid and a.id_jo = b.joid) a group by id_rak_loc, id_item, id_jo, unit
             ) sa
             group by sa.id_rak_loc, sa.id_item, sa.id_jo, sa.unit
-          union
+          union all
           select bd.id_rak_loc, id_item, id_jo,unit,'0' qty_awal, sum(roll_qty) qty_in, '0' qty_out 
           from bpb_det bd
           inner join (select bpbno, pono, id_supplier,bpbno_int, bpbdate,invno from bpb where bpbdate >= '$fromcri' and bpbdate <= '$tocri' 
           group by bpbno) bpb on bd.bpbno = bpb.bpbno
           where bpb.bpbdate >= '$fromcri' and bpb.bpbdate <= '$tocri' and bd.bpbno <> 'saldoawal' and bd.tgl_mut is null
           group by id_rak_loc, id_item, id_jo, unit
-          UNION
+          UNION ALL
           select id_rak_loc,id_item,id_jo,unit,'0' qty_awal,sum(roll_qty) qty_in, '0' qty_out from bpb_det where tgl_mut >= '$fromcri' and tgl_mut <= '$tocri' group by id_rak_loc, id_item, id_jo, unit  
-          union
+          union all
           select bd.id_rak_loc, id_item, id_jo,unit,'0' qty_awal, '0' qty_in, sum(roll_qty) qty_out 
           from bppb_det bd
           inner join (select bppbno,bppbdate from bppb 
@@ -414,7 +414,7 @@ header("Cache-Control: max-age=0");
           group by bppbno) bppb on bd.bppbno = bppb.bppbno
           where bppb.bppbdate >= '$fromcri' and bppb.bppbdate <= '$tocri' 
           group by id_rak_loc, id_item, id_jo, unit      
-          UNION
+          UNION ALL
           select id_rak_loc,id_item,id_jo,unit,qty_awal,qty_in,sum(qty_out) qty_out from (select id_rak id_rak_loc,id_item,id_jo,unit,qty_awal,qty_in,qty_out from (select id_bpbdet,id_rak_loc,id_item,id_jo,unit,'0' qty_awal,'0' qty_in, roll_qty qty_out from bpb_det where tgl_mut >= '$fromcri' and tgl_mut <= '$tocri') a inner join 
 (select id,id_rak_loc id_rak,id_item itemid, id_jo joid from bpb_det where qty_mutasi > 0) b on b.id = a.id_bpbdet and a.id_item = b.itemid and a.id_jo = b.joid) a group by id_rak_loc, id_item, id_jo, unit
           ) a
