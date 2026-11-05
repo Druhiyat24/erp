@@ -76,6 +76,35 @@ class Model{
         ")->row();
     }
 
+    /**
+     * Req Date beserta jam request dibuat: created_at (RQ-F), kalau kosong dari log insert act_hist (RQ-A)
+     * Jika waktunya tidak tercatat, tampil tanggal saja
+     * @param $bppbno string
+     * @param $req_date string
+     * @return string
+     */
+    public function get_req_datetime($bppbno, $req_date)
+    {
+        $no = mysqli_real_escape_string($this->conn, $bppbno);
+        $waktu = $this->query("
+            SELECT min(created_at) waktu FROM bppb_req where bppbno = '$no';
+        ")->row()->waktu;
+        if(!$waktu){
+            // act_hist besar, Trans_Date dibatasi supaya memakai index
+            $waktu = $this->query("
+                SELECT min(Trans_Date) waktu FROM act_hist
+                where Trans_Date >= date_sub('$req_date', interval 31 day)
+                and Trans_Date < date_add('$req_date', interval 31 day)
+                and Trans_Desc like 'insert into bppb_req%!$no!%';
+            ")->row()->waktu;
+        }
+        if(!$waktu){
+            return $req_date;
+        }
+        // Req Date bisa beda hari dengan waktu input, jamnya tidak ditempel ke tanggal lain
+        return substr($waktu,0,10) == $req_date ? $waktu : $req_date.' (input '.$waktu.')';
+    }
+
 
 
     /**
@@ -259,6 +288,9 @@ if(is_null($h)){
     exit('Bppb Number Not Found');
 }
 
+// Req Date beserta jam
+$req_datetime = isset($h->req_date) ? $m->get_req_datetime($h->bppbno, $h->req_date) : '';
+
 // Close db connection
 $con_new->close();
 
@@ -350,7 +382,7 @@ ob_start();
     </tr>
     <tr>
         <th>Req Date</th>
-        <td ><?=$h->req_date?></td>
+        <td ><?=$req_datetime?></td>
         <th>Request By</th> 
         <td><?=$h->username?></td>    
     </tr>
