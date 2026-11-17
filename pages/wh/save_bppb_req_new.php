@@ -32,9 +32,9 @@ if ($mod == 'simpan')
 			$txtunit	= $UnitArray[$key];
 			$id_jo	 	= $Id_joArray[$key];
 
-		    {	$sql = "insert into bppb_req (bppbno,bppbdate,id_item,qty,remark,username,unit,id_supplier,id_jo,cancel,idws_act,qty_out,use_kite,berat_bersih,berat_kotor)
+		    {	$sql = "insert into bppb_req (bppbno,bppbdate,id_item,qty,remark,username,unit,id_supplier,id_jo,cancel,idws_act,qty_out,use_kite,berat_bersih,berat_kotor,created_at)
 				values ('$txtreqno','$txtreqdate','$txtid_item','$txtqty','$txtremark','$user','$txtunit',
-				'$txtid_supplier','$id_jo','N','$txtwsact','0','1','0','0')";
+				'$txtid_supplier','$id_jo','N','$txtwsact','0','1','0','0','$dateinput')";
 			insert_log($sql,$user);
 			{$_SESSION['msg']="Data Berhasil Disimpan, Nomor Req : ".$txtreqno;}
 			echo "<script>window.location.href='../forms/?mod=list_bppb_req';</script>";

@@ -64,12 +64,12 @@ if (($bpbno=="" AND $id_item=="") OR ($bpbno<>"" AND $id_item==""))
 					if ($cek=="0")
 					{	$sql = "insert into bppb_req (id_item,id_item_fg,qty,unit,curr,price,remark,berat_bersih,berat_kotor,nomor_mobil,id_supplier,
 							invno,bcno,bcdate,bppbno,bppbdate,jenis_dok,username,use_kite,nomor_aju,tanggal_aju,
-							kpno,id_jo)
+							kpno,id_jo,created_at)
 							values ('$txtid_item','$txtid_item_fg','$txtqty','$txtunit','$txtcurr','$txtprice','$txtremark','$txtberat_bersih',
 							'$txtberat_kotor','','$txtid_supplier','','$txtbcno','$txtbcdate',
 							'$txtreqno',
 							'$txtreqdate','$status_kb','$user','1','$txtbcaju','$txttglaju','$txtkpno',
-							'$id_jo')";
+							'$id_jo','".date('Y-m-d H:i:s')."')";
 						insert_log($sql,$user);
 						calc_stock($cbomat,$txtid_item);	
 					}
