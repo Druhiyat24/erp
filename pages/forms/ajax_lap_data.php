@@ -41,6 +41,15 @@ if ($modenya=="view_list_tipe")
 				  from masteritem where mattype in ('A')							
 	";
   }	  	  	
+  else if ($tipe_data == 'REKONSILIASI REPORT')
+  {
+  $sql = "
+	select distinct(mattype) isi, case mattype when 'F' then 'FABRIC'
+				  when 'A' then 'ACCESSORIES'
+				  end tampil
+				  from masteritem where mattype in ('A')							
+	";
+  }
   else
   {
 	$sql = "";

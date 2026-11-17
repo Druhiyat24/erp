@@ -70,6 +70,9 @@ $logo_company = $rscomp["logo_company"];
                 <option value="MUTASI DETAIL" <?php if ($tipe_data == "MUTASI DETAIL") {
                                                 echo "selected";
                                               } ?>>MUTASI DETAIL</option>
+                <?php if (strtolower($user) == "indro") { ?>
+                  <option value="REKONSILIASI REPORT">REKONSILIASI REPORT</option>
+                <?php } ?>
               </select>
             </div>
           </div>
@@ -107,4 +110,6 @@ $logo_company = $rscomp["logo_company"];
   </div>
   </form>
   </div>
-  </div><?php }
+  </div>
+  <?php if (strtolower($user) == "indro") { include "lap_data_rekon.php"; } ?>
+<?php }
