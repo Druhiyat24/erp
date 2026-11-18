@@ -1,6 +1,10 @@
 <?php
 // Load db connection
 include_once '../../include/conn.php';
+
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Pragma: no-cache');
+header('Expires: 0');
 // Assets class (image, css, etc..)
 class Assets{
     // Logo path
@@ -112,7 +116,7 @@ class Model{
                 -- TODO: change below fields with actual data
                 ,mseas.season as season
                 ,jo.username as md
-				,ifnull(jo.attach_file,0)attach_file
+                ,ifnull(jo.attach_file,0)attach_file
                 ,so.buyerno as po_no
                 ,sod.notes as remark
                 ,sod.notes as remark
@@ -162,7 +166,7 @@ class Model{
                     'product_group' => $r->product_group,
                     'update' => $r->update,
                     'buyer' => $r->supplier,
-					'gambar' => $r->attach_file,
+                    'gambar' => $r->attach_file,
                 );
             }
 
@@ -327,7 +331,7 @@ ob_start();
         <title>Worksheet</title>
     </head>
     <body>
-		<?php echo $header ?>
+        <?php echo $header ?>
     <h3>WORKSHEET</h3>
     <table class="table table-condensed" >
         <tr>
@@ -511,7 +515,7 @@ $mpdf->WriteHTML($html);
 if($attach_file != '0'){
 $mpdf->AddPage();
 $gambar_s = $header." ".$img;
-$mpdf->WriteHTML($gambar_s);	
+$mpdf->WriteHTML($gambar_s);    
 }
 $mpdf->Output();
 ?>
