@@ -513,9 +513,9 @@ $rsUser = mysql_fetch_array(mysql_query("select * from
                 <li><a href='?mod=7&rptid=kite_al'>Bahan Baku (Lokal)</a></li>
                 <li><a href='?mod=7&rptid=kite_d'>Hasil Produksi</a></li>";
             } else {
+              // <li><a href='?mod=lap_bc_in&rptid=bc23pjt'>BC 2.3 Impor PJT</a></li>
               echo "
                 <li><a href='?mod=lap_bc_in&rptid=bc23'>BC 2.3 Impor</a></li>
-                <li><a href='?mod=lap_bc_in&rptid=bc23pjt'>BC 2.3 Impor PJT</a></li>
                 <li><a href='?mod=lap_bc_in&rptid=bc262msk'>BC 2.6.2</a></li>
                 <li><a href='?mod=lap_bc_in&rptid=bc27msk'>BC 2.7</a></li>
                 <li><a href='?mod=lap_bc_in&rptid=bc27msksub'>BC 2.7 Subkon</a></li>
