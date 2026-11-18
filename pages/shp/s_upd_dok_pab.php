@@ -38,6 +38,13 @@ if(substr($trx_no, 0,2)=="SJ")
 { $tbl="bppb"; $fld="bppbno"; $add_fld=""; } 
 else 
 { $tbl="bpb"; $fld="bpbno"; $add_fld=",update_dok_pab='Y'"; }
+// Tgl. transaksi (BPB / BPPB) tidak boleh lebih dulu dari Tgl. Daftar, dicek sebelum ada data yang diubah (INHOUSE tidak punya Tgl. Daftar)
+$tgl_trx = flookup("min(".$tbl."date)",$tbl,"$fld='$trx_no'");
+if ($txtjenis_dok!="INHOUSE" && $txttanggal_daftar!="" && $tgl_trx!="" && $tgl_trx < $txttanggal_daftar)
+{	$_SESSION['msg'] = "XTgl. Transaksi ".strtoupper($tbl)." ".fd_view($tgl_trx)." lebih dulu dari Tgl. Daftar ".fd_view($txttanggal_daftar).", data tidak disimpan";
+	echo "<script>window.location.href='../shp/?mod=$mod&trx=$trx&dtrx=$dtrx&dtrx2=$dtrx2&noid=$trx_no';</script>";
+	exit;
+}
 if(isset($_POST['totnil'])) { $totnil = $_POST['totnil']; } else { $totnil=""; }
 if($totnil!="")
 {	foreach ($totnil as $key => $value)
@@ -55,6 +62,25 @@ $sql="update $tbl set jenis_dok='$txtjenis_dok',nomor_aju='$txtnomor_aju',tangga
 	,bcno='$txtnomor_daftar',bcdate='$txttanggal_daftar'
 	,no_fp='$txtnomor_fp',tgl_fp='$txttanggal_fp',invno='$txtinvno',rate_bc=$rate_value $add_fld where $fld='$trx_no'";
 insert_log($sql,$user);
+// Dokumen gudang kain (nomor GK/...) juga ada di tabel gudang: pemasukan di whs_inmaterial_fabric, pengeluaran di whs_bppb_h.
+// Yang disamakan hanya data pabean, no_invoice tetap milik gudang (SJ supplier)
+$no_gk = flookup($fld."_int",$tbl,"$fld='$trx_no'");
+if (substr($no_gk,0,3)=="GK/")
+{	$tgl_aju_gk = ($txttanggal_aju=="") ? "NULL" : "'$txttanggal_aju'";
+	$tgl_daftar_gk = ($txttanggal_daftar=="") ? "NULL" : "'$txttanggal_daftar'";
+	// INHOUSE tidak punya nomor aju / nomor daftar
+	$no_aju_gk = ($txtjenis_dok=="INHOUSE") ? "NULL" : "'$txtnomor_aju'";
+	$no_daftar_gk = ($txtjenis_dok=="INHOUSE") ? "NULL" : "'$txtnomor_daftar'";
+	if ($tbl=="bpb")
+	{	$sql="update whs_inmaterial_fabric set type_bc='$txtjenis_dok',no_aju=$no_aju_gk,tgl_aju=$tgl_aju_gk
+			,no_daftar=$no_daftar_gk,tgl_daftar=$tgl_daftar_gk,updated_at=now() where no_dok='$no_gk'";
+	}
+	else
+	{	$sql="update whs_bppb_h set dok_bc='$txtjenis_dok',no_aju=$no_aju_gk,tgl_aju=$tgl_aju_gk
+			,no_daftar=$no_daftar_gk,tgl_daftar=$tgl_daftar_gk,updated_at=now() where no_bppb='$no_gk'";
+	}
+	insert_log($sql,$user);
+}
 if($txtjenis_dok=="BC 2.3")
 {	$cek=flookup("bcno","detail_bm","jenis_dok='$txtjenis_dok' 
 		and bcno='$txtnomor_daftar' and bcdate='".fd($txttanggal_daftar)."'");

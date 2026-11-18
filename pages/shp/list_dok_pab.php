@@ -42,17 +42,46 @@ $logo_company=$rscomp["logo_company"];
     var tgaju = document.form.txttanggal_aju.value;
     var nopen = document.form.txtnomor_daftar.value;
     var tgpen = document.form.txttanggal_daftar.value;
+    var tgtrx = document.form.txttrx_date.value;
+    var valid = true;
 
-    if (jdok == '') { alert('Jenis Dokumen Kosong'); valid = false;}
+    if (jdok == '') { pesanGagal('Jenis Dokumen Kosong'); valid = false;}
     else if (jdok != 'INHOUSE') {
-    if (noaju == '') { alert('Nomor Aju Kosong'); valid = false;}
-    else if (noaju != '-' && tgaju == '') { alert('Tanggal Aju Kosong'); valid = false;}
-    else if (nopen == '') { alert('Nomor Daftar Kosong'); valid = false;}
-    else if (nopen != '-' && tgpen == '') { alert('Tanggal Daftar Kosong'); valid = false;}
+    if (noaju == '') { pesanGagal('Nomor Aju Kosong'); valid = false;}
+    else if (noaju != '-' && tgaju == '') { pesanGagal('Tanggal Aju Kosong'); valid = false;}
+    else if (nopen == '') { pesanGagal('Nomor Daftar Kosong'); valid = false;}
+    else if (nopen != '-' && tgpen == '') { pesanGagal('Tanggal Daftar Kosong'); valid = false;}
     }
-    else valid = true;
+    // Tgl. transaksi (BPB / BPPB) tidak boleh lebih dulu dari Tgl. Daftar (INHOUSE tidak punya Tgl. Daftar)
+    if (valid && jdok != 'INHOUSE' && keTanggal(tgtrx) != '' && keTanggal(tgpen) != '' && keTanggal(tgtrx) < keTanggal(tgpen))
+    { pesanGagal('Tgl. Transaksi ' + (document.form.txttrx_no.value.substring(0, 2) == 'SJ' ? 'BPPB' : 'BPB') + ' <b>' + escHtml(tgtrx) + '</b> lebih dulu dari Tgl. Daftar <b>' + escHtml(tgpen) + '</b>', 'Tidak bisa disimpan'); valid = false; }
     return valid;
-    exit;
+  }
+
+  // pesan boleh berisi HTML (mis. <b>), nilai dari input di-escape dulu dengan escHtml
+  function pesanGagal(pesan, judul)
+  { if (window.Swal)
+    { Swal.fire({ icon: 'warning', width: 560,
+        title: '<span style="font-size:26px">' + (judul || 'Data belum lengkap') + '</span>',
+        html: '<div style="font-size:18px; line-height:1.6">' + pesan + '</div>',
+        confirmButtonText: '<span style="font-size:16px; padding:0 16px">OK</span>' }); }
+    else { alert(pesan.replace(/<[^>]*>/g, '')); }
+  }
+
+  function escHtml(s)
+  { return String(s).replace(/[&<>"']/g, function(c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; });
+  }
+
+  // 'dd M yyyy' (tampilan / datepicker) atau 'yyyy-mm-dd' (dari pilihan nomor daftar) jadi 'yyyy-mm-dd'
+  function keTanggal(s)
+  { var bln = {Jan:'01',Feb:'02',Mar:'03',Apr:'04',May:'05',Jun:'06',Jul:'07',Aug:'08',Sep:'09',Oct:'10',Nov:'11',Dec:'12'};
+    var m;
+    s = (s || '').replace(/^\s+|\s+$/g, '');
+    m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (m) { return m[1] + '-' + m[2] + '-' + m[3]; }
+    m = s.match(/^(\d{1,2}) ([A-Za-z]{3}) (\d{4})$/);
+    if (m && bln[m[2]]) { return m[3] + '-' + bln[m[2]] + '-' + ('0' + m[1]).slice(-2); }
+    return '';
   }
 </script>
 <?php
