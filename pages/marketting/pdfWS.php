@@ -5,6 +5,7 @@ include_once '../../include/conn.php';
 header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
 header('Pragma: no-cache');
 header('Expires: 0');
+
 // Assets class (image, css, etc..)
 class Assets{
     // Logo path
@@ -148,7 +149,7 @@ class Model{
         $jo = array();
         $so = array();
         $so_total = array();
-        $_prev_so = array();
+        $_prev_so_fob = array();
         foreach($raw_result as $r){
             if(!count((array)$jo)){
                 $jo = array(
@@ -167,18 +168,18 @@ class Model{
                     'update' => $r->update,
                     'buyer' => $r->supplier,
                     'gambar' => $r->attach_file,
+                    'jo_qty' => 0,
                 );
             }
 
-            if(!count($_prev_so)){
-                $jo['jo_qty'] = $r->so_qty;
+            if(!count($_prev_so_fob)){
                 $jo['jo_fob'] = $r->so_fob;
-                $_prev_so[] = $r->parsum;
-            }elseif(!in_array($r->parsum, $_prev_so)){
-                $jo['jo_qty'] += $r->so_qty;
+                $_prev_so_fob[] = $r->parsum;
+            }elseif(!in_array($r->parsum, $_prev_so_fob)){
                 $jo['jo_fob'] += $r->so_fob;
-                $_prev_so[] = $r->parsum;
+                $_prev_so_fob[] = $r->parsum;
             }
+            $jo['jo_qty'] += $r->sod_qty;
 
             if(!isset($so[$r->skugrp])){
                 $so[$r->skugrp] = array(
