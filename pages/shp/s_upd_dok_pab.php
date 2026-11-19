@@ -38,9 +38,10 @@ if(substr($trx_no, 0,2)=="SJ")
 { $tbl="bppb"; $fld="bppbno"; $add_fld=""; } 
 else 
 { $tbl="bpb"; $fld="bpbno"; $add_fld=",update_dok_pab='Y'"; }
-// Tgl. transaksi (BPB / BPPB) tidak boleh lebih dulu dari Tgl. Daftar, dicek sebelum ada data yang diubah (INHOUSE tidak punya Tgl. Daftar)
+// Tgl. transaksi BPB tidak boleh lebih dulu dari Tgl. Daftar, dicek sebelum ada data yang diubah (INHOUSE tidak punya Tgl. Daftar)
+// sementara hanya untuk pemasukan (bpb), pengeluaran (bppb) belum dibatasi
 $tgl_trx = flookup("min(".$tbl."date)",$tbl,"$fld='$trx_no'");
-if ($txtjenis_dok!="INHOUSE" && $txttanggal_daftar!="" && $tgl_trx!="" && $tgl_trx < $txttanggal_daftar)
+if ($tbl=="bpb" && $txtjenis_dok!="INHOUSE" && $txttanggal_daftar!="" && $tgl_trx!="" && $tgl_trx < $txttanggal_daftar)
 {	$_SESSION['msg'] = "XTgl. Transaksi ".strtoupper($tbl)." ".fd_view($tgl_trx)." lebih dulu dari Tgl. Daftar ".fd_view($txttanggal_daftar).", data tidak disimpan";
 	echo "<script>window.location.href='../shp/?mod=$mod&trx=$trx&dtrx=$dtrx&dtrx2=$dtrx2&noid=$trx_no';</script>";
 	exit;

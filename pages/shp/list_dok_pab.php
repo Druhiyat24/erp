@@ -52,9 +52,11 @@ $logo_company=$rscomp["logo_company"];
     else if (nopen == '') { pesanGagal('Nomor Daftar Kosong'); valid = false;}
     else if (nopen != '-' && tgpen == '') { pesanGagal('Tanggal Daftar Kosong'); valid = false;}
     }
-    // Tgl. transaksi (BPB / BPPB) tidak boleh lebih dulu dari Tgl. Daftar (INHOUSE tidak punya Tgl. Daftar)
-    if (valid && jdok != 'INHOUSE' && keTanggal(tgtrx) != '' && keTanggal(tgpen) != '' && keTanggal(tgtrx) < keTanggal(tgpen))
-    { pesanGagal('Tgl. Transaksi ' + (document.form.txttrx_no.value.substring(0, 2) == 'SJ' ? 'BPPB' : 'BPB') + ' <b>' + escHtml(tgtrx) + '</b> lebih dulu dari Tgl. Daftar <b>' + escHtml(tgpen) + '</b>', 'Tidak bisa disimpan'); valid = false; }
+    // Tgl. transaksi BPB tidak boleh lebih dulu dari Tgl. Daftar (INHOUSE tidak punya Tgl. Daftar)
+    // sementara hanya untuk pemasukan, pengeluaran (nomor SJ...) belum dibatasi
+    if (valid && jdok != 'INHOUSE' && document.form.txttrx_no.value.substring(0, 2) != 'SJ'
+        && keTanggal(tgtrx) != '' && keTanggal(tgpen) != '' && keTanggal(tgtrx) < keTanggal(tgpen))
+    { pesanGagal('Tgl. Transaksi BPB <b>' + escHtml(tgtrx) + '</b> lebih dulu dari Tgl. Daftar <b>' + escHtml(tgpen) + '</b>', 'Tidak bisa disimpan'); valid = false; }
     return valid;
   }
 
