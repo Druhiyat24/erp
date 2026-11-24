@@ -286,6 +286,49 @@ function flookup($fld,$tbl,$criteria)
 	}
 };
 
+// Konfirmasi BPB / BPPB (mod 17, 17O, konfirmasi_new): selain INHOUSE, dokumen wajib sudah terisi nomor daftar (bcno)
+// lewat update dokumen pabean. Ekspresi SQL per dokumen (dipakai dengan group by nomor dokumen):
+// 1 kalau masih ada baris non-INHOUSE yang nomor daftarnya kosong
+function sql_belum_daftar($alias="")
+{	$p = ($alias=="") ? "" : $alias.".";
+	return "(sum(ifnull(".$p."jenis_dok,'')!='INHOUSE' and trim(ifnull(".$p."bcno,''))='')>0)";
+};
+
+// true kalau dokumen di tabel bpb / bppb belum boleh dikonfirmasi karena nomor daftar masih kosong
+function belum_nomor_daftar($tbl,$no)
+{	$fld = ($tbl=="bppb") ? "bppbno" : "bpbno";
+	return (flookup(sql_belum_daftar(),$tbl,"$fld='$no'")=="1");
+};
+
+// pilihan nomor transaksi di Konfirmasi Penerimaan (mod 17) / Pengeluaran (mod 17O).
+// Yang nomor daftarnya masih kosong tetap tampil dengan keterangan (teks keterangan juga dipakai di JS konfirmasi.php)
+function sql_list_konfirmasi($modnya,$tgl)
+{	$ket = "if(".sql_belum_daftar("a").",' (No. Daftar masih kosong)','')";
+	if ((string)$modnya==="17O")
+	{	$sql = "select concat('bppb:',bppbno) isi,concat(if(bppbno_int!='',bppbno_int,bppbno),'|',supplier,$ket) tampil from
+			bppb a inner join mastersupplier s on a.id_supplier=s.id_supplier
+			where bppbdate >='$tgl' and s.area in ('I','L','F','LINE')
+			and confirm='N' and a.cancel='N'
+			group by bppbno";
+	}
+	else
+	{	$sql = "select concat('bpb:',bpbno) isi,concat_ws('',if(ifnull(bpbno_int,'')='',bpbno,bpbno_int),'|',supplier,'|',jenis_dok,'|',bcno,$ket) tampil from
+			bpb a inner join mastersupplier s on a.id_supplier=s.id_supplier
+			where bpbdate >='$tgl'
+			and confirm='N'
+			and a.cancel='N'
+			and bpbno_int not like '%WIP/IN%'
+			or
+			bpbdate>='2023-03-01'
+			and bpbno_int like '%WIP/IN%'
+			and jenis_dok != 'INHOUSE'
+			and confirm='N'
+			and a.cancel='N'
+			group by bpbno order by isi";
+	}
+	return $sql;
+};
+
 function flookup_new($conn,$fld,$tbl,$criteria)
 {	if ($fld!="" AND $tbl!="" AND $criteria!="")
 	{	$quenya = "Select $fld as namafld from $tbl Where $criteria ";

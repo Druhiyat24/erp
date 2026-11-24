@@ -14,27 +14,8 @@ if ($modenya == "cari_list_sj") {
 	$modnya = $_REQUEST['modnya'];
 	if ($crinya != "") {
 		$cridtnya = fd($crinya);
-		if ($modnya == "17O") {
-			$sql = "select concat('bppb:',bppbno) isi,concat(if(bppbno_int!='',bppbno_int,bppbno),'|',supplier) tampil from 
-				bppb a inner join mastersupplier s on a.id_supplier=s.id_supplier
-				where bppbdate >='$cridtnya' and s.area in ('I','L','F','LINE') 
-				and confirm='N' and a.cancel='N'  
-				group by bppbno";
-		} else {
-			$sql = "select concat('bpb:',bpbno) isi,concat_ws('',if(ifnull(bpbno_int,'')='',bpbno,bpbno_int),'|',supplier,'|',jenis_dok,'|',bcno) tampil from 
-				bpb a inner join mastersupplier s on a.id_supplier=s.id_supplier
-				where bpbdate >='$cridtnya'   
-				and confirm='N' 
-				and a.cancel='N'
-				and bpbno_int not like '%WIP/IN%' 
-				or 
-				bpbdate>='2023-03-01'
-				and bpbno_int like '%WIP/IN%' 
-				and jenis_dok != 'INHOUSE'
-				and confirm='N' 
-				and a.cancel='N'				 
-				group by bpbno order by isi";
-		}
+		// query daftar (bpb untuk mod 17, bppb untuk mod 17O) ada di fungsi.php, sama dengan yang dipakai konfirmasi.php
+		$sql = sql_list_konfirmasi($modnya, $cridtnya);
 		#var_dump($sql);
 		IsiCombo($sql, '', 'Pilih Nomor Transaksi');
 	}
@@ -88,6 +69,12 @@ if ($modenya == "view_list_sj") {
 			on a.id_item=s.id_item where $nm_fld='$bppbno' ";
 		// echo $sql;
 		#echo $cekmat;
+		// selain INHOUSE wajib sudah ada nomor daftar: data tetap tampil, tapi tombol Konfirmasi dimatikan
+		$belum_daftar = belum_nomor_daftar($nm_tbl, $bppbno);
+		if ($belum_daftar) {
+			echo "<div style='margin-bottom:8px'><small class='text-danger'><i class='fa fa-exclamation-circle'></i>
+				Nomor daftar masih kosong, lakukan update dokumen pabean terlebih dahulu sebelum konfirmasi.</small></div>";
+		}
 		echo "<table style='width: 100%;' id='examplefix2'>";
 		echo "<thead>";
 		echo "<tr>";
@@ -206,6 +193,9 @@ if ($modenya == "view_list_sj") {
 			$i++;
 		};
 		echo "</table>";
+		if ($belum_daftar) {
+			$status_konf = "disabled title='Nomor daftar masih kosong'";
+		}
 		echo "<button type='submit' name='submit' $status_konf class='btn btn-primary'>Konfirmasi</button>";
 	}
 }
