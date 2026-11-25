@@ -721,12 +721,18 @@ if (isset($_POST['submit']))
     function notifFiturNonaktif() {
       swal({
         title: 'Fitur Tidak Tersedia',
-        text: 'Input Pemasukan Barang Jadi sudah tidak dilakukan di ERP.<br>Silakan lakukan input melalui aplikasi NDS:<br><br>' +
-              '<a href="http://10.10.5.62:8000/nds_wip/public/index.php/pemasukan_barang_jadi_so" target="_blank">' +
-              'NDS - Pemasukan Barang Jadi SO</a>',
+        text: 'Input Pemasukan Barang Jadi sudah tidak dilakukan di ERP.<br>' +
+              'Silakan input melalui aplikasi <b>NDS</b>.<br><br>' +
+              'Klik tombol <b>Buka NDS</b> di bawah untuk langsung menuju halaman input.',
         type: 'info',
         html: true,
-        confirmButtonText: 'Mengerti'
+        showCancelButton: true,
+        confirmButtonText: 'Buka NDS',
+        cancelButtonText: 'Tutup'
+      }, function (isConfirm) {
+        if (isConfirm) {
+          window.open('http://10.10.5.62:8000/nds_wip/public/index.php/pemasukan_barang_jadi_so', '_blank');
+        }
       });
     }
   </script>
