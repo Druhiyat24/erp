@@ -12,6 +12,11 @@ $mod=$_GET['mod'];
 
 $mode="FG";
 
+# FITUR INPUT PEMASUKAN BARANG JADI (SO)
+# true  = aktif    : tombol New & form input bisa dipakai seperti biasa
+# false = nonaktif : tombol New & form input menampilkan notifikasi untuk input di NDS
+$fitur_input_bpb_fg_aktif = true;
+
 
 
 $akses = flookup("mnuBPBFG_SO","userpassword","username='$user'");
@@ -307,8 +312,7 @@ if (isset($_POST['submit']))
 
 <?php if($mod=="31") {
 
-# Form input Pemasukan Barang Jadi dinonaktifkan (25-11-2026), input dipindah ke NDS.
-# Form lama di bawah di-comment (bukan dihapus), buka comment /* ... */ bila ingin diaktifkan kembali.
+if (!$fitur_input_bpb_fg_aktif) {
 
 ?>
 
@@ -333,7 +337,7 @@ if (isset($_POST['submit']))
   });
 </script>
 
-<?php /* ===== FORM LAMA (DINONAKTIFKAN) =====
+<?php } else { ?>
 
 <form method='post' name='form' action='s_bpb_so.php?mod=<?php echo $mod; ?>'
 
@@ -719,7 +723,7 @@ if (isset($_POST['submit']))
 
 </form>
 
-===== AKHIR FORM LAMA ===== */ ?>
+<?php } ?>
 
 <?php } else if ($mod=="31v") {
 
@@ -739,7 +743,11 @@ if (isset($_POST['submit']))
 
     <h3 class="box-title">List Pemasukan <?php echo $titlenya; ?></h3>
 
+    <?php if ($fitur_input_bpb_fg_aktif) { ?>
+    <a href='../forms/?mod=<?php echo $mod2; ?>&mode=<?php echo $mode; ?>' class='btn btn-primary btn-s'>
+    <?php } else { ?>
     <a href='javascript:void(0)' onclick='notifFiturNonaktif()' class='btn btn-primary btn-s'>
+    <?php } ?>
 
       <i class='fa fa-plus'></i> New
 
