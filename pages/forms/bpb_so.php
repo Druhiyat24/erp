@@ -305,9 +305,37 @@ if (isset($_POST['submit']))
 
 </script>
 
-<?php if($mod=="31") {?>
+<?php if($mod=="31") {
 
-<form method='post' name='form' action='s_bpb_so.php?mod=<?php echo $mod; ?>' 
+# Form input Pemasukan Barang Jadi dinonaktifkan (25-11-2026), input dipindah ke NDS.
+# Form lama di bawah di-comment (bukan dihapus), buka comment /* ... */ bila ingin diaktifkan kembali.
+
+?>
+
+<script>
+  $(function () {
+    swal({
+      title: 'Fitur Tidak Tersedia',
+      text: 'Input Pemasukan Barang Jadi sudah tidak dilakukan di ERP.<br>' +
+            'Silakan input melalui aplikasi <b>NDS</b>.<br><br>' +
+            'Klik tombol <b>Buka NDS</b> di bawah untuk langsung menuju halaman input.',
+      type: 'info',
+      html: true,
+      showCancelButton: true,
+      confirmButtonText: 'Buka NDS',
+      cancelButtonText: 'Tutup'
+    }, function (isConfirm) {
+      if (isConfirm) {
+        window.open('http://10.10.5.62:8000/nds_wip/public/index.php/pemasukan_barang_jadi_so', '_blank');
+      }
+      window.location.href = '../forms/?mod=31v';
+    });
+  });
+</script>
+
+<?php /* ===== FORM LAMA (DINONAKTIFKAN) =====
+
+<form method='post' name='form' action='s_bpb_so.php?mod=<?php echo $mod; ?>'
 
   onsubmit='return validasi()'>
 
@@ -690,6 +718,8 @@ if (isset($_POST['submit']))
   </div>
 
 </form>
+
+===== AKHIR FORM LAMA ===== */ ?>
 
 <?php } else if ($mod=="31v") {
 
