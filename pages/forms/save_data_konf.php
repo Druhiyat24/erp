@@ -38,8 +38,9 @@ if ($nm_tbl == "bpb" && $cekri == "R") {
 }
 $tgl_cfm = date('Y-m-d H-i-s');
 
-// selain INHOUSE, dokumen wajib sudah ada nomor daftar (diisi lewat update dokumen pabean). Dicek sebelum ada data yang diubah
-if (belum_nomor_daftar($nm_tbl, $txtbppbno)) {
+// penerimaan (bpb) selain INHOUSE wajib sudah ada nomor daftar (diisi lewat update dokumen pabean). Dicek sebelum ada data yang diubah.
+// pengeluaran (bppb) tidak dibatasi
+if ($nm_tbl == "bpb" && belum_nomor_daftar($nm_tbl, $txtbppbno)) {
 	$no_int_konf = flookup($nm_fld."_int", $nm_tbl, "$nm_fld='$txtbppbno'");
 	$_SESSION['msg'] = "XNomor daftar ".(($no_int_konf != "") ? $no_int_konf : $txtbppbno)." masih kosong, update dokumen pabean terlebih dahulu";
 	echo "<script>window.location.href='index.php?mod=$mod&tgldt=$cridt';</script>";

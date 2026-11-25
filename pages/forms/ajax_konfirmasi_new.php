@@ -172,7 +172,7 @@ if ($modenya == "view_list_data") {
 		else
 		'Ok' 
 		end stat_dok,
-		'Ok' stat_lokasi, " . sql_belum_daftar("a") . " belum_daftar
+		'Ok' stat_lokasi		
 		FROM bppb a
 		inner join (select bppbno, sum(roll_qty) roll_qty from bppb_det group by bppbno) b on a.bppbno = b.bppbno
 		inner join mastersupplier ms on a.id_supplier = ms.id_supplier
@@ -199,12 +199,6 @@ if ($modenya == "view_list_data") {
 				$status = '';
 				$bgcol = "style='color:orange;'";
 			}
-			// selain INHOUSE wajib sudah ada nomor daftar: tetap tampil, tapi tidak bisa dicentang
-			$ket_daftar = "";
-			if ($data['belum_daftar'] == "1") {
-				$status = 'disabled';
-				$ket_daftar = "<br><small class='text-danger'><i>No. Daftar masih kosong</i></small>";
-			}
 			echo "<tr $bgcol>
 						<td>$i</td>
 						<td value = '$data[bppbno_int]'>$data[bppbno_int]</td>
@@ -220,7 +214,7 @@ if ($modenya == "view_list_data") {
 						<td>$data[roll_qty]</td>
 						<td>$data[username]</td>
 						<td>$stat_lokasi</td>
-						<td>$stat_dok$ket_daftar</td>
+						<td>$stat_dok</td>
 						<td><input type ='checkbox' name ='itemchk[$id]' id='itemchk$i' value = '$id' $status>
 						<input type ='hidden' name ='bppbno[$id]' id='bppbno$i' value ='$id'>&nbsp;&nbsp;&nbsp;&nbsp;
 							<i class='fa fa-search' aria-hidden='true' id= 'btndetail_out'></i>

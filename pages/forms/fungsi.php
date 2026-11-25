@@ -286,8 +286,9 @@ function flookup($fld,$tbl,$criteria)
 	}
 };
 
-// Konfirmasi BPB / BPPB (mod 17, 17O, konfirmasi_new): selain INHOUSE, dokumen wajib sudah terisi nomor daftar (bcno)
-// lewat update dokumen pabean. Ekspresi SQL per dokumen (dipakai dengan group by nomor dokumen):
+// Konfirmasi penerimaan / BPB (mod 17, konfirmasi_new pemasukan): selain INHOUSE, dokumen wajib sudah terisi nomor daftar (bcno)
+// lewat update dokumen pabean. Konfirmasi pengeluaran / BPPB (mod 17O, konfirmasi_new pengeluaran) tidak dibatasi.
+// Ekspresi SQL per dokumen (dipakai dengan group by nomor dokumen):
 // 1 kalau masih ada baris non-INHOUSE yang nomor daftarnya kosong
 function sql_belum_daftar($alias="")
 {	$p = ($alias=="") ? "" : $alias.".";
@@ -301,11 +302,12 @@ function belum_nomor_daftar($tbl,$no)
 };
 
 // pilihan nomor transaksi di Konfirmasi Penerimaan (mod 17) / Pengeluaran (mod 17O).
-// Yang nomor daftarnya masih kosong tetap tampil dengan keterangan (teks keterangan juga dipakai di JS konfirmasi.php)
+// Penerimaan yang nomor daftarnya masih kosong tetap tampil dengan keterangan (teks keterangan juga dipakai di JS konfirmasi.php);
+// pengeluaran tidak dibatasi, jadi tanpa keterangan
 function sql_list_konfirmasi($modnya,$tgl)
 {	$ket = "if(".sql_belum_daftar("a").",' (No. Daftar masih kosong)','')";
 	if ((string)$modnya==="17O")
-	{	$sql = "select concat('bppb:',bppbno) isi,concat(if(bppbno_int!='',bppbno_int,bppbno),'|',supplier,$ket) tampil from
+	{	$sql = "select concat('bppb:',bppbno) isi,concat(if(bppbno_int!='',bppbno_int,bppbno),'|',supplier) tampil from
 			bppb a inner join mastersupplier s on a.id_supplier=s.id_supplier
 			where bppbdate >='$tgl' and s.area in ('I','L','F','LINE')
 			and confirm='N' and a.cancel='N'

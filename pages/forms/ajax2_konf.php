@@ -69,8 +69,9 @@ if ($modenya == "view_list_sj") {
 			on a.id_item=s.id_item where $nm_fld='$bppbno' ";
 		// echo $sql;
 		#echo $cekmat;
-		// selain INHOUSE wajib sudah ada nomor daftar: data tetap tampil, tapi tombol Konfirmasi dimatikan
-		$belum_daftar = belum_nomor_daftar($nm_tbl, $bppbno);
+		// penerimaan (bpb) selain INHOUSE wajib sudah ada nomor daftar: data tetap tampil, tapi tombol Konfirmasi dimatikan.
+		// pengeluaran (bppb) tidak dibatasi
+		$belum_daftar = ($nm_tbl == "bpb" && belum_nomor_daftar($nm_tbl, $bppbno));
 		if ($belum_daftar) {
 			echo "<div style='margin-bottom:8px'><small class='text-danger'><i class='fa fa-exclamation-circle'></i>
 				Nomor daftar masih kosong, lakukan update dokumen pabean terlebih dahulu sebelum konfirmasi.</small></div>";

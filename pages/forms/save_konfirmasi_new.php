@@ -234,16 +234,10 @@ if ($mod == 'simpan') {
 		} else {
 			$ItemArray = $_POST['itemchk'];
 			$BppbnoArray = $_POST['bppbno'];
-			$ditolak = array();
 
 			foreach ($ItemArray as $key => $value) {
 				if ($value != "") {
 					$txtbppbno 	= $BppbnoArray[$key];
-					// selain INHOUSE wajib sudah ada nomor daftar, yang masih kosong tidak dikonfirmasi
-					if (belum_nomor_daftar("bppb", $txtbppbno)) {
-						$ditolak[] = flookup("bppbno_int", "bppb", "bppbno='$txtbppbno'");
-						continue;
-					}
 					$sql = "update bppb set confirm_by='$user',confirm='Y',confirm_date='$dateinput' 
 					where bppbno='$txtbppbno'";
 					insert_log($sql, $user);
@@ -393,14 +387,9 @@ if ($mod == 'simpan') {
 						insert_log($queryss4, $user);
 					}
 				}
-			}
-			// pesan & kembali ke daftar setelah semua dokumen diproses (juga kalau semua dilewati karena nomor daftar kosong)
-			if (count($ditolak) > 0) {
-				$_SESSION['msg'] = "X" . count($ditolak) . " dokumen tidak dikonfirmasi, nomor daftar masih kosong: " . implode(", ", $ditolak);
-			} else {
 				$_SESSION['msg'] = "Data Berhasil Dikonfirmasi";
+				echo "<script>window.location.href='index.php?mod=konfirmasi_new';</script>";
 			}
-			echo "<script>window.location.href='index.php?mod=konfirmasi_new';</script>";
 		}
 	}
 }
