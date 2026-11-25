@@ -709,13 +709,27 @@ if (isset($_POST['submit']))
 
     <h3 class="box-title">List Pemasukan <?php echo $titlenya; ?></h3>
 
-    <a href='../forms/?mod=<?php echo $mod2; ?>&mode=<?php echo $mode; ?>' class='btn btn-primary btn-s'>
+    <a href='javascript:void(0)' onclick='notifFiturNonaktif()' class='btn btn-primary btn-s'>
 
       <i class='fa fa-plus'></i> New
 
     </a>
 
   </div>
+
+  <script>
+    function notifFiturNonaktif() {
+      swal({
+        title: 'Fitur Tidak Tersedia',
+        text: 'Input Pemasukan Barang Jadi sudah tidak dilakukan di ERP.<br>Silakan lakukan input melalui aplikasi NDS:<br><br>' +
+              '<a href="http://10.10.5.62:8000/nds_wip/public/index.php/pemasukan_barang_jadi_so" target="_blank">' +
+              'NDS - Pemasukan Barang Jadi SO</a>',
+        type: 'info',
+        html: true,
+        confirmButtonText: 'Mengerti'
+      });
+    }
+  </script>
 
 
 <div class='row'>
