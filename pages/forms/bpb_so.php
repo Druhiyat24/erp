@@ -313,7 +313,7 @@ if (isset($_POST['submit']))
 ?>
 
 <script>
-  $(function () {
+  window.addEventListener('load', function () {
     swal({
       title: 'Fitur Tidak Tersedia',
       text: 'Input Pemasukan Barang Jadi sudah tidak dilakukan di ERP.<br>' +
