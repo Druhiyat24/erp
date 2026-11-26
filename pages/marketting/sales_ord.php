@@ -1006,7 +1006,8 @@ table a:hover i {
       <tbody>
         <?php
         $query = mysql_query("SELECT sod.*, so.username, sod.price px_det,
-                             (SELECT COUNT(so_det_id) FROM laravel_nds.marker_input_detail WHERE so_det_id = sod.id) as cek_marker
+                             (SELECT COUNT(so_det_id) FROM laravel_nds.marker_input_detail WHERE so_det_id = sod.id) as cek_marker,
+                             (SELECT ratio FROM laravel_nds.marker_input_detail WHERE so_det_id = sod.id) as ratio
                              FROM so_det sod 
                              INNER JOIN so ON sod.id_so=so.id 
                              WHERE sod.id_so='$id_so'"); 
@@ -1021,7 +1022,7 @@ table a:hover i {
                         { 
                         	echo "<td>";
                         
-	                        if ($data['cek_marker'] == 0) {
+	                        if ($data['cek_marker'] == 0 && $data['ratio'] == 0) {
 	                            echo "
 	                                <input type='hidden' name='chkhide[$data[id]]' value='$data[id]'>
 	                                <input type='checkbox' name='itemchk[$data[id]]' class='chkclass'>
