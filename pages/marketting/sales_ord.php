@@ -1022,7 +1022,7 @@ table a:hover i {
                         { 
                         	echo "<td>";
                         
-	                        if ($data['cek_marker'] == 0 && $data['ratio'] == 0) {
+	                        if ($data['cek_marker'] == 0 || $data['ratio'] == 0) {
 	                            echo "
 	                                <input type='hidden' name='chkhide[$data[id]]' value='$data[id]'>
 	                                <input type='checkbox' name='itemchk[$data[id]]' class='chkclass'>
