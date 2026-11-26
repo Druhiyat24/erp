@@ -12,6 +12,11 @@ $mod=$_GET['mod'];
 
 $mode="FG";
 
+# FITUR INPUT PEMASUKAN BARANG JADI (SO)
+# true  = aktif    : tombol New & form input bisa dipakai seperti biasa
+# false = nonaktif : tombol New & form input menampilkan notifikasi untuk input di NDS
+$fitur_input_bpb_fg_aktif = true;
+
 
 
 $akses = flookup("mnuBPBFG_SO","userpassword","username='$user'");
@@ -305,9 +310,36 @@ if (isset($_POST['submit']))
 
 </script>
 
-<?php if($mod=="31") {?>
+<?php if($mod=="31") {
 
-<form method='post' name='form' action='s_bpb_so.php?mod=<?php echo $mod; ?>' 
+if (!$fitur_input_bpb_fg_aktif) {
+
+?>
+
+<script>
+  window.addEventListener('load', function () {
+    swal({
+      title: 'Fitur Tidak Tersedia',
+      text: 'Input Pemasukan Barang Jadi sudah tidak dilakukan di ERP.<br>' +
+            'Silakan input melalui aplikasi <b>NDS</b>.<br><br>' +
+            'Klik tombol <b>Buka NDS</b> di bawah untuk langsung menuju halaman input.',
+      type: 'info',
+      html: true,
+      showCancelButton: true,
+      confirmButtonText: 'Buka NDS',
+      cancelButtonText: 'Tutup'
+    }, function (isConfirm) {
+      if (isConfirm) {
+        window.open('http://10.10.5.62:8000/nds_wip/public/index.php/pemasukan_barang_jadi_so', '_blank');
+      }
+      window.location.href = '../forms/?mod=31v';
+    });
+  });
+</script>
+
+<?php } else { ?>
+
+<form method='post' name='form' action='s_bpb_so.php?mod=<?php echo $mod; ?>'
 
   onsubmit='return validasi()'>
 
@@ -691,6 +723,8 @@ if (isset($_POST['submit']))
 
 </form>
 
+<?php } ?>
+
 <?php } else if ($mod=="31v") {
 
 # END COPAS ADD
@@ -709,13 +743,37 @@ if (isset($_POST['submit']))
 
     <h3 class="box-title">List Pemasukan <?php echo $titlenya; ?></h3>
 
+    <?php if ($fitur_input_bpb_fg_aktif) { ?>
     <a href='../forms/?mod=<?php echo $mod2; ?>&mode=<?php echo $mode; ?>' class='btn btn-primary btn-s'>
+    <?php } else { ?>
+    <a href='javascript:void(0)' onclick='notifFiturNonaktif()' class='btn btn-primary btn-s'>
+    <?php } ?>
 
       <i class='fa fa-plus'></i> New
 
     </a>
 
   </div>
+
+  <script>
+    function notifFiturNonaktif() {
+      swal({
+        title: 'Fitur Tidak Tersedia',
+        text: 'Input Pemasukan Barang Jadi sudah tidak dilakukan di ERP.<br>' +
+              'Silakan input melalui aplikasi <b>NDS</b>.<br><br>' +
+              'Klik tombol <b>Buka NDS</b> di bawah untuk langsung menuju halaman input.',
+        type: 'info',
+        html: true,
+        showCancelButton: true,
+        confirmButtonText: 'Buka NDS',
+        cancelButtonText: 'Tutup'
+      }, function (isConfirm) {
+        if (isConfirm) {
+          window.open('http://10.10.5.62:8000/nds_wip/public/index.php/pemasukan_barang_jadi_so', '_blank');
+        }
+      });
+    }
+  </script>
 
 
 <div class='row'>

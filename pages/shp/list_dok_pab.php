@@ -52,10 +52,35 @@ $logo_company=$rscomp["logo_company"];
     else if (nopen == '') { pesanGagal('Nomor Daftar Kosong'); valid = false;}
     else if (nopen != '-' && tgpen == '') { pesanGagal('Tanggal Daftar Kosong'); valid = false;}
     }
-    // Tgl. transaksi (BPB / BPPB) tidak boleh lebih dulu dari Tgl. Daftar (INHOUSE tidak punya Tgl. Daftar)
+    // Tgl. transaksi (BPB / BPPB) lebih dulu dari Tgl. Daftar (INHOUSE tidak punya Tgl. Daftar):
+    // tetap bisa disimpan setelah exim konfirmasi, tgl transaksi lalu diubah ke Tgl. Daftar (tgl asli disimpan)
     if (valid && jdok != 'INHOUSE' && keTanggal(tgtrx) != '' && keTanggal(tgpen) != '' && keTanggal(tgtrx) < keTanggal(tgpen))
-    { pesanGagal('Tgl. Transaksi ' + (document.form.txttrx_no.value.substring(0, 2) == 'SJ' ? 'BPPB' : 'BPB') + ' <b>' + escHtml(tgtrx) + '</b> lebih dulu dari Tgl. Daftar <b>' + escHtml(tgpen) + '</b>', 'Tidak bisa disimpan'); valid = false; }
+    { konfirmasiUbahTgl(document.form.txttrx_no.value.substring(0, 2) == 'SJ' ? 'BPPB' : 'BPB', tgtrx, tgpen); valid = false; }
     return valid;
+  }
+
+  // kalau exim pilih lanjut, form disubmit dengan konfirm_ubah_tgl=Y sebagai tanda untuk script simpan
+  function konfirmasiUbahTgl(jenis, tgtrx, tgpen)
+  { var tgl = function(s) { return '<b style="white-space:nowrap">' + escHtml(tampilTgl(s)) + '</b>'; };
+    var pesan = 'Tanggal ' + jenis + ' ' + tgl(tgtrx) + ' lebih awal dari Tanggal Daftar ' + tgl(tgpen) + '.'
+      + '<br>Tanggal ' + jenis + ' akan disesuaikan menjadi ' + tgl(tgpen) + '.';
+    var lanjut = function()
+    { var h = document.createElement('input');
+      h.type = 'hidden'; h.name = 'konfirm_ubah_tgl'; h.value = 'Y';
+      document.form.appendChild(h);
+      // tombol Simpan bernama 'submit' menutupi document.form.submit, jadi pakai submit milik HTMLFormElement
+      HTMLFormElement.prototype.submit.call(document.form);
+    };
+    if (window.Swal)
+    { Swal.fire({ icon: 'warning', width: 600,
+        title: '<span style="font-size:26px">Penyesuaian Tanggal</span>',
+        html: '<div style="font-size:18px; line-height:1.6">' + pesan + '</div>',
+        showCancelButton: true, focusCancel: true,
+        confirmButtonText: '<span style="font-size:16px; padding:0 16px">Ya, Lanjutkan</span>',
+        cancelButtonText: '<span style="font-size:16px; padding:0 16px">Batal</span>' })
+      .then(function(r) { if (r.isConfirmed) { lanjut(); } });
+    }
+    else if (confirm(pesan.replace(/<br>/g, '\n').replace(/<[^>]*>/g, ''))) { lanjut(); }
   }
 
   // pesan boleh berisi HTML (mis. <b>), nilai dari input di-escape dulu dengan escHtml
@@ -82,6 +107,13 @@ $logo_company=$rscomp["logo_company"];
     m = s.match(/^(\d{1,2}) ([A-Za-z]{3}) (\d{4})$/);
     if (m && bln[m[2]]) { return m[3] + '-' + bln[m[2]] + '-' + ('0' + m[1]).slice(-2); }
     return '';
+  }
+
+  // tanggal apa pun formatnya ditampilkan 'dd M yyyy'
+  function tampilTgl(s)
+  { var nm = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var t = keTanggal(s);
+    return (t == '') ? s : t.substring(8, 10) + ' ' + nm[parseInt(t.substring(5, 7), 10) - 1] + ' ' + t.substring(0, 4);
   }
 </script>
 <?php

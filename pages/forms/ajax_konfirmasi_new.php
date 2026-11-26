@@ -84,7 +84,7 @@ if ($modenya == "view_list_data") {
 				</tr>
 			</thead>";
 		$sql = "select bpb.bpbno,bpbno_int, bpbdate, sum(bpb.qty) qty_bpb,coalesce(sum(roll_qty),0) roll_qty,pono, invno, ms.supplier, bpb.username create_by, confirm, if(sum(bpb.qty) = sum(roll_qty),'Ok','N/A') stat_lokasi, 
-			if (update_dok_pab = 'Y','Ok','N/A') stat_dok from bpb 
+			if (update_dok_pab = 'Y','Ok','N/A') stat_dok, " . sql_belum_daftar("bpb") . " belum_daftar from bpb
 			inner join mastersupplier ms on bpb.id_supplier = ms.id_supplier
 			left join (select bpbno,id_item,id_jo,sum(roll_qty - coalesce(qty_mutasi,0)) roll_qty from bpb_det group by bpbno,id_item,id_jo) bd on bpb.bpbno = bd.bpbno and bpb.id_item = bd.id_item and bpb.id_jo = bd.id_jo
 			where bpb.bpbno like 'A%' and bpbdate >= '2023-02-01' and confirm = 'N'
@@ -113,6 +113,12 @@ if ($modenya == "view_list_data") {
 				$status = '';
 				$bgcol = "style='color:green;'";
 			}
+			// selain INHOUSE wajib sudah ada nomor daftar: tetap tampil, tapi tidak bisa dicentang
+			$ket_daftar = "";
+			if ($data['belum_daftar'] == "1") {
+				$status = 'disabled';
+				$ket_daftar = "<br><small class='text-danger'><i>No. Daftar masih kosong</i></small>";
+			}
 
 
 			echo "<tr $bgcol>
@@ -127,7 +133,7 @@ if ($modenya == "view_list_data") {
 						<td>$data[roll_qty]</td>
 						<td>$data[create_by]</td>
 						<td>$data[stat_lokasi]</td>
-						<td>$data[stat_dok]</td>
+						<td>$data[stat_dok]$ket_daftar</td>
 						<td><input type ='checkbox' name ='itemchk[$id]' id='itemchk$i' value = '$id' $status>
 						<input type ='hidden' name ='bpbno[$id]' id='bpbno$i' value ='$id'>&nbsp;&nbsp;&nbsp;&nbsp;
 							<i class='fa fa-search' aria-hidden='true' id= 'btndetail'></i>

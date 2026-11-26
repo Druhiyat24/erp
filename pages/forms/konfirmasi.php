@@ -68,6 +68,21 @@ echo "</script>";
       });
   }
 
+  // nomor transaksi yang nomor daftarnya masih kosong: keterangannya (dari sql_list_konfirmasi di fungsi.php)
+  // ditampilkan kecil & merah di pilihan
+  var KET_NO_DAFTAR = ' (No. Daftar masih kosong)';
+  function tampilPilihanKonf(opt)
+  { var t = opt.text || '';
+    var i = t.indexOf(KET_NO_DAFTAR);
+    if (i < 0) { return t; }
+    return $('<span>').text(t.substring(0, i) + ' ')
+      .append($('<small style="color:#dd4b39; font-style:italic">').text(KET_NO_DAFTAR.replace(/^ \(|\)$/g, '')));
+  }
+  // dipasang setelah select2 bawaan halaman (index.php) selesai diinisialisasi
+  window.addEventListener('load', function()
+  { $('#cbosj').select2({ templateResult: tampilPilihanKonf, templateSelection: tampilPilihanKonf });
+  });
+
 </script>
 <?PHP
 # COPAS ADD
@@ -96,19 +111,8 @@ echo "<div class='box'>";
           	echo "<label>Nomor Transaksi *</label>";
           	echo "<select class='form-control select2' style='width: 100%;' name='txtsjno' id='cbosj' onchange='getListData(this.value)'>";
             $tanggal = date('Y-m-d',strtotime($cridtnya));
-            $sql = "select concat('bpb:',bpbno) isi,concat_ws('',if(ifnull(bpbno_int,'')='',bpbno,bpbno_int),'|',supplier,'|',jenis_dok,'|',bcno) tampil from 
-        bpb a inner join mastersupplier s on a.id_supplier=s.id_supplier
-        where bpbdate >='$tanggal'   
-        and confirm='N' 
-        and a.cancel='N'
-        and bpbno_int not like '%WIP/IN%' 
-        or 
-        bpbdate>='2023-03-01'
-        and bpbno_int like '%WIP/IN%' 
-        and jenis_dok != 'INHOUSE'
-        and confirm='N' 
-        and a.cancel='N'         
-        group by bpbno order by isi";
+            // query sama dengan ajax2_konf.php (fungsi.php): mod 17 daftar BPB, mod 17O daftar BPPB
+            $sql = sql_list_konfirmasi($mod, $tanggal);
         IsiCombo($sql, '', 'Pilih Nomor Transaksi');
           	echo "</select>";
           echo "</div>";
