@@ -1007,7 +1007,7 @@ table a:hover i {
         <?php
         $query = mysql_query("SELECT sod.*, so.username, sod.price px_det,
                              (SELECT COUNT(so_det_id) FROM laravel_nds.marker_input_detail WHERE so_det_id = sod.id) as cek_marker,
-                             (SELECT ratio FROM laravel_nds.marker_input_detail WHERE so_det_id = sod.id) as ratio
+                             ( SELECT SUM(mid.ratio) FROM laravel_nds.marker_input_detail mid WHERE mid.so_det_id = sod.id ) AS ratio 
                              FROM so_det sod 
                              INNER JOIN so ON sod.id_so=so.id 
                              WHERE sod.id_so='$id_so'"); 
